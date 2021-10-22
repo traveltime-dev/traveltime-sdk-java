@@ -8,7 +8,7 @@ import lombok.extern.jackson.Jacksonized;
 @Getter
 @Jacksonized
 @SuperBuilder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PublicTransport implements Transportation {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     MaxChanges maxChanges;
 }
