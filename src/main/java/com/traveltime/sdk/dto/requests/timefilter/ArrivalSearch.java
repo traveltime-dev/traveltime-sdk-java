@@ -1,7 +1,7 @@
 package com.traveltime.sdk.dto.requests.timefilter;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.traveltime.sdk.dto.common.Transportation;
+import com.traveltime.sdk.dto.common.transportation.Transportation;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

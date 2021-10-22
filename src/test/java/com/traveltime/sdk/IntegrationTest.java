@@ -13,7 +13,7 @@ import java.io.IOException;
 public class IntegrationTest {
 
     @Test
-    public void ShouldSendTimeFilterRequest() throws IOException {
+    public void shouldSendTimeFilterRequest() throws IOException {
         String requestJson = Common.readFile("dto/requests/timeFilterRequest.json");
 
         TimeFilterRequest timeFilterRequest = Json.fromJson(requestJson, TimeFilterRequest.class);
@@ -28,7 +28,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void ShouldSendTimeMapRequest() throws IOException {
+    public void shouldSendTimeMapRequest() throws IOException {
         String requestJson = Common.readFile("dto/requests/timeMapRequest.json");
 
         TimeMapRequest timeMapRequest = Json.fromJson(requestJson, TimeMapRequest.class);

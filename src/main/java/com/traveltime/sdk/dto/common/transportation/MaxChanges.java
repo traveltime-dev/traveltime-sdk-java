@@ -1,4 +1,4 @@
-package com.traveltime.sdk.dto.common;
+package com.traveltime.sdk.dto.common.transportation;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -7,9 +7,9 @@ import lombok.extern.jackson.Jacksonized;
 @Getter
 @Jacksonized
 @SuperBuilder
-public class Coordinates {
+public class MaxChanges {
     @NonNull
-    Double lat;
+    Boolean enabled;
     @NonNull
-    Double lng;
+    Integer limit;
 }

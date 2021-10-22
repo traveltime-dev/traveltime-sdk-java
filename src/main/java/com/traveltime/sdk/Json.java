@@ -8,6 +8,7 @@ import java.io.IOException;
 import static com.fasterxml.jackson.databind.PropertyNamingStrategy.SNAKE_CASE;
 
 public class Json {
+
     private static final ObjectMapper DEFAULT_MAPPER = new ObjectMapper()
             .setPropertyNamingStrategy(SNAKE_CASE);
 
