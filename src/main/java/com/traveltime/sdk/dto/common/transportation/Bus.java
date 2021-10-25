@@ -1,9 +1,11 @@
 package com.traveltime.sdk.dto.common.transportation;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
+
 
 @Getter
 @Jacksonized
@@ -11,4 +13,8 @@ import lombok.extern.jackson.Jacksonized;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Bus implements Transportation {
     MaxChanges maxChanges;
+    @Positive
+    Integer ptChangeDelay;
+    @Positive
+    Integer walkingTime;
 }

@@ -1,3 +1,14 @@
 package com.traveltime.sdk.dto.common.transportation;
 
-public class Driving implements Transportation { }
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
+import lombok.experimental.SuperBuilder;
+import lombok.extern.jackson.Jacksonized;
+
+@Getter
+@Jacksonized
+@SuperBuilder
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Driving implements Transportation {
+    Boolean disableBorderCrossing;
+}

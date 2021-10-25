@@ -6,15 +6,11 @@ import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
 
-
 @Getter
 @Jacksonized
 @SuperBuilder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PublicTransport implements Transportation {
-    MaxChanges maxChanges;
+public class Ferry {
     @Positive
-    Integer ptChangeDelay;
-    @Positive
-    Integer walkingTime;
+    Integer boardingTime;
 }

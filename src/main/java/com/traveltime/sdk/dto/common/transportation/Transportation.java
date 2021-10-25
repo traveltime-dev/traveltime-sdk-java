@@ -10,6 +10,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
     @JsonSubTypes.Type(value = PublicTransport.class, name = "public_transport"),
     @JsonSubTypes.Type(value = Bus.class, name = "bus"),
-    @JsonSubTypes.Type(value = Driving.class, name = "driving")
+    @JsonSubTypes.Type(value = Driving.class, name = "driving"),
+    @JsonSubTypes.Type(value = Ferry.class, name = "ferry"),
+    @JsonSubTypes.Type(value = Train.class, name = "train"),
+    @JsonSubTypes.Type(value = Coach.class, name = "coach"),
+    @JsonSubTypes.Type(value = Cycling.class, name = "cycling"),
+    @JsonSubTypes.Type(value = Walking.class, name = "walking")
 })
 public interface Transportation { }

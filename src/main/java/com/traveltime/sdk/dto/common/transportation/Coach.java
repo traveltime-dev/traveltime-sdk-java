@@ -11,7 +11,7 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @SuperBuilder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PublicTransport implements Transportation {
+public class Coach implements Transportation {
     MaxChanges maxChanges;
     @Positive
     Integer ptChangeDelay;
