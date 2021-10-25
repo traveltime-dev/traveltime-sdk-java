@@ -12,9 +12,9 @@ import lombok.extern.jackson.Jacksonized;
 @SuperBuilder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Coach implements Transportation {
-    MaxChanges maxChanges;
     @Positive
     Integer ptChangeDelay;
     @Positive
     Integer walkingTime;
+    MaxChanges maxChanges;
 }
