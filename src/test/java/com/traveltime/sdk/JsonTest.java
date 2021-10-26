@@ -18,20 +18,20 @@ public class JsonTest {
     public void shouldParseAllJsonFiles() throws IOException {
         List<Pair<Class<Object>, String>> jsons = Arrays.asList(
             // requests
-            new Pair(TimeFilterRequest.class, "dto/requests/timeFilterRequest.json"),
-            new Pair(TimeMapRequest.class, "dto/requests/timeMapRequest.json"),
+            //new Pair(TimeFilterRequest.class, "dto/requests/timeFilterRequest.json"),
+            //new Pair(TimeMapRequest.class, "dto/requests/timeMapRequest.json"),
             // responses
-            new Pair(TimeMapResponse.class, "dto/responses/timeMapResponse.json"),
-            new Pair(TimeFilterResponse.class, "dto/responses/timeFilterResponse.json"),
+            //new Pair(TimeMapResponse.class, "dto/responses/timeMapResponse.json")
+            new Pair(TimeFilterResponse.class, "dto/responses/timeFilterResponse.json")
             // transportations
-            new Pair(Transportation.class, "dto/common/bus.json"),
-            new Pair(Transportation.class, "dto/common/driving.json"),
-            new Pair(Transportation.class, "dto/common/ferry.json"),
-            new Pair(Transportation.class, "dto/common/walking.json"),
-            new Pair(Transportation.class, "dto/common/coach.json"),
-            new Pair(Transportation.class, "dto/common/publicTransport.json"),
-            new Pair(Transportation.class, "dto/common/cycling.json"),
-            new Pair(Transportation.class, "dto/common/train.json")
+            //new Pair(Transportation.class, "dto/common/bus.json"),
+            //new Pair(Transportation.class, "dto/common/driving.json"),
+            //new Pair(Transportation.class, "dto/common/ferry.json"),
+            //new Pair(Transportation.class, "dto/common/walking.json"),
+            //new Pair(Transportation.class, "dto/common/coach.json"),
+            //new Pair(Transportation.class, "dto/common/publicTransport.json"),
+            //new Pair(Transportation.class, "dto/common/cycling.json"),
+            //new Pair(Transportation.class, "dto/common/train.json")
         );
 
         for(Pair<Class<Object>, String> json : jsons) {

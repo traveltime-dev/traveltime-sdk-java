@@ -1,6 +1,5 @@
 package com.traveltime.sdk.dto.requests;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.traveltime.sdk.AcceptType;
 import com.traveltime.sdk.Json;

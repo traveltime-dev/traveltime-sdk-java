@@ -1,13 +1,11 @@
 package com.traveltime.sdk.dto.responses.timefilter;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Value;
+import lombok.*;
+import lombok.extern.jackson.Jacksonized;
 
-@Value
-@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
-@AllArgsConstructor
+@Getter
+@Jacksonized
+@Builder
 public class Location {
     String id;
     Iterable<Property> properties;

@@ -1,20 +1,17 @@
 package com.traveltime.sdk.dto.responses.timefilter;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Value;
+import lombok.*;
+import lombok.extern.jackson.Jacksonized;
 
-@Value
-@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
-@AllArgsConstructor
+@Getter
+@Jacksonized
+@Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Property {
+    @NonNull
     Integer travelTime;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     Integer distance;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     Iterable<DistanceBreakdown> distanceBreakdown;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     Fares fares;
 }

@@ -1,14 +1,12 @@
 package com.traveltime.sdk.dto.responses;
 
 import com.traveltime.sdk.dto.responses.timemap.Result;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Value;
+import lombok.*;
+import lombok.extern.jackson.Jacksonized;
 
-@Value
-@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
-@AllArgsConstructor
+@Getter
+@Jacksonized
+@Builder
 public class TimeMapResponse {
     Iterable<Result> results;
 }
