@@ -10,7 +10,7 @@ import static com.fasterxml.jackson.databind.PropertyNamingStrategy.SNAKE_CASE;
 public class Json {
 
     private static final ObjectMapper DEFAULT_MAPPER = new ObjectMapper()
-            .setPropertyNamingStrategy(SNAKE_CASE);
+        .setPropertyNamingStrategy(SNAKE_CASE);
 
     public static <T> T fromJson(final String content, final Class<T> clazz) throws IOException {
         return DEFAULT_MAPPER.readValue(content, clazz);
