@@ -1,7 +1,5 @@
 package com.traveltime.sdk;
 
-import com.traveltime.sdk.dto.common.transportation.Bus;
-import com.traveltime.sdk.dto.common.transportation.Ferry;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.TimeFilterRequest;
 import com.traveltime.sdk.dto.requests.TimeMapRequest;

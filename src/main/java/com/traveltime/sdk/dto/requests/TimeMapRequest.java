@@ -1,25 +1,27 @@
 package com.traveltime.sdk.dto.requests;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.traveltime.sdk.Json;
 import com.traveltime.sdk.dto.requests.timemap.ArrivalSearch;
 import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
 import com.traveltime.sdk.dto.responses.TimeMapResponse;
 import jakarta.validation.Valid;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Value;
+import lombok.*;
+import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 
 import java.net.URI;
 
-
 @Value
-@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
+@Builder
+@Jacksonized
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimeMapRequest extends TravelTimeRequest<TimeMapResponse> {
+    @Valid
     Iterable<DepartureSearch> departureSearches;
+    @Valid
     Iterable<ArrivalSearch> arrivalSearches;
 
     @Override

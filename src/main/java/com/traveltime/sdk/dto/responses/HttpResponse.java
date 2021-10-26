@@ -6,7 +6,6 @@ import lombok.*;
 @Builder
 public class HttpResponse<T> {
     String errorMessage;
-    @NonNull
     int httpCode;
     T parsedBody;
 }

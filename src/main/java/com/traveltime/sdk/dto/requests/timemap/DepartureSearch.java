@@ -1,11 +1,12 @@
 package com.traveltime.sdk.dto.requests.timemap;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.Date;
@@ -13,17 +14,36 @@ import java.util.Date;
 
 @Getter
 @Jacksonized
-@SuperBuilder
+@Builder(builderMethodName = "internalBuilder")
+@AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DepartureSearch {
     @NonNull
     String id;
     @NonNull
     Coordinates coords;
+    @Valid
     @NonNull
     Transportation transportation;
     @NonNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     Date departureTime;
-    @Positive(message = "traveltime should be positive")
+    @NonNull
+    @Positive(message = "travelTime should be positive")
     Integer travelTime;
+
+    public static DepartureSearchBuilder builder(
+        String id,
+        Coordinates coords,
+        Transportation transportation,
+        Date departureTime,
+        int travelTime
+    ) {
+        return internalBuilder()
+            .id(id)
+            .coords(coords)
+            .transportation(transportation)
+            .departureTime(departureTime)
+            .travelTime(travelTime);
+    }
 }

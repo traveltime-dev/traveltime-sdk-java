@@ -1,6 +1,9 @@
 package com.traveltime.sdk;
 
-import com.traveltime.sdk.dto.common.transportation.Coach;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.transportation.PublicTransport;
+import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.TimeFilterRequest;
 import com.traveltime.sdk.dto.requests.TimeMapRequest;
 import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
@@ -11,6 +14,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import java.io.IOException;
+import java.time.Instant;
+import java.util.Collections;
+import java.util.Date;
 
 public class IntegrationTest {
     TravelTimeSDK sdk;
@@ -39,9 +45,26 @@ public class IntegrationTest {
         Assert.assertEquals(200, timeMapResponse.getHttpCode());
         Assert.assertNotNull(timeMapResponse.getParsedBody());
     }
-/*
+
     @Test
-    public void test() {
-        DepartureSearch c = DepartureSearch.builder().id("re").build();
-    }*/
+    public void shouldSendTimeMapRequest2() {
+        String departureId = "public transport from Trafalgar Square";
+        Coordinates departureCoords = new Coordinates(51.507609,-0.128315);
+        Transportation transportation = PublicTransport
+            .builder()
+            .walkingTime(30)
+            .build();
+        Date departureDate = Date.from(Instant.now());
+
+        DepartureSearch ds = new DepartureSearch(departureId, departureCoords, transportation, departureDate, 1800);
+
+        TimeMapRequest timeMapRequest = TimeMapRequest
+            .builder()
+            .departureSearches(Collections.singletonList(ds))
+            .build();
+
+        HttpResponse<TimeMapResponse> timeMapResponse = sdk.send(timeMapRequest);
+        Assert.assertEquals(200, timeMapResponse.getHttpCode());
+        Assert.assertNotNull(timeMapResponse.getParsedBody());
+    }
 }
