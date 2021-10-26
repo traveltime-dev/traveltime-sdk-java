@@ -9,6 +9,6 @@ import lombok.extern.jackson.Jacksonized;
 @Setter(AccessLevel.NONE)
 public class Range {
     Boolean enabled;
-    int maxResults;
-    int width;
+    Integer maxResults;
+    Integer width;
 }

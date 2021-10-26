@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.Date;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class IntegrationTest {
     TravelTimeSDK sdk;
@@ -47,7 +49,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void shouldSendTimeMapRequest2() {
+    public void shouldSendAsyncTimeMapRequest() throws ExecutionException, InterruptedException {
         String departureId = "public transport from Trafalgar Square";
         Coordinates departureCoords = new Coordinates(51.507609,-0.128315);
         Transportation transportation = PublicTransport
@@ -63,8 +65,10 @@ public class IntegrationTest {
             .departureSearches(Collections.singletonList(ds))
             .build();
 
-        HttpResponse<TimeMapResponse> timeMapResponse = sdk.send(timeMapRequest);
-        Assert.assertEquals(200, timeMapResponse.getHttpCode());
-        Assert.assertNotNull(timeMapResponse.getParsedBody());
+        CompletableFuture<HttpResponse<TimeMapResponse>> responseFuture = sdk.sendAsync(timeMapRequest);
+        HttpResponse<TimeMapResponse> response = responseFuture.get();
+
+        Assert.assertEquals(200, response.getHttpCode());
+        Assert.assertNotNull(response.getParsedBody());
     }
 }
