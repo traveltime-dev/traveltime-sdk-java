@@ -61,7 +61,7 @@
         "type": "public_transport"
       },
       "arrival_time": "2021-10-13T08:00:00Z",
-      "travel_time": -1900,
+      "travel_time": 1900,
       "properties": [
         "travel_time",
         "distance",

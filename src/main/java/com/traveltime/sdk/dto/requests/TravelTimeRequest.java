@@ -1,6 +1,7 @@
 package com.traveltime.sdk.dto.requests;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.traveltime.sdk.AcceptType;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -14,12 +15,18 @@ public abstract class TravelTimeRequest<T> {
 
     public abstract Class<T> responseType();
 
-    protected Request createPostRequest(String url, String appId, String apiKey, String jsonString, String acceptType) { // String url and acceptType are temporary hacks
+    protected Request createPostRequest(
+        String url,
+        String appId,
+        String apiKey,
+        String jsonString,
+        AcceptType acceptType
+    ) {
         return new Request.Builder()
             .url(url)
             .addHeader("X-Application-Id", appId)
             .addHeader("X-Api-Key", apiKey)
-            .addHeader("Accept", acceptType)
+            .addHeader("Accept", acceptType.getValue())
             .post(RequestBody.create(jsonString, JSON))
             .build();
     }

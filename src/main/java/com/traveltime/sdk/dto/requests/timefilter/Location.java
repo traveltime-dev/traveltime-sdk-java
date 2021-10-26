@@ -1,15 +1,16 @@
 package com.traveltime.sdk.dto.requests.timefilter;
 
 import com.traveltime.sdk.dto.common.Coordinates;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Value;
+import lombok.*;
+import lombok.extern.jackson.Jacksonized;
 
-@Value
-@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
+@Builder
+@Getter
+@Jacksonized
 @AllArgsConstructor
 public class Location {
+    @NonNull
     String id;
+    @NonNull
     Coordinates coords;
 }

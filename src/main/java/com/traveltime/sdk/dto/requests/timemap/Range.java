@@ -1,15 +1,17 @@
 package com.traveltime.sdk.dto.requests.timemap;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
-@Data
 @Builder
+@Getter
 @Jacksonized
-@Setter(AccessLevel.NONE)
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@AllArgsConstructor
 public class Range {
+    @NonNull
     Boolean enabled;
-    int width;
+    @NonNull
+    @Positive(message = "width must be greater than 0")
+    Integer width;
 }

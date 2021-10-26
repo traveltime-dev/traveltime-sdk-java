@@ -34,7 +34,7 @@ public class IntegrationTest {
         TimeFilterRequest timeFilterRequest = Json.fromJson(requestJson, TimeFilterRequest.class);
         HttpResponse<TimeFilterResponse> timeFilterResponse = sdk.send(timeFilterRequest);
         System.out.println(timeFilterResponse.getErrorMessage());
-        Assert.assertEquals(200, timeFilterResponse.getHttpCode());
+        Assert.assertEquals(200, (int) timeFilterResponse.getHttpCode());
         Assert.assertNotNull(timeFilterResponse.getParsedBody());
     }
 
@@ -44,7 +44,7 @@ public class IntegrationTest {
         TimeMapRequest timeMapRequest = Json.fromJson(requestJson, TimeMapRequest.class);
 
         HttpResponse<TimeMapResponse> timeMapResponse = sdk.send(timeMapRequest);
-        Assert.assertEquals(200, timeMapResponse.getHttpCode());
+        Assert.assertEquals(200, (int) timeMapResponse.getHttpCode());
         Assert.assertNotNull(timeMapResponse.getParsedBody());
     }
 
@@ -68,7 +68,7 @@ public class IntegrationTest {
         CompletableFuture<HttpResponse<TimeMapResponse>> responseFuture = sdk.sendAsync(timeMapRequest);
         HttpResponse<TimeMapResponse> response = responseFuture.get();
 
-        Assert.assertEquals(200, response.getHttpCode());
+        Assert.assertEquals(200, (int)response.getHttpCode());
         Assert.assertNotNull(response.getParsedBody());
     }
 }

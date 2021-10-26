@@ -2,6 +2,7 @@ package com.traveltime.sdk.dto.requests;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.traveltime.sdk.AcceptType;
 import com.traveltime.sdk.Json;
 import com.traveltime.sdk.dto.requests.timemap.ArrivalSearch;
 import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
@@ -17,7 +18,6 @@ import java.net.URI;
 @Builder
 @Jacksonized
 @AllArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimeMapRequest extends TravelTimeRequest<TimeMapResponse> {
     @Valid
     Iterable<DepartureSearch> departureSearches;
@@ -27,7 +27,7 @@ public class TimeMapRequest extends TravelTimeRequest<TimeMapResponse> {
     @Override
     public Request createRequest(String appId, String apiKey, URI host) throws JsonProcessingException {
         String url = host + "/time-map";
-        return createPostRequest(url, appId, apiKey, Json.toJson(this), "application/json");
+        return createPostRequest(url, appId, apiKey, Json.toJson(this), AcceptType.ApplicationJson);
     }
 
     @Override
