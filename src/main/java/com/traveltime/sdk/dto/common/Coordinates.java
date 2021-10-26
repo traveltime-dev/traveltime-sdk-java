@@ -4,9 +4,9 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
 
-@Getter
+@Data
+@Builder
 @Jacksonized
-@SuperBuilder
 public class Coordinates {
     @NonNull
     Double lat;

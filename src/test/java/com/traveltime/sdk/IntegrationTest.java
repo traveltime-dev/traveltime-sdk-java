@@ -1,15 +1,15 @@
 package com.traveltime.sdk;
 
-import com.sun.jndi.toolkit.url.Uri;
+import com.traveltime.sdk.dto.common.transportation.Coach;
 import com.traveltime.sdk.dto.requests.TimeFilterRequest;
 import com.traveltime.sdk.dto.requests.TimeMapRequest;
+import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
 import com.traveltime.sdk.dto.responses.HttpResponse;
 import com.traveltime.sdk.dto.responses.TimeFilterResponse;
 import com.traveltime.sdk.dto.responses.TimeMapResponse;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.io.IOException;
 
 public class IntegrationTest {
@@ -24,8 +24,8 @@ public class IntegrationTest {
     public void shouldSendTimeFilterRequest() throws IOException {
         String requestJson = Common.readFile("dto/requests/timeFilterRequest.json");
         TimeFilterRequest timeFilterRequest = Json.fromJson(requestJson, TimeFilterRequest.class);
-
         HttpResponse<TimeFilterResponse> timeFilterResponse = sdk.send(timeFilterRequest);
+        System.out.println(timeFilterResponse.getErrorMessage());
         Assert.assertEquals(200, timeFilterResponse.getHttpCode());
         Assert.assertNotNull(timeFilterResponse.getParsedBody());
     }
@@ -39,4 +39,9 @@ public class IntegrationTest {
         Assert.assertEquals(200, timeMapResponse.getHttpCode());
         Assert.assertNotNull(timeMapResponse.getParsedBody());
     }
+/*
+    @Test
+    public void test() {
+        DepartureSearch c = DepartureSearch.builder().id("re").build();
+    }*/
 }

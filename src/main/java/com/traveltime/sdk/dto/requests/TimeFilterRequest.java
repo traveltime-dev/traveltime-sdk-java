@@ -6,6 +6,7 @@ import com.traveltime.sdk.dto.requests.timefilter.ArrivalSearch;
 import com.traveltime.sdk.dto.requests.timefilter.DepartureSearch;
 import com.traveltime.sdk.dto.requests.timefilter.Location;
 import com.traveltime.sdk.dto.responses.TimeFilterResponse;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,9 @@ import java.net.URI;
 @AllArgsConstructor
 public class TimeFilterRequest extends TravelTimeRequest<TimeFilterResponse> {
     Iterable<Location> locations;
+    @Valid
     Iterable<DepartureSearch> departureSearches;
+    @Valid
     Iterable<ArrivalSearch> arrivalSearches;
 
     @Override

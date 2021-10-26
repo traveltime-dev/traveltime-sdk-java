@@ -1,14 +1,15 @@
 package com.traveltime.sdk.dto.requests.timemap;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Value;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
+import lombok.extern.jackson.Jacksonized;
 
-@Value
-@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
-@AllArgsConstructor
+@Data
+@Builder
+@Jacksonized
+@Setter(AccessLevel.NONE)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Range {
     Boolean enabled;
-    Integer width;
+    int width;
 }

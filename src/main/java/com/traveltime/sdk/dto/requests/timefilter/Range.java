@@ -1,15 +1,14 @@
 package com.traveltime.sdk.dto.requests.timefilter;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Value;
+import lombok.*;
+import lombok.extern.jackson.Jacksonized;
 
-@Value
-@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
-@AllArgsConstructor
+@Data
+@Builder
+@Jacksonized
+@Setter(AccessLevel.NONE)
 public class Range {
     Boolean enabled;
-    Integer maxResults;
-    Integer width;
+    int maxResults;
+    int width;
 }
