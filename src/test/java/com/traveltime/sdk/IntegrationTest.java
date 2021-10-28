@@ -1,6 +1,5 @@
 package com.traveltime.sdk;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
 import com.traveltime.sdk.dto.common.transportation.Transportation;

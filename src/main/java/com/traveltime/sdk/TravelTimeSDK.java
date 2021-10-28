@@ -1,6 +1,5 @@
 package com.traveltime.sdk;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.traveltime.sdk.dto.requests.TravelTimeRequest;
 import com.traveltime.sdk.dto.responses.HttpResponse;
 import com.traveltime.sdk.exceptions.RequestValidationException;
