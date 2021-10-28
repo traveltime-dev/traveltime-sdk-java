@@ -10,9 +10,9 @@ import okhttp3.*;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Builder
 @AllArgsConstructor
@@ -31,9 +31,13 @@ public class TravelTimeSDK {
 
     private <T> void validate(TravelTimeRequest<T> request) throws RequestValidationException {
         Set<ConstraintViolation<TravelTimeRequest<T>>> violations = validator.validate(request);
-        Optional<String> msg = violations.stream().map(ConstraintViolation::getMessage).findFirst();
-        if(msg.isPresent()) {
-            throw new RequestValidationException(msg.get());
+        if(!violations.isEmpty()) {
+            String msg = violations
+                .stream()
+                .map(ConstraintViolation::getMessage)
+                .collect(Collectors.joining(". "));
+
+            throw new RequestValidationException(msg);
         }
     }
 
