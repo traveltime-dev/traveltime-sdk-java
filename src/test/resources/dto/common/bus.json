@@ -4,6 +4,6 @@
   "walking_time": 60,
   "max_changes": {
     "enabled": true,
-    "limit": -7
+    "limit": 7
   }
 }

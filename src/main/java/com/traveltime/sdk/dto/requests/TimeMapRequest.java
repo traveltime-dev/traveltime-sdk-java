@@ -2,7 +2,7 @@ package com.traveltime.sdk.dto.requests;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.traveltime.sdk.AcceptType;
-import com.traveltime.sdk.Json;
+import com.traveltime.sdk.JsonUtils;
 import com.traveltime.sdk.dto.requests.timemap.ArrivalSearch;
 import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
 import com.traveltime.sdk.dto.responses.TimeMapResponse;
@@ -24,9 +24,9 @@ public class TimeMapRequest extends TravelTimeRequest<TimeMapResponse> {
     Iterable<ArrivalSearch> arrivalSearches;
 
     @Override
-    public Request createRequest(String appId, String apiKey, URI host) throws JsonProcessingException {
-        String url = host + "/time-map";
-        return createPostRequest(url, appId, apiKey, Json.toJson(this), AcceptType.ApplicationJson);
+    public Request createRequest(String appId, String apiKey, URI uri) throws JsonProcessingException {
+        String fullUri = uri + "/time-map";
+        return createPostRequest(fullUri, appId, apiKey, JsonUtils.toJson(this), AcceptType.APPLICATION_JSON);
     }
 
     @Override

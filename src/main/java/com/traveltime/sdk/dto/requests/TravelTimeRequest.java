@@ -9,9 +9,9 @@ import okhttp3.RequestBody;
 import java.net.URI;
 
 public abstract class TravelTimeRequest<T> {
-    private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public abstract Request createRequest(String appId, String apiKey, URI host) throws JsonProcessingException;
+    public abstract Request createRequest(String appId, String apiKey, URI uri) throws JsonProcessingException;
 
     public abstract Class<T> responseType();
 

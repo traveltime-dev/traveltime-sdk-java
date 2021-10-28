@@ -10,6 +10,7 @@ import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
 import com.traveltime.sdk.dto.responses.HttpResponse;
 import com.traveltime.sdk.dto.responses.TimeFilterResponse;
 import com.traveltime.sdk.dto.responses.TimeMapResponse;
+import com.traveltime.sdk.exceptions.RequestValidationException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,27 +30,27 @@ public class IntegrationTest {
     }
 
     @Test
-    public void shouldSendTimeFilterRequest() throws IOException {
+    public void shouldSendTimeFilterRequest() throws IOException, RequestValidationException {
         String requestJson = Common.readFile("dto/requests/timeFilterRequest.json");
-        TimeFilterRequest timeFilterRequest = Json.fromJson(requestJson, TimeFilterRequest.class);
+        TimeFilterRequest timeFilterRequest = JsonUtils.fromJson(requestJson, TimeFilterRequest.class);
         HttpResponse<TimeFilterResponse> timeFilterResponse = sdk.send(timeFilterRequest);
-        System.out.println(timeFilterResponse.getErrorMessage());
+
         Assert.assertEquals(200, (int) timeFilterResponse.getHttpCode());
         Assert.assertNotNull(timeFilterResponse.getParsedBody());
     }
 
     @Test
-    public void shouldSendTimeMapRequest() throws IOException {
+    public void shouldSendTimeMapRequest() throws IOException, RequestValidationException {
         String requestJson = Common.readFile("dto/requests/timeMapRequest.json");
-        TimeMapRequest timeMapRequest = Json.fromJson(requestJson, TimeMapRequest.class);
-
+        TimeMapRequest timeMapRequest = JsonUtils.fromJson(requestJson, TimeMapRequest.class);
         HttpResponse<TimeMapResponse> timeMapResponse = sdk.send(timeMapRequest);
+
         Assert.assertEquals(200, (int) timeMapResponse.getHttpCode());
         Assert.assertNotNull(timeMapResponse.getParsedBody());
     }
 
     @Test
-    public void shouldSendAsyncTimeMapRequest() throws ExecutionException, InterruptedException {
+    public void shouldSendAsyncTimeMapRequest() throws ExecutionException, InterruptedException, IOException, RequestValidationException {
         String departureId = "public transport from Trafalgar Square";
         Coordinates departureCoords = new Coordinates(51.507609,-0.128315);
         Transportation transportation = PublicTransport

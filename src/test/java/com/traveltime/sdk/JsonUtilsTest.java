@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.*;
 
 
-public class JsonTest {
+public class JsonUtilsTest {
     @Test
     public void shouldParseAllJsonFiles() throws IOException {
         List<Pair<Class<Object>, String>> jsons = Arrays.asList(
@@ -36,7 +36,7 @@ public class JsonTest {
 
         for(Pair<Class<Object>, String> json : jsons) {
             String content = Common.readFile(json.getValue());
-            String resultContent = Json.toJson(Json.fromJson(content, json.getKey()));
+            String resultContent = JsonUtils.toJson(JsonUtils.fromJson(content, json.getKey()));
             Assert.assertEquals(content, resultContent);
         }
     }

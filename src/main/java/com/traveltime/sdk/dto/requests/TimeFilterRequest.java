@@ -2,7 +2,7 @@ package com.traveltime.sdk.dto.requests;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.traveltime.sdk.AcceptType;
-import com.traveltime.sdk.Json;
+import com.traveltime.sdk.JsonUtils;
 import com.traveltime.sdk.dto.requests.timefilter.ArrivalSearch;
 import com.traveltime.sdk.dto.requests.timefilter.DepartureSearch;
 import com.traveltime.sdk.dto.requests.timefilter.Location;
@@ -26,9 +26,9 @@ public class TimeFilterRequest extends TravelTimeRequest<TimeFilterResponse> {
     Iterable<ArrivalSearch> arrivalSearches;
 
     @Override
-    public Request createRequest(String appId, String apiKey, URI host) throws JsonProcessingException {
-        String url = host + "/time-filter";
-        return createPostRequest(url, appId, apiKey, Json.toJson(this), AcceptType.ApplicationJson);
+    public Request createRequest(String appId, String apiKey, URI uri) throws JsonProcessingException {
+        String fullUri = uri + "/time-filter";
+        return createPostRequest(fullUri, appId, apiKey, JsonUtils.toJson(this), AcceptType.APPLICATION_JSON);
     }
 
     @Override
