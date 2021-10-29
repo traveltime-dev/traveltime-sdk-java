@@ -25,7 +25,7 @@ public class IntegrationTest {
 
     @Before
     public void init() {
-        sdk = new TravelTimeSDK("ed0b2f22", "4d5366b527c0e3868ee1546e70f6eb90");
+        sdk = new TravelTimeSDK(System.getenv("APP_ID"), System.getenv("API_KEY"));
     }
 
     @Test
