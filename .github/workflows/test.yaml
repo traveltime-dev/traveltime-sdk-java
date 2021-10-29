@@ -18,6 +18,12 @@ jobs:
         with:
           java-version: 1.8
 
+      - name: Test env
+        run: echo "Test $APP_ID $API_KEY !"
+        env:
+          APP_ID: ${{ secrets.APP_ID }}
+          API_KEY: ${{ secrets.API_KEY }}
+
       - name: Maven Package
         env:
           APP_ID: ${{ secrets.APP_ID }}
