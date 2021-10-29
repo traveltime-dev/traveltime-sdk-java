@@ -5,7 +5,7 @@ import com.traveltime.sdk.dto.requests.TimeFilterRequest;
 import com.traveltime.sdk.dto.requests.TimeMapRequest;
 import com.traveltime.sdk.dto.responses.TimeFilterResponse;
 import com.traveltime.sdk.dto.responses.TimeMapResponse;
-import javafx.util.Pair;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,25 +16,25 @@ import java.util.*;
 public class JsonUtilsTest {
     @Test
     public void shouldParseAllJsonFiles() throws IOException {
-        List<Pair<Class<Object>, String>> jsons = Arrays.asList(
+        List<ImmutablePair<Class<Object>, String>> jsons = Arrays.asList(
             // requests
-            new Pair(TimeFilterRequest.class, "dto/requests/timeFilterRequest.json"),
-            new Pair(TimeMapRequest.class, "dto/requests/timeMapRequest.json"),
+            new ImmutablePair(TimeFilterRequest.class, "dto/requests/timeFilterRequest.json"),
+            new ImmutablePair(TimeMapRequest.class, "dto/requests/timeMapRequest.json"),
             // responses
-            new Pair(TimeMapResponse.class, "dto/responses/timeMapResponse.json"),
-            new Pair(TimeFilterResponse.class, "dto/responses/timeFilterResponse.json"),
+            new ImmutablePair(TimeMapResponse.class, "dto/responses/timeMapResponse.json"),
+            new ImmutablePair(TimeFilterResponse.class, "dto/responses/timeFilterResponse.json"),
             // transportations
-            new Pair(Transportation.class, "dto/common/bus.json"),
-            new Pair(Transportation.class, "dto/common/driving.json"),
-            new Pair(Transportation.class, "dto/common/ferry.json"),
-            new Pair(Transportation.class, "dto/common/walking.json"),
-            new Pair(Transportation.class, "dto/common/coach.json"),
-            new Pair(Transportation.class, "dto/common/publicTransport.json"),
-            new Pair(Transportation.class, "dto/common/cycling.json"),
-            new Pair(Transportation.class, "dto/common/train.json")
+            new ImmutablePair(Transportation.class, "dto/common/bus.json"),
+            new ImmutablePair(Transportation.class, "dto/common/driving.json"),
+            new ImmutablePair(Transportation.class, "dto/common/ferry.json"),
+            new ImmutablePair(Transportation.class, "dto/common/walking.json"),
+            new ImmutablePair(Transportation.class, "dto/common/coach.json"),
+            new ImmutablePair(Transportation.class, "dto/common/publicTransport.json"),
+            new ImmutablePair(Transportation.class, "dto/common/cycling.json"),
+            new ImmutablePair(Transportation.class, "dto/common/train.json")
         );
 
-        for(Pair<Class<Object>, String> json : jsons) {
+        for(ImmutablePair<Class<Object>, String> json : jsons) {
             String content = Common.readFile(json.getValue());
             String resultContent = JsonUtils.toJson(JsonUtils.fromJson(content, json.getKey()));
             Assert.assertEquals(content, resultContent);
