@@ -1,7 +1,7 @@
 package com.traveltime.sdk;
 
 import com.traveltime.sdk.dto.requests.TravelTimeRequest;
-import com.traveltime.sdk.dto.responses.HttpResponse;
+import com.traveltime.sdk.dto.responses.TravelTimeResponse;
 import com.traveltime.sdk.exceptions.RequestValidationException;
 import jakarta.validation.*;
 import lombok.*;
@@ -41,17 +41,17 @@ public class TravelTimeSDK {
         }
     }
 
-    private <T> HttpResponse<T> getHttpResponse(TravelTimeRequest<T> request, Response response) throws IOException {
+    private <T> TravelTimeResponse<T> getHttpResponse(TravelTimeRequest<T> request, Response response) throws IOException {
         if(response.code() == 200) {
             String responseBody = Objects.requireNonNull(response.body()).string();
             T parsedBody = JsonUtils.fromJson(responseBody, request.responseType());
-            return HttpResponse.<T>builder().httpCode(200).parsedBody(parsedBody).build();
+            return TravelTimeResponse.<T>builder().httpCode(200).parsedBody(parsedBody).build();
         } else {
-            return HttpResponse.<T>builder().httpCode(response.code()).errorMessage(response.message()).build();
+            return TravelTimeResponse.<T>builder().httpCode(response.code()).errorMessage(response.message()).build();
         }
     }
 
-    public <T> HttpResponse<T> send(TravelTimeRequest<T> request)
+    public <T> TravelTimeResponse<T> send(TravelTimeRequest<T> request)
             throws RequestValidationException, IOException {
         validate(request);
         Call call = client.newCall(request.createRequest(appId, apiKey, uri));
@@ -59,11 +59,11 @@ public class TravelTimeSDK {
         return getHttpResponse(request, response);
     }
 
-    public <T> CompletableFuture<HttpResponse<T>> sendAsync(TravelTimeRequest<T> request)
+    public <T> CompletableFuture<TravelTimeResponse<T>> sendAsync(TravelTimeRequest<T> request)
             throws RequestValidationException, IOException {
         validate(request);
 
-        final CompletableFuture<HttpResponse<T>> future = new CompletableFuture<>();
+        final CompletableFuture<TravelTimeResponse<T>> future = new CompletableFuture<>();
         client
             .newCall(request.createRequest(appId, apiKey, uri))
             .enqueue(new Callback() {

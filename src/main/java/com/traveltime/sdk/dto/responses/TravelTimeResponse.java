@@ -4,7 +4,7 @@ import lombok.*;
 
 @Getter
 @Builder
-public class HttpResponse<T> {
+public class TravelTimeResponse<T> {
     String errorMessage;
     Integer httpCode;
     T parsedBody;

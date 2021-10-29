@@ -6,7 +6,7 @@ import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.TimeFilterRequest;
 import com.traveltime.sdk.dto.requests.TimeMapRequest;
 import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
-import com.traveltime.sdk.dto.responses.HttpResponse;
+import com.traveltime.sdk.dto.responses.TravelTimeResponse;
 import com.traveltime.sdk.dto.responses.TimeFilterResponse;
 import com.traveltime.sdk.dto.responses.TimeMapResponse;
 import com.traveltime.sdk.exceptions.RequestValidationException;
@@ -32,7 +32,7 @@ public class IntegrationTest {
     public void shouldSendTimeFilterRequest() throws IOException, RequestValidationException {
         String requestJson = Common.readFile("dto/requests/timeFilterRequest.json");
         TimeFilterRequest timeFilterRequest = JsonUtils.fromJson(requestJson, TimeFilterRequest.class);
-        HttpResponse<TimeFilterResponse> timeFilterResponse = sdk.send(timeFilterRequest);
+        TravelTimeResponse<TimeFilterResponse> timeFilterResponse = sdk.send(timeFilterRequest);
 
         Assert.assertEquals(200, (int) timeFilterResponse.getHttpCode());
         Assert.assertNotNull(timeFilterResponse.getParsedBody());
@@ -42,7 +42,7 @@ public class IntegrationTest {
     public void shouldSendTimeMapRequest() throws IOException, RequestValidationException {
         String requestJson = Common.readFile("dto/requests/timeMapRequest.json");
         TimeMapRequest timeMapRequest = JsonUtils.fromJson(requestJson, TimeMapRequest.class);
-        HttpResponse<TimeMapResponse> timeMapResponse = sdk.send(timeMapRequest);
+        TravelTimeResponse<TimeMapResponse> timeMapResponse = sdk.send(timeMapRequest);
 
         Assert.assertEquals(200, (int) timeMapResponse.getHttpCode());
         Assert.assertNotNull(timeMapResponse.getParsedBody());
@@ -65,8 +65,8 @@ public class IntegrationTest {
             .departureSearches(Collections.singletonList(ds))
             .build();
 
-        CompletableFuture<HttpResponse<TimeMapResponse>> responseFuture = sdk.sendAsync(timeMapRequest);
-        HttpResponse<TimeMapResponse> response = responseFuture.get();
+        CompletableFuture<TravelTimeResponse<TimeMapResponse>> responseFuture = sdk.sendAsync(timeMapRequest);
+        TravelTimeResponse<TimeMapResponse> response = responseFuture.get();
 
         Assert.assertEquals(200, (int)response.getHttpCode());
         Assert.assertNotNull(response.getParsedBody());
