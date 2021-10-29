@@ -8,7 +8,6 @@ on:
 
 jobs:
   test:
-    name: Unit Test
     runs-on: ubuntu-latest
 
     steps:
@@ -21,6 +20,9 @@ jobs:
 
       - name: Maven Package
         run: mvn -B clean package -DskipTests
+        env:
+          APP_ID: ${{ secrets.APP_ID }}
+          API_KEY: ${{ secrets.API_KEY }}
+
       - name: Maven Verify
         run: mvn -B clean verify
-
