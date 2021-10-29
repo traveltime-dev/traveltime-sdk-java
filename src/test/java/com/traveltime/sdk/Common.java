@@ -9,7 +9,8 @@ import java.util.stream.Stream;
 
 public class Common {
     public static String readFile(String fileName) throws IOException {
-        Stream<String> stream = Files.lines(Paths.get("src/test/resources/" + fileName), StandardCharsets.UTF_8);
-        return stream.collect(Collectors.joining()).trim().replace(" ", "");
+        try(Stream<String> stream = Files.lines(Paths.get("src/test/resources/" + fileName))) {
+            return stream.collect(Collectors.joining()).trim().replace(" ", "");
+        }
     }
 }
