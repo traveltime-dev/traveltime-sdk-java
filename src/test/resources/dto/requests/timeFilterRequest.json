@@ -1,0 +1,73 @@
+{
+  "locations": [
+    {
+      "id": "London center",
+      "coords": {
+        "lat": 51.508931,
+        "lng": -0.131387
+      }
+    },
+    {
+      "id": "Hyde Park",
+      "coords": {
+        "lat": 51.508824,
+        "lng": -0.167093
+      }
+    },
+    {
+      "id": "ZSL London Zoo",
+      "coords": {
+        "lat": 51.536067,
+        "lng": -0.153596
+      }
+    }
+  ],
+  "departure_searches": [
+    {
+      "id": "forward search example",
+      "departure_location_id": "London center",
+      "arrival_location_ids": [
+        "Hyde Park",
+        "ZSL London Zoo"
+      ],
+      "transportation": {
+        "type": "bus",
+        "max_changes": {
+          "enabled": true,
+          "limit": 3
+        }
+      },
+      "departure_time": "2021-10-13T08:00:00Z",
+      "travel_time": 1800,
+      "properties": [
+        "travel_time"
+      ],
+      "range": {
+        "enabled": true,
+        "max_results": 3,
+        "width": 600
+      }
+    }
+  ],
+  "arrival_searches": [
+    {
+      "id": "backward search example",
+      "departure_location_ids": [
+        "Hyde Park",
+        "ZSL London Zoo"
+      ],
+      "arrival_location_id": "London center",
+      "transportation": {
+        "type": "public_transport"
+      },
+      "arrival_time": "2021-10-13T08:00:00Z",
+      "travel_time": 1900,
+      "properties": [
+        "travel_time",
+        "distance",
+        "distance_breakdown",
+        "fares"
+      ]
+    }
+  ]
+}
