@@ -5,6 +5,8 @@ import com.traveltime.sdk.AcceptType;
 import com.traveltime.sdk.JsonUtils;
 import com.traveltime.sdk.dto.requests.timemap.ArrivalSearch;
 import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
+import com.traveltime.sdk.dto.requests.timemap.Intersection;
+import com.traveltime.sdk.dto.requests.timemap.Union;
 import com.traveltime.sdk.dto.responses.TimeMapResponse;
 import jakarta.validation.Valid;
 import lombok.*;
@@ -22,6 +24,10 @@ public class TimeMapRequest extends TravelTimeRequest<TimeMapResponse> {
     Iterable<DepartureSearch> departureSearches;
     @Valid
     Iterable<ArrivalSearch> arrivalSearches;
+
+    Iterable<Intersection> intersections;
+
+    Iterable<Union> unions;
 
     @Override
     public Request createRequest(String appId, String apiKey, URI uri) throws JsonProcessingException {

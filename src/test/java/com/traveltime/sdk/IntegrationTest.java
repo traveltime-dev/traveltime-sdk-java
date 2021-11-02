@@ -5,7 +5,10 @@ import com.traveltime.sdk.dto.common.transportation.PublicTransport;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.TimeFilterRequest;
 import com.traveltime.sdk.dto.requests.TimeMapRequest;
+import com.traveltime.sdk.dto.requests.timemap.ArrivalSearch;
 import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
+import com.traveltime.sdk.dto.requests.timemap.Intersection;
+import com.traveltime.sdk.dto.requests.timemap.Union;
 import com.traveltime.sdk.dto.responses.TravelTimeResponse;
 import com.traveltime.sdk.dto.responses.TimeFilterResponse;
 import com.traveltime.sdk.dto.responses.TimeMapResponse;
@@ -15,8 +18,10 @@ import org.junit.Before;
 import org.junit.Test;
 import java.io.IOException;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -25,6 +30,7 @@ public class IntegrationTest {
 
     @Before
     public void init() {
+        System.out.println(System.getenv());
         sdk = new TravelTimeSDK(System.getenv("APP_ID"), System.getenv("API_KEY"));
     }
 
@@ -50,20 +56,16 @@ public class IntegrationTest {
 
     @Test
     public void shouldSendAsyncTimeMapRequest() throws ExecutionException, InterruptedException, IOException, RequestValidationException {
-        String departureId = "public transport from Trafalgar Square";
-        Coordinates departureCoords = new Coordinates(51.507609,-0.128315);
-        Transportation transportation = PublicTransport
-            .builder()
-            .walkingTime(30)
-            .build();
-        Date departureDate = Date.from(Instant.now());
+        Coordinates coords = new Coordinates(51.507609,-0.128315);
+        Transportation transportation = new PublicTransport();
+        List<String> searchIds = Arrays.asList("Test arrival search", "Test departure search");
 
-        DepartureSearch ds = new DepartureSearch(departureId, departureCoords, transportation, departureDate, 1800);
-
-        TimeMapRequest timeMapRequest = TimeMapRequest
-            .builder()
-            .departureSearches(Collections.singletonList(ds))
-            .build();
+        TimeMapRequest timeMapRequest = new TimeMapRequest(
+            Collections.singletonList(createDepartureSearch(coords, transportation)),
+            Collections.singletonList(createArrivalSearch(coords, transportation)),
+            Collections.singletonList(createIntersection(searchIds)),
+            Collections.singletonList(createUnion(searchIds))
+        );
 
         CompletableFuture<TravelTimeResponse<TimeMapResponse>> responseFuture = sdk.sendAsync(timeMapRequest);
         TravelTimeResponse<TimeMapResponse> response = responseFuture.get();
@@ -71,4 +73,40 @@ public class IntegrationTest {
         Assert.assertEquals(200, (int)response.getHttpCode());
         Assert.assertNotNull(response.getParsedBody());
     }
+
+    private ArrivalSearch createArrivalSearch(Coordinates coords, Transportation transportation) {
+        return new ArrivalSearch(
+            "Test arrival search",
+            coords,
+            transportation,
+            Date.from(Instant.now()),
+            900
+        );
+    }
+
+    private DepartureSearch createDepartureSearch(Coordinates coords, Transportation transportation) {
+        return new DepartureSearch(
+            "Test departure search",
+            coords,
+            transportation,
+            Date.from(Instant.now()),
+            900
+        );
+    }
+
+    private Union createUnion(Iterable<String> searchIds) {
+        return new Union(
+            "union of driving and public transport",
+            searchIds
+        );
+    }
+
+    private Intersection createIntersection(Iterable<String> searchIds) {
+        return new Intersection(
+            "intersection of driving and public transport",
+            searchIds
+        );
+    }
+
+
 }
