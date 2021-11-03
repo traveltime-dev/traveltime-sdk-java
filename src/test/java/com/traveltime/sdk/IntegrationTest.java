@@ -3,18 +3,12 @@ package com.traveltime.sdk;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
-import com.traveltime.sdk.dto.requests.TimeFilterRequest;
-import com.traveltime.sdk.dto.requests.TimeMapGeoJsonRequest;
-import com.traveltime.sdk.dto.requests.TimeMapRequest;
-import com.traveltime.sdk.dto.requests.TimeMapWktRequest;
+import com.traveltime.sdk.dto.requests.*;
 import com.traveltime.sdk.dto.requests.timemap.ArrivalSearch;
 import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
 import com.traveltime.sdk.dto.requests.timemap.Intersection;
 import com.traveltime.sdk.dto.requests.timemap.Union;
-import com.traveltime.sdk.dto.responses.TimeMapWktResponse;
-import com.traveltime.sdk.dto.responses.TravelTimeResponse;
-import com.traveltime.sdk.dto.responses.TimeFilterResponse;
-import com.traveltime.sdk.dto.responses.TimeMapResponse;
+import com.traveltime.sdk.dto.responses.*;
 import com.traveltime.sdk.exceptions.RequestValidationException;
 import org.geojson.FeatureCollection;
 import org.junit.Assert;
@@ -50,47 +44,56 @@ public class IntegrationTest {
 
     @Test
     public void shouldSendTimeMapRequest() throws IOException, RequestValidationException {
-        String requestJson = Common.readFile("dto/requests/timeMapRequest.json");
-        TimeMapRequest timeMapRequest = JsonUtils.fromJson(requestJson, TimeMapRequest.class);
-        TravelTimeResponse<TimeMapResponse> timeMapResponse = sdk.send(timeMapRequest);
-
-        Assert.assertEquals(200, (int) timeMapResponse.getHttpCode());
-        Assert.assertNotNull(timeMapResponse.getParsedBody());
-    }
-
-    @Test
-    public void shouldSendFullTimeMapRequest() throws ExecutionException, InterruptedException, IOException, RequestValidationException {
         Coordinates coords = new Coordinates(51.507609,-0.128315);
         Transportation transportation = new PublicTransport();
         List<String> searchIds = Arrays.asList("Test arrival search", "Test departure search");
 
-        TimeMapRequest timeMapRequest = new TimeMapRequest(
+        TimeMapRequest request = new TimeMapRequest(
             createDepartureSearch(coords, transportation),
             createArrivalSearch(coords, transportation),
             createIntersection(searchIds),
             createUnion(searchIds)
         );
 
-        TravelTimeResponse<TimeMapResponse> response = sdk.send(timeMapRequest);
+        TravelTimeResponse<TimeMapResponse> response = sdk.send(request);
 
         Assert.assertEquals(200, (int)response.getHttpCode());
         Assert.assertNotNull(response.getParsedBody());
     }
 
     @Test
-    public void shouldSendFullTimeMapGeoJsonRequest() throws IOException, RequestValidationException {
+    public void shouldSendTimeMapGeoJsonRequest() throws IOException, RequestValidationException {
         Coordinates coords = new Coordinates(51.507609,-0.128315);
         Transportation transportation = new PublicTransport();
         List<String> searchIds = Arrays.asList("Test arrival search", "Test departure search");
 
-        TimeMapGeoJsonRequest geoJsonRequest = new TimeMapGeoJsonRequest(
-                createDepartureSearch(coords, transportation),
-                createArrivalSearch(coords, transportation),
-                createIntersection(searchIds),
-                createUnion(searchIds)
+        TimeMapGeoJsonRequest request = new TimeMapGeoJsonRequest(
+            createDepartureSearch(coords, transportation),
+            createArrivalSearch(coords, transportation),
+            createIntersection(searchIds),
+            createUnion(searchIds)
         );
 
-        TravelTimeResponse<FeatureCollection> response = sdk.send(geoJsonRequest);
+        TravelTimeResponse<FeatureCollection> response = sdk.send(request);
+
+        Assert.assertEquals(200, (int)response.getHttpCode());
+        Assert.assertNotNull(response.getParsedBody());
+    }
+
+    @Test
+    public void shouldSendTimeMapBoundingBoxRequest() throws IOException, RequestValidationException {
+        Coordinates coords = new Coordinates(51.507609,-0.128315);
+        Transportation transportation = new PublicTransport();
+        List<String> searchIds = Arrays.asList("Test arrival search", "Test departure search");
+
+        TimeMapBoxesRequest request = new TimeMapBoxesRequest(
+            createDepartureSearch(coords, transportation),
+            createArrivalSearch(coords, transportation),
+            createIntersection(searchIds),
+            createUnion(searchIds)
+        );
+
+        TravelTimeResponse<TimeMapBoxesResponse> response = sdk.send(request);
 
         Assert.assertEquals(200, (int)response.getHttpCode());
         Assert.assertNotNull(response.getParsedBody());
@@ -102,7 +105,7 @@ public class IntegrationTest {
         Transportation transportation = new PublicTransport();
         List<String> searchIds = Arrays.asList("Test arrival search", "Test departure search");
 
-        TimeMapWktRequest timeMapWktRequest = new TimeMapWktRequest(
+        TimeMapWktRequest request = new TimeMapWktRequest(
             createDepartureSearch(coords, transportation),
             createArrivalSearch(coords, transportation),
             createIntersection(searchIds),
@@ -110,7 +113,7 @@ public class IntegrationTest {
             true
         );
 
-        TravelTimeResponse<TimeMapWktResponse> response = sdk.send(timeMapWktRequest);
+        TravelTimeResponse<TimeMapWktResponse> response = sdk.send(request);
 
         Assert.assertEquals(200, (int)response.getHttpCode());
         Assert.assertNotNull(response.getParsedBody());

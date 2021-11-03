@@ -9,12 +9,10 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Coordinates {
-    @NonNull
-    Double lat;
-    @NonNull
-    Double lng;
+    double lat;
+    double lng;
 
-    public static CoordinatesBuilder builder(Double lat, Double lng) {
+    public static CoordinatesBuilder builder(double lat, double lng) {
         return internalBuilder().lat(lat).lng(lng);
     }
 }

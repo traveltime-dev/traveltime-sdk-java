@@ -9,7 +9,8 @@ public enum AcceptType {
     APPLICATION_JSON("application/json"),
     APPLICATION_WKT_JSON("application/vnd.wkt+json"),
     APPLICATION_WKT_NO_HOLES_JSON("application/vnd.wkt-no-holes+json"),
-    APPLICATION_GEO_JSON("application/geo+json");
+    APPLICATION_GEO_JSON("application/geo+json"),
+    APPLICATION_BOUNDING_BOXES_JSON("application/vnd.bounding-boxes+json");
 
     private final String value;
 }
