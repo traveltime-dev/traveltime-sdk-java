@@ -1,13 +1,14 @@
 package com.traveltime.sdk.dto.responses.timemap;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.extern.jackson.Jacksonized;
 
 @Getter
 @Jacksonized
 @Builder
-public class Result {
+public class SingleSearchResult {
     String searchId;
-    Iterable<Shape> shapes;
+    String shape;
     ResponseProperties properties;
 }
