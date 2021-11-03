@@ -10,6 +10,6 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseProperties {
-    Boolean isOnlyWalkingProperty;
+    Boolean isOnlyWalking;
     Iterable<Agency> agencies;
 }

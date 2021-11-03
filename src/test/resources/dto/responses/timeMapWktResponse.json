@@ -1,0 +1,11 @@
+{
+  "results": [
+    {
+      "search_id": "public transport from Trafalgar Square",
+      "shape": "MULTIPOLYGON(((-0.146059 51.50461,-0.146203 51.50461,-0.146275 51.504565,-0.146275 51.504475,-0.146347 51.50443,-0.146419 51.504475)))",
+      "properties": {
+        "is_only_walking": false
+      }
+    }
+  ]
+}
