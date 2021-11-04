@@ -7,7 +7,7 @@ import lombok.extern.jackson.Jacksonized;
 @Getter
 @Jacksonized
 @Builder
-public class Container {
+public class Rectangle {
     double minLat;
     double maxLat;
     double minLng;

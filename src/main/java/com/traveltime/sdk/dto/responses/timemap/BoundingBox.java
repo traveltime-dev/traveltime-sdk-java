@@ -10,7 +10,7 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 public class BoundingBox {
     @NonNull
-    Container envelope;
+    Rectangle envelope;
     @NonNull
-    Iterable<Container> boxes;
+    Iterable<Rectangle> boxes;
 }
