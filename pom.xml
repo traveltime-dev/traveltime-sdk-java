@@ -10,7 +10,8 @@
 
     <distributionManagement>
         <repository>
-            <id>release</id>
+            <id>central</id>
+            <name>Central Repository</name>
             <url>https://repo1.maven.org/maven2/com/traveltime/</url>
         </repository>
     </distributionManagement>
