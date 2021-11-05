@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.jackson.Jacksonized;
 
 
@@ -13,6 +14,7 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @Builder
 @AllArgsConstructor
+@RequiredArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PublicTransport implements Transportation {
     @Positive(message = "ptChangeDelay must be greater than 0")

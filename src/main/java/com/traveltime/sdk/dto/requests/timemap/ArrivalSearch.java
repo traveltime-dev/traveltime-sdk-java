@@ -14,6 +14,7 @@ import java.util.Date;
 @Getter
 @Jacksonized
 @Builder(builderMethodName = "internalBuilder")
+@RequiredArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ArrivalSearch {

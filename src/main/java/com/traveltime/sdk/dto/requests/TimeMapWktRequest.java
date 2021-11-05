@@ -8,9 +8,11 @@ import com.traveltime.sdk.dto.requests.timemap.ArrivalSearch;
 import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
 import com.traveltime.sdk.dto.requests.timemap.Intersection;
 import com.traveltime.sdk.dto.requests.timemap.Union;
-import com.traveltime.sdk.dto.responses.TimeMapResponse;
+import com.traveltime.sdk.dto.responses.TimeMapWktResponse;
 import jakarta.validation.Valid;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 
@@ -21,7 +23,7 @@ import java.net.URI;
 @Jacksonized
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TimeMapRequest extends TravelTimeRequest<TimeMapResponse> {
+public class TimeMapWktRequest extends TravelTimeRequest<TimeMapWktResponse> {
     @Valid
     Iterable<DepartureSearch> departureSearches;
     @Valid
@@ -31,14 +33,26 @@ public class TimeMapRequest extends TravelTimeRequest<TimeMapResponse> {
 
     Iterable<Union> unions;
 
+    @Builder.Default
+    boolean withHoles = true;
+
+    public AcceptType acceptType() {
+        if (withHoles) {
+            return AcceptType.APPLICATION_WKT_JSON;
+        } else {
+            return AcceptType.APPLICATION_WKT_NO_HOLES_JSON;
+        }
+    }
+
+
     @Override
     public Request createRequest(String appId, String apiKey, URI uri) throws JsonProcessingException {
         String fullUri = uri + "/time-map";
-        return createPostRequest(fullUri, appId, apiKey, JsonUtils.toJson(this), AcceptType.APPLICATION_JSON);
+        return createPostRequest(fullUri, appId, apiKey, JsonUtils.toJson(this), acceptType());
     }
 
     @Override
-    public Class<TimeMapResponse> responseType() {
-        return TimeMapResponse.class;
+    public Class<TimeMapWktResponse> responseType() {
+        return TimeMapWktResponse.class;
     }
 }

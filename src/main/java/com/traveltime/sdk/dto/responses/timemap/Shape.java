@@ -9,5 +9,5 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 public class Shape {
     Iterable<Coordinates> shell;
-    Iterable<Coordinates> holes;
+    Iterable<Iterable<Coordinates>> holes;
 }
