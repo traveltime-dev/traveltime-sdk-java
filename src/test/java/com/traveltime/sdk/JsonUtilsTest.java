@@ -7,7 +7,6 @@ import com.traveltime.sdk.dto.responses.TimeFilterResponse;
 import com.traveltime.sdk.dto.responses.TimeMapBoxesResponse;
 import com.traveltime.sdk.dto.responses.TimeMapResponse;
 import com.traveltime.sdk.dto.responses.TimeMapWktResponse;
-import com.vividsolutions.jts.io.ParseException;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,7 +17,7 @@ import java.util.*;
 
 public class JsonUtilsTest {
     @Test
-    public void shouldParseAllJsonFiles() throws IOException, ParseException, org.json.simple.parser.ParseException {
+    public void shouldParseAllJsonFiles() throws IOException {
         List<ImmutablePair<Class<Object>, String>> jsons = Arrays.asList(
             // requests
             new ImmutablePair(TimeFilterRequest.class, "dto/requests/timeFilterRequest.json"),

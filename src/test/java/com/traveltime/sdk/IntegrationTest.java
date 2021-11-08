@@ -11,19 +11,15 @@ import com.traveltime.sdk.dto.requests.timemap.Union;
 import com.traveltime.sdk.dto.responses.*;
 import com.traveltime.sdk.exceptions.RequestValidationException;
 import org.geojson.FeatureCollection;
-import org.json.simple.parser.ParseException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import java.io.IOException;
-import java.sql.Time;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public class IntegrationTest {
     TravelTimeSDK sdk;
@@ -34,7 +30,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void shouldSendTimeFilterRequest() throws IOException, RequestValidationException, ParseException {
+    public void shouldSendTimeFilterRequest() throws IOException, RequestValidationException {
         String requestJson = Common.readFile("dto/requests/timeFilterRequest.json");
         TimeFilterRequest timeFilterRequest = JsonUtils.fromJson(requestJson, TimeFilterRequest.class);
         TravelTimeResponse<TimeFilterResponse> timeFilterResponse = sdk.send(timeFilterRequest);
