@@ -1,12 +1,11 @@
 package com.traveltime.sdk.parsers;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
-import lombok.SneakyThrows;
 
 import java.io.IOException;
 
@@ -22,11 +21,13 @@ public class JTSGeometryDeserializer extends StdDeserializer<Geometry> {
         super(vc);
     }
 
-    @SneakyThrows
     @Override
-    public Geometry deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
-            throws IOException, JsonProcessingException {
+    public Geometry deserialize(JsonParser jsonParser, DeserializationContext context) throws IOException {
         String result = jsonParser.getValueAsString();
-        return reader.read(result);
+        try {
+            return reader.read(result);
+        } catch (ParseException e) {
+            throw new IOException(e.getMessage());
+        }
     }
 }

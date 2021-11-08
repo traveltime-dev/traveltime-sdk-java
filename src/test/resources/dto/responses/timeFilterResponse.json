@@ -1,95 +1,61 @@
 {
-  "results": [
-    {
-      "search_id": "backward search example",
-      "locations": [
-        {
-          "id": "Hyde Park",
-          "properties": [
-            {
-              "travel_time": 1768,
-              "distance": 0,
-              "distance_breakdown": [
-                {
-                  "mode": "walk",
-                  "distance": 1137
-                },
-                {
-                  "mode": "bus",
-                  "distance": 2031
-                }
-              ],
-              "fares": {
-                "breakdown": [
-                  {
-                    "modes": [
-                      "bus"
-                    ],
-                    "route_part_ids": [
-                      7
-                    ],
-                    "tickets": [
-                      {
-                        "type": "single",
-                        "price": 1.5,
-                        "currency": "GBP"
-                      }
-                    ]
-                  }
-                ],
-                "tickets_total": [
-                  {
-                    "type": "single",
-                    "price": 1.5,
-                    "currency": "GBP"
-                  },
-                  {
-                    "type": "week",
-                    "price": 21.0,
-
-                    "currency": "GBP"
-                  },
-                  {
-                    "type": "month",
-                    "price": 80.7,
-                    "currency": "GBP"
-                  },
-                  {
-                    "type": "year",
-                    "price": 840.0,
-                    "currency": "GBP"
-                  }
-                ]
-              }
-            }
-          ]
+  "results" : [ {
+    "search_id" : "backward search example",
+    "locations" : [ {
+      "id" : "Hyde Park",
+      "properties" : [ {
+        "travel_time" : 1768,
+        "distance" : 0,
+        "distance_breakdown" : [ {
+          "mode" : "walk",
+          "distance" : 1137
+        }, {
+          "mode" : "bus",
+          "distance" : 2031
+        } ],
+        "fares" : {
+          "breakdown" : [ {
+            "modes" : [ "bus" ],
+            "route_part_ids" : [ 7 ],
+            "tickets" : [ {
+              "type" : "single",
+              "price" : 1.5,
+              "currency" : "GBP"
+            } ]
+          } ],
+          "tickets_total" : [ {
+            "type" : "single",
+            "price" : 1.5,
+            "currency" : "GBP"
+          }, {
+            "type" : "week",
+            "price" : 21.0,
+            "currency" : "GBP"
+          }, {
+            "type" : "month",
+            "price" : 80.7,
+            "currency" : "GBP"
+          }, {
+            "type" : "year",
+            "price" : 840.0,
+            "currency" : "GBP"
+          } ]
         }
-      ],
-      "unreachable": [
-        "ZSL London Zoo"
-      ]
-    },
-    {
-      "search_id": "forward search example",
-      "locations": [
-        {
-          "id": "Hyde Park",
-          "properties": [
-            {
-              "travel_time": 1753
-            },
-            {
-              "travel_time": 1804
-            },
-            {
-              "travel_time": 1815
-            }
-          ]
-        }
-      ],
-      "unreachable": [
-        "ZSL London Zoo"
-      ]
-    }
-  ]
+      } ]
+    } ],
+    "unreachable" : [ "ZSL London Zoo" ]
+  }, {
+    "search_id" : "forward search example",
+    "locations" : [ {
+      "id" : "Hyde Park",
+      "properties" : [ {
+        "travel_time" : 1753
+      }, {
+        "travel_time" : 1804
+      }, {
+        "travel_time" : 1815
+      } ]
+    } ],
+    "unreachable" : [ "ZSL London Zoo" ]
+  } ]
 }

@@ -1,9 +1,9 @@
 {
-  "type": "bus",
-  "pt_change_delay": 30,
-  "walking_time": 60,
-  "max_changes": {
-    "enabled": true,
-    "limit": 7
+  "type" : "bus",
+  "pt_change_delay" : 30,
+  "walking_time" : 60,
+  "max_changes" : {
+    "enabled" : true,
+    "limit" : 7
   }
 }
