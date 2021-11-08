@@ -2,9 +2,9 @@ package com.traveltime.sdk.dto.requests.timefilter;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.traveltime.sdk.dto.common.FullRange;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
@@ -34,7 +34,7 @@ public class ArrivalSearch {
     @NonNull
     Iterable<String> properties;
     @Valid
-    Range range;
+    FullRange range;
 
     public static ArrivalSearchBuilder builder(
         String id,

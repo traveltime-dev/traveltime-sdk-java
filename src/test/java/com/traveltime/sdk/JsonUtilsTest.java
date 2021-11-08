@@ -1,6 +1,7 @@
 package com.traveltime.sdk;
 
 import com.traveltime.sdk.dto.common.transportation.Transportation;
+import com.traveltime.sdk.dto.requests.RoutesRequest;
 import com.traveltime.sdk.dto.requests.TimeFilterRequest;
 import com.traveltime.sdk.dto.requests.TimeMapRequest;
 import com.traveltime.sdk.dto.responses.TimeFilterResponse;
@@ -22,6 +23,7 @@ public class JsonUtilsTest {
             // requests
             new ImmutablePair(TimeFilterRequest.class, "dto/requests/timeFilterRequest.json"),
             new ImmutablePair(TimeMapRequest.class, "dto/requests/timeMapRequest.json"),
+            new ImmutablePair(RoutesRequest.class, "dto/requests/routesRequest.json"),
             // responses
             new ImmutablePair(TimeMapResponse.class, "dto/responses/timeMapResponse.json"),
             new ImmutablePair(TimeMapWktResponse.class, "dto/responses/timeMapWktResponse.json"),
