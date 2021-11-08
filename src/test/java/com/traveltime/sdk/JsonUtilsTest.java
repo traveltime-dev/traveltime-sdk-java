@@ -7,6 +7,10 @@ import com.traveltime.sdk.dto.responses.TimeFilterResponse;
 import com.traveltime.sdk.dto.responses.TimeMapBoxesResponse;
 import com.traveltime.sdk.dto.responses.TimeMapResponse;
 import com.traveltime.sdk.dto.responses.TimeMapWktResponse;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.Polygon;
+import com.vividsolutions.jts.io.ParseException;
+import com.vividsolutions.jts.io.WKTReader;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,7 +21,7 @@ import java.util.*;
 
 public class JsonUtilsTest {
     @Test
-    public void shouldParseAllJsonFiles() throws IOException {
+    public void shouldParseAllJsonFiles() throws IOException, ParseException, org.json.simple.parser.ParseException {
         List<ImmutablePair<Class<Object>, String>> jsons = Arrays.asList(
             // requests
             new ImmutablePair(TimeFilterRequest.class, "dto/requests/timeFilterRequest.json"),
@@ -39,9 +43,9 @@ public class JsonUtilsTest {
         );
 
         for(ImmutablePair<Class<Object>, String> json : jsons) {
-            String content = Common.readFile(json.getValue());
-            String resultContent = JsonUtils.toJson(JsonUtils.fromJson(content, json.getKey()));
-            Assert.assertEquals(content, resultContent);
+            String expectedContent = Common.readFile(json.getValue());
+            String resultContent = JsonUtils.toJsonPretty(JsonUtils.fromJson(expectedContent, json.getKey()));
+            Assert.assertEquals(expectedContent, resultContent);
         }
     }
 }
