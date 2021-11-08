@@ -39,9 +39,9 @@ public class JsonUtilsTest {
         );
 
         for(ImmutablePair<Class<Object>, String> json : jsons) {
-            String content = Common.readFile(json.getValue());
-            String resultContent = JsonUtils.toJson(JsonUtils.fromJson(content, json.getKey()));
-            Assert.assertEquals(content, resultContent);
+            String expectedContent = Common.readFile(json.getValue());
+            String resultContent = JsonUtils.toJsonPretty(JsonUtils.fromJson(expectedContent, json.getKey()));
+            Assert.assertEquals(expectedContent, resultContent);
         }
     }
 }
