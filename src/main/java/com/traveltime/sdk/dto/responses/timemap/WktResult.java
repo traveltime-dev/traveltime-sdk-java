@@ -1,9 +1,9 @@
 package com.traveltime.sdk.dto.responses.timemap;
 
-import com.vividsolutions.jts.geom.Geometry;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.jackson.Jacksonized;
+import org.locationtech.jts.geom.Geometry;
 
 @Getter
 @Jacksonized

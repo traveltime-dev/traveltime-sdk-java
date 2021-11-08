@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.traveltime.sdk.parsers.JTSGeometrySerializer;
 import com.traveltime.sdk.parsers.JTSGeometryDeserializer;
-import com.vividsolutions.jts.geom.Geometry;
+import org.locationtech.jts.geom.Geometry;
 
 import java.io.IOException;
 

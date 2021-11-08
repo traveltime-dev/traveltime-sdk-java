@@ -3,8 +3,8 @@ package com.traveltime.sdk.parsers;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.io.WKTWriter;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.io.WKTWriter;
 
 import java.io.IOException;
 
