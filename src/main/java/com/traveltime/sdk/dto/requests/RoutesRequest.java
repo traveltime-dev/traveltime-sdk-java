@@ -11,6 +11,7 @@ import com.traveltime.sdk.dto.responses.RoutesResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NonNull;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
@@ -23,6 +24,7 @@ import java.net.URI;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RoutesRequest extends TravelTimeRequest<RoutesResponse> {
+    @NonNull
     Iterable<Location> locations;
     @Valid
     Iterable<DepartureSearch> departureSearches;
@@ -32,7 +34,8 @@ public class RoutesRequest extends TravelTimeRequest<RoutesResponse> {
     @Override
     public Request createRequest(String appId, String apiKey, URI uri) throws JsonProcessingException {
         String fullUri = uri + "/routes";
-        return createPostRequest(fullUri, appId, apiKey, JsonUtils.toJson(this), AcceptType.APPLICATION_JSON);    }
+        return createPostRequest(fullUri, appId, apiKey, JsonUtils.toJson(this), AcceptType.APPLICATION_JSON);
+    }
 
     @Override
     public Class<RoutesResponse> responseType() {

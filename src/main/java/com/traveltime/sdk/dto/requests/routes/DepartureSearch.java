@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.dto.common.FullRange;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.Date;
@@ -17,6 +14,7 @@ import java.util.Date;
 @Jacksonized
 @Builder
 @AllArgsConstructor
+@RequiredArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DepartureSearch {
     @NonNull
