@@ -1,6 +1,6 @@
-package com.traveltime.sdk.dto.responses.routes;
+package com.traveltime.sdk.dto.common;
 
-import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,12 +11,11 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @Builder
 @AllArgsConstructor
-public class Result {
+public class Ticket {
     @NonNull
-    String searchId;
-    @Valid
+    String type;
+    @Positive(message = "price must be greater than 0")
+    double price;
     @NonNull
-    Iterable<Location> locations;
-    @NonNull
-    Iterable<String> unreachable;
+    String currency;
 }

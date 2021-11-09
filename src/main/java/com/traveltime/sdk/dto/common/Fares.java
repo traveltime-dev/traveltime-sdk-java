@@ -1,4 +1,4 @@
-package com.traveltime.sdk.dto.responses.routes;
+package com.traveltime.sdk.dto.common;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -11,12 +11,11 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @Builder
 @AllArgsConstructor
-public class Result {
-    @NonNull
-    String searchId;
+public class Fares {
     @Valid
     @NonNull
-    Iterable<Location> locations;
+    Iterable<FareBreakdown> breakdown;
+    @Valid
     @NonNull
-    Iterable<String> unreachable;
+    Iterable<Ticket> ticketsTotal;
 }

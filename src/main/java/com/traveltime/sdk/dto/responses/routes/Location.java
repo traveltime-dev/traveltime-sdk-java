@@ -11,12 +11,10 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @Builder
 @AllArgsConstructor
-public class Result {
+public class Location {
     @NonNull
-    String searchId;
+    String id;
     @Valid
     @NonNull
-    Iterable<Location> locations;
-    @NonNull
-    Iterable<String> unreachable;
+    Iterable<Property> properties;
 }

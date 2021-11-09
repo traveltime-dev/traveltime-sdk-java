@@ -1,275 +1,199 @@
 {
-  "results": [
-    {
-      "search_id": "arrival search example",
-      "locations": [
-        {
-          "id": "Hyde Park",
-          "properties": [
-            {
-              "travel_time": 1499,
-              "distance": 847,
-              "route": {
-                "departure_time": "2021-11-08T08:10:00Z",
-                "arrival_time": "2021-11-08T08:52:00Z",
-                "parts": [
-                  {
-                    "id": 0,
-                    "type": "start_end",
-                    "mode": "walk",
-                    "directions": "Start your journey 57 meters south",
-                    "distance": 57,
-                    "travel_time": 41,
-                    "coords": [
-                      {
-                        "lat": 51.508824,
-                        "lng": -0.167093
-                      },
-                      {
-                        "lat": 51.5083198,
-                        "lng": -0.167281
-                      }
-                    ],
-                    "direction": "south"
-                  },
-                  {
-                    "id": 1,
-                    "type": "road",
-                    "mode": "walk",
-                    "directions": "Walk 544 meters",
-                    "distance": 544,
-                    "travel_time": 402,
-                    "coords": [
-                      {
-                        "lat": 51.5083198,
-                        "lng": -0.167281
-                      },
-                      {
-                        "lat": 51.5083412,
-                        "lng": -0.1671866
-                      },
-                      {
-                        "lat": 51.5096339,
-                        "lng": -0.1673583
-                      },
-                      {
-                        "lat": 51.5100606,
-                        "lng": -0.1680954
-                      },
-                      {
-                        "lat": 51.5104013,
-                        "lng": -0.1677107
-                      },
-                      {
-                        "lat": 51.51081,
-                        "lng": -0.1672531
-                      },
-                      {
-                        "lat": 51.5112151,
-                        "lng": -0.1667602
-                      },
-                      {
-                        "lat": 51.5115817,
-                        "lng": -0.1663888
-                      },
-                      {
-                        "lat": 51.5117586,
-                        "lng": -0.1663198
-                      },
-                      {
-                        "lat": 51.5118238,
-                        "lng": -0.1663467
-                      },
-                      {
-                        "lat": 51.5121276,
-                        "lng": -0.1664422
-                      },
-                      {
-                        "lat": 51.5122168,
-                        "lng": -0.1664586
-                      },
-                      {
-                        "lat": 51.5123821,
-                        "lng": -0.1664891
-                      },
-                      {
-                        "lat": 51.5123266,
-                        "lng": -0.1669159
-                      }
-                    ]
-                  }
-                ]
-              },
-              "fares": {
-                "breakdown": [
-                  {
-                    "modes": [
-                      "bus"
-                    ],
-                    "route_part_ids": [
-                      3
-                    ],
-                    "tickets": [
-                      {
-                        "type": "single",
-                        "price": 1.5,
-                        "currency": "GBP"
-                      }
-                    ]
-                  },
-                  {
-                    "modes": [
-                      "bus"
-                    ],
-                    "route_part_ids": [
-                      3,
-                      4
-                    ],
-                    "tickets": [
-                      {
-                        "type": "week",
-                        "price": 21,
-                        "currency": "GBP"
-                      },
-                      {
-                        "type": "month",
-                        "price": 80.7,
-                        "currency": "GBP"
-                      },
-                      {
-                        "type": "year",
-                        "price": 840,
-                        "currency": "GBP"
-                      }
-                    ]
-                  },
-                  {
-                    "modes": [
-                      "bus"
-                    ],
-                    "route_part_ids": [
-                      4
-                    ],
-                    "tickets": [
-                      {
-                        "type": "single",
-                        "price": 1.5,
-                        "currency": "GBP"
-                      }
-                    ]
-                  }
-                ],
-                "tickets_total": [
-                  {
-                    "type": "week",
-                    "price": 21,
-                    "currency": "GBP"
-                  },
-                  {
-                    "type": "month",
-                    "price": 80.7,
-                    "currency": "GBP"
-                  },
-                  {
-                    "type": "year",
-                    "price": 840,
-                    "currency": "GBP"
-                  },
-                  {
-                    "type": "single",
-                    "price": 3,
-                    "currency": "GBP"
-                  }
-                ]
-              }
-            }
-          ]
+  "results" : [ {
+    "search_id" : "arrival search example",
+    "locations" : [ {
+      "id" : "Hyde Park",
+      "properties" : [ {
+        "travel_time" : 1499,
+        "distance" : 847,
+        "route" : {
+          "departure_time" : "2021-11-08T08:10:00Z",
+          "arrival_time" : "2021-11-08T08:52:00Z",
+          "parts" : [ {
+            "type" : "start_end",
+            "id" : 0,
+            "mode" : "walk",
+            "directions" : "Start your journey 57 meters south",
+            "distance" : 57,
+            "travel_time" : 41,
+            "coords" : [ {
+              "lat" : 51.508824,
+              "lng" : -0.167093
+            }, {
+              "lat" : 51.5083198,
+              "lng" : -0.167281
+            } ],
+            "direction" : "south"
+          }, {
+            "type" : "road",
+            "id" : 1,
+            "mode" : "walk",
+            "directions" : "Walk 544 meters",
+            "distance" : 544,
+            "travel_time" : 402,
+            "coords" : [ {
+              "lat" : 51.5083198,
+              "lng" : -0.167281
+            }, {
+              "lat" : 51.5083412,
+              "lng" : -0.1671866
+            }, {
+              "lat" : 51.5096339,
+              "lng" : -0.1673583
+            }, {
+              "lat" : 51.5100606,
+              "lng" : -0.1680954
+            }, {
+              "lat" : 51.5104013,
+              "lng" : -0.1677107
+            }, {
+              "lat" : 51.51081,
+              "lng" : -0.1672531
+            }, {
+              "lat" : 51.5112151,
+              "lng" : -0.1667602
+            }, {
+              "lat" : 51.5115817,
+              "lng" : -0.1663888
+            }, {
+              "lat" : 51.5117586,
+              "lng" : -0.1663198
+            }, {
+              "lat" : 51.5118238,
+              "lng" : -0.1663467
+            }, {
+              "lat" : 51.5121276,
+              "lng" : -0.1664422
+            }, {
+              "lat" : 51.5122168,
+              "lng" : -0.1664586
+            }, {
+              "lat" : 51.5123821,
+              "lng" : -0.1664891
+            }, {
+              "lat" : 51.5123266,
+              "lng" : -0.1669159
+            } ]
+          } ]
+        },
+        "fares" : {
+          "breakdown" : [ {
+            "modes" : [ "bus" ],
+            "route_part_ids" : [ 3 ],
+            "tickets" : [ {
+              "type" : "single",
+              "price" : 1.5,
+              "currency" : "GBP"
+            } ]
+          }, {
+            "modes" : [ "bus" ],
+            "route_part_ids" : [ 3, 4 ],
+            "tickets" : [ {
+              "type" : "week",
+              "price" : 21.0,
+              "currency" : "GBP"
+            }, {
+              "type" : "month",
+              "price" : 80.7,
+              "currency" : "GBP"
+            }, {
+              "type" : "year",
+              "price" : 840.0,
+              "currency" : "GBP"
+            } ]
+          }, {
+            "modes" : [ "bus" ],
+            "route_part_ids" : [ 4 ],
+            "tickets" : [ {
+              "type" : "single",
+              "price" : 1.5,
+              "currency" : "GBP"
+            } ]
+          } ],
+          "tickets_total" : [ {
+            "type" : "week",
+            "price" : 21.0,
+            "currency" : "GBP"
+          }, {
+            "type" : "month",
+            "price" : 80.7,
+            "currency" : "GBP"
+          }, {
+            "type" : "year",
+            "price" : 840.0,
+            "currency" : "GBP"
+          }, {
+            "type" : "single",
+            "price" : 3.0,
+            "currency" : "GBP"
+          } ]
         }
-      ],
-      "unreachable": []
-    },
-    {
-      "search_id": "departure search example",
-      "locations": [
-        {
-          "id": "Hyde Park",
-          "properties": [
-            {
-              "travel_time": 1280,
-              "distance": 6103,
-              "route": {
-                "departure_time": "2021-11-08T08:32:00Z",
-                "arrival_time": "2021-11-08T08:42:00Z",
-                "parts": [
-                  {
-                    "id": 0,
-                    "type": "start_end",
-                    "mode": "walk",
-                    "directions": "Start your journey 24 meters northeast",
-                    "distance": 24,
-                    "travel_time": 17,
-                    "coords": [
-                      {
-                        "lat": 51.50893,
-                        "lng": -0.131387
-                      },
-                      {
-                        "lat": 51.5091191,
-                        "lng": -0.131198
-                      }
-                    ],
-                    "direction": "northeast"
-                  },
-                  {
-                    "id": 1,
-                    "type": "road",
-                    "mode": "car",
-                    "directions": "Drive 55 meters along Oxendon Street",
-                    "distance": 55,
-                    "travel_time": 4,
-                    "coords": [
-                      {
-                        "lat": 51.5091191,
-                        "lng": -0.131198
-                      },
-                      {
-                        "lat": 51.5095541,
-                        "lng": -0.1316053
-                      }
-                    ],
-                    "road": "Oxendon Street"
-                  },
-                  {
-                    "id": 2,
-                    "type": "road",
-                    "mode": "car",
-                    "directions": "Turn left onto Panton Street and drive 65 meters",
-                    "distance": 65,
-                    "travel_time": 4,
-                    "coords": [
-                      {
-                        "lat": 51.5095541,
-                        "lng": -0.1316053
-                      },
-                      {
-                        "lat": 51.5093088,
-                        "lng": -0.1322429
-                      },
-                      {
-                        "lat": 51.5092248,
-                        "lng": -0.1323946
-                      }
-                    ],
-                    "road": "Panton Street",
-                    "turn": "left"
-                  }
-                ]
-              }
-            }
-          ]
+      } ]
+    } ],
+    "unreachable" : [ ]
+  }, {
+    "search_id" : "departure search example",
+    "locations" : [ {
+      "id" : "Hyde Park",
+      "properties" : [ {
+        "travel_time" : 1280,
+        "distance" : 6103,
+        "route" : {
+          "departure_time" : "2021-11-08T08:32:00Z",
+          "arrival_time" : "2021-11-08T08:42:00Z",
+          "parts" : [ {
+            "type" : "start_end",
+            "id" : 0,
+            "mode" : "walk",
+            "directions" : "Start your journey 24 meters northeast",
+            "distance" : 24,
+            "travel_time" : 17,
+            "coords" : [ {
+              "lat" : 51.50893,
+              "lng" : -0.131387
+            }, {
+              "lat" : 51.5091191,
+              "lng" : -0.131198
+            } ],
+            "direction" : "northeast"
+          }, {
+            "type" : "road",
+            "id" : 1,
+            "mode" : "car",
+            "directions" : "Drive 55 meters along Oxendon Street",
+            "distance" : 55,
+            "travel_time" : 4,
+            "coords" : [ {
+              "lat" : 51.5091191,
+              "lng" : -0.131198
+            }, {
+              "lat" : 51.5095541,
+              "lng" : -0.1316053
+            } ],
+            "road" : "Oxendon Street"
+          }, {
+            "type" : "road",
+            "id" : 2,
+            "mode" : "car",
+            "directions" : "Turn left onto Panton Street and drive 65 meters",
+            "distance" : 65,
+            "travel_time" : 4,
+            "coords" : [ {
+              "lat" : 51.5095541,
+              "lng" : -0.1316053
+            }, {
+              "lat" : 51.5093088,
+              "lng" : -0.1322429
+            }, {
+              "lat" : 51.5092248,
+              "lng" : -0.1323946
+            } ],
+            "road" : "Panton Street",
+            "turn" : "left"
+          } ]
         }
-      ],
-      "unreachable": []
-    }
-  ]
+      } ]
+    } ],
+    "unreachable" : [ ]
+  } ]
 }
