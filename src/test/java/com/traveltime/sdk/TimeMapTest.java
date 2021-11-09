@@ -30,16 +30,6 @@ public class TimeMapTest {
     }
 
     @Test
-    public void shouldSendTimeFilterRequest() throws IOException, RequestValidationException {
-        String requestJson = Common.readFile("dto/requests/timeFilterRequest.json");
-        TimeFilterRequest timeFilterRequest = JsonUtils.fromJson(requestJson, TimeFilterRequest.class);
-        TravelTimeResponse<TimeFilterResponse> timeFilterResponse = sdk.send(timeFilterRequest);
-
-        Assert.assertEquals(200, (int) timeFilterResponse.getHttpCode());
-        Assert.assertNotNull(timeFilterResponse.getParsedBody());
-    }
-
-    @Test
     public void shouldSendTimeMapRequest() throws IOException, RequestValidationException {
         Coordinates coords = new Coordinates(51.507609,-0.128315);
         Transportation transportation = new PublicTransport();

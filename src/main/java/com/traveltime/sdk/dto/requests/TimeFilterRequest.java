@@ -1,5 +1,6 @@
 package com.traveltime.sdk.dto.requests;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.traveltime.sdk.AcceptType;
 import com.traveltime.sdk.JsonUtils;
@@ -18,7 +19,9 @@ import java.net.URI;
 @Builder
 @Jacksonized
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimeFilterRequest extends TravelTimeRequest<TimeFilterResponse> {
+    @NonNull
     Iterable<Location> locations;
     @Valid
     Iterable<DepartureSearch> departureSearches;

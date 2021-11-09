@@ -13,8 +13,9 @@ import java.util.Date;
 
 @Getter
 @Jacksonized
-@Builder(builderMethodName = "internalBuilder")
+@Builder
 @AllArgsConstructor
+@RequiredArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DepartureSearch {
     @NonNull
@@ -32,27 +33,7 @@ public class DepartureSearch {
     @Positive(message = "travelTime must be greater than 0")
     Integer travelTime;
     @NonNull
-    Iterable<String> properties;
+    Iterable<Properties> properties;
     @Valid
     FullRange range;
-
-
-    public static DepartureSearchBuilder builder(
-        String id,
-        String departureLocationId,
-        Iterable<String> arrivalLocationIds,
-        Transportation transportation,
-        Date departureTime,
-        Integer travelTime,
-        Iterable<String> properties
-    ) {
-        return internalBuilder()
-            .id(id)
-            .departureLocationId(departureLocationId)
-            .arrivalLocationIds(arrivalLocationIds)
-            .transportation(transportation)
-            .departureTime(departureTime)
-            .travelTime(travelTime)
-            .properties(properties);
-    }
 }

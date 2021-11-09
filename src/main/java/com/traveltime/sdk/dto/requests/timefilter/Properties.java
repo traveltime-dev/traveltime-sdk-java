@@ -1,4 +1,4 @@
-package com.traveltime.sdk.dto.requests.routes;
+package com.traveltime.sdk.dto.requests.timefilter;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -10,7 +10,5 @@ public enum Properties {
     @JsonProperty("route")
     ROUTE,
     @JsonProperty("fares")
-    FARES,
-    @JsonProperty("distance_breakdown")
-    DISTANCE_BREAKDOWN
+    FARES
 }
