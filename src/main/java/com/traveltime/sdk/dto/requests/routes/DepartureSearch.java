@@ -3,6 +3,7 @@ package com.traveltime.sdk.dto.requests.routes;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.dto.common.FullRange;
+import com.traveltime.sdk.dto.common.Property;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import jakarta.validation.Valid;
 import lombok.*;
@@ -29,7 +30,7 @@ public class DepartureSearch {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     Date departureTime;
     @NonNull
-    Iterable<Properties> properties;
+    Iterable<Property> properties;
     @Valid
     FullRange range;
 }

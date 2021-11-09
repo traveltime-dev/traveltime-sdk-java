@@ -1,0 +1,43 @@
+{
+  "results" : [ {
+    "search_id" : "arrive-at many-to-one search example",
+    "locations" : [ {
+      "id" : "Hyde Park",
+      "properties" : {
+        "travel_time" : 1404,
+        "fares" : {
+          "tickets_total" : [ {
+            "type" : "month",
+            "price" : 80.7,
+            "currency" : "GBP"
+          }, {
+            "type" : "year",
+            "price" : 840.0,
+            "currency" : "GBP"
+          } ]
+        }
+      }
+    } ],
+    "unreachable" : [ "ZSL London Zoo" ]
+  }, {
+    "search_id" : "arrive-at one-to-many search example",
+    "locations" : [ {
+      "id" : "Hyde Park",
+      "properties" : {
+        "travel_time" : 1529,
+        "fares" : {
+          "tickets_total" : [ {
+            "type" : "month",
+            "price" : 80.7,
+            "currency" : "GBP"
+          }, {
+            "type" : "year",
+            "price" : 840.0,
+            "currency" : "GBP"
+          } ]
+        }
+      }
+    } ],
+    "unreachable" : [ "ZSL London Zoo" ]
+  } ]
+}

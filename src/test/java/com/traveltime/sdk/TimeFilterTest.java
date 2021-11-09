@@ -3,6 +3,7 @@ package com.traveltime.sdk;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.FullRange;
 import com.traveltime.sdk.dto.common.Location;
+import com.traveltime.sdk.dto.common.Property;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.TimeFilterRequest;
@@ -61,7 +62,7 @@ public class TimeFilterTest {
             transportation,
             Date.from(Instant.now()),
             900,
-            Arrays.asList(Properties.TRAVEL_TIME, Properties.DISTANCE, Properties.ROUTE)
+            Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE)
         );
         return Collections.singletonList(ds);
     }
@@ -78,7 +79,7 @@ public class TimeFilterTest {
             transportation,
             Date.from(Instant.now()),
             900,
-            Arrays.asList(Properties.TRAVEL_TIME, Properties.DISTANCE, Properties.ROUTE, Properties.FARES),
+            Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES),
             new FullRange(true, 1, 300)
         );
         return Collections.singletonList(as);

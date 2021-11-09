@@ -1,6 +1,6 @@
 package com.traveltime.sdk.dto.responses;
 
-import com.traveltime.sdk.dto.responses.timemap.BoxesResult;
+import com.traveltime.sdk.dto.responses.locations.Location;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +11,9 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @Builder
 @AllArgsConstructor
-public class TimeMapBoxesResponse {
+public class SupportedLocationsResponse {
     @NonNull
-    Iterable<BoxesResult> results;
+    Iterable<Location> locations;
+    @NonNull
+    Iterable<String> unsupportedLocations;
 }

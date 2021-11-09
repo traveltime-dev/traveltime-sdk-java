@@ -1,6 +1,5 @@
-package com.traveltime.sdk.dto.responses;
+package com.traveltime.sdk.dto.responses.timefilterfast;
 
-import com.traveltime.sdk.dto.responses.timemap.BoxesResult;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +10,11 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @Builder
 @AllArgsConstructor
-public class TimeMapBoxesResponse {
+public class Ticket {
     @NonNull
-    Iterable<BoxesResult> results;
+    String type;
+    @NonNull
+    Double price;
+    @NonNull
+    String currency;
 }
