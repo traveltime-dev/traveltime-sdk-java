@@ -13,7 +13,7 @@ import java.util.Date;
 
 @Getter
 @Jacksonized
-@Builder(builderMethodName = "internalBuilder")
+@Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -32,17 +32,4 @@ public class ArrivalSearch {
     @Positive(message = "travelTime should be positive")
     Integer travelTime;
     Range range;
-
-    public static ArrivalSearchBuilder builder(
-        String id,
-        Coordinates coords,
-        Transportation transportation,
-        Date arrivalTime
-    ) {
-        return internalBuilder()
-            .id(id)
-            .coords(coords)
-            .transportation(transportation)
-            .arrivalTime(arrivalTime);
-    }
 }

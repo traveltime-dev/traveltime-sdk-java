@@ -1,0 +1,247 @@
+{
+  "results" : [ {
+    "search_id" : "public transport from Trafalgar Square",
+    "sectors" : [ {
+      "code" : "wc2n5",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 11,
+          "max" : 300,
+          "mean" : 198,
+          "median" : 214
+        },
+        "travel_time_all" : {
+          "min" : 11,
+          "max" : 579,
+          "mean" : 264,
+          "median" : 220
+        },
+        "coverage" : 78.26086956521739
+      }
+    }, {
+      "code" : "sw1y5",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 94,
+          "max" : 289,
+          "mean" : 194,
+          "median" : 196
+        },
+        "travel_time_all" : {
+          "min" : 94,
+          "max" : 825,
+          "mean" : 329,
+          "median" : 246
+        },
+        "coverage" : 38.59649122807017
+      }
+    }, {
+      "code" : "wc2n4",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 90,
+          "max" : 292,
+          "mean" : 255,
+          "median" : 278
+        },
+        "travel_time_all" : {
+          "min" : 90,
+          "max" : 614,
+          "mean" : 400,
+          "median" : 433
+        },
+        "coverage" : 26.76056338028169
+      }
+    }, {
+      "code" : "wc2n6",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 245,
+          "max" : 296,
+          "mean" : 282,
+          "median" : 290
+        },
+        "travel_time_all" : {
+          "min" : 245,
+          "max" : 615,
+          "mean" : 444,
+          "median" : 493
+        },
+        "coverage" : 32.20338983050847
+      }
+    }, {
+      "code" : "wc2h7",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 184,
+          "max" : 295,
+          "mean" : 243,
+          "median" : 245
+        },
+        "travel_time_all" : {
+          "min" : 184,
+          "max" : 559,
+          "mean" : 362,
+          "median" : 346
+        },
+        "coverage" : 45.67901234567901
+      }
+    }, {
+      "code" : "sw1a2",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 99,
+          "max" : 297,
+          "mean" : 192,
+          "median" : 176
+        },
+        "travel_time_all" : {
+          "min" : 99,
+          "max" : 664,
+          "mean" : 396,
+          "median" : 468
+        },
+        "coverage" : 37.333333333333336
+      }
+    }, {
+      "code" : "sw1y4",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 185,
+          "max" : 296,
+          "mean" : 251,
+          "median" : 251
+        },
+        "travel_time_all" : {
+          "min" : 185,
+          "max" : 737,
+          "mean" : 442,
+          "median" : 436
+        },
+        "coverage" : 16.49484536082474
+      }
+    } ]
+  }, {
+    "search_id" : "public transport to Trafalgar Square",
+    "sectors" : [ {
+      "code" : "wc2n5",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 11,
+          "max" : 300,
+          "mean" : 198,
+          "median" : 214
+        },
+        "travel_time_all" : {
+          "min" : 11,
+          "max" : 579,
+          "mean" : 264,
+          "median" : 220
+        },
+        "coverage" : 78.26086956521739
+      }
+    }, {
+      "code" : "sw1y5",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 94,
+          "max" : 289,
+          "mean" : 194,
+          "median" : 196
+        },
+        "travel_time_all" : {
+          "min" : 94,
+          "max" : 825,
+          "mean" : 329,
+          "median" : 246
+        },
+        "coverage" : 38.59649122807017
+      }
+    }, {
+      "code" : "wc2n4",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 90,
+          "max" : 292,
+          "mean" : 255,
+          "median" : 278
+        },
+        "travel_time_all" : {
+          "min" : 90,
+          "max" : 614,
+          "mean" : 400,
+          "median" : 433
+        },
+        "coverage" : 26.76056338028169
+      }
+    }, {
+      "code" : "wc2n6",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 245,
+          "max" : 296,
+          "mean" : 282,
+          "median" : 290
+        },
+        "travel_time_all" : {
+          "min" : 245,
+          "max" : 615,
+          "mean" : 444,
+          "median" : 493
+        },
+        "coverage" : 32.20338983050847
+      }
+    }, {
+      "code" : "wc2h7",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 184,
+          "max" : 295,
+          "mean" : 243,
+          "median" : 245
+        },
+        "travel_time_all" : {
+          "min" : 184,
+          "max" : 559,
+          "mean" : 362,
+          "median" : 346
+        },
+        "coverage" : 45.67901234567901
+      }
+    }, {
+      "code" : "sw1a2",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 99,
+          "max" : 297,
+          "mean" : 192,
+          "median" : 176
+        },
+        "travel_time_all" : {
+          "min" : 99,
+          "max" : 664,
+          "mean" : 396,
+          "median" : 468
+        },
+        "coverage" : 37.333333333333336
+      }
+    }, {
+      "code" : "sw1y4",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 185,
+          "max" : 296,
+          "mean" : 251,
+          "median" : 251
+        },
+        "travel_time_all" : {
+          "min" : 185,
+          "max" : 737,
+          "mean" : 442,
+          "median" : 436
+        },
+        "coverage" : 16.49484536082474
+      }
+    } ]
+  } ]
+}

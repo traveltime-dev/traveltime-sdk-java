@@ -1,10 +1,9 @@
-package com.traveltime.sdk.dto.responses.locations;
+package com.traveltime.sdk.dto.responses.zones;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.extern.jackson.Jacksonized;
 
 @Getter
@@ -12,10 +11,8 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Location {
-    @NonNull
-    String id;
-    @NonNull
-    String mapName;
-    Iterable<String> additionalMapNames;
+public class Properties {
+    TravelTime travelTimeReachable;
+    TravelTime travelTimeAll;
+    Double coverage;
 }
