@@ -10,9 +10,9 @@
 
     <distributionManagement>
         <repository>
-            <id>ossrh</id>
-            <name>Central Repository OSSRH</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>sonatype</id>
+            <name>Central Repository</name>
+            <url>https://s01.oss.sonatype.org/#view-repositories;snapshots~browsestorage~com/traveltime/</url>
         </repository>
     </distributionManagement>
 
