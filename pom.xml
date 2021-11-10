@@ -12,7 +12,7 @@
         <repository>
             <id>sonatype</id>
             <name>Central Repository</name>
-            <url>https://s01.oss.sonatype.org/service/local</url>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
     </distributionManagement>
 
