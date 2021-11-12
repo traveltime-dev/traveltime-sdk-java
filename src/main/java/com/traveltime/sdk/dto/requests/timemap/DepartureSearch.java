@@ -14,7 +14,7 @@ import java.util.Date;
 
 @Getter
 @Jacksonized
-@Builder(builderMethodName = "internalBuilder")
+@Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -34,19 +34,4 @@ public class DepartureSearch {
     Integer travelTime;
     @Valid
     Range range;
-
-    public static DepartureSearchBuilder builder(
-        String id,
-        Coordinates coords,
-        Transportation transportation,
-        Date departureTime,
-        Integer travelTime
-    ) {
-        return internalBuilder()
-            .id(id)
-            .coords(coords)
-            .transportation(transportation)
-            .departureTime(departureTime)
-            .travelTime(travelTime);
-    }
 }

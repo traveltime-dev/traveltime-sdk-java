@@ -1,0 +1,15 @@
+{
+  "type" : "basic",
+  "id" : 0,
+  "mode" : "walk",
+  "directions" : "Start your journey 24 meters northeast",
+  "distance" : 24,
+  "travel_time" : 17,
+  "coords" : [ {
+    "lat" : 51.50893,
+    "lng" : -0.131387
+  }, {
+    "lat" : 51.5091191,
+    "lng" : -0.131198
+  } ]
+}

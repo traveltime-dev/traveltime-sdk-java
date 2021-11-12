@@ -1,0 +1,21 @@
+{
+  "type" : "public_transport",
+  "id" : 1,
+  "mode" : "bus",
+  "directions" : "Take a bus (88) from 'Regent's Park Barracks' (leaves at 08:32) to 'Haymarket  Charles II Street' (arrives at 08:56) (10 stops)",
+  "distance" : 0,
+  "travel_time" : 1458,
+  "coords" : [ {
+    "lat" : 51.5344581103,
+    "lng" : -0.1464111853
+  }, {
+    "lat" : 51.5316234084,
+    "lng" : -0.1451422193
+  } ],
+  "line" : "88",
+  "departure_station" : "Regent's Park Barracks",
+  "arrival_station" : "Haymarket  Charles II Street",
+  "departs_at" : "08:32",
+  "arrives_at" : "08:56",
+  "num_stops" : 10
+}

@@ -21,22 +21,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class IntegrationTest {
+public class TimeMapTest {
     TravelTimeSDK sdk;
 
     @Before
     public void init() {
         sdk = new TravelTimeSDK(System.getenv("APP_ID"), System.getenv("API_KEY"));
-    }
-
-    @Test
-    public void shouldSendTimeFilterRequest() throws IOException, RequestValidationException {
-        String requestJson = Common.readFile("dto/requests/timeFilterRequest.json");
-        TimeFilterRequest timeFilterRequest = JsonUtils.fromJson(requestJson, TimeFilterRequest.class);
-        TravelTimeResponse<TimeFilterResponse> timeFilterResponse = sdk.send(timeFilterRequest);
-
-        Assert.assertEquals(200, (int) timeFilterResponse.getHttpCode());
-        Assert.assertNotNull(timeFilterResponse.getParsedBody());
     }
 
     @Test

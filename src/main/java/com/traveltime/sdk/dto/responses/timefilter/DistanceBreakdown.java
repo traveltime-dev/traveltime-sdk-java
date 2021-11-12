@@ -7,6 +7,6 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @Builder
 public class DistanceBreakdown {
-    String mode; // Will be enum
+    String mode;
     Integer distance;
 }

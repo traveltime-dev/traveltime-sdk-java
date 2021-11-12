@@ -47,6 +47,6 @@
     },
     "arrival_time" : "2021-10-13T08:00:00Z",
     "travel_time" : 1900,
-    "properties" : [ "travel_time", "distance", "distance_breakdown", "fares" ]
+    "properties" : [ "travel_time", "distance", "fares" ]
   } ]
 }

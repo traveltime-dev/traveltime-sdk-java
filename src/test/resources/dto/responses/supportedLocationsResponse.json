@@ -1,0 +1,13 @@
+{
+  "locations" : [ {
+    "id" : "Kaunas",
+    "map_name" : "lt"
+  }, {
+    "id" : "London",
+    "map_name" : "gb"
+  }, {
+    "id" : "Bangkok",
+    "map_name" : "th"
+  } ],
+  "unsupported_locations" : [ "Lisbon" ]
+}

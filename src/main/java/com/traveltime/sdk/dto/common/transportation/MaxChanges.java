@@ -6,7 +6,7 @@ import lombok.extern.jackson.Jacksonized;
 
 @Getter
 @Jacksonized
-@Builder(builderMethodName = "internalBuilder")
+@Builder
 @AllArgsConstructor
 public class MaxChanges {
     @NonNull
@@ -14,8 +14,4 @@ public class MaxChanges {
     @NonNull
     @Positive(message = "limit must be greater than 0")
     Integer limit;
-
-    public static MaxChangesBuilder builder(Boolean enabled, int limit) {
-        return internalBuilder().enabled(enabled).limit(limit);
-    }
 }

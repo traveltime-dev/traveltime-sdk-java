@@ -1,0 +1,312 @@
+{
+  "results" : [ {
+    "search_id" : "public transport from Trafalgar Square",
+    "districts" : [ {
+      "code" : "ec3v",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 1197,
+          "max" : 1501,
+          "mean" : 1319,
+          "median" : 1315
+        },
+        "travel_time_all" : {
+          "min" : 1197,
+          "max" : 1501,
+          "mean" : 1319,
+          "median" : 1315
+        },
+        "coverage" : 100.0
+      }
+    }, {
+      "code" : "sw1y",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 71,
+          "max" : 682,
+          "mean" : 435,
+          "median" : 407
+        },
+        "travel_time_all" : {
+          "min" : 71,
+          "max" : 682,
+          "mean" : 435,
+          "median" : 407
+        },
+        "coverage" : 100.0
+      }
+    }, {
+      "code" : "w1s",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 445,
+          "max" : 1071,
+          "mean" : 779,
+          "median" : 749
+        },
+        "travel_time_all" : {
+          "min" : 445,
+          "max" : 1071,
+          "mean" : 779,
+          "median" : 749
+        },
+        "coverage" : 100.0
+      }
+    }, {
+      "code" : "ec4m",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 852,
+          "max" : 1209,
+          "mean" : 1064,
+          "median" : 1081
+        },
+        "travel_time_all" : {
+          "min" : 852,
+          "max" : 1209,
+          "mean" : 1064,
+          "median" : 1081
+        },
+        "coverage" : 100.0
+      }
+    }, {
+      "code" : "ec2m",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 1540,
+          "max" : 1791,
+          "mean" : 1655,
+          "median" : 1653
+        },
+        "travel_time_all" : {
+          "min" : 1540,
+          "max" : 2286,
+          "mean" : 1684,
+          "median" : 1655
+        },
+        "coverage" : 94.51476793248945
+      }
+    }, {
+      "code" : "e1",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 1537,
+          "max" : 1799,
+          "mean" : 1732,
+          "median" : 1741
+        },
+        "travel_time_all" : {
+          "min" : 1537,
+          "max" : 3595,
+          "mean" : 2412,
+          "median" : 2445
+        },
+        "coverage" : 13.098086124401915
+      }
+    }, {
+      "code" : "sw7",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 1348,
+          "max" : 1798,
+          "mean" : 1634,
+          "median" : 1646
+        },
+        "travel_time_all" : {
+          "min" : 1348,
+          "max" : 2713,
+          "mean" : 1810,
+          "median" : 1693
+        },
+        "coverage" : 71.46702557200538
+      }
+    }, {
+      "code" : "w1p",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 765,
+          "max" : 1333,
+          "mean" : 1122,
+          "median" : 1135
+        },
+        "travel_time_all" : {
+          "min" : 765,
+          "max" : 1333,
+          "mean" : 1122,
+          "median" : 1135
+        },
+        "coverage" : 100.0
+      }
+    }, {
+      "code" : "w2",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 1136,
+          "max" : 1797,
+          "mean" : 1587,
+          "median" : 1607
+        },
+        "travel_time_all" : {
+          "min" : 1136,
+          "max" : 2829,
+          "mean" : 1886,
+          "median" : 1750
+        },
+        "coverage" : 53.819139596136964
+      }
+    }, {
+      "code" : "wc2r",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 131,
+          "max" : 816,
+          "mean" : 550,
+          "median" : 562
+        },
+        "travel_time_all" : {
+          "min" : 131,
+          "max" : 816,
+          "mean" : 550,
+          "median" : 562
+        },
+        "coverage" : 100.0
+      }
+    }, {
+      "code" : "wc99",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 471,
+          "max" : 471,
+          "mean" : 471,
+          "median" : 471
+        },
+        "travel_time_all" : {
+          "min" : 471,
+          "max" : 471,
+          "mean" : 471,
+          "median" : 471
+        },
+        "coverage" : 100.0
+      }
+    }, {
+      "code" : "w1v",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 480,
+          "max" : 1111,
+          "mean" : 695,
+          "median" : 660
+        },
+        "travel_time_all" : {
+          "min" : 480,
+          "max" : 1111,
+          "mean" : 695,
+          "median" : 660
+        },
+        "coverage" : 100.0
+      }
+    }, {
+      "code" : "wc2e",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 351,
+          "max" : 817,
+          "mean" : 540,
+          "median" : 531
+        },
+        "travel_time_all" : {
+          "min" : 351,
+          "max" : 817,
+          "mean" : 540,
+          "median" : 531
+        },
+        "coverage" : 100.0
+      }
+    }, {
+      "code" : "wc1n",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 932,
+          "max" : 1617,
+          "mean" : 1306,
+          "median" : 1302
+        },
+        "travel_time_all" : {
+          "min" : 932,
+          "max" : 1617,
+          "mean" : 1306,
+          "median" : 1302
+        },
+        "coverage" : 100.0
+      }
+    }, {
+      "code" : "sw3",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 1195,
+          "max" : 1799,
+          "mean" : 1622,
+          "median" : 1641
+        },
+        "travel_time_all" : {
+          "min" : 1195,
+          "max" : 2832,
+          "mean" : 1919,
+          "median" : 1791
+        },
+        "coverage" : 50.58949624866024
+      }
+    }, {
+      "code" : "sw4",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 1343,
+          "max" : 1797,
+          "mean" : 1662,
+          "median" : 1673
+        },
+        "travel_time_all" : {
+          "min" : 1343,
+          "max" : 2901,
+          "mean" : 2037,
+          "median" : 2012
+        },
+        "coverage" : 41.012909632572
+      }
+    }, {
+      "code" : "wc2h",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 191,
+          "max" : 915,
+          "mean" : 591,
+          "median" : 624
+        },
+        "travel_time_all" : {
+          "min" : 191,
+          "max" : 915,
+          "mean" : 591,
+          "median" : 624
+        },
+        "coverage" : 100.0
+      }
+    }, {
+      "code" : "n1",
+      "properties" : {
+        "travel_time_reachable" : {
+          "min" : 1280,
+          "max" : 1798,
+          "mean" : 1641,
+          "median" : 1680
+        },
+        "travel_time_all" : {
+          "min" : 1280,
+          "max" : 3146,
+          "mean" : 2223,
+          "median" : 2304
+        },
+        "coverage" : 17.88135593220339
+      }
+    } ]
+  } ]
+}

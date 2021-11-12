@@ -2,9 +2,10 @@ package com.traveltime.sdk.dto.requests.timefilter;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.traveltime.sdk.dto.common.FullRange;
+import com.traveltime.sdk.dto.common.Property;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
@@ -13,8 +14,9 @@ import java.util.Date;
 
 @Getter
 @Jacksonized
-@Builder(builderMethodName = "internalBuilder")
+@Builder
 @AllArgsConstructor
+@RequiredArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ArrivalSearch {
     @NonNull
@@ -32,26 +34,7 @@ public class ArrivalSearch {
     @Positive(message = "travelTime must be greater than 0")
     Integer travelTime;
     @NonNull
-    Iterable<String> properties;
+    Iterable<Property> properties;
     @Valid
-    Range range;
-
-    public static ArrivalSearchBuilder builder(
-        String id,
-        Iterable<String> departureLocationIds,
-        String arrivalLocationId,
-        Transportation transportation,
-        Date arrivalTime,
-        Integer travelTime,
-        Iterable<String> properties
-    ) {
-        return internalBuilder()
-            .id(id)
-            .departureLocationIds(departureLocationIds)
-            .arrivalLocationId(arrivalLocationId)
-            .transportation(transportation)
-            .arrivalTime(arrivalTime)
-            .travelTime(travelTime)
-            .properties(properties);
-    }
+    FullRange range;
 }

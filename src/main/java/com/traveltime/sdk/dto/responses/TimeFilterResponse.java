@@ -7,6 +7,8 @@ import lombok.extern.jackson.Jacksonized;
 @Getter
 @Jacksonized
 @Builder
+@AllArgsConstructor
 public class TimeFilterResponse {
+    @NonNull
     Iterable<Result> results;
 }

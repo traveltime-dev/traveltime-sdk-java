@@ -1,4 +1,4 @@
-package com.traveltime.sdk.dto.requests.timefilter;
+package com.traveltime.sdk.dto.common;
 
 import jakarta.validation.constraints.Positive;
 import lombok.*;
@@ -8,7 +8,7 @@ import lombok.extern.jackson.Jacksonized;
 @Getter
 @Jacksonized
 @AllArgsConstructor
-public class Range {
+public class FullRange {
     @NonNull
     Boolean enabled;
     @NonNull

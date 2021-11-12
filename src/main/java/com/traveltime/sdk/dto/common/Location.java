@@ -1,6 +1,5 @@
-package com.traveltime.sdk.dto.requests.timefilter;
+package com.traveltime.sdk.dto.common;
 
-import com.traveltime.sdk.dto.common.Coordinates;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
