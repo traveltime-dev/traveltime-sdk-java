@@ -20,6 +20,7 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 public class RoutesTest {
     TravelTimeSDK sdk;
@@ -31,7 +32,7 @@ public class RoutesTest {
 
     @Test
     public void shouldSendRoutesRequest() throws IOException, RequestValidationException {
-        Iterable<Location> locations = Arrays.asList(
+        List<Location> locations = Arrays.asList(
             new Location("location1", new Coordinates(51.508930,-0.131387)),
             new Location("location2", new Coordinates(51.508824,-0.167093)),
             new Location("location3", new Coordinates(51.536067,-0.153596))
@@ -50,9 +51,9 @@ public class RoutesTest {
         Assert.assertNotNull(response.getParsedBody());
     }
 
-    private Iterable<DepartureSearch> createDepartureSearch(
+    private List<DepartureSearch> createDepartureSearch(
         String departureLocation,
-        Iterable<String> arrivalLocations,
+        List<String> arrivalLocations,
         Transportation transportation
     ) {
         DepartureSearch ds = new DepartureSearch(
@@ -66,8 +67,8 @@ public class RoutesTest {
         return Collections.singletonList(ds);
     }
 
-    private Iterable<ArrivalSearch> createArrivalSearch(
-        Iterable<String> departureLocations,
+    private List<ArrivalSearch> createArrivalSearch(
+        List<String> departureLocations,
         String arrivalLocation,
         Transportation transportation
     ) {

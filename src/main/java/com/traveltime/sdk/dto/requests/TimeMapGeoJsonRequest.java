@@ -17,6 +17,7 @@ import okhttp3.Request;
 import org.geojson.FeatureCollection;
 
 import java.net.URI;
+import java.util.List;
 
 @Value
 @Builder
@@ -25,13 +26,13 @@ import java.net.URI;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimeMapGeoJsonRequest extends TravelTimeRequest<FeatureCollection> {
     @Valid
-    Iterable<DepartureSearch> departureSearches;
+    List<DepartureSearch> departureSearches;
     @Valid
-    Iterable<ArrivalSearch> arrivalSearches;
+    List<ArrivalSearch> arrivalSearches;
 
-    Iterable<Intersection> intersections;
+    List<Intersection> intersections;
 
-    Iterable<Union> unions;
+    List<Union> unions;
 
     @Override
     public Request createRequest(String appId, String apiKey, URI uri) throws JsonProcessingException {

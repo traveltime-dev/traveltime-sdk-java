@@ -11,6 +11,7 @@ import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Jacksonized
@@ -34,7 +35,7 @@ public class DepartureSearch {
     @NonNull
     Double reachablePostcodesThreshold;
     @NonNull
-    Iterable<Property> properties;
+    List<Property> properties;
     @Valid
     FullRange range;
 }

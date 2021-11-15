@@ -12,14 +12,15 @@ import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 
 import java.net.URI;
+import java.util.List;
 
 @Value
 @Builder
 @Jacksonized
 @AllArgsConstructor
 public class TimeFilterSectorsRequest extends TravelTimeRequest<TimeFilterSectorsResponse> {
-    Iterable<DepartureSearch> departureSearches;
-    Iterable<ArrivalSearch> arrivalSearches;
+    List<DepartureSearch> departureSearches;
+    List<ArrivalSearch> arrivalSearches;
 
     @Override
     public Request createRequest(String appId, String apiKey, URI uri) throws JsonProcessingException {

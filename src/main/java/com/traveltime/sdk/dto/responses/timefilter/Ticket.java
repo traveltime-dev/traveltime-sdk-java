@@ -9,5 +9,5 @@ import lombok.extern.jackson.Jacksonized;
 public class Ticket {
     String type;
     Double price;
-    String currency; // will be enum
+    String currency;
 }

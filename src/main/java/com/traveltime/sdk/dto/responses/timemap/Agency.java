@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.jackson.Jacksonized;
 
+import java.util.List;
+
 @Getter
 @Jacksonized
 @Builder
@@ -12,5 +14,5 @@ public class Agency {
     @NonNull
     String name;
     @NonNull
-    Iterable<String> modes;
+    List<String> modes;
 }

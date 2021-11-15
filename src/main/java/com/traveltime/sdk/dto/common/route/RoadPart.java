@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.jackson.Jacksonized;
 
+import java.util.List;
+
 @Getter
 @Jacksonized
 @Builder
@@ -25,7 +27,7 @@ public class RoadPart implements Part {
     @Positive(message = "travelTime must be greater than 0")
     int travelTime;
     @NonNull
-    Iterable<Coordinates> coords;
+    List<Coordinates> coords;
     String road;
     String turn;
 }

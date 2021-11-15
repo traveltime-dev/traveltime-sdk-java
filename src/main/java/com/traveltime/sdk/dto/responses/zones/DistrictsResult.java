@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.jackson.Jacksonized;
 
+import java.util.List;
+
 @Getter
 @Jacksonized
 @Builder
@@ -14,5 +16,5 @@ public class DistrictsResult {
     @NonNull
     String searchId;
     @NonNull
-    Iterable<Zone> districts;
+    List<Zone> districts;
 }

@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.jackson.Jacksonized;
 
+import java.util.List;
+
 @Getter
 @Jacksonized
 @Builder
@@ -16,7 +18,7 @@ public class Result {
     @NonNull
     String searchId;
     @NonNull
-    Iterable<Location> locations;
+    List<Location> locations;
     @NonNull
-    Iterable<String> unreachable;
+    List<String> unreachable;
 }

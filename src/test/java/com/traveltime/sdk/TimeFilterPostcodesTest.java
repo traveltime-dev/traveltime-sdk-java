@@ -21,6 +21,7 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 public class TimeFilterPostcodesTest {
     TravelTimeSDK sdk;
@@ -46,7 +47,7 @@ public class TimeFilterPostcodesTest {
         Assert.assertNotNull(response.getParsedBody());
     }
 
-    private Iterable<DepartureSearch> createDepartureSearch(Coordinates coordinates, Transportation transportation) {
+    private List<DepartureSearch> createDepartureSearch(Coordinates coordinates, Transportation transportation) {
         DepartureSearch ds = new DepartureSearch(
             "Test departure search",
             coordinates,
@@ -58,7 +59,7 @@ public class TimeFilterPostcodesTest {
         return Collections.singletonList(ds);
     }
 
-    private Iterable<ArrivalSearch> createArrivalSearch(Coordinates coordinates, Transportation transportation) {
+    private List<ArrivalSearch> createArrivalSearch(Coordinates coordinates, Transportation transportation) {
         ArrivalSearch as = new ArrivalSearch(
             "Test arrival search",
             coordinates,

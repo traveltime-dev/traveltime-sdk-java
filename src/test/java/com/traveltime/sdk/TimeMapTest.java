@@ -106,7 +106,7 @@ public class TimeMapTest {
         Assert.assertNotNull(response.getParsedBody());
     }
 
-    private Iterable<ArrivalSearch> createArrivalSearch(Coordinates coords, Transportation transportation) {
+    private List<ArrivalSearch> createArrivalSearch(Coordinates coords, Transportation transportation) {
         ArrivalSearch as = new ArrivalSearch(
             "Test arrival search",
             coords,
@@ -118,7 +118,7 @@ public class TimeMapTest {
         return Collections.singletonList(as);
     }
 
-    private Iterable<DepartureSearch> createDepartureSearch(Coordinates coords, Transportation transportation) {
+    private List<DepartureSearch> createDepartureSearch(Coordinates coords, Transportation transportation) {
         DepartureSearch ds = new DepartureSearch(
             "Test departure search",
             coords,
@@ -129,7 +129,7 @@ public class TimeMapTest {
         return Collections.singletonList(ds);
     }
 
-    private Iterable<Union> createUnion(Iterable<String> searchIds) {
+    private List<Union> createUnion(List<String> searchIds) {
         Union union = new Union(
             "union of driving and public transport",
             searchIds
@@ -137,7 +137,7 @@ public class TimeMapTest {
         return Collections.singletonList(union);
     }
 
-    private Iterable<Intersection> createIntersection(Iterable<String> searchIds) {
+    private List<Intersection> createIntersection(List<String> searchIds) {
         Intersection intersection =  new Intersection(
             "intersection of driving and public transport",
             searchIds

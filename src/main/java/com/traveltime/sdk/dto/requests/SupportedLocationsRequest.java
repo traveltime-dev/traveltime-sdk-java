@@ -13,6 +13,7 @@ import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 
 import java.net.URI;
+import java.util.List;
 
 
 @Value
@@ -21,7 +22,7 @@ import java.net.URI;
 @AllArgsConstructor
 public class SupportedLocationsRequest extends TravelTimeRequest<SupportedLocationsResponse> {
     @NonNull
-    Iterable<Location> locations;
+    List<Location> locations;
 
     @Override
     public Request createRequest(String appId, String apiKey, URI uri) throws JsonProcessingException {

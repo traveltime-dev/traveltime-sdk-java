@@ -6,6 +6,8 @@ import com.traveltime.sdk.dto.common.route.Route;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
+import java.util.List;
+
 @Getter
 @Jacksonized
 @Builder
@@ -14,7 +16,7 @@ import lombok.extern.jackson.Jacksonized;
 public class Property {
     Integer travelTime;
     Integer distance;
-    Iterable<DistanceBreakdown> distanceBreakdown;
+    List<DistanceBreakdown> distanceBreakdown;
     Fares fares;
     Route route;
 }

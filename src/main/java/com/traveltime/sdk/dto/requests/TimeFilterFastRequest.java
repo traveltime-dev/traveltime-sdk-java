@@ -14,6 +14,7 @@ import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 
 import java.net.URI;
+import java.util.List;
 
 @Value
 @Builder
@@ -21,7 +22,7 @@ import java.net.URI;
 @AllArgsConstructor
 public class TimeFilterFastRequest extends TravelTimeRequest<TimeFilterFastResponse> {
     @NonNull
-    Iterable<Location> locations;
+    List<Location> locations;
     @NonNull
     ArrivalSearches arrivalSearches;
 

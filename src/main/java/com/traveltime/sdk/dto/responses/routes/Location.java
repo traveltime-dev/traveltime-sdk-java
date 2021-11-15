@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.jackson.Jacksonized;
 
+import java.util.List;
+
 @Getter
 @Jacksonized
 @Builder
@@ -16,5 +18,5 @@ public class Location {
     String id;
     @Valid
     @NonNull
-    Iterable<Property> properties;
+    List<Property> properties;
 }

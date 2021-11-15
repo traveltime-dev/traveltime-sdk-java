@@ -7,11 +7,13 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.jackson.Jacksonized;
 
+import java.util.List;
+
 @Getter
 @Jacksonized
 @Builder
 @AllArgsConstructor
 public class TimeFilterFastResponse {
     @NonNull
-    Iterable<Result> results;
+    List<Result> results;
 }
