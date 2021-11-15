@@ -11,6 +11,7 @@ import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Jacksonized
@@ -24,7 +25,7 @@ public class DepartureSearch {
     @NonNull
     String departureLocationId;
     @NonNull
-    Iterable<String> arrivalLocationIds;
+    List<String> arrivalLocationIds;
     @NonNull
     Transportation transportation;
     @NonNull
@@ -34,7 +35,7 @@ public class DepartureSearch {
     @Positive(message = "travelTime must be greater than 0")
     Integer travelTime;
     @NonNull
-    Iterable<Property> properties;
+    List<Property> properties;
     @Valid
     FullRange range;
 }

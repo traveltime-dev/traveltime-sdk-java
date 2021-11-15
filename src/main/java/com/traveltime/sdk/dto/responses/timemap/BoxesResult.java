@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.jackson.Jacksonized;
 
+import java.util.List;
+
 @Getter
 @Jacksonized
 @Builder
@@ -12,7 +14,7 @@ public class BoxesResult {
     @NonNull
     String searchId;
     @NonNull
-    Iterable<BoundingBox> boundingBoxes;
+    List<BoundingBox> boundingBoxes;
     @NonNull
     ResponseProperties properties;
 }

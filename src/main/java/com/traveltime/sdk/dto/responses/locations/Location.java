@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.jackson.Jacksonized;
 
+import java.util.List;
+
 @Getter
 @Jacksonized
 @Builder
@@ -17,5 +19,5 @@ public class Location {
     String id;
     @NonNull
     String mapName;
-    Iterable<String> additionalMapNames;
+    List<String> additionalMapNames;
 }

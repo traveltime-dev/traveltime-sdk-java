@@ -17,6 +17,7 @@ import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 
 import java.net.URI;
+import java.util.List;
 
 @Value
 @Builder
@@ -25,11 +26,11 @@ import java.net.URI;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RoutesRequest extends TravelTimeRequest<RoutesResponse> {
     @NonNull
-    Iterable<Location> locations;
+    List<Location> locations;
     @Valid
-    Iterable<DepartureSearch> departureSearches;
+    List<DepartureSearch> departureSearches;
     @Valid
-    Iterable<ArrivalSearch> arrivalSearches;
+    List<ArrivalSearch> arrivalSearches;
 
     @Override
     public Request createRequest(String appId, String apiKey, URI uri) throws JsonProcessingException {

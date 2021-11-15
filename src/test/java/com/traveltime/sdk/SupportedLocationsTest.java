@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 public class SupportedLocationsTest {
     TravelTimeSDK sdk;
@@ -23,7 +24,7 @@ public class SupportedLocationsTest {
 
     @Test
     public void shouldSendSupportLocationsRequest() throws IOException, RequestValidationException {
-        Iterable<Location> locations = Arrays.asList(
+        List<Location> locations = Arrays.asList(
             new Location("location1", new Coordinates(51.508930,-0.131387)),
             new Location("location2", new Coordinates(51.508824,-0.167093)),
             new Location("location3", new Coordinates(51.536067,-0.153596))

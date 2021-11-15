@@ -8,6 +8,7 @@ import lombok.NonNull;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Jacksonized
@@ -21,5 +22,5 @@ public class Route {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     Date arrivalTime;
     @NonNull
-    Iterable<Part> parts;
+    List<Part> parts;
 }

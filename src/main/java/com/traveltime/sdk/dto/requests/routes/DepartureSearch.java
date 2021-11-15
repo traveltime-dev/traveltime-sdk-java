@@ -10,6 +10,7 @@ import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Jacksonized
@@ -23,14 +24,14 @@ public class DepartureSearch {
     @NonNull
     String departureLocationId;
     @NonNull
-    Iterable<String> arrivalLocationIds;
+    List<String> arrivalLocationIds;
     @NonNull
     Transportation transportation;
     @NonNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     Date departureTime;
     @NonNull
-    Iterable<Property> properties;
+    List<Property> properties;
     @Valid
     FullRange range;
 }

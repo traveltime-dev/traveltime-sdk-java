@@ -7,16 +7,18 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.jackson.Jacksonized;
 
+import java.util.List;
+
 @Getter
 @Jacksonized
 @Builder
 @AllArgsConstructor
 public class FareBreakdown {
     @NonNull
-    Iterable<String> modes;
+    List<String> modes;
     @NonNull
-    Iterable<Integer> routePartIds;
+    List<Integer> routePartIds;
     @Valid
     @NonNull
-    Iterable<Ticket> tickets;
+    List<Ticket> tickets;
 }

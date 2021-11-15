@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.jackson.Jacksonized;
 
+import java.util.List;
+
 @Builder
 @Getter
 @Jacksonized
@@ -14,5 +16,5 @@ public class Union {
     @NonNull
     String id;
     @NonNull
-    Iterable<String> searchIds;
+    List<String> searchIds;
 }

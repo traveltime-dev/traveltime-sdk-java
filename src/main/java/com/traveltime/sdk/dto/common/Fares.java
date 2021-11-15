@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.jackson.Jacksonized;
 
+import java.util.List;
+
 @Getter
 @Jacksonized
 @Builder
@@ -14,8 +16,8 @@ import lombok.extern.jackson.Jacksonized;
 public class Fares {
     @Valid
     @NonNull
-    Iterable<FareBreakdown> breakdown;
+    List<FareBreakdown> breakdown;
     @Valid
     @NonNull
-    Iterable<Ticket> ticketsTotal;
+    List<Ticket> ticketsTotal;
 }

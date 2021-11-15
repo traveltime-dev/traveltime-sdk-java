@@ -5,6 +5,8 @@ import com.traveltime.sdk.dto.common.transportation.Transportation;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
+import java.util.List;
+
 
 @Getter
 @Jacksonized
@@ -16,7 +18,7 @@ public class ManyToOne {
     @NonNull
     String arrivalLocationId;
     @NonNull
-    Iterable<String> departureLocationIds;
+    List<String> departureLocationIds;
     @NonNull
     Transportation transportation;
     @NonNull
@@ -24,5 +26,5 @@ public class ManyToOne {
     @NonNull
     String arrivalTimePeriod;
     @NonNull
-    Iterable<Property> properties;
+    List<Property> properties;
 }
