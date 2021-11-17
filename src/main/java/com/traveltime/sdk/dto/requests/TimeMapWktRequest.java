@@ -1,7 +1,6 @@
 package com.traveltime.sdk.dto.requests;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.traveltime.sdk.AcceptType;
 import com.traveltime.sdk.JsonUtils;
 import com.traveltime.sdk.dto.requests.timemap.ArrivalSearch;
@@ -9,6 +8,8 @@ import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
 import com.traveltime.sdk.dto.requests.timemap.Intersection;
 import com.traveltime.sdk.dto.requests.timemap.Union;
 import com.traveltime.sdk.dto.responses.TimeMapWktResponse;
+import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import io.vavr.control.Either;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,11 +46,12 @@ public class TimeMapWktRequest extends TravelTimeRequest<TimeMapWktResponse> {
         }
     }
 
-
     @Override
-    public Request createRequest(String appId, String apiKey, URI uri) throws JsonProcessingException {
+    public Either<TravelTimeError, Request> createRequest(String appId, String apiKey, URI uri) {
         String fullUri = uri + "/time-map";
-        return createPostRequest(fullUri, appId, apiKey, JsonUtils.toJson(this), acceptType());
+        return JsonUtils
+            .toJson(this)
+            .map(json -> createPostRequest(fullUri, appId, apiKey, json, acceptType()));
     }
 
     @Override

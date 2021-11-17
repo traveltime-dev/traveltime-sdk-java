@@ -12,10 +12,10 @@ import com.traveltime.sdk.dto.requests.timefilter.*;
 import com.traveltime.sdk.dto.requests.timefilterfast.ArrivalSearches;
 import com.traveltime.sdk.dto.requests.timefilterfast.ManyToOne;
 import com.traveltime.sdk.dto.requests.timefilterfast.OneToMany;
-import com.traveltime.sdk.dto.responses.TimeFilterFastResponse;
-import com.traveltime.sdk.dto.responses.TimeFilterResponse;
-import com.traveltime.sdk.dto.responses.TravelTimeResponse;
-import com.traveltime.sdk.exceptions.RequestValidationException;
+import com.traveltime.sdk.dto.responses.*;
+import com.traveltime.sdk.dto.responses.errors.ResponseError;
+import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import io.vavr.control.Either;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +36,7 @@ public class TimeFilterTest {
     }
 
     @Test
-    public void shouldSendTimeFilterRequest() throws IOException, RequestValidationException {
+    public void shouldSendTimeFilterRequest() {
         List<Location> locations = Arrays.asList(
             new Location("location1", new Coordinates(51.508930,-0.131387)),
             new Location("location2", new Coordinates(51.508824,-0.167093)),
@@ -50,14 +50,12 @@ public class TimeFilterTest {
             createArrivalSearch(Arrays.asList("location2", "location3"), "location1", transport)
         );
 
-        TravelTimeResponse<TimeFilterResponse> response = sdk.send(request);
-
-        Assert.assertEquals(200, (int)response.getHttpCode());
-        Assert.assertNotNull(response.getParsedBody());
+        Either<TravelTimeError, TimeFilterResponse> response = sdk.send(request);
+        Assert.assertTrue(response.isRight());
     }
 
     @Test
-    public void shouldSendTimeFilterFastRequest() throws IOException, RequestValidationException {
+    public void shouldSendTimeFilterFastRequest() {
         List<Location> locations = Arrays.asList(
             new Location("location1", new Coordinates(51.508930,-0.131387)),
             new Location("location2", new Coordinates(51.508824,-0.167093)),
@@ -71,10 +69,8 @@ public class TimeFilterTest {
 
         TimeFilterFastRequest request = new TimeFilterFastRequest(locations, arrivalSearches);
 
-        TravelTimeResponse<TimeFilterFastResponse> response = sdk.send(request);
-
-        Assert.assertEquals(200, (int)response.getHttpCode());
-        Assert.assertNotNull(response.getParsedBody());
+        Either<TravelTimeError, TimeFilterFastResponse> response = sdk.send(request);
+        Assert.assertTrue(response.isRight());
     }
 
     private List<ManyToOne> createManyToOne(

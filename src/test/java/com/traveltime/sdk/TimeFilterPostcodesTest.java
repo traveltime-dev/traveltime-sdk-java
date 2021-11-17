@@ -6,12 +6,10 @@ import com.traveltime.sdk.dto.common.Property;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.TimeFilterPostcodesRequest;
-import com.traveltime.sdk.dto.requests.TimeFilterRequest;
 import com.traveltime.sdk.dto.requests.postcodes.*;
-import com.traveltime.sdk.dto.responses.TimeFilterPostcodesResponse;
-import com.traveltime.sdk.dto.responses.TimeFilterResponse;
-import com.traveltime.sdk.dto.responses.TravelTimeResponse;
-import com.traveltime.sdk.exceptions.RequestValidationException;
+import com.traveltime.sdk.dto.responses.*;
+import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import io.vavr.control.Either;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +30,7 @@ public class TimeFilterPostcodesTest {
     }
 
     @Test
-    public void shouldSendTimeFilterPostcodesRequest() throws IOException, RequestValidationException {
+    public void shouldSendTimeFilterPostcodesRequest() {
         Coordinates coordinates = new Coordinates(51.508930,-0.131387);
         Transportation transport = new PublicTransport();
 
@@ -41,10 +39,8 @@ public class TimeFilterPostcodesTest {
             createArrivalSearch(coordinates, transport)
         );
 
-        TravelTimeResponse<TimeFilterPostcodesResponse> response = sdk.send(request);
-
-        Assert.assertEquals(200, (int)response.getHttpCode());
-        Assert.assertNotNull(response.getParsedBody());
+        Either<TravelTimeError, TimeFilterPostcodesResponse> response = sdk.send(request);
+        Assert.assertTrue(response.isRight());
     }
 
     private List<DepartureSearch> createDepartureSearch(Coordinates coordinates, Transportation transportation) {
@@ -54,7 +50,7 @@ public class TimeFilterPostcodesTest {
             transportation,
             Date.from(Instant.now()),
             900,
-            Arrays.asList(Property.TRAVEL_TIME)
+            Collections.singletonList(Property.TRAVEL_TIME)
         );
         return Collections.singletonList(ds);
     }
@@ -66,7 +62,7 @@ public class TimeFilterPostcodesTest {
             transportation,
             Date.from(Instant.now()),
             900,
-            Arrays.asList(Property.TRAVEL_TIME),
+            Collections.singletonList(Property.TRAVEL_TIME),
             new FullRange(true, 1, 300)
         );
         return Collections.singletonList(as);

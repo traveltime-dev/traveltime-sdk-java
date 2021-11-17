@@ -1,10 +1,11 @@
 package com.traveltime.sdk.dto.requests;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.traveltime.sdk.AcceptType;
 import com.traveltime.sdk.JsonUtils;
 import com.traveltime.sdk.dto.requests.postcodes.*;
 import com.traveltime.sdk.dto.responses.TimeFilterPostcodesResponse;
+import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import io.vavr.control.Either;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,9 +27,11 @@ public class TimeFilterPostcodesRequest extends TravelTimeRequest<TimeFilterPost
     List<ArrivalSearch> arrivalSearches;
 
     @Override
-    public Request createRequest(String appId, String apiKey, URI uri) throws JsonProcessingException {
+    public Either<TravelTimeError, Request> createRequest(String appId, String apiKey, URI uri) {
         String fullUri = uri + "/time-filter/postcodes";
-        return createPostRequest(fullUri, appId, apiKey, JsonUtils.toJson(this), AcceptType.APPLICATION_JSON);
+        return JsonUtils
+            .toJson(this)
+            .map(json -> createPostRequest(fullUri, appId, apiKey, json, AcceptType.APPLICATION_JSON));
     }
 
     @Override

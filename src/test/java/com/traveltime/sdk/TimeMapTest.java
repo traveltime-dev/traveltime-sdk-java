@@ -9,7 +9,10 @@ import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
 import com.traveltime.sdk.dto.requests.timemap.Intersection;
 import com.traveltime.sdk.dto.requests.timemap.Union;
 import com.traveltime.sdk.dto.responses.*;
+import com.traveltime.sdk.dto.responses.errors.ResponseError;
+import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import com.traveltime.sdk.exceptions.RequestValidationException;
+import io.vavr.control.Either;
 import org.geojson.FeatureCollection;
 import org.junit.Assert;
 import org.junit.Before;
@@ -30,7 +33,7 @@ public class TimeMapTest {
     }
 
     @Test
-    public void shouldSendTimeMapRequest() throws IOException, RequestValidationException {
+    public void shouldSendTimeMapRequest() {
         Coordinates coords = new Coordinates(51.507609,-0.128315);
         Transportation transportation = new PublicTransport();
         List<String> searchIds = Arrays.asList("Test arrival search", "Test departure search");
@@ -42,14 +45,12 @@ public class TimeMapTest {
             createUnion(searchIds)
         );
 
-        TravelTimeResponse<TimeMapResponse> response = sdk.send(request);
-
-        Assert.assertEquals(200, (int)response.getHttpCode());
-        Assert.assertNotNull(response.getParsedBody());
+        Either<TravelTimeError, TimeMapResponse> response = sdk.send(request);
+        Assert.assertTrue(response.isRight());
     }
 
     @Test
-    public void shouldSendTimeMapGeoJsonRequest() throws IOException, RequestValidationException {
+    public void shouldSendTimeMapGeoJsonRequest() {
         Coordinates coords = new Coordinates(51.507609,-0.128315);
         Transportation transportation = new PublicTransport();
         List<String> searchIds = Arrays.asList("Test arrival search", "Test departure search");
@@ -61,14 +62,12 @@ public class TimeMapTest {
             createUnion(searchIds)
         );
 
-        TravelTimeResponse<FeatureCollection> response = sdk.send(request);
-
-        Assert.assertEquals(200, (int)response.getHttpCode());
-        Assert.assertNotNull(response.getParsedBody());
+        Either<TravelTimeError, FeatureCollection> response = sdk.send(request);
+        Assert.assertTrue(response.isRight());
     }
 
     @Test
-    public void shouldSendTimeMapBoundingBoxRequest() throws IOException, RequestValidationException {
+    public void shouldSendTimeMapBoundingBoxRequest() {
         Coordinates coords = new Coordinates(51.507609,-0.128315);
         Transportation transportation = new PublicTransport();
         List<String> searchIds = Arrays.asList("Test arrival search", "Test departure search");
@@ -80,14 +79,12 @@ public class TimeMapTest {
             createUnion(searchIds)
         );
 
-        TravelTimeResponse<TimeMapBoxesResponse> response = sdk.send(request);
-
-        Assert.assertEquals(200, (int)response.getHttpCode());
-        Assert.assertNotNull(response.getParsedBody());
+        Either<TravelTimeError, TimeMapBoxesResponse> response = sdk.send(request);
+        Assert.assertTrue(response.isRight());
     }
 
     @Test
-    public void shouldSendFullTimeMapWktRequest() throws IOException, RequestValidationException {
+    public void shouldSendFullTimeMapWktRequest() {
         Coordinates coords = new Coordinates(51.507609,-0.128315);
         Transportation transportation = new PublicTransport();
         List<String> searchIds = Arrays.asList("Test arrival search", "Test departure search");
@@ -100,10 +97,8 @@ public class TimeMapTest {
             true
         );
 
-        TravelTimeResponse<TimeMapWktResponse> response = sdk.send(request);
-
-        Assert.assertEquals(200, (int)response.getHttpCode());
-        Assert.assertNotNull(response.getParsedBody());
+        Either<TravelTimeError, TimeMapWktResponse> response = sdk.send(request);
+        Assert.assertTrue(response.isRight());
     }
 
     private List<ArrivalSearch> createArrivalSearch(Coordinates coords, Transportation transportation) {
