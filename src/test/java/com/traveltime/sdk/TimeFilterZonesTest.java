@@ -5,19 +5,15 @@ import com.traveltime.sdk.dto.common.FullRange;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.TimeFilterDistrictsRequest;
-import com.traveltime.sdk.dto.requests.TimeFilterPostcodesRequest;
 import com.traveltime.sdk.dto.requests.TimeFilterSectorsRequest;
 import com.traveltime.sdk.dto.requests.zones.*;
-import com.traveltime.sdk.dto.responses.TimeFilterDistrictsResponse;
-import com.traveltime.sdk.dto.responses.TimeFilterPostcodesResponse;
-import com.traveltime.sdk.dto.responses.TimeFilterSectorsResponse;
-import com.traveltime.sdk.dto.responses.TravelTimeResponse;
-import com.traveltime.sdk.exceptions.RequestValidationException;
+import com.traveltime.sdk.dto.responses.*;
+import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import io.vavr.control.Either;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,7 +29,7 @@ public class TimeFilterZonesTest {
     }
 
     @Test
-    public void shouldSendTimeFilterDistrictsRequest() throws IOException, RequestValidationException {
+    public void shouldSendTimeFilterDistrictsRequest() {
         Coordinates coordinates = new Coordinates(51.508930,-0.131387);
         Transportation transport = new PublicTransport();
 
@@ -42,14 +38,12 @@ public class TimeFilterZonesTest {
             createArrivalSearch(coordinates, transport)
         );
 
-        TravelTimeResponse<TimeFilterDistrictsResponse> response = sdk.send(request);
-
-        Assert.assertEquals(200, (int)response.getHttpCode());
-        Assert.assertNotNull(response.getParsedBody());
+        Either<TravelTimeError, TimeFilterDistrictsResponse> response = sdk.send(request);
+        Assert.assertTrue(response.isRight());
     }
 
     @Test
-    public void shouldSendTimeFilterSectorsRequest() throws IOException, RequestValidationException {
+    public void shouldSendTimeFilterSectorsRequest() {
         Coordinates coordinates = new Coordinates(51.508930,-0.131387);
         Transportation transport = new PublicTransport();
 
@@ -58,10 +52,8 @@ public class TimeFilterZonesTest {
             createArrivalSearch(coordinates, transport)
         );
 
-        TravelTimeResponse<TimeFilterSectorsResponse> response = sdk.send(request);
-
-        Assert.assertEquals(200, (int)response.getHttpCode());
-        Assert.assertNotNull(response.getParsedBody());
+        Either<TravelTimeError, TimeFilterSectorsResponse> response = sdk.send(request);
+        Assert.assertTrue(response.isRight());
     }
 
     private List<DepartureSearch> createDepartureSearch(Coordinates coordinates, Transportation transportation) {

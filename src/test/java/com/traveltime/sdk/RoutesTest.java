@@ -9,13 +9,12 @@ import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.RoutesRequest;
 import com.traveltime.sdk.dto.requests.routes.*;
 import com.traveltime.sdk.dto.responses.RoutesResponse;
-import com.traveltime.sdk.dto.responses.TravelTimeResponse;
-import com.traveltime.sdk.exceptions.RequestValidationException;
+import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import io.vavr.control.Either;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
@@ -31,7 +30,7 @@ public class RoutesTest {
     }
 
     @Test
-    public void shouldSendRoutesRequest() throws IOException, RequestValidationException {
+    public void shouldSendRoutesRequest() {
         List<Location> locations = Arrays.asList(
             new Location("location1", new Coordinates(51.508930,-0.131387)),
             new Location("location2", new Coordinates(51.508824,-0.167093)),
@@ -45,10 +44,8 @@ public class RoutesTest {
             createArrivalSearch(Arrays.asList("location2", "location3"), "location1", transport)
         );
 
-        TravelTimeResponse<RoutesResponse> response = sdk.send(request);
-
-        Assert.assertEquals(200, (int)response.getHttpCode());
-        Assert.assertNotNull(response.getParsedBody());
+        Either<TravelTimeError, RoutesResponse> response = sdk.send(request);
+        Assert.assertTrue(response.isRight());
     }
 
     private List<DepartureSearch> createDepartureSearch(

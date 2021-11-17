@@ -3,14 +3,14 @@ package com.traveltime.sdk;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.Location;
 import com.traveltime.sdk.dto.requests.SupportedLocationsRequest;
+import com.traveltime.sdk.dto.responses.errors.ResponseError;
 import com.traveltime.sdk.dto.responses.SupportedLocationsResponse;
-import com.traveltime.sdk.dto.responses.TravelTimeResponse;
-import com.traveltime.sdk.exceptions.RequestValidationException;
+import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import io.vavr.control.Either;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class SupportedLocationsTest {
     }
 
     @Test
-    public void shouldSendSupportLocationsRequest() throws IOException, RequestValidationException {
+    public void shouldSendSupportLocationsRequest() {
         List<Location> locations = Arrays.asList(
             new Location("location1", new Coordinates(51.508930,-0.131387)),
             new Location("location2", new Coordinates(51.508824,-0.167093)),
@@ -31,9 +31,7 @@ public class SupportedLocationsTest {
         );
         SupportedLocationsRequest request = new SupportedLocationsRequest(locations);
 
-        TravelTimeResponse<SupportedLocationsResponse> response = sdk.send(request);
-
-        Assert.assertEquals(200, (int)response.getHttpCode());
-        Assert.assertNotNull(response.getParsedBody());
+        Either<TravelTimeError, SupportedLocationsResponse> response = sdk.send(request);
+        Assert.assertTrue(response.isRight());
     }
 }

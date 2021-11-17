@@ -4,6 +4,7 @@ import com.traveltime.sdk.dto.common.route.*;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.*;
 import com.traveltime.sdk.dto.responses.*;
+import com.traveltime.sdk.dto.responses.errors.ResponseError;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.Assert;
 import org.junit.Test;
@@ -37,6 +38,7 @@ public class JsonUtilsTest {
             new ImmutablePair(TimeFilterDistrictsResponse.class, "dto/responses/timeFilterDistrictsResponse.json"),
             new ImmutablePair(TimeFilterSectorsResponse.class, "dto/responses/timeFilterSectorsResponse.json"),
             new ImmutablePair(TimeFilterPostcodesResponse.class, "dto/responses/timeFilterPostcodesResponse.json"),
+            new ImmutablePair(ResponseError.class, "dto/responses/errorResponse.json"),
 
 
             // transportations
@@ -58,8 +60,8 @@ public class JsonUtilsTest {
 
         for(ImmutablePair<Class<Object>, String> json : jsons) {
             String expectedContent = Common.readFile(json.getValue());
-            String resultContent = JsonUtils.toJsonPretty(JsonUtils.fromJson(expectedContent, json.getKey()));
-            Assert.assertEquals(expectedContent, resultContent);
+            String result = JsonUtils.toJsonPretty(JsonUtils.fromJson(expectedContent, json.getKey()).get()).get();
+            Assert.assertEquals(expectedContent, result);
         }
     }
 }

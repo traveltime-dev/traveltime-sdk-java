@@ -1,8 +1,13 @@
 package com.traveltime.sdk;
 
 import com.traveltime.sdk.dto.requests.TravelTimeRequest;
-import com.traveltime.sdk.dto.responses.TravelTimeResponse;
-import com.traveltime.sdk.exceptions.RequestValidationException;
+import com.traveltime.sdk.dto.responses.errors.IOError;
+import com.traveltime.sdk.dto.responses.errors.ResponseError;
+import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import com.traveltime.sdk.dto.responses.errors.ValidationError;
+import io.vavr.control.Either;
+import io.vavr.control.Option;
+import io.vavr.control.Try;
 import jakarta.validation.*;
 import lombok.*;
 import okhttp3.*;
@@ -29,7 +34,7 @@ public class TravelTimeSDK {
     @Builder.Default
     private URI uri = URI.create("https://api.traveltimeapp.com/v4");
 
-    private <T> void validate(TravelTimeRequest<T> request) throws RequestValidationException {
+    private <T> Option<ValidationError> validate(TravelTimeRequest<T> request) {
         Set<ConstraintViolation<TravelTimeRequest<T>>> violations = validator.validate(request);
         if(!violations.isEmpty()) {
             String msg = violations
@@ -37,48 +42,81 @@ public class TravelTimeSDK {
                 .map(ConstraintViolation::getMessage)
                 .collect(Collectors.joining(". "));
 
-            throw new RequestValidationException(msg);
+            return Option.of(new ValidationError(msg));
         }
+
+        return Option.none();
     }
 
-    private <T> TravelTimeResponse<T> getHttpResponse(TravelTimeRequest<T> request, Response response) throws IOException {
-        if(response.code() == 200) {
-            String responseBody = Objects.requireNonNull(response.body()).string();
-            T parsedBody = JsonUtils.fromJson(responseBody, request.responseType());
-            return TravelTimeResponse.<T>builder().httpCode(200).parsedBody(parsedBody).build();
+    private <T> Either<TravelTimeError, T> parseJsonBody(TravelTimeRequest<T> request, int responseCode, String body) {
+        if(responseCode == 200) {
+            return JsonUtils.fromJson(body, request.responseType());
         } else {
-            return TravelTimeResponse.<T>builder().httpCode(response.code()).errorMessage(response.message()).build();
+            return JsonUtils
+                .fromJson(body, ResponseError.class)
+                .flatMap(responseError -> Either.left(responseError));
         }
     }
 
-    public <T> TravelTimeResponse<T> send(TravelTimeRequest<T> request)
-            throws RequestValidationException, IOException {
-        validate(request);
-        Call call = client.newCall(request.createRequest(appId, apiKey, uri));
-        Response response = call.execute();
-        return getHttpResponse(request, response);
+    private <T> Either<TravelTimeError, T> getHttpResponse(TravelTimeRequest<T> request, Response response)  {
+        return Try
+            .of(() -> Objects.requireNonNull(response.body()).string())
+            .toEither()
+            .<TravelTimeError>mapLeft(IOError::new)
+            .flatMap(body -> parseJsonBody(request, response.code(), body));
     }
 
-    public <T> CompletableFuture<TravelTimeResponse<T>> sendAsync(TravelTimeRequest<T> request)
-            throws RequestValidationException, IOException {
-        validate(request);
+    private Either<TravelTimeError, Response> executeRequest(Request request) {
+        return Try
+            .of(() -> client.newCall(request).execute())
+            .toEither()
+            .mapLeft(IOError::new);
+    }
 
-        final CompletableFuture<TravelTimeResponse<T>> future = new CompletableFuture<>();
+    public <T> Either<TravelTimeError, T> send(TravelTimeRequest<T> request) {
+        Option<ValidationError> validationError = validate(request);
+        if(validationError.isDefined()) {
+            return Either.left(validationError.get());
+        } else {
+            return request
+                .createRequest(appId, apiKey, uri)
+                .flatMap(this::executeRequest)
+                .flatMap(response -> getHttpResponse(request, response));
+        }
+    }
+
+    private <T> void completeFuture(
+        CompletableFuture<Either<TravelTimeError, T>> future,
+        TravelTimeRequest<T> travelTimeRequest,
+        Request request
+    ) {
         client
-            .newCall(request.createRequest(appId, apiKey, uri))
+            .newCall(request)
             .enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    future.completeExceptionally(e);
+                    future.complete(Either.left(new IOError(e)));
                 }
 
                 @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    future.complete(getHttpResponse(request, response));
+                public void onResponse(Call call, Response response) {
+                    future.complete(getHttpResponse(travelTimeRequest, response));
                 }
-            });
+           });
+    }
+
+    public <T> CompletableFuture<Either<TravelTimeError, T>> sendAsync(TravelTimeRequest<T> request) {
+        final CompletableFuture<Either<TravelTimeError, T>> future = new CompletableFuture<>();
+        Option<ValidationError> validationError = validate(request);
+        if(validationError.isDefined()) {
+            future.complete(Either.left(validationError.get()));
+        } else {
+            request
+                .createRequest(appId, apiKey, uri)
+                .peekLeft(error -> future.complete(Either.left(error)))
+                .peek(createdRequest -> completeFuture(future, request, createdRequest));
+        }
 
         return future;
     }
-
 }

@@ -6,7 +6,7 @@
 
     <groupId>com.traveltime</groupId>
     <artifactId>traveltime-sdk-java</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 
     <distributionManagement>
         <repository>
@@ -76,6 +76,11 @@
             <groupId>org.locationtech.jts</groupId>
             <artifactId>jts-core</artifactId>
             <version>1.18.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.vavr</groupId>
+            <artifactId>vavr</artifactId>
+            <version>0.9.0</version>
         </dependency>
 
     </dependencies>

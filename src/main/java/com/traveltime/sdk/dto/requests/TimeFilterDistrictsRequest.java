@@ -1,10 +1,11 @@
 package com.traveltime.sdk.dto.requests;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.traveltime.sdk.AcceptType;
 import com.traveltime.sdk.JsonUtils;
 import com.traveltime.sdk.dto.requests.zones.*;
 import com.traveltime.sdk.dto.responses.TimeFilterDistrictsResponse;
+import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
@@ -23,9 +24,11 @@ public class TimeFilterDistrictsRequest extends TravelTimeRequest<TimeFilterDist
     List<ArrivalSearch> arrivalSearches;
 
     @Override
-    public Request createRequest(String appId, String apiKey, URI uri) throws JsonProcessingException {
+    public Either<TravelTimeError, Request> createRequest(String appId, String apiKey, URI uri) {
         String fullUri = uri + "/time-filter/postcode-districts";
-        return createPostRequest(fullUri, appId, apiKey, JsonUtils.toJson(this), AcceptType.APPLICATION_JSON);
+        return JsonUtils
+            .toJson(this)
+            .map(json -> createPostRequest(fullUri, appId, apiKey, json, AcceptType.APPLICATION_JSON));
     }
 
     @Override

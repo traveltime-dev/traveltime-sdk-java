@@ -1,0 +1,9 @@
+{
+  "http_status" : 400,
+  "error_code" : 3,
+  "description" : "Failed to parse json - syntax error",
+  "documentation_link" : "/api/reference/error-codes",
+  "additional_info" : {
+    "syntax_errors" : [ "Unexpected character ('f' (code 102)): was expecting comma to separate OBJECT entries" ]
+  }
+}
