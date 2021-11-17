@@ -31,15 +31,20 @@ public class TimeFilterRequest extends TravelTimeRequest<TimeFilterResponse> {
     List<ArrivalSearch> arrivalSearches;
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(String appId, String apiKey, URI uri) {
-        String fullUri = uri + "/time-filter";
+    public Either<TravelTimeError, Request> createRequest(String appId, String apiKey) {
+        String uri = "https://api.traveltimeapp.com/v4/time-filter";
         return JsonUtils
             .toJson(this)
-            .map(json -> createPostRequest(fullUri, appId, apiKey, json, AcceptType.APPLICATION_JSON));
+            .map(json -> createPostRequest(uri, appId, apiKey, json, AcceptType.APPLICATION_JSON));
     }
 
     @Override
     public Class<TimeFilterResponse> responseType() {
         return TimeFilterResponse.class;
+    }
+
+    @Override
+    public Boolean isProto() {
+        return false;
     }
 }

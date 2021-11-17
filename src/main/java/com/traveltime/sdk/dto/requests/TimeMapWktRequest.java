@@ -47,15 +47,20 @@ public class TimeMapWktRequest extends TravelTimeRequest<TimeMapWktResponse> {
     }
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(String appId, String apiKey, URI uri) {
-        String fullUri = uri + "/time-map";
+    public Either<TravelTimeError, Request> createRequest(String appId, String apiKey) {
+        String uri = "https://api.traveltimeapp.com/v4/time-map";
         return JsonUtils
             .toJson(this)
-            .map(json -> createPostRequest(fullUri, appId, apiKey, json, acceptType()));
+            .map(json -> createPostRequest(uri, appId, apiKey, json, acceptType()));
     }
 
     @Override
     public Class<TimeMapWktResponse> responseType() {
         return TimeMapWktResponse.class;
+    }
+
+    @Override
+    public Boolean isProto() {
+        return false;
     }
 }

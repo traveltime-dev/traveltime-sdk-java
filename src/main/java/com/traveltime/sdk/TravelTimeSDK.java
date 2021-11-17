@@ -1,6 +1,8 @@
 package com.traveltime.sdk;
 
+import com.igeolise.traveltime.rabbitmq.responses.TimeFilterFastResponseOuterClass;
 import com.traveltime.sdk.dto.requests.TravelTimeRequest;
+import com.traveltime.sdk.dto.responses.TimeFilterProtoResponse;
 import com.traveltime.sdk.dto.responses.errors.IOError;
 import com.traveltime.sdk.dto.responses.errors.ResponseError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
@@ -13,7 +15,6 @@ import lombok.*;
 import okhttp3.*;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -21,7 +22,6 @@ import java.util.stream.Collectors;
 
 @Builder
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class TravelTimeSDK {
     private final OkHttpClient client = new OkHttpClient();
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -31,8 +31,6 @@ public class TravelTimeSDK {
     private String appId;
     @NonNull
     private String apiKey;
-    @Builder.Default
-    private URI uri = URI.create("https://api.traveltimeapp.com/v4");
 
     private <T> Option<ValidationError> validate(TravelTimeRequest<T> request) {
         Set<ConstraintViolation<TravelTimeRequest<T>>> violations = validator.validate(request);
@@ -58,12 +56,28 @@ public class TravelTimeSDK {
         }
     }
 
-    private <T> Either<TravelTimeError, T> getHttpResponse(TravelTimeRequest<T> request, Response response)  {
+    private <T> Either<TravelTimeError, T> parseProto(byte[] body) {
         return Try
-            .of(() -> Objects.requireNonNull(response.body()).string())
+            .of(() -> TimeFilterFastResponseOuterClass.TimeFilterFastResponse.parseFrom(body))
             .toEither()
-            .<TravelTimeError>mapLeft(IOError::new)
-            .flatMap(body -> parseJsonBody(request, response.code(), body));
+            .map(response -> (T) new TimeFilterProtoResponse(response.getProperties().getTravelTimesList()))
+            .mapLeft(IOError::new);
+    }
+
+    private <T> Either<TravelTimeError, T> getHttpResponse(TravelTimeRequest<T> request, Response response) {
+        if(request.isProto()) {
+            return Try
+                .of(() -> Objects.requireNonNull(response.body()).bytes())
+                .toEither()
+                .<TravelTimeError>mapLeft(IOError::new)
+                .flatMap(this::parseProto);
+        } else {
+            return Try
+                .of(() -> Objects.requireNonNull(response.body()).string())
+                .toEither()
+                .<TravelTimeError>mapLeft(IOError::new)
+                .flatMap(body -> parseJsonBody(request, response.code(), body));
+        }
     }
 
     private Either<TravelTimeError, Response> executeRequest(Request request) {
@@ -79,7 +93,7 @@ public class TravelTimeSDK {
             return Either.left(validationError.get());
         } else {
             return request
-                .createRequest(appId, apiKey, uri)
+                .createRequest(appId, apiKey)
                 .flatMap(this::executeRequest)
                 .flatMap(response -> getHttpResponse(request, response));
         }
@@ -112,7 +126,7 @@ public class TravelTimeSDK {
             future.complete(Either.left(validationError.get()));
         } else {
             request
-                .createRequest(appId, apiKey, uri)
+                .createRequest(appId, apiKey)
                 .peekLeft(error -> future.complete(Either.left(error)))
                 .peek(createdRequest -> completeFuture(future, request, createdRequest));
         }

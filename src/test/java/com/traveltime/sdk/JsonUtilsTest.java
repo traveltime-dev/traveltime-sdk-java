@@ -40,7 +40,6 @@ public class JsonUtilsTest {
             new ImmutablePair(TimeFilterPostcodesResponse.class, "dto/responses/timeFilterPostcodesResponse.json"),
             new ImmutablePair(ResponseError.class, "dto/responses/errorResponse.json"),
 
-
             // transportations
             new ImmutablePair(Transportation.class, "dto/common/bus.json"),
             new ImmutablePair(Transportation.class, "dto/common/driving.json"),

@@ -37,15 +37,20 @@ public class TimeMapGeoJsonRequest extends TravelTimeRequest<FeatureCollection> 
     List<Union> unions;
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(String appId, String apiKey, URI uri) {
-        String fullUri = uri + "/time-map";
+    public Either<TravelTimeError, Request> createRequest(String appId, String apiKey) {
+        String uri = "https://api.traveltimeapp.com/v4//time-map";
         return JsonUtils
             .toJson(this)
-            .map(json -> createPostRequest(fullUri, appId, apiKey, json, AcceptType.APPLICATION_GEO_JSON));
+            .map(json -> createPostRequest(uri, appId, apiKey, json, AcceptType.APPLICATION_GEO_JSON));
     }
 
     @Override
     public Class<FeatureCollection> responseType() {
         return FeatureCollection.class;
+    }
+
+    @Override
+    public Boolean isProto() {
+        return false;
     }
 }

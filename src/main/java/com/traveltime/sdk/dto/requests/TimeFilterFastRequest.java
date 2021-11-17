@@ -28,15 +28,20 @@ public class TimeFilterFastRequest extends TravelTimeRequest<TimeFilterFastRespo
     ArrivalSearches arrivalSearches;
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(String appId, String apiKey, URI uri) {
-        String fullUri = uri + "/time-filter/fast";
+    public Either<TravelTimeError, Request> createRequest(String appId, String apiKey) {
+        String uri = "https://api.traveltimeapp.com/v4/time-filter/fast";
         return JsonUtils
             .toJson(this)
-            .map(json -> createPostRequest(fullUri, appId, apiKey, json, AcceptType.APPLICATION_JSON));
+            .map(json -> createPostRequest(uri, appId, apiKey, json, AcceptType.APPLICATION_JSON));
     }
 
     @Override
     public Class<TimeFilterFastResponse> responseType() {
         return TimeFilterFastResponse.class;
+    }
+
+    @Override
+    public Boolean isProto() {
+        return false;
     }
 }
