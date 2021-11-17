@@ -10,13 +10,11 @@ import com.traveltime.sdk.dto.requests.RoutesRequest;
 import com.traveltime.sdk.dto.requests.routes.*;
 import com.traveltime.sdk.dto.responses.RoutesResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
-import com.traveltime.sdk.exceptions.RequestValidationException;
 import io.vavr.control.Either;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;

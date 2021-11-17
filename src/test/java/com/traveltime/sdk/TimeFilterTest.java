@@ -13,14 +13,12 @@ import com.traveltime.sdk.dto.requests.timefilterfast.ArrivalSearches;
 import com.traveltime.sdk.dto.requests.timefilterfast.ManyToOne;
 import com.traveltime.sdk.dto.requests.timefilterfast.OneToMany;
 import com.traveltime.sdk.dto.responses.*;
-import com.traveltime.sdk.dto.responses.errors.ResponseError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;

@@ -12,9 +12,11 @@ import jakarta.validation.*;
 import lombok.*;
 import okhttp3.*;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Builder
@@ -81,6 +83,40 @@ public class TravelTimeSDK {
                 .flatMap(this::executeRequest)
                 .flatMap(response -> getHttpResponse(request, response));
         }
+    }
 
+    private <T> void completeFuture(
+        CompletableFuture<Either<TravelTimeError, T>> future,
+        TravelTimeRequest<T> travelTimeRequest,
+        Request request
+    ) {
+        client
+            .newCall(request)
+            .enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    future.complete(Either.left(new IOError(e.getMessage())));
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) {
+                    future.complete(getHttpResponse(travelTimeRequest, response));
+                }
+           });
+    }
+
+    public <T> CompletableFuture<Either<TravelTimeError, T>> sendAsync(TravelTimeRequest<T> request) {
+        final CompletableFuture<Either<TravelTimeError, T>> future = new CompletableFuture<>();
+        Option<ValidationError> validationError = validate(request);
+        if(validationError.isDefined()) {
+            future.complete(Either.left(validationError.get()));
+        } else {
+            request
+                .createRequest(appId, apiKey, uri)
+                .peekLeft(error -> future.complete(Either.left(error)))
+                .peek(createdRequest -> completeFuture(future, request, createdRequest));
+        }
+
+        return future;
     }
 }

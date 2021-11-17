@@ -8,15 +8,12 @@ import com.traveltime.sdk.dto.requests.TimeFilterDistrictsRequest;
 import com.traveltime.sdk.dto.requests.TimeFilterSectorsRequest;
 import com.traveltime.sdk.dto.requests.zones.*;
 import com.traveltime.sdk.dto.responses.*;
-import com.traveltime.sdk.dto.responses.errors.ResponseError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
-import com.traveltime.sdk.exceptions.RequestValidationException;
 import io.vavr.control.Either;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
