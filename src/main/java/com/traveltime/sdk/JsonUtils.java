@@ -31,7 +31,7 @@ public class JsonUtils {
         return Try
             .of(() -> DEFAULT_MAPPER.readValue(content, clazz))
             .toEither()
-            .mapLeft(error -> new IOError(error.getMessage()));
+            .mapLeft(IOError::new);
     }
 
     public static Either<TravelTimeError, String> toJsonPretty(final Object value) {

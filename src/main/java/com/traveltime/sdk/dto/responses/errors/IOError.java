@@ -8,5 +8,5 @@ import lombok.NonNull;
 @AllArgsConstructor
 public class IOError implements TravelTimeError {
     @NonNull
-    String errorMsg;
+    Throwable cause;
 }

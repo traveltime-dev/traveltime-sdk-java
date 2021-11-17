@@ -62,7 +62,7 @@ public class TravelTimeSDK {
         return Try
             .of(() -> Objects.requireNonNull(response.body()).string())
             .toEither()
-            .<TravelTimeError>mapLeft(error -> new IOError(error.getMessage()))
+            .<TravelTimeError>mapLeft(IOError::new)
             .flatMap(body -> parseJsonBody(request, response.code(), body));
     }
 
@@ -70,7 +70,7 @@ public class TravelTimeSDK {
         return Try
             .of(() -> client.newCall(request).execute())
             .toEither()
-            .mapLeft(error -> new IOError(error.getMessage()));
+            .mapLeft(IOError::new);
     }
 
     public <T> Either<TravelTimeError, T> send(TravelTimeRequest<T> request) {
@@ -95,7 +95,7 @@ public class TravelTimeSDK {
             .enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    future.complete(Either.left(new IOError(e.getMessage())));
+                    future.complete(Either.left(new IOError(e)));
                 }
 
                 @Override
