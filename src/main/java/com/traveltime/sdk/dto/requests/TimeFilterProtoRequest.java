@@ -21,7 +21,7 @@ import okhttp3.Request;
 @Builder
 @AllArgsConstructor
 public class TimeFilterProtoRequest extends ProtoRequest<TimeFilterProtoResponse> {
-    private static final String baseUri = "https://proto.api.traveltimeapp.com/api/v2/nl/time-filter/fast/";
+    private static final String BASE_URI = "https://proto.api.traveltimeapp.com/api/v2/nl/time-filter/fast/";
     @NonNull
     OneToMany oneToMany;
 
@@ -64,7 +64,7 @@ public class TimeFilterProtoRequest extends ProtoRequest<TimeFilterProtoResponse
 
     @Override
     public Either<TravelTimeError, Request> createRequest(String username, String password) {
-        String uri = baseUri + oneToMany.getTransportation().getValue();
+        String uri = BASE_URI + oneToMany.getTransportation().getValue();
         return Either.right(createProtobufRequest(uri, username, password, createByteArray()));
     }
 
