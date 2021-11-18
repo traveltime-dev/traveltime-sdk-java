@@ -5,7 +5,7 @@ import com.igeolise.traveltime.rabbitmq.requests.TimeFilterFastRequestOuterClass
 import com.igeolise.traveltime.rabbitmq.responses.TimeFilterFastResponseOuterClass.TimeFilterFastResponse;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.proto.OneToMany;
-import com.traveltime.sdk.dto.responses.TimeFilterProtoResponse;
+import com.traveltime.sdk.dto.responses.TimeFilterFastProtoResponse;
 import com.traveltime.sdk.dto.responses.errors.IOError;
 import com.traveltime.sdk.dto.responses.errors.ProtoError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
@@ -20,7 +20,7 @@ import okhttp3.Request;
 @Getter
 @Builder
 @AllArgsConstructor
-public class TimeFilterProtoRequest extends ProtoRequest<TimeFilterProtoResponse> {
+public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProtoResponse> {
     private static final String BASE_URI = "https://proto.api.traveltimeapp.com/api/v2/";
     @NonNull
     OneToMany oneToMany;
@@ -70,16 +70,16 @@ public class TimeFilterProtoRequest extends ProtoRequest<TimeFilterProtoResponse
         return Either.right(createProtobufRequest(uri, username, password, createByteArray()));
     }
 
-    private Either<TravelTimeError, TimeFilterProtoResponse> parseResponse(TimeFilterFastResponse response) {
+    private Either<TravelTimeError, TimeFilterFastProtoResponse> parseResponse(TimeFilterFastResponse response) {
         if(response.hasError()) {
             return Either.left(new ProtoError(response.getError().toString()));
         } else {
-            return Either.right(new TimeFilterProtoResponse(response.getProperties().getTravelTimesList()));
+            return Either.right(new TimeFilterFastProtoResponse(response.getProperties().getTravelTimesList()));
         }
     }
 
     @Override
-    public Either<TravelTimeError, TimeFilterProtoResponse> parseBytes(byte[] body) {
+    public Either<TravelTimeError, TimeFilterFastProtoResponse> parseBytes(byte[] body) {
         return Try
             .of(() -> TimeFilterFastResponse.parseFrom(body))
             .toEither()

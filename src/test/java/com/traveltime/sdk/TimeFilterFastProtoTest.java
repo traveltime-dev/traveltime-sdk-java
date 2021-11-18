@@ -2,11 +2,11 @@ package com.traveltime.sdk;
 
 
 import com.traveltime.sdk.dto.common.Coordinates;
-import com.traveltime.sdk.dto.requests.TimeFilterProtoRequest;
+import com.traveltime.sdk.dto.requests.TimeFilterFastProtoRequest;
 import com.traveltime.sdk.dto.requests.proto.Country;
 import com.traveltime.sdk.dto.requests.proto.OneToMany;
 import com.traveltime.sdk.dto.requests.proto.Transportation;
-import com.traveltime.sdk.dto.responses.TimeFilterProtoResponse;
+import com.traveltime.sdk.dto.responses.TimeFilterFastProtoResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import org.junit.Assert;
@@ -16,7 +16,7 @@ import org.junit.Test;
 import java.util.Collections;
 import java.util.List;
 
-public class TimeFilterProtoTest {
+public class TimeFilterFastProtoTest {
     TravelTimeSDK sdk;
 
     @Before
@@ -35,9 +35,9 @@ public class TimeFilterProtoTest {
             7200,
             Country.NETHERLANDS
         );
-        TimeFilterProtoRequest request = new TimeFilterProtoRequest(oneToMany);
+        TimeFilterFastProtoRequest request = new TimeFilterFastProtoRequest(oneToMany);
 
-        Either<TravelTimeError, TimeFilterProtoResponse> response = sdk.sendProto(request);
+        Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
         Assert.assertTrue(response.isRight());
     }
 }
