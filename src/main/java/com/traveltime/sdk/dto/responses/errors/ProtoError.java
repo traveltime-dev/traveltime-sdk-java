@@ -6,7 +6,7 @@ import lombok.NonNull;
 
 @Getter
 @AllArgsConstructor
-public class ProtoError implements TravelTimeError{
+public class ProtoError implements TravelTimeError {
     @NonNull
     String errorMsg;
 }

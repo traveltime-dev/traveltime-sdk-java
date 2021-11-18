@@ -15,7 +15,7 @@ import org.junit.Test;
 import java.util.Collections;
 import java.util.List;
 
-public class ProtobufTest {
+public class TimeFilterProtoTest {
     TravelTimeSDK sdk;
 
     @Before
@@ -24,7 +24,7 @@ public class ProtobufTest {
     }
 
     @Test
-    public void shouldSendProtobufRequest(){
+    public void shouldSendTimeFilterProtoRequest() {
         Coordinates origin = new Coordinates(51.425709, -0.122061);
         List<Coordinates> destinations = Collections.singletonList(new Coordinates(51.348605, -0.314783));
         OneToMany oneToMany = new OneToMany(origin, destinations, Transportation.DRIVING_FERRY, 7200);
