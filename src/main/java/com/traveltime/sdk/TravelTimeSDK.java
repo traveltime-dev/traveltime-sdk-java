@@ -14,6 +14,7 @@ import lombok.*;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 
 @Builder
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class TravelTimeSDK {
     private final OkHttpClient client = new OkHttpClient();
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -30,6 +32,12 @@ public class TravelTimeSDK {
     private String appId;
     @NonNull
     private String apiKey;
+
+    @Builder.Default
+    private URI baseUri = URI.create("https://api.traveltimeapp.com/v4/");
+
+    @Builder.Default
+    private URI baseProtoUri = URI.create("https://proto.api.traveltimeapp.com/api/v2/");
 
     private <T> Option<ValidationError> validate(TravelTimeRequest<T> request) {
         Set<ConstraintViolation<TravelTimeRequest<T>>> violations = validator.validate(request);
@@ -80,7 +88,7 @@ public class TravelTimeSDK {
 
     public <T> Either<TravelTimeError, T> sendProto(ProtoRequest<T> request) {
         return request
-            .createRequest(appId, apiKey)
+            .createRequest(baseProtoUri, appId, apiKey)
             .flatMap(this::executeRequest)
             .flatMap(response -> parseByteResponse(request, response));
     }
@@ -91,7 +99,7 @@ public class TravelTimeSDK {
             return Either.left(validationError.get());
         } else {
             return request
-                .createRequest(appId, apiKey)
+                .createRequest(baseUri, appId, apiKey)
                 .flatMap(this::executeRequest)
                 .flatMap(response -> getHttpResponse(request, response));
         }
@@ -124,7 +132,7 @@ public class TravelTimeSDK {
             future.complete(Either.left(validationError.get()));
         } else {
             request
-                .createRequest(appId, apiKey)
+                .createRequest(baseUri, appId, apiKey)
                 .peekLeft(error -> future.complete(Either.left(error)))
                 .peek(createdRequest -> completeFuture(future, request, createdRequest));
         }

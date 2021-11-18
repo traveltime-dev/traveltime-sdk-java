@@ -13,6 +13,7 @@ import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 
+import java.net.URI;
 import java.util.List;
 
 
@@ -25,8 +26,8 @@ public class SupportedLocationsRequest extends TravelTimeRequest<SupportedLocati
     List<Location> locations;
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(String appId, String apiKey) {
-        String uri = "https://api.traveltimeapp.com/v4/supported-locations";
+    public Either<TravelTimeError, Request> createRequest(URI baseUri, String appId, String apiKey) {
+        String uri = baseUri + "supported-locations";
         return JsonUtils
             .toJson(this)
             .map(json -> createPostRequest(uri, appId, apiKey, json, AcceptType.APPLICATION_JSON));

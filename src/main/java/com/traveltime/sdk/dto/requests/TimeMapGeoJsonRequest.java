@@ -18,6 +18,7 @@ import okhttp3.Request;
 import org.geojson.FeatureCollection;
 
 
+import java.net.URI;
 import java.util.List;
 
 @Value
@@ -36,8 +37,8 @@ public class TimeMapGeoJsonRequest extends TravelTimeRequest<FeatureCollection> 
     List<Union> unions;
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(String appId, String apiKey) {
-        String uri = "https://api.traveltimeapp.com/v4/time-map";
+    public Either<TravelTimeError, Request> createRequest(URI baseUri, String appId, String apiKey) {
+        String uri = baseUri + "time-map";
         return JsonUtils
             .toJson(this)
             .map(json -> createPostRequest(uri, appId, apiKey, json, AcceptType.APPLICATION_GEO_JSON));

@@ -17,11 +17,12 @@ import lombok.Getter;
 import lombok.NonNull;
 import okhttp3.Request;
 
+import java.net.URI;
+
 @Getter
 @Builder
 @AllArgsConstructor
 public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProtoResponse> {
-    private static final String BASE_URI = "https://proto.api.traveltimeapp.com/api/v2/";
     @NonNull
     OneToMany oneToMany;
 
@@ -63,10 +64,10 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
     }
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(String username, String password) {
+    public Either<TravelTimeError, Request> createRequest(URI baseUri, String username, String password) {
         String countryCode = oneToMany.getCountry().getValue();
         String transportation = oneToMany.getTransportation().getValue();
-        String uri = BASE_URI + countryCode + "/time-filter/fast/" + transportation;
+        String uri = baseUri + countryCode + "/time-filter/fast/" + transportation;
         return Either.right(createProtobufRequest(uri, username, password, createByteArray()));
     }
 

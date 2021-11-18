@@ -13,6 +13,7 @@ import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 
+import java.net.URI;
 import java.util.List;
 
 @Value
@@ -26,8 +27,8 @@ public class TimeFilterPostcodesRequest extends TravelTimeRequest<TimeFilterPost
     List<ArrivalSearch> arrivalSearches;
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(String appId, String apiKey) {
-        String uri = "https://api.traveltimeapp.com/v4/time-filter/postcodes";
+    public Either<TravelTimeError, Request> createRequest(URI baseUri, String appId, String apiKey) {
+        String uri = baseUri + "time-filter/postcodes";
         return JsonUtils
             .toJson(this)
             .map(json -> createPostRequest(uri, appId, apiKey, json, AcceptType.APPLICATION_JSON));

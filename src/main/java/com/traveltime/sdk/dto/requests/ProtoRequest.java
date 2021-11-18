@@ -7,9 +7,11 @@ import okhttp3.Credentials;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
+import java.net.URI;
+
 public abstract class ProtoRequest<T> {
 
-    public abstract Either<TravelTimeError, Request> createRequest(String appId, String apiKey);
+    public abstract Either<TravelTimeError, Request> createRequest(URI baseUri, String appId, String apiKey);
 
     public abstract Either<TravelTimeError, T> parseBytes(byte[] body);
 

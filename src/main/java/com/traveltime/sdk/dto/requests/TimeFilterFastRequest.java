@@ -14,6 +14,7 @@ import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 
+import java.net.URI;
 import java.util.List;
 
 @Value
@@ -27,8 +28,8 @@ public class TimeFilterFastRequest extends TravelTimeRequest<TimeFilterFastRespo
     ArrivalSearches arrivalSearches;
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(String appId, String apiKey) {
-        String uri = "https://api.traveltimeapp.com/v4/time-filter/fast";
+    public Either<TravelTimeError, Request> createRequest(URI baseUri, String appId, String apiKey) {
+        String uri = baseUri + "time-filter/fast";
         return JsonUtils
             .toJson(this)
             .map(json -> createPostRequest(uri, appId, apiKey, json, AcceptType.APPLICATION_JSON));
