@@ -47,11 +47,11 @@ public class TimeMapWktRequest extends TravelTimeRequest<TimeMapWktResponse> {
     }
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(String appId, String apiKey, URI uri) {
-        String fullUri = uri + "/time-map";
+    public Either<TravelTimeError, Request> createRequest(URI baseUri, String appId, String apiKey) {
+        String uri = baseUri + "time-map";
         return JsonUtils
             .toJson(this)
-            .map(json -> createPostRequest(fullUri, appId, apiKey, json, acceptType()));
+            .map(json -> createPostRequest(uri, appId, apiKey, json, acceptType()));
     }
 
     @Override

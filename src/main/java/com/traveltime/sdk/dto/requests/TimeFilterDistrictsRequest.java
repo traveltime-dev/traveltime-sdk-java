@@ -24,11 +24,11 @@ public class TimeFilterDistrictsRequest extends TravelTimeRequest<TimeFilterDist
     List<ArrivalSearch> arrivalSearches;
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(String appId, String apiKey, URI uri) {
-        String fullUri = uri + "/time-filter/postcode-districts";
+    public Either<TravelTimeError, Request> createRequest(URI baseUri, String appId, String apiKey) {
+        String uri = baseUri + "time-filter/postcode-districts";
         return JsonUtils
             .toJson(this)
-            .map(json -> createPostRequest(fullUri, appId, apiKey, json, AcceptType.APPLICATION_JSON));
+            .map(json -> createPostRequest(uri, appId, apiKey, json, AcceptType.APPLICATION_JSON));
     }
 
     @Override

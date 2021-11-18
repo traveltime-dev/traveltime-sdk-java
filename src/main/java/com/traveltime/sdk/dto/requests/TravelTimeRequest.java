@@ -12,7 +12,7 @@ import java.net.URI;
 public abstract class TravelTimeRequest<T> {
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public abstract Either<TravelTimeError, Request> createRequest(String appId, String apiKey, URI uri);
+    public abstract Either<TravelTimeError, Request> createRequest(URI baseUri, String appId, String apiKey);
 
     public abstract Class<T> responseType();
 

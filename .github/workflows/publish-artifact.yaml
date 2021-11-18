@@ -27,4 +27,6 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+          PROTO_USERNAME: ${{ secrets.PROTO_USERNAME }}
+          PROTO_PASSWORD: ${{ secrets.PROTO_PASSWORD }}
         run: mvn --batch-mode deploy

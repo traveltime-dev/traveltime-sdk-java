@@ -1,5 +1,6 @@
 package com.traveltime.sdk;
 
+import com.traveltime.sdk.dto.requests.ProtoRequest;
 import com.traveltime.sdk.dto.requests.TravelTimeRequest;
 import com.traveltime.sdk.dto.responses.errors.IOError;
 import com.traveltime.sdk.dto.responses.errors.ResponseError;
@@ -31,8 +32,12 @@ public class TravelTimeSDK {
     private String appId;
     @NonNull
     private String apiKey;
+
     @Builder.Default
-    private URI uri = URI.create("https://api.traveltimeapp.com/v4");
+    private URI baseUri = URI.create("https://api.traveltimeapp.com/v4/");
+
+    @Builder.Default
+    private URI baseProtoUri = URI.create("https://proto.api.traveltimeapp.com/api/v2/");
 
     private <T> Option<ValidationError> validate(TravelTimeRequest<T> request) {
         Set<ConstraintViolation<TravelTimeRequest<T>>> violations = validator.validate(request);
@@ -58,7 +63,15 @@ public class TravelTimeSDK {
         }
     }
 
-    private <T> Either<TravelTimeError, T> getHttpResponse(TravelTimeRequest<T> request, Response response)  {
+    private <T> Either<TravelTimeError, T> parseByteResponse(ProtoRequest<T> request, Response response) {
+        return Try
+            .of(() -> Objects.requireNonNull(response.body()).bytes())
+            .toEither()
+            .<TravelTimeError>mapLeft(IOError::new)
+            .flatMap(request::parseBytes);
+    }
+
+    private <T> Either<TravelTimeError, T> getHttpResponse(TravelTimeRequest<T> request, Response response) {
         return Try
             .of(() -> Objects.requireNonNull(response.body()).string())
             .toEither()
@@ -73,13 +86,20 @@ public class TravelTimeSDK {
             .mapLeft(IOError::new);
     }
 
+    public <T> Either<TravelTimeError, T> sendProto(ProtoRequest<T> request) {
+        return request
+            .createRequest(baseProtoUri, appId, apiKey)
+            .flatMap(this::executeRequest)
+            .flatMap(response -> parseByteResponse(request, response));
+    }
+
     public <T> Either<TravelTimeError, T> send(TravelTimeRequest<T> request) {
         Option<ValidationError> validationError = validate(request);
         if(validationError.isDefined()) {
             return Either.left(validationError.get());
         } else {
             return request
-                .createRequest(appId, apiKey, uri)
+                .createRequest(baseUri, appId, apiKey)
                 .flatMap(this::executeRequest)
                 .flatMap(response -> getHttpResponse(request, response));
         }
@@ -112,7 +132,7 @@ public class TravelTimeSDK {
             future.complete(Either.left(validationError.get()));
         } else {
             request
-                .createRequest(appId, apiKey, uri)
+                .createRequest(baseUri, appId, apiKey)
                 .peekLeft(error -> future.complete(Either.left(error)))
                 .peek(createdRequest -> completeFuture(future, request, createdRequest));
         }
