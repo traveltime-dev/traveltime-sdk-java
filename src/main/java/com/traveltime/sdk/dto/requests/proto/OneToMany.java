@@ -20,4 +20,6 @@ public class OneToMany {
     Transportation transportation;
     @NonNull
     Integer travelTime;
+    @NonNull
+    Country country;
 }

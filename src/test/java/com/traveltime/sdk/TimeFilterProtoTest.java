@@ -3,6 +3,7 @@ package com.traveltime.sdk;
 
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.TimeFilterProtoRequest;
+import com.traveltime.sdk.dto.requests.proto.Country;
 import com.traveltime.sdk.dto.requests.proto.OneToMany;
 import com.traveltime.sdk.dto.requests.proto.Transportation;
 import com.traveltime.sdk.dto.responses.TimeFilterProtoResponse;
@@ -27,7 +28,13 @@ public class TimeFilterProtoTest {
     public void shouldSendTimeFilterProtoRequest() {
         Coordinates origin = new Coordinates(51.425709, -0.122061);
         List<Coordinates> destinations = Collections.singletonList(new Coordinates(51.348605, -0.314783));
-        OneToMany oneToMany = new OneToMany(origin, destinations, Transportation.DRIVING_FERRY, 7200);
+        OneToMany oneToMany = new OneToMany(
+            origin,
+            destinations,
+            Transportation.DRIVING_FERRY,
+            7200,
+            Country.NETHERLANDS
+        );
         TimeFilterProtoRequest request = new TimeFilterProtoRequest(oneToMany);
 
         Either<TravelTimeError, TimeFilterProtoResponse> response = sdk.sendProto(request);
