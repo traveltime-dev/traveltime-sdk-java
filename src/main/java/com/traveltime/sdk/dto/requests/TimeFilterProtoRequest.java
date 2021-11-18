@@ -7,6 +7,7 @@ import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.proto.OneToMany;
 import com.traveltime.sdk.dto.responses.TimeFilterProtoResponse;
 import com.traveltime.sdk.dto.responses.errors.IOError;
+import com.traveltime.sdk.dto.responses.errors.ProtoError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
@@ -67,12 +68,20 @@ public class TimeFilterProtoRequest extends ProtoRequest<TimeFilterProtoResponse
         return Either.right(createProtobufRequest(uri, username, password, createByteArray()));
     }
 
+    private Either<TravelTimeError, TimeFilterProtoResponse> parseResponse(TimeFilterFastResponse response) {
+        if(response.hasError()) {
+            return Either.left(new ProtoError(response.getError().toString()));
+        } else {
+            return Either.right(new TimeFilterProtoResponse(response.getProperties().getTravelTimesList()));
+        }
+    }
+
     @Override
     public Either<TravelTimeError, TimeFilterProtoResponse> parseBytes(byte[] body) {
         return Try
             .of(() -> TimeFilterFastResponse.parseFrom(body))
             .toEither()
-            .map(response -> new TimeFilterProtoResponse(response.getProperties().getTravelTimesList()))
-            .mapLeft(IOError::new);
+            .<TravelTimeError>mapLeft(IOError::new)
+            .flatMap(this::parseResponse);
     }
 }
