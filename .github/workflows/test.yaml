@@ -23,4 +23,6 @@ jobs:
         env:
           APP_ID: ${{ secrets.APP_ID }}
           API_KEY: ${{ secrets.API_KEY }}
+          PROTO_USERNAME: ${{ secrets.PROTO_USERNAME }}
+          PROTO_PASSWORD: ${{ secrets.PROTO_PASSWORD }}
         run: mvn -B clean verify
