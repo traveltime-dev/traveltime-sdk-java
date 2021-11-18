@@ -44,9 +44,4 @@ public class RoutesRequest extends TravelTimeRequest<RoutesResponse> {
     public Class<RoutesResponse> responseType() {
         return RoutesResponse.class;
     }
-
-    @Override
-    public Boolean isProto() {
-        return false;
-    }
 }

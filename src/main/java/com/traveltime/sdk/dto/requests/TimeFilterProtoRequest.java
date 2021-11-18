@@ -1,12 +1,15 @@
 package com.traveltime.sdk.dto.requests;
 
 import com.igeolise.traveltime.rabbitmq.requests.RequestsCommon;
-import com.igeolise.traveltime.rabbitmq.requests.TimeFilterFastRequestOuterClass;
+import com.igeolise.traveltime.rabbitmq.requests.TimeFilterFastRequestOuterClass.TimeFilterFastRequest;
+import com.igeolise.traveltime.rabbitmq.responses.TimeFilterFastResponseOuterClass.TimeFilterFastResponse;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.proto.OneToMany;
 import com.traveltime.sdk.dto.responses.TimeFilterProtoResponse;
+import com.traveltime.sdk.dto.responses.errors.IOError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
+import io.vavr.control.Try;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,8 +19,8 @@ import okhttp3.Request;
 @Getter
 @Builder
 @AllArgsConstructor
-public class TimeFilterProtoRequest extends TravelTimeRequest<TimeFilterProtoResponse> {
-    private final String BASE_URI = "https://proto.api.traveltimeapp.com/api/v2/nl/time-filter/fast/";
+public class TimeFilterProtoRequest extends ProtoRequest<TimeFilterProtoResponse> {
+    private static final String baseUri = "https://proto.api.traveltimeapp.com/api/v2/nl/time-filter/fast/";
     @NonNull
     OneToMany oneToMany;
 
@@ -37,7 +40,7 @@ public class TimeFilterProtoRequest extends TravelTimeRequest<TimeFilterProtoRes
             .setTypeValue(oneToMany.getTransportation().getCode())
             .build();
 
-        TimeFilterFastRequestOuterClass.TimeFilterFastRequest.OneToMany.Builder oneToManyBuilder = TimeFilterFastRequestOuterClass.TimeFilterFastRequest
+        TimeFilterFastRequest.OneToMany.Builder oneToManyBuilder = TimeFilterFastRequest
             .OneToMany
             .newBuilder()
             .setDepartureLocation(departure)
@@ -51,7 +54,7 @@ public class TimeFilterProtoRequest extends TravelTimeRequest<TimeFilterProtoRes
             oneToManyBuilder.addLocationDeltas((int)Math.round((dest.getLng() - origin.getLng()) * mult));
         }
 
-        return TimeFilterFastRequestOuterClass.TimeFilterFastRequest
+        return TimeFilterFastRequest
             .newBuilder()
             .setOneToManyRequest(oneToManyBuilder.build())
             .build()
@@ -60,18 +63,16 @@ public class TimeFilterProtoRequest extends TravelTimeRequest<TimeFilterProtoRes
 
     @Override
     public Either<TravelTimeError, Request> createRequest(String username, String password) {
-        String uri = BASE_URI + oneToMany.getTransportation().getValue();
+        String uri = baseUri + oneToMany.getTransportation().getValue();
         return Either.right(createProtobufRequest(uri, username, password, createByteArray()));
     }
 
     @Override
-    public Class<TimeFilterProtoResponse> responseType() {
-        return TimeFilterProtoResponse.class;
-    }
-
-
-    @Override
-    public Boolean isProto() {
-        return true;
+    public Either<TravelTimeError, TimeFilterProtoResponse> parseBytes(byte[] body) {
+        return Try
+            .of(() -> TimeFilterFastResponse.parseFrom(body))
+            .toEither()
+            .map(response -> new TimeFilterProtoResponse(response.getProperties().getTravelTimesList()))
+            .mapLeft(IOError::new);
     }
 }

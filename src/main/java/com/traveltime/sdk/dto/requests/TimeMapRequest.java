@@ -15,7 +15,6 @@ import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 
-import java.net.URI;
 import java.util.List;
 
 @Value
@@ -44,10 +43,5 @@ public class TimeMapRequest extends TravelTimeRequest<TimeMapResponse> {
     @Override
     public Class<TimeMapResponse> responseType() {
         return TimeMapResponse.class;
-    }
-
-    @Override
-    public Boolean isProto() {
-        return false;
     }
 }

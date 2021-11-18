@@ -36,9 +36,4 @@ public class SupportedLocationsRequest extends TravelTimeRequest<SupportedLocati
     public Class<SupportedLocationsResponse> responseType() {
         return SupportedLocationsResponse.class;
     }
-
-    @Override
-    public Boolean isProto() {
-        return false;
-    }
 }

@@ -17,7 +17,6 @@ import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 
-import java.net.URI;
 import java.util.List;
 
 @Value
@@ -57,10 +56,5 @@ public class TimeMapWktRequest extends TravelTimeRequest<TimeMapWktResponse> {
     @Override
     public Class<TimeMapWktResponse> responseType() {
         return TimeMapWktResponse.class;
-    }
-
-    @Override
-    public Boolean isProto() {
-        return false;
     }
 }

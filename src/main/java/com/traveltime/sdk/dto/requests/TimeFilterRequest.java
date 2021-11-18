@@ -14,7 +14,6 @@ import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 
-import java.net.URI;
 import java.util.List;
 
 @Value
@@ -41,10 +40,5 @@ public class TimeFilterRequest extends TravelTimeRequest<TimeFilterResponse> {
     @Override
     public Class<TimeFilterResponse> responseType() {
         return TimeFilterResponse.class;
-    }
-
-    @Override
-    public Boolean isProto() {
-        return false;
     }
 }

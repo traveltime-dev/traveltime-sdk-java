@@ -1,8 +1,7 @@
 package com.traveltime.sdk;
 
-import com.igeolise.traveltime.rabbitmq.responses.TimeFilterFastResponseOuterClass;
+import com.traveltime.sdk.dto.requests.ProtoRequest;
 import com.traveltime.sdk.dto.requests.TravelTimeRequest;
-import com.traveltime.sdk.dto.responses.TimeFilterProtoResponse;
 import com.traveltime.sdk.dto.responses.errors.IOError;
 import com.traveltime.sdk.dto.responses.errors.ResponseError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
@@ -56,28 +55,20 @@ public class TravelTimeSDK {
         }
     }
 
-    private <T> Either<TravelTimeError, T> parseProto(byte[] body) {
+    private <T> Either<TravelTimeError, T> parseByteResponse(ProtoRequest<T> request, Response response) {
         return Try
-            .of(() -> TimeFilterFastResponseOuterClass.TimeFilterFastResponse.parseFrom(body))
+            .of(() -> Objects.requireNonNull(response.body()).bytes())
             .toEither()
-            .map(response -> (T) new TimeFilterProtoResponse(response.getProperties().getTravelTimesList()))
-            .mapLeft(IOError::new);
+            .<TravelTimeError>mapLeft(IOError::new)
+            .flatMap(request::parseBytes);
     }
 
     private <T> Either<TravelTimeError, T> getHttpResponse(TravelTimeRequest<T> request, Response response) {
-        if(request.isProto()) {
-            return Try
-                .of(() -> Objects.requireNonNull(response.body()).bytes())
-                .toEither()
-                .<TravelTimeError>mapLeft(IOError::new)
-                .flatMap(this::parseProto);
-        } else {
-            return Try
-                .of(() -> Objects.requireNonNull(response.body()).string())
-                .toEither()
-                .<TravelTimeError>mapLeft(IOError::new)
-                .flatMap(body -> parseJsonBody(request, response.code(), body));
-        }
+        return Try
+            .of(() -> Objects.requireNonNull(response.body()).string())
+            .toEither()
+            .<TravelTimeError>mapLeft(IOError::new)
+            .flatMap(body -> parseJsonBody(request, response.code(), body));
     }
 
     private Either<TravelTimeError, Response> executeRequest(Request request) {
@@ -85,6 +76,13 @@ public class TravelTimeSDK {
             .of(() -> client.newCall(request).execute())
             .toEither()
             .mapLeft(IOError::new);
+    }
+
+    public <T> Either<TravelTimeError, T> sendProto(ProtoRequest<T> request) {
+        return request
+            .createRequest(appId, apiKey)
+            .flatMap(this::executeRequest)
+            .flatMap(response -> parseByteResponse(request, response));
     }
 
     public <T> Either<TravelTimeError, T> send(TravelTimeRequest<T> request) {

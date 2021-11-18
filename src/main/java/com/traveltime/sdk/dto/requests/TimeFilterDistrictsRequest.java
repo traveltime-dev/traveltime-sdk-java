@@ -34,9 +34,4 @@ public class TimeFilterDistrictsRequest extends TravelTimeRequest<TimeFilterDist
     public Class<TimeFilterDistrictsResponse> responseType() {
         return TimeFilterDistrictsResponse.class;
     }
-
-    @Override
-    public Boolean isProto() {
-        return false;
-    }
 }

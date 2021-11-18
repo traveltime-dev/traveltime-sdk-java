@@ -37,10 +37,5 @@ public class TimeFilterPostcodesRequest extends TravelTimeRequest<TimeFilterPost
     public Class<TimeFilterPostcodesResponse> responseType() {
         return TimeFilterPostcodesResponse.class;
     }
-
-    @Override
-    public Boolean isProto() {
-        return false;
-    }
 }
 

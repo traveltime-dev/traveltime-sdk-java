@@ -17,7 +17,6 @@ import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 
-import java.net.URI;
 import java.util.List;
 
 @Value
@@ -37,7 +36,7 @@ public class TimeMapBoxesRequest  extends TravelTimeRequest<TimeMapBoxesResponse
 
     @Override
     public Either<TravelTimeError, Request> createRequest(String appId, String apiKey) {
-        String uri = "https://api.traveltimeapp.com/v4//time-map";
+        String uri = "https://api.traveltimeapp.com/v4/time-map";
         AcceptType acceptType = AcceptType.APPLICATION_BOUNDING_BOXES_JSON;
         return JsonUtils
             .toJson(this)
@@ -47,10 +46,5 @@ public class TimeMapBoxesRequest  extends TravelTimeRequest<TimeMapBoxesResponse
     @Override
     public Class<TimeMapBoxesResponse> responseType() {
         return TimeMapBoxesResponse.class;
-    }
-
-    @Override
-    public Boolean isProto() {
-        return false;
     }
 }
