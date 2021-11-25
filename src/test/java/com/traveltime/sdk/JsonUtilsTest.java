@@ -5,6 +5,7 @@ import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.*;
 import com.traveltime.sdk.dto.responses.*;
 import com.traveltime.sdk.dto.responses.errors.ResponseError;
+import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.Assert;
 import org.junit.Test;
@@ -38,6 +39,7 @@ public class JsonUtilsTest {
             new ImmutablePair(TimeFilterDistrictsResponse.class, "dto/responses/timeFilterDistrictsResponse.json"),
             new ImmutablePair(TimeFilterSectorsResponse.class, "dto/responses/timeFilterSectorsResponse.json"),
             new ImmutablePair(TimeFilterPostcodesResponse.class, "dto/responses/timeFilterPostcodesResponse.json"),
+            new ImmutablePair(MapInfoResponse.class, "dto/responses/mapInfoResponse.json"),
             new ImmutablePair(ResponseError.class, "dto/responses/errorResponse.json"),
 
             // transportations
