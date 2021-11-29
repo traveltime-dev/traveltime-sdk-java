@@ -9,4 +9,9 @@ import lombok.NonNull;
 public class JsonProcessingError implements TravelTimeError {
     @NonNull
     String errorMsg;
+
+    @Override
+    public String getMessage() {
+        return errorMsg;
+    }
 }

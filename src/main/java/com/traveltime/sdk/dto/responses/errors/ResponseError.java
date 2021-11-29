@@ -24,4 +24,9 @@ public class ResponseError implements TravelTimeError {
     String documentationLink;
     @NonNull
     Map<String, List<String>> additionalInfo;
+
+    @Override
+    public String getMessage() {
+        return description;
+    }
 }
