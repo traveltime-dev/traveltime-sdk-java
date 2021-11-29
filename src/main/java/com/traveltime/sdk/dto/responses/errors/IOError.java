@@ -9,4 +9,9 @@ import lombok.NonNull;
 public class IOError implements TravelTimeError {
     @NonNull
     Throwable cause;
+
+    @Override
+    public String getMessage() {
+        return cause.getMessage();
+    }
 }

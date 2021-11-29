@@ -1,5 +1,6 @@
 package com.traveltime.sdk.dto.responses.errors;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,4 +25,10 @@ public class ResponseError implements TravelTimeError {
     String documentationLink;
     @NonNull
     Map<String, List<String>> additionalInfo;
+
+    @Override
+    @JsonIgnore
+    public String getMessage() {
+        return description;
+    }
 }

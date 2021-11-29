@@ -3,7 +3,8 @@ name: Artifact publish
 on:
   push:
     branches: [master]
-    tags: ["*"]
+    paths-ignore:
+      - '*.md'
 
 jobs:
   publish:
