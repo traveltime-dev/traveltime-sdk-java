@@ -14,5 +14,5 @@ public class Supported {
     @NonNull
     String searchType;
     @NonNull
-    String transportation_mode;
+    String transportationMode;
 }
