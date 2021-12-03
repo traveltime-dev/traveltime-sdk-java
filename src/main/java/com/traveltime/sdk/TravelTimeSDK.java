@@ -64,19 +64,25 @@ public class TravelTimeSDK {
     }
 
     private <T> Either<TravelTimeError, T> parseByteResponse(ProtoRequest<T> request, Response response) {
-        return Try
+        Either<TravelTimeError, T> protoResponse = Try
             .of(() -> Objects.requireNonNull(response.body()).bytes())
             .toEither()
             .<TravelTimeError>mapLeft(IOError::new)
             .flatMap(request::parseBytes);
+
+        response.close();
+        return protoResponse;
     }
 
     private <T> Either<TravelTimeError, T> getHttpResponse(TravelTimeRequest<T> request, Response response) {
-        return Try
+        Either<TravelTimeError, T> httpResponse = Try
             .of(() -> Objects.requireNonNull(response.body()).string())
             .toEither()
             .<TravelTimeError>mapLeft(IOError::new)
             .flatMap(body -> parseJsonBody(request, response.code(), body));
+
+        response.close();
+        return httpResponse;
     }
 
     private Either<TravelTimeError, Response> executeRequest(Request request) {
