@@ -15,9 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class TimeFilterZonesTest {
@@ -61,7 +59,7 @@ public class TimeFilterZonesTest {
             "Test departure search",
             coordinates,
             transportation,
-            Date.from(Instant.now()),
+            Instant.now(),
             900,
             0.1,
             Collections.singletonList(Property.COVERAGE),
@@ -75,10 +73,10 @@ public class TimeFilterZonesTest {
             "Test arrival search",
             coordinates,
             transportation,
-            Date.from(Instant.now()),
+            Instant.now(),
             900,
             0.1,
-            Arrays.asList(Property.COVERAGE),
+            Collections.singletonList(Property.COVERAGE),
             new FullRange(true, 1, 300)
         );
         return Collections.singletonList(as);

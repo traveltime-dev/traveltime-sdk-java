@@ -1,7 +1,6 @@
 package com.traveltime.sdk;
 
 import com.traveltime.sdk.dto.common.Coordinates;
-import com.traveltime.sdk.dto.common.transportation.Driving;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.*;
@@ -16,7 +15,6 @@ import org.junit.Test;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class TimeMapTest {
@@ -101,7 +99,7 @@ public class TimeMapTest {
             "Test arrival search",
             coords,
             transportation,
-            Date.from(Instant.now()),
+            Instant.now(),
             900,
             new Range(true, 400)
         );
@@ -114,7 +112,7 @@ public class TimeMapTest {
             "Test departure search",
             coords,
             transportation,
-            Date.from(Instant.now()),
+            Instant.now(),
             900,
             new Range(true, 400)
         );

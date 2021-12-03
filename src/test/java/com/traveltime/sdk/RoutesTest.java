@@ -19,7 +19,6 @@ import org.junit.Test;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class RoutesTest {
@@ -59,7 +58,7 @@ public class RoutesTest {
             departureLocation,
             arrivalLocations,
             transportation,
-            Date.from(Instant.now()),
+            Instant.now(),
             Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE),
             new FullRange(true, 1, 300)
         );
@@ -76,7 +75,7 @@ public class RoutesTest {
             departureLocations,
             arrivalLocation,
             transportation,
-            Date.from(Instant.now()),
+            Instant.now(),
             Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES),
             new FullRange(true, 1, 300)
         );

@@ -16,7 +16,6 @@ import org.junit.Test;
 
 import java.time.Instant;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class TimeFilterPostcodesTest {
@@ -46,7 +45,7 @@ public class TimeFilterPostcodesTest {
             "Test departure search",
             coordinates,
             transportation,
-            Date.from(Instant.now()),
+            Instant.now(),
             900,
             Collections.singletonList(Property.TRAVEL_TIME),
             new FullRange(true, 1, 300)
@@ -59,7 +58,7 @@ public class TimeFilterPostcodesTest {
             "Test arrival search",
             coordinates,
             transportation,
-            Date.from(Instant.now()),
+            Instant.now(),
             900,
             Collections.singletonList(Property.TRAVEL_TIME),
             new FullRange(true, 1, 300)

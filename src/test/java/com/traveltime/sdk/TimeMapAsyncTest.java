@@ -15,7 +15,6 @@ import org.junit.Test;
 
 import java.time.Instant;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -47,7 +46,7 @@ public class TimeMapAsyncTest {
             "Test async arrival search",
             coords,
             transportation,
-            Date.from(Instant.now()),
+            Instant.now(),
             900,
             new Range(true, 400)
         );

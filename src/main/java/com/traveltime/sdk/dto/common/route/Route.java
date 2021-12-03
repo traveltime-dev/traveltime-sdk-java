@@ -1,10 +1,9 @@
 package com.traveltime.sdk.dto.common.route;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Value
@@ -13,11 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 public class Route {
     @NonNull
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    Date departureTime;
+    OffsetDateTime departureTime;
     @NonNull
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    Date arrivalTime;
+    OffsetDateTime arrivalTime;
     @NonNull
     List<Part> parts;
 }

@@ -1,12 +1,11 @@
 package com.traveltime.sdk.dto.common.route;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.traveltime.sdk.dto.common.Coordinates;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
-import java.util.Date;
+import java.time.LocalTime;
 import java.util.List;
 
 @Value
@@ -35,11 +34,9 @@ public class PublicTransportPart implements Part {
     @NonNull
     String arrivalStation;
     @NonNull
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    Date departsAt;
+    LocalTime departsAt;
     @NonNull
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    Date arrivesAt;
+    LocalTime arrivesAt;
     @NonNull
     Integer numStops;
 }
