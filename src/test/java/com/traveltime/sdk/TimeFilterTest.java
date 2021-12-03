@@ -22,7 +22,6 @@ import org.junit.Test;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class TimeFilterTest {
@@ -117,7 +116,7 @@ public class TimeFilterTest {
             departureLocation,
             arrivalLocations,
             transportation,
-            Date.from(Instant.now()),
+            Instant.now(),
             900,
             Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE),
             new FullRange(true, 2, 300)
@@ -135,7 +134,7 @@ public class TimeFilterTest {
             departureLocations,
             arrivalLocation,
             transportation,
-            Date.from(Instant.now()),
+            Instant.now(),
             900,
             Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES),
             new FullRange(true, 1, 300)

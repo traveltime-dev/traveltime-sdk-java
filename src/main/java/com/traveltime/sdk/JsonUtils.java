@@ -1,7 +1,9 @@
 package com.traveltime.sdk;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.traveltime.sdk.dto.responses.errors.IOError;
 import com.traveltime.sdk.dto.responses.errors.JsonProcessingError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
@@ -23,8 +25,12 @@ public class JsonUtils {
         .addSerializer(Geometry.class, new JTSGeometrySerializer())
         .addDeserializer(Geometry.class, new JTSGeometryDeserializer());
 
+    private static JavaTimeModule timeModule = new JavaTimeModule();
+
     private static final ObjectMapper DEFAULT_MAPPER = new ObjectMapper()
         .registerModule(module)
+        .registerModule(timeModule)
+        .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
         .setPropertyNamingStrategy(SNAKE_CASE);
 
     public static <T> Either<TravelTimeError, T> fromJson(final String content, final Class<T> clazz) {
