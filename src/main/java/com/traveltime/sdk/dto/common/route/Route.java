@@ -3,7 +3,7 @@ package com.traveltime.sdk.dto.common.route;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Value
@@ -12,9 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 public class Route {
     @NonNull
-    LocalDateTime departureTime;
+    OffsetDateTime departureTime;
     @NonNull
-    LocalDateTime arrivalTime;
+    OffsetDateTime arrivalTime;
     @NonNull
     List<Part> parts;
 }
