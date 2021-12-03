@@ -3,7 +3,6 @@ package com.traveltime.sdk.dto.responses.zones;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 

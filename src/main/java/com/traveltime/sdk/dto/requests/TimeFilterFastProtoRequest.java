@@ -12,7 +12,6 @@ import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import lombok.*;
-import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 
 import java.net.URI;

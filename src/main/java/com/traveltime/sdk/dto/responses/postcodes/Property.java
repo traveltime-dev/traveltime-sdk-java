@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 

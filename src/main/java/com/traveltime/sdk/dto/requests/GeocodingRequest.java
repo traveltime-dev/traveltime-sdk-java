@@ -3,7 +3,6 @@ package com.traveltime.sdk.dto.requests;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import lombok.*;
-import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 import org.geojson.FeatureCollection;
 

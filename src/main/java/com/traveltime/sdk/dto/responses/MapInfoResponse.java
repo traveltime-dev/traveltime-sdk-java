@@ -4,7 +4,6 @@ package com.traveltime.sdk.dto.responses;
 import com.traveltime.sdk.dto.responses.mapinfo.Map;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
