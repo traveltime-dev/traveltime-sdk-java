@@ -1,11 +1,33 @@
 {
   "maps" : [ {
-    "name" : "gr",
+    "name" : "au_qld",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-05T00:00",
-        "date_end" : "2022-01-08T00:00"
+        "date_start" : "2021-11-13T14:00:00Z",
+        "date_end" : "2022-01-16T14:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "eg",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-12T22:00:00Z",
+        "date_end" : "2022-01-15T22:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "si",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-12T23:00:00Z",
+        "date_end" : "2022-01-15T23:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -15,8 +37,8 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-10-24T00:00",
-        "date_end" : "2021-12-27T00:00"
+        "date_start" : "2021-10-24T04:00:00Z",
+        "date_end" : "2021-12-27T05:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -26,30 +48,8 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-07T00:00",
-        "date_end" : "2022-01-10T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "sg",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-11-07T00:00",
-        "date_end" : "2022-01-10T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "ca_ast",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-11-06T00:00",
-        "date_end" : "2022-01-09T00:00"
+        "date_start" : "2021-11-06T14:30:00Z",
+        "date_end" : "2022-01-09T14:30:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -59,41 +59,74 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-10-28T00:00",
-        "date_end" : "2021-12-31T00:00"
+        "date_start" : "2021-10-28T05:00:00Z",
+        "date_end" : "2021-12-31T06:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
     }
   }, {
-    "name" : "ca_mst",
+    "name" : "no",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-06T00:00",
-        "date_end" : "2022-01-09T00:00"
+        "date_start" : "2021-11-12T23:00:00Z",
+        "date_end" : "2022-01-15T23:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
     }
   }, {
-    "name" : "cy",
+    "name" : "lt",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-06T00:00",
-        "date_end" : "2022-01-09T00:00"
+        "date_start" : "2021-11-11T22:00:00Z",
+        "date_end" : "2022-01-14T22:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
     }
   }, {
-    "name" : "bg",
+    "name" : "cl",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-08T00:00",
-        "date_end" : "2022-01-11T00:00"
+        "date_start" : "2021-11-14T03:00:00Z",
+        "date_end" : "2022-01-17T03:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "us_hi",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-12T10:00:00Z",
+        "date_end" : "2022-01-15T10:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "it",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-02T23:00:00Z",
+        "date_end" : "2022-01-05T23:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "nl",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-11T23:00:00Z",
+        "date_end" : "2022-01-14T23:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -110,41 +143,19 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-10-24T00:00",
-        "date_end" : "2021-12-27T00:00"
+        "date_start" : "2021-10-24T04:00:00Z",
+        "date_end" : "2021-12-27T05:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
     }
   }, {
-    "name" : "cn",
+    "name" : "lv",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-07T00:00",
-        "date_end" : "2022-01-10T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "is",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-11-06T00:00",
-        "date_end" : "2022-01-09T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "co",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-11-07T00:00",
-        "date_end" : "2022-01-10T00:00"
+        "date_start" : "2021-11-13T22:00:00Z",
+        "date_end" : "2022-01-16T22:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -154,41 +165,8 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-10-24T00:00",
-        "date_end" : "2021-12-27T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "us_akst",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-11-06T00:00",
-        "date_end" : "2022-01-09T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "be",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-11-05T00:00",
-        "date_end" : "2022-01-08T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "se",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-10-29T00:00",
-        "date_end" : "2022-01-01T00:00"
+        "date_start" : "2021-10-24T03:00:00Z",
+        "date_end" : "2021-12-27T03:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -198,8 +176,63 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-07T00:00",
-        "date_end" : "2022-01-10T00:00"
+        "date_start" : "2021-11-13T16:00:00Z",
+        "date_end" : "2022-01-16T16:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "do",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-12T04:00:00Z",
+        "date_end" : "2022-01-15T04:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "se",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-10-28T22:00:00Z",
+        "date_end" : "2021-12-31T23:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "us_akst",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-13T09:00:00Z",
+        "date_end" : "2022-01-16T09:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "za",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-09T22:00:00Z",
+        "date_end" : "2022-01-12T22:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "ae",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-12T20:00:00Z",
+        "date_end" : "2022-01-15T20:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -209,19 +242,19 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-10-24T00:00",
-        "date_end" : "2021-12-27T00:00"
+        "date_start" : "2021-10-23T22:00:00Z",
+        "date_end" : "2021-12-26T23:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
     }
   }, {
-    "name" : "es_ca",
+    "name" : "id",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-07T00:00",
-        "date_end" : "2022-01-10T00:00"
+        "date_start" : "2021-11-17T16:00:00Z",
+        "date_end" : "2022-01-20T16:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -234,9 +267,31 @@
       "postcodes" : false
     }
   }, {
+    "name" : "pl",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-13T23:00:00Z",
+        "date_end" : "2022-01-16T23:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
     "name" : "kw",
     "features" : {
       "cross_country_modes" : [ ],
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "rs",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-12T23:00:00Z",
+        "date_end" : "2022-01-15T23:00:00Z"
+      },
       "fares" : false,
       "postcodes" : false
     }
@@ -248,75 +303,9 @@
       "postcodes" : false
     }
   }, {
-    "name" : "tw",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-11-07T00:00",
-        "date_end" : "2022-01-10T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
     "name" : "pa",
     "features" : {
       "cross_country_modes" : [ ],
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "il",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-11-05T00:00",
-        "date_end" : "2022-01-08T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "th",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-10-16T00:00",
-        "date_end" : "2021-12-19T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "it",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-10-01T00:00",
-        "date_end" : "2021-12-04T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "dk",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-11-05T00:00",
-        "date_end" : "2022-01-08T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "no",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-11-06T00:00",
-        "date_end" : "2022-01-09T00:00"
-      },
       "fares" : false,
       "postcodes" : false
     }
@@ -325,52 +314,19 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-06T00:00",
-        "date_end" : "2022-01-09T00:00"
+        "date_start" : "2021-11-16T23:00:00Z",
+        "date_end" : "2022-01-19T23:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
     }
   }, {
-    "name" : "ca_cst",
+    "name" : "co",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-06T00:00",
-        "date_end" : "2022-01-09T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "ca_est",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-11-06T00:00",
-        "date_end" : "2022-01-09T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "hr",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-11-07T00:00",
-        "date_end" : "2022-01-10T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "jp",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-10-03T00:00",
-        "date_end" : "2021-12-06T00:00"
+        "date_start" : "2021-11-14T05:00:00Z",
+        "date_end" : "2022-01-17T05:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -380,85 +336,65 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-07T00:00",
-        "date_end" : "2022-01-10T00:00"
+        "date_start" : "2021-11-13T16:00:00Z",
+        "date_end" : "2022-01-16T16:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
     }
   }, {
-    "name" : "ae",
+    "name" : "sk",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-06T00:00",
-        "date_end" : "2022-01-09T00:00"
+        "date_start" : "2021-11-13T23:00:00Z",
+        "date_end" : "2022-01-16T23:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
     }
   }, {
-    "name" : "za",
+    "name" : "ie",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-10-10T00:00",
-        "date_end" : "2021-12-13T00:00"
+        "date_start" : "2021-11-14T00:00:00Z",
+        "date_end" : "2022-01-17T00:00:00Z"
+      },
+      "time_filter_fast" : {
+        "periods" : [ {
+          "time_period" : "weekday_morning",
+          "supported" : [ {
+            "search_type" : "arrival.many_to_one",
+            "transportation_mode" : "driving+public_transport"
+          }, {
+            "search_type" : "arrival.one_to_many",
+            "transportation_mode" : "driving+public_transport"
+          }, {
+            "search_type" : "arrival.many_to_one",
+            "transportation_mode" : "driving"
+          }, {
+            "search_type" : "arrival.one_to_many",
+            "transportation_mode" : "public_transport"
+          }, {
+            "search_type" : "arrival.many_to_one",
+            "transportation_mode" : "public_transport"
+          }, {
+            "search_type" : "arrival.one_to_many",
+            "transportation_mode" : "driving"
+          } ]
+        } ]
       },
       "fares" : false,
-      "postcodes" : false
+      "postcodes" : true
     }
   }, {
-    "name" : "eg",
+    "name" : "is",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-08T00:00",
-        "date_end" : "2022-01-11T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "lv",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-11-07T00:00",
-        "date_end" : "2022-01-10T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "pt",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-11-06T00:00",
-        "date_end" : "2022-01-09T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "au_qld",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-11-07T00:00",
-        "date_end" : "2022-01-10T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "ca_pst",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-11-06T00:00",
-        "date_end" : "2022-01-09T00:00"
+        "date_start" : "2021-11-13T00:00:00Z",
+        "date_end" : "2022-01-16T00:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -471,12 +407,34 @@
       "postcodes" : false
     }
   }, {
-    "name" : "nl",
+    "name" : "lu",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-10-29T00:00",
-        "date_end" : "2022-01-01T00:00"
+        "date_start" : "2021-11-12T23:00:00Z",
+        "date_end" : "2022-01-15T23:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "be",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-11T23:00:00Z",
+        "date_end" : "2022-01-14T23:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "cn",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-13T16:00:00Z",
+        "date_end" : "2022-01-16T16:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -486,41 +444,30 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-10-24T00:00",
-        "date_end" : "2021-12-27T00:00"
+        "date_start" : "2021-11-15T23:00:00Z",
+        "date_end" : "2022-01-18T23:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
     }
   }, {
-    "name" : "hu",
+    "name" : "bg",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-06T00:00",
-        "date_end" : "2022-01-09T00:00"
+        "date_start" : "2021-11-12T22:00:00Z",
+        "date_end" : "2022-01-15T22:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
     }
   }, {
-    "name" : "sk",
+    "name" : "ca_pst",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-07T00:00",
-        "date_end" : "2022-01-10T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "pl",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-10-24T00:00",
-        "date_end" : "2021-12-27T00:00"
+        "date_start" : "2021-11-13T08:00:00Z",
+        "date_end" : "2022-01-16T08:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -530,19 +477,8 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-06T00:00",
-        "date_end" : "2022-01-09T00:00"
-      },
-      "fares" : false,
-      "postcodes" : false
-    }
-  }, {
-    "name" : "ro",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-11-06T00:00",
-        "date_end" : "2022-01-09T00:00"
+        "date_start" : "2021-11-05T22:00:00Z",
+        "date_end" : "2022-01-08T22:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -552,8 +488,19 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-10-28T00:00",
-        "date_end" : "2021-12-31T00:00"
+        "date_start" : "2021-10-28T06:00:00Z",
+        "date_end" : "2021-12-31T07:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "hr",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-13T23:00:00Z",
+        "date_end" : "2022-01-16T23:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -563,8 +510,8 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-06T00:00",
-        "date_end" : "2022-01-09T00:00"
+        "date_start" : "2021-11-05T23:00:00Z",
+        "date_end" : "2022-01-08T23:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -577,23 +524,23 @@
       "postcodes" : false
     }
   }, {
-    "name" : "lu",
+    "name" : "dk",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-06T00:00",
-        "date_end" : "2022-01-09T00:00"
+        "date_start" : "2021-11-11T23:00:00Z",
+        "date_end" : "2022-01-14T23:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
     }
   }, {
-    "name" : "au_nsw_vic_tas",
+    "name" : "sg",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-10-31T00:00",
-        "date_end" : "2022-01-03T00:00"
+        "date_start" : "2021-11-13T16:00:00Z",
+        "date_end" : "2022-01-16T16:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -603,8 +550,19 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-06T00:00",
-        "date_end" : "2022-01-09T00:00"
+        "date_start" : "2021-11-12T22:00:00Z",
+        "date_end" : "2022-01-15T22:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "au_nsw_vic_tas",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-10-30T13:00:00Z",
+        "date_end" : "2022-01-02T13:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -617,12 +575,34 @@
       "postcodes" : false
     }
   }, {
+    "name" : "pt",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-13T00:00:00Z",
+        "date_end" : "2022-01-16T00:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
     "name" : "ch_li",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-10-24T00:00",
-        "date_end" : "2021-12-27T00:00"
+        "date_start" : "2021-10-23T22:00:00Z",
+        "date_end" : "2021-12-26T23:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "gr",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-12T22:00:00Z",
+        "date_end" : "2022-01-15T22:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -639,8 +619,8 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-07T00:00",
-        "date_end" : "2022-01-10T00:00"
+        "date_start" : "2021-11-13T22:00:00Z",
+        "date_end" : "2022-01-16T22:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -650,8 +630,41 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-03T00:00",
-        "date_end" : "2022-01-06T00:00"
+        "date_start" : "2021-11-02T23:00:00Z",
+        "date_end" : "2022-01-05T23:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "cy",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-12T22:00:00Z",
+        "date_end" : "2022-01-15T22:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "ca_ast",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-13T04:00:00Z",
+        "date_end" : "2022-01-16T04:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "nz",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-13T11:00:00Z",
+        "date_end" : "2022-01-16T11:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -664,23 +677,34 @@
       "postcodes" : false
     }
   }, {
-    "name" : "ni",
+    "name" : "ro",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-07T00:00",
-        "date_end" : "2022-01-10T00:00"
+        "date_start" : "2021-11-12T22:00:00Z",
+        "date_end" : "2022-01-15T22:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
     }
   }, {
-    "name" : "si",
+    "name" : "es_ca",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-09T00:00",
-        "date_end" : "2022-01-12T00:00"
+        "date_start" : "2021-11-14T00:00:00Z",
+        "date_end" : "2022-01-17T00:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "th",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-12T17:00:00Z",
+        "date_end" : "2022-01-15T17:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -690,8 +714,8 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-10-29T00:00",
-        "date_end" : "2022-01-01T00:00"
+        "date_start" : "2021-10-28T23:00:00Z",
+        "date_end" : "2022-01-01T00:00:00Z"
       },
       "time_filter_fast" : {
         "periods" : [ {
@@ -721,80 +745,45 @@
       "postcodes" : true
     }
   }, {
-    "name" : "do",
+    "name" : "tw",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-05T00:00",
-        "date_end" : "2022-01-08T00:00"
+        "date_start" : "2021-11-13T16:00:00Z",
+        "date_end" : "2022-01-16T16:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
     }
   }, {
-    "name" : "rs",
+    "name" : "ni",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-08T00:00",
-        "date_end" : "2022-01-11T00:00"
+        "date_start" : "2021-11-14T06:00:00Z",
+        "date_end" : "2022-01-17T06:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
     }
   }, {
-    "name" : "ie",
+    "name" : "ca_est",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-07T00:00",
-        "date_end" : "2022-01-10T00:00"
-      },
-      "time_filter_fast" : {
-        "periods" : [ {
-          "time_period" : "weekday_morning",
-          "supported" : [ {
-            "search_type" : "arrival.many_to_one",
-            "transportation_mode" : "driving+public_transport"
-          }, {
-            "search_type" : "arrival.one_to_many",
-            "transportation_mode" : "driving+public_transport"
-          }, {
-            "search_type" : "arrival.many_to_one",
-            "transportation_mode" : "driving"
-          }, {
-            "search_type" : "arrival.one_to_many",
-            "transportation_mode" : "public_transport"
-          }, {
-            "search_type" : "arrival.many_to_one",
-            "transportation_mode" : "public_transport"
-          }, {
-            "search_type" : "arrival.one_to_many",
-            "transportation_mode" : "driving"
-          } ]
-        } ]
-      },
-      "fares" : false,
-      "postcodes" : true
-    }
-  }, {
-    "name" : "nz",
-    "features" : {
-      "cross_country_modes" : [ ],
-      "public_transport" : {
-        "date_start" : "2021-11-07T00:00",
-        "date_end" : "2022-01-10T00:00"
+        "date_start" : "2021-11-13T05:00:00Z",
+        "date_end" : "2022-01-16T05:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
     }
   }, {
-    "name" : "lt",
+    "name" : "hu",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-05T00:00",
-        "date_end" : "2022-01-08T00:00"
+        "date_start" : "2021-11-12T23:00:00Z",
+        "date_end" : "2022-01-15T23:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -804,8 +793,8 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-07T00:00",
-        "date_end" : "2022-01-10T00:00"
+        "date_start" : "2021-11-06T13:30:00Z",
+        "date_end" : "2022-01-09T13:30:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -815,8 +804,8 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-10-28T00:00",
-        "date_end" : "2021-12-31T00:00"
+        "date_start" : "2021-10-28T05:00:00Z",
+        "date_end" : "2021-12-31T06:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -826,8 +815,41 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-10-28T00:00",
-        "date_end" : "2021-12-31T00:00"
+        "date_start" : "2021-10-28T07:00:00Z",
+        "date_end" : "2021-12-31T08:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "il",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-11T22:00:00Z",
+        "date_end" : "2022-01-14T22:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "jp",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-15T15:00:00Z",
+        "date_end" : "2022-01-18T15:00:00Z"
+      },
+      "fares" : false,
+      "postcodes" : false
+    }
+  }, {
+    "name" : "ca_mst",
+    "features" : {
+      "cross_country_modes" : [ ],
+      "public_transport" : {
+        "date_start" : "2021-11-13T07:00:00Z",
+        "date_end" : "2022-01-16T07:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
@@ -837,30 +859,30 @@
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-08T00:00",
-        "date_end" : "2022-01-11T00:00"
+        "date_start" : "2021-11-12T23:00:00Z",
+        "date_end" : "2022-01-15T23:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
     }
   }, {
-    "name" : "cl",
+    "name" : "ca_cst",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-07T00:00",
-        "date_end" : "2022-01-10T00:00"
+        "date_start" : "2021-11-13T06:00:00Z",
+        "date_end" : "2022-01-16T06:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
     }
   }, {
-    "name" : "us_hi",
+    "name" : "br",
     "features" : {
       "cross_country_modes" : [ ],
       "public_transport" : {
-        "date_start" : "2021-11-05T00:00",
-        "date_end" : "2022-01-08T00:00"
+        "date_start" : "2021-11-17T16:00:00Z",
+        "date_end" : "2022-01-20T16:00:00Z"
       },
       "fares" : false,
       "postcodes" : false
