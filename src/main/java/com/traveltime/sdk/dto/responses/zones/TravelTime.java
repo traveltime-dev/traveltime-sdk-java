@@ -1,17 +1,19 @@
 package com.traveltime.sdk.dto.responses.zones;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
-@Getter
-@Jacksonized
+@Value
 @Builder
+@Jacksonized
 @AllArgsConstructor
 public class TravelTime {
-    int min;
-    int max;
-    int mean;
-    int median;
+    @NonNull
+    Integer min;
+    @NonNull
+    Integer max;
+    @NonNull
+    Integer mean;
+    @NonNull
+    Integer median;
 }

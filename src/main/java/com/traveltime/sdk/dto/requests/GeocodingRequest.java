@@ -3,15 +3,17 @@ package com.traveltime.sdk.dto.requests;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import lombok.*;
+import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 import org.geojson.FeatureCollection;
 
 import java.net.URI;
 import java.util.List;
 
+@Value
 @Builder
 @AllArgsConstructor
-@RequiredArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class GeocodingRequest extends TravelTimeRequest<FeatureCollection> {
     @NonNull
     String query;

@@ -3,12 +3,13 @@ package com.traveltime.sdk.dto.common;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
-
-@Getter
+@Value
 @Builder
 @Jacksonized
 @AllArgsConstructor
 public class Coordinates {
-    double lat;
-    double lng;
+    @NonNull
+    Double lat;
+    @NonNull
+    Double lng;
 }

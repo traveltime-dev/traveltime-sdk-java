@@ -22,6 +22,7 @@ import java.util.List;
 @Builder
 @Jacksonized
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimeMapRequest extends TravelTimeRequest<TimeMapResponse> {
     @Valid

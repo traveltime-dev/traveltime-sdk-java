@@ -1,21 +1,19 @@
 package com.traveltime.sdk.dto.common;
 
 import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
-@Getter
-@Jacksonized
+@Value
 @Builder
+@Jacksonized
 @AllArgsConstructor
 public class Ticket {
     @NonNull
     String type;
+    @NonNull
     @Positive(message = "price must be greater than 0")
-    double price;
+    Double price;
     @NonNull
     String currency;
 }

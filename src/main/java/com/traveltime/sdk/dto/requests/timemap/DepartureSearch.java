@@ -11,12 +11,10 @@ import lombok.extern.jackson.Jacksonized;
 
 import java.util.Date;
 
-
-@Getter
-@Jacksonized
+@Value
 @Builder
+@Jacksonized
 @AllArgsConstructor
-@RequiredArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DepartureSearch {
     @NonNull

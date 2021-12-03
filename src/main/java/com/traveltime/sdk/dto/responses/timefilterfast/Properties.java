@@ -1,15 +1,14 @@
 package com.traveltime.sdk.dto.responses.timefilterfast;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NonNull;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
-@Getter
-@Jacksonized
+@Value
 @Builder
+@Jacksonized
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Properties {
     Integer travelTime;
     @NonNull

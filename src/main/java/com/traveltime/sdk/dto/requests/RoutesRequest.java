@@ -10,10 +10,7 @@ import com.traveltime.sdk.dto.responses.RoutesResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.Value;
+import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 
@@ -24,6 +21,7 @@ import java.util.List;
 @Builder
 @Jacksonized
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RoutesRequest extends TravelTimeRequest<RoutesResponse> {
     @NonNull

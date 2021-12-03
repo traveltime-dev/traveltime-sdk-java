@@ -5,6 +5,7 @@ import com.traveltime.sdk.dto.common.transportation.PublicTransport;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.TimeMapRequest;
 import com.traveltime.sdk.dto.requests.timemap.ArrivalSearch;
+import com.traveltime.sdk.dto.requests.timemap.Range;
 import com.traveltime.sdk.dto.responses.TimeMapResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
@@ -30,7 +31,7 @@ public class TimeMapAsyncTest {
     @Test
     public void shouldSendAsyncTimeMapRequest() throws ExecutionException, InterruptedException {
         Coordinates coords = new Coordinates(51.507609,-0.128315);
-        Transportation transportation = new PublicTransport();
+        Transportation transportation = PublicTransport.builder().build();
 
         TimeMapRequest request = TimeMapRequest
             .builder()
@@ -47,7 +48,8 @@ public class TimeMapAsyncTest {
             coords,
             transportation,
             Date.from(Instant.now()),
-            900
+            900,
+            new Range(true, 400)
         );
 
         return Collections.singletonList(as);

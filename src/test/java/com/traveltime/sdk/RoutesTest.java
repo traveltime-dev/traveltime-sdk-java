@@ -4,6 +4,7 @@ import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.FullRange;
 import com.traveltime.sdk.dto.common.Location;
 import com.traveltime.sdk.dto.common.Property;
+import com.traveltime.sdk.dto.common.transportation.MaxChanges;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.RoutesRequest;
@@ -36,7 +37,7 @@ public class RoutesTest {
             new Location("location2", new Coordinates(51.508824,-0.167093)),
             new Location("location3", new Coordinates(51.536067,-0.153596))
         );
-        Transportation transport = new PublicTransport();
+        Transportation transport = PublicTransport.builder().build();
 
         RoutesRequest request = new RoutesRequest(
             locations,
@@ -59,7 +60,8 @@ public class RoutesTest {
             arrivalLocations,
             transportation,
             Date.from(Instant.now()),
-            Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE)
+            Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE),
+            new FullRange(true, 1, 300)
         );
         return Collections.singletonList(ds);
     }

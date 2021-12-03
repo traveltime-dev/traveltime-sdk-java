@@ -7,10 +7,7 @@ import com.traveltime.sdk.dto.requests.timefilterfast.ArrivalSearches;
 import com.traveltime.sdk.dto.responses.TimeFilterFastResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.Value;
+import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 
@@ -21,6 +18,7 @@ import java.util.List;
 @Builder
 @Jacksonized
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class TimeFilterFastRequest extends TravelTimeRequest<TimeFilterFastResponse> {
     @NonNull
     List<Location> locations;

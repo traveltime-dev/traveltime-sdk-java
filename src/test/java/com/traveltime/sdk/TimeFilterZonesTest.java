@@ -31,7 +31,7 @@ public class TimeFilterZonesTest {
     @Test
     public void shouldSendTimeFilterDistrictsRequest() {
         Coordinates coordinates = new Coordinates(51.508930,-0.131387);
-        Transportation transport = new PublicTransport();
+        Transportation transport = PublicTransport.builder().build();
 
         TimeFilterDistrictsRequest request = new TimeFilterDistrictsRequest(
             createDepartureSearch(coordinates, transport),
@@ -45,7 +45,7 @@ public class TimeFilterZonesTest {
     @Test
     public void shouldSendTimeFilterSectorsRequest() {
         Coordinates coordinates = new Coordinates(51.508930,-0.131387);
-        Transportation transport = new PublicTransport();
+        Transportation transport = PublicTransport.builder().build();
 
         TimeFilterSectorsRequest request = new TimeFilterSectorsRequest(
             createDepartureSearch(coordinates, transport),
@@ -64,7 +64,8 @@ public class TimeFilterZonesTest {
             Date.from(Instant.now()),
             900,
             0.1,
-            Arrays.asList(Property.COVERAGE)
+            Collections.singletonList(Property.COVERAGE),
+            new FullRange(true, 1, 300)
         );
         return Collections.singletonList(ds);
     }

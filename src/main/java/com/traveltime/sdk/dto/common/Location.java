@@ -3,8 +3,8 @@ package com.traveltime.sdk.dto.common;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
+@Value
 @Builder
-@Getter
 @Jacksonized
 @AllArgsConstructor
 public class Location {
