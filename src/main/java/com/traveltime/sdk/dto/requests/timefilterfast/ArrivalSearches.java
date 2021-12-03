@@ -5,9 +5,9 @@ import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
 
-@Getter
-@Jacksonized
+@Value
 @Builder
+@Jacksonized
 @AllArgsConstructor
 public class ArrivalSearches {
     @NonNull

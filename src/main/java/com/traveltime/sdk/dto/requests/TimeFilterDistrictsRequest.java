@@ -8,6 +8,7 @@ import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
@@ -19,6 +20,7 @@ import java.util.List;
 @Builder
 @Jacksonized
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class TimeFilterDistrictsRequest extends TravelTimeRequest<TimeFilterDistrictsResponse> {
     List<DepartureSearch> departureSearches;
     List<ArrivalSearch> arrivalSearches;

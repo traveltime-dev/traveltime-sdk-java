@@ -11,17 +11,15 @@ import com.traveltime.sdk.dto.responses.errors.ProtoError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.*;
 import okhttp3.Request;
 
 import java.net.URI;
 
-@Getter
+@Value
 @Builder
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProtoResponse> {
     @NonNull
     OneToMany oneToMany;
@@ -32,8 +30,8 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
         RequestsCommon.Coords departure = RequestsCommon
             .Coords
             .newBuilder()
-            .setLat((float)origin.getLat())
-            .setLng((float)origin.getLng())
+            .setLat(origin.getLat().floatValue())
+            .setLng(origin.getLng().floatValue())
             .build();
 
         RequestsCommon.Transportation transportation = RequestsCommon

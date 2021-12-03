@@ -30,7 +30,7 @@ public class TimeFilterPostcodesTest {
     @Test
     public void shouldSendTimeFilterPostcodesRequest() {
         Coordinates coordinates = new Coordinates(51.508930,-0.131387);
-        Transportation transport = new PublicTransport();
+        Transportation transport = PublicTransport.builder().build();
 
         TimeFilterPostcodesRequest request = new TimeFilterPostcodesRequest(
             createDepartureSearch(coordinates, transport),
@@ -48,7 +48,8 @@ public class TimeFilterPostcodesTest {
             transportation,
             Date.from(Instant.now()),
             900,
-            Collections.singletonList(Property.TRAVEL_TIME)
+            Collections.singletonList(Property.TRAVEL_TIME),
+            new FullRange(true, 1, 300)
         );
         return Collections.singletonList(ds);
     }

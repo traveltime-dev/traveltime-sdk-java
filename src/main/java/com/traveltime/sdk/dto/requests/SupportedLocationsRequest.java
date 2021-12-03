@@ -6,10 +6,7 @@ import com.traveltime.sdk.dto.common.Location;
 import com.traveltime.sdk.dto.responses.SupportedLocationsResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.Value;
+import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
 
@@ -21,6 +18,7 @@ import java.util.List;
 @Builder
 @Jacksonized
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class SupportedLocationsRequest extends TravelTimeRequest<SupportedLocationsResponse> {
     @NonNull
     List<Location> locations;

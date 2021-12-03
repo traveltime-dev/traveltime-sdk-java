@@ -1,15 +1,12 @@
 package com.traveltime.sdk.dto.requests.proto;
 
 import com.traveltime.sdk.dto.common.Coordinates;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.*;
 
 import java.util.List;
 
+@Value
 @Builder
-@Getter
 @AllArgsConstructor
 public class OneToMany {
     @NonNull

@@ -8,11 +8,11 @@ import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
 
-@Getter
-@Jacksonized
+@Value
 @Builder
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@Jacksonized
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Property {
     Integer travelTime;
     Integer distance;

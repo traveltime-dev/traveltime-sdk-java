@@ -4,8 +4,8 @@ import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
+@Value
 @Builder
-@Getter
 @Jacksonized
 @AllArgsConstructor
 public class Range {

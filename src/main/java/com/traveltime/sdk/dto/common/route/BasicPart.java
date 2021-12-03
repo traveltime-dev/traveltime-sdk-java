@@ -2,28 +2,28 @@ package com.traveltime.sdk.dto.common.route;
 
 import com.traveltime.sdk.dto.common.Coordinates;
 import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
 
-@Getter
-@Jacksonized
+@Value
 @Builder
+@Jacksonized
 @AllArgsConstructor
 public class BasicPart implements Part {
-    int id;
+    @NonNull
+    Integer id;
     @NonNull
     String mode;
     @NonNull
     String directions;
+    @NonNull
     @Positive(message = "distance must be greater than 0")
-    int distance;
+    Integer distance;
+    @NonNull
     @Positive(message = "travelTime must be greater than 0")
-    int travelTime;
+    Integer travelTime;
     @NonNull
     List<Coordinates> coords;
 }

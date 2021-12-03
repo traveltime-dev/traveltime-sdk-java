@@ -40,7 +40,7 @@ public class TimeFilterTest {
             new Location("location2", new Coordinates(51.508824,-0.167093)),
             new Location("location3", new Coordinates(51.536067,-0.153596))
         );
-        Transportation transport = new PublicTransport();
+        Transportation transport = PublicTransport.builder().build();
 
         TimeFilterRequest request = new TimeFilterRequest(
             locations,
@@ -59,7 +59,7 @@ public class TimeFilterTest {
             new Location("location2", new Coordinates(51.508824,-0.167093)),
             new Location("location3", new Coordinates(51.536067,-0.153596))
         );
-        Transportation transport = new PublicTransport();
+        Transportation transport = PublicTransport.builder().build();
         ArrivalSearches arrivalSearches = new ArrivalSearches(
             createManyToOne("location1", Arrays.asList("location2", "location3"), transport),
             createOneToMany("location1", Arrays.asList("location2", "location3"), transport)
@@ -119,7 +119,8 @@ public class TimeFilterTest {
             transportation,
             Date.from(Instant.now()),
             900,
-            Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE)
+            Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE),
+            new FullRange(true, 2, 300)
         );
         return Collections.singletonList(ds);
     }

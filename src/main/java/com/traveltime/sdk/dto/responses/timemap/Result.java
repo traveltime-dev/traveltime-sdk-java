@@ -5,9 +5,10 @@ import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
 
-@Getter
-@Jacksonized
+@Value
 @Builder
+@Jacksonized
+@AllArgsConstructor
 public class Result {
     String searchId;
     List<Shape> shapes;

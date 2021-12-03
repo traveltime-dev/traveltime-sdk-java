@@ -21,6 +21,7 @@ import java.util.List;
 @Builder
 @Jacksonized
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimeFilterRequest extends TravelTimeRequest<TimeFilterResponse> {
     @NonNull

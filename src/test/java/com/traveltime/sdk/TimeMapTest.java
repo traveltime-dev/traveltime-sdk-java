@@ -1,13 +1,11 @@
 package com.traveltime.sdk;
 
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.transportation.Driving;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.*;
-import com.traveltime.sdk.dto.requests.timemap.ArrivalSearch;
-import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
-import com.traveltime.sdk.dto.requests.timemap.Intersection;
-import com.traveltime.sdk.dto.requests.timemap.Union;
+import com.traveltime.sdk.dto.requests.timemap.*;
 import com.traveltime.sdk.dto.responses.*;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
@@ -32,7 +30,7 @@ public class TimeMapTest {
     @Test
     public void shouldSendTimeMapRequest() {
         Coordinates coords = new Coordinates(51.507609,-0.128315);
-        Transportation transportation = new PublicTransport();
+        Transportation transportation = PublicTransport.builder().build();
         List<String> searchIds = Arrays.asList("Test arrival search", "Test departure search");
 
         TimeMapRequest request = new TimeMapRequest(
@@ -49,7 +47,7 @@ public class TimeMapTest {
     @Test
     public void shouldSendTimeMapGeoJsonRequest() {
         Coordinates coords = new Coordinates(51.507609,-0.128315);
-        Transportation transportation = new PublicTransport();
+        Transportation transportation = PublicTransport.builder().build();
         List<String> searchIds = Arrays.asList("Test arrival search", "Test departure search");
 
         TimeMapGeoJsonRequest request = new TimeMapGeoJsonRequest(
@@ -66,7 +64,7 @@ public class TimeMapTest {
     @Test
     public void shouldSendTimeMapBoundingBoxRequest() {
         Coordinates coords = new Coordinates(51.507609,-0.128315);
-        Transportation transportation = new PublicTransport();
+        Transportation transportation = PublicTransport.builder().build();
         List<String> searchIds = Arrays.asList("Test arrival search", "Test departure search");
 
         TimeMapBoxesRequest request = new TimeMapBoxesRequest(
@@ -83,7 +81,7 @@ public class TimeMapTest {
     @Test
     public void shouldSendFullTimeMapWktRequest() {
         Coordinates coords = new Coordinates(51.507609,-0.128315);
-        Transportation transportation = new PublicTransport();
+        Transportation transportation = PublicTransport.builder().build();
         List<String> searchIds = Arrays.asList("Test arrival search", "Test departure search");
 
         TimeMapWktRequest request = new TimeMapWktRequest(
@@ -104,7 +102,8 @@ public class TimeMapTest {
             coords,
             transportation,
             Date.from(Instant.now()),
-            900
+            900,
+            new Range(true, 400)
         );
 
         return Collections.singletonList(as);
@@ -116,7 +115,8 @@ public class TimeMapTest {
             coords,
             transportation,
             Date.from(Instant.now()),
-            900
+            900,
+            new Range(true, 400)
         );
         return Collections.singletonList(ds);
     }

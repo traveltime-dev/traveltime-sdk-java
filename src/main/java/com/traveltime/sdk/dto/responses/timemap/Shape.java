@@ -6,9 +6,10 @@ import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
 
-@Getter
-@Jacksonized
+@Value
 @Builder
+@Jacksonized
+@AllArgsConstructor
 public class Shape {
     List<Coordinates> shell;
     List<List<Coordinates>> holes;

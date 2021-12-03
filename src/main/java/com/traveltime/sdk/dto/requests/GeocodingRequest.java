@@ -9,9 +9,10 @@ import org.geojson.FeatureCollection;
 import java.net.URI;
 import java.util.List;
 
+@Value
 @Builder
 @AllArgsConstructor
-@RequiredArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class GeocodingRequest extends TravelTimeRequest<FeatureCollection> {
     @NonNull
     String query;
