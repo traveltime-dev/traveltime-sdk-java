@@ -1,8 +1,8 @@
 package com.traveltime.sdk.dto.requests;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.traveltime.sdk.AcceptType;
-import com.traveltime.sdk.JsonUtils;
+import com.traveltime.sdk.utils.AcceptType;
+import com.traveltime.sdk.utils.JsonUtils;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.requests.timemap.ArrivalSearch;
 import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;

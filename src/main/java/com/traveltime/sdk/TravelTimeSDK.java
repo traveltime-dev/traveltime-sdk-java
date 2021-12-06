@@ -7,6 +7,7 @@ import com.traveltime.sdk.dto.responses.errors.IOError;
 import com.traveltime.sdk.dto.responses.errors.ResponseError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import com.traveltime.sdk.dto.responses.errors.ValidationError;
+import com.traveltime.sdk.utils.JsonUtils;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;

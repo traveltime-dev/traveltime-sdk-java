@@ -1,4 +1,4 @@
-package com.traveltime.sdk;
+package com.traveltime.sdk.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
