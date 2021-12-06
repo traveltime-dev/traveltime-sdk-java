@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Transportation {
+    PUBLIC_TRANSPORT("pt", 0),
     WALKING_FERRY("walking+ferry", 7),
     CYCLING_FERRY("cycling+ferry", 6),
     DRIVING_FERRY("driving+ferry", 3);
