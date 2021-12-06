@@ -37,7 +37,7 @@ public class TimeFilterFastProtoTest {
         OneToMany oneToMany = new OneToMany(
             origin,
             destinations,
-            Transportation.DRIVING_FERRY,
+            Transportation.PUBLIC_TRANSPORT,
             7200,
             Country.NETHERLANDS
         );
