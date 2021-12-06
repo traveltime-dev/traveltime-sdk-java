@@ -1,4 +1,4 @@
-package com.traveltime.sdk;
+package com.traveltime.sdk.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

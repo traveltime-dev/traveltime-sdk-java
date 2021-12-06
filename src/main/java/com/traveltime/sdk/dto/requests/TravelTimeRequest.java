@@ -1,6 +1,6 @@
 package com.traveltime.sdk.dto.requests;
 
-import com.traveltime.sdk.AcceptType;
+import com.traveltime.sdk.utils.AcceptType;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
