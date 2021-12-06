@@ -226,14 +226,14 @@ if(response.isRight()) {
 Get information about currently supported countries and find out what points supported by the api.
 
 ```java
-    MapInfoRequest request = new MapInfoRequest();
-    Either<TravelTimeError, MapInfoResponse> response = sdk.send(request);
+MapInfoRequest request = new MapInfoRequest();
+Either<TravelTimeError, MapInfoResponse> response = sdk.send(request);
 
-    if(response.isRight()) {
-        System.out.println(response.get().getMaps().size());
-    } else {
-        System.out.println(response.getLeft().getMessage());
-    }
+if(response.isRight()) {
+    System.out.println(response.get().getMaps().size());
+} else {
+    System.out.println(response.getLeft().getMessage());
+}
 ```
 
 ### [Geocoding (Search)](https://traveltime.com/docs/api/reference/geocoding-search)
