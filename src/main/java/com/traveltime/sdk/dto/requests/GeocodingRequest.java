@@ -1,5 +1,6 @@
 package com.traveltime.sdk.dto.requests;
 
+import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import lombok.*;
@@ -29,12 +30,12 @@ public class GeocodingRequest extends TravelTimeRequest<FeatureCollection> {
     }
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(URI baseUri, String appId, String apiKey) {
+    public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
         String uri = baseUri
             + "geocoding/search?query=" + query
             + combineCountries(withinCountries)
             + getLimit();
-        return Either.right(createGetRequest(uri, appId, apiKey));
+        return Either.right(createGetRequest(uri, credentials));
     }
 
     @Override

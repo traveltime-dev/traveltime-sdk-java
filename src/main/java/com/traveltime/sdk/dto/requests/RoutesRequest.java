@@ -3,6 +3,7 @@ package com.traveltime.sdk.dto.requests;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.AcceptType;
 import com.traveltime.sdk.JsonUtils;
+import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Location;
 import com.traveltime.sdk.dto.requests.routes.ArrivalSearch;
 import com.traveltime.sdk.dto.requests.routes.DepartureSearch;
@@ -32,11 +33,11 @@ public class RoutesRequest extends TravelTimeRequest<RoutesResponse> {
     List<ArrivalSearch> arrivalSearches;
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(URI baseUri, String appId, String apiKey) {
+    public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
         String uri = baseUri + "routes";
         return JsonUtils
             .toJson(this)
-            .map(json -> createPostRequest(uri, appId, apiKey, json, AcceptType.APPLICATION_JSON));
+            .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_JSON));
     }
 
     @Override

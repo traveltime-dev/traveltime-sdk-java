@@ -24,10 +24,20 @@ On invalid request functions will return API error response.
 Check indvidual function documentation or API documention for information on how to construct it.
 
 ### Authentication
-In order to authenticate with Travel Time API, you will have to supply the Application Id and Api Key.
+In order to authenticate with Travel Time API, you will have to supply the Credentials.
+
+APP_ID and API_Key for base requests:
 
 ```java
-    TravelTimeSDK sdk = new TravelTimeSDK("APP_ID", "API_KEY");
+    TravelTimeCredentials credentials = new KeyAuth("APP_ID", "API_KEY");
+    TravelTimeSDK sdk = new TravelTimeSDK(credentials);
+```
+
+USERNAME and PASSWORD for proto requests:
+
+```java
+    TravelTimeCredentials credentials = new BaseAuth("PROTO_USERNAME","PROTO_PASSWORD");
+    TravelTimeSDK sdk = new TravelTimeSDK(credentials);
 ```
 
 ### [Isochrones (Time Map)](https://traveltime.com/docs/api/reference/isochrones)
@@ -35,12 +45,12 @@ Given origin coordinates, find shapes of zones reachable within corresponding tr
 Find unions/intersections between different searches
 
 Body attributes:
-* departure_searches ( optional): Searches based on departure times.
+* departure_searches: Searches based on departure times.
   Leave departure location at no earlier than given time. You can define a maximum of 10 searches
-* arrival_searches ( optional): Searches based on arrival times.
+* arrival_searches: Searches based on arrival times.
   Arrive at destination location at no later than given time. You can define a maximum of 10 searches
-* unions ( optional): Define unions of shapes that are results of previously defined searches.
-* intersections ( optional): Define intersections of shapes that are results of previously defined searches.
+* unions: Define unions of shapes that are results of previously defined searches.
+* intersections: Define intersections of shapes that are results of previously defined searches.
 
 ```java
     DepartureSearch departureSearch1 = DepartureSearch
@@ -105,10 +115,10 @@ Given origin and destination points filter out points that cannot be reached wit
 Find out travel times, distances and costs between an origin and up to 2,000 destination points.
 
 Body attributes:
-* locations (Array of Objects): Locations to use. Each location requires an id and lat/lng values
-* departure_searches (Array of Objects, optional): Searches based on departure times.
+* locations: Locations to use. Each location requires an id and lat/lng values
+* departure_searches: Searches based on departure times.
   Leave departure location at no earlier than given time. You can define a maximum of 10 searches
-* arrival_searches (Array of Objects, optional): Searches based on arrival times.
+* arrival_searches: Searches based on arrival times.
   Arrive at destination location at no later than given time. You can define a maximum of 10 searches
 
 
@@ -162,10 +172,10 @@ Body attributes:
 Returns routing information between source and destinations.
 
 Body attributes:
-* locations (Array of Objects): Locations to use. Each location requires an id and lat/lng values
-* departure_searches (Array of Objects, optional): Searches based on departure times.
+* locations: Locations to use. Each location requires an id and lat/lng values
+* departure_searches: Searches based on departure times.
   Leave departure location at no earlier than given time. You can define a maximum of 10 searches
-* arrival_searches (Array of Objects, optional): Searches based on arrival times.
+* arrival_searches: Searches based on arrival times.
   Arrive at destination location at no later than given time. You can define a maximum of 10 searches
   
 ```java
@@ -230,10 +240,10 @@ Get information about currently supported countries and find out what points sup
 Match a query string to geographic coordinates.
 
 Body attributes:
-* query (String): A query to geocode. Can be an address, a postcode or a venue.
-* within_country (String, optional): Only return the results that are within the specified country.
+* query: A query to geocode. Can be an address, a postcode or a venue.
+* within_country: Only return the results that are within the specified country.
   If no results are found it will return the country itself. Format:ISO 3166-1 alpha-2 or alpha-3
-* exclude_location_types (String, optional): Exclude location types from results. Available values: "country".
+* exclude_location_types: Exclude location types from results. Available values: "country".
 
 ```java
     GeocodingRequest request = GeocodingRequest
@@ -252,7 +262,15 @@ Body attributes:
     }
 ```
 
-### Time Filter Fast Proto
+### Time Filter Fast (Proto)
+Filter out points that cannot be reached within specified time limit.
+
+Body attributes:
+* origin: Original point.
+* destination: destination points. Cannot be more than 200,000.
+* transportation: transportation type.
+* travelTime: time limit;
+* country: return the results that are within the specified country
 
 ```java
     OneToMany oneToMany = OneToMany

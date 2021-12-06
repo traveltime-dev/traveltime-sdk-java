@@ -2,6 +2,7 @@ package com.traveltime.sdk.dto.requests;
 
 import com.traveltime.sdk.AcceptType;
 import com.traveltime.sdk.JsonUtils;
+import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Location;
 import com.traveltime.sdk.dto.responses.SupportedLocationsResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
@@ -24,11 +25,11 @@ public class SupportedLocationsRequest extends TravelTimeRequest<SupportedLocati
     List<Location> locations;
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(URI baseUri, String appId, String apiKey) {
+    public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
         String uri = baseUri + "supported-locations";
         return JsonUtils
             .toJson(this)
-            .map(json -> createPostRequest(uri, appId, apiKey, json, AcceptType.APPLICATION_JSON));
+            .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_JSON));
     }
 
     @Override

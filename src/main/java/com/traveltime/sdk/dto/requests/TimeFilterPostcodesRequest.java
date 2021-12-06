@@ -2,6 +2,7 @@ package com.traveltime.sdk.dto.requests;
 
 import com.traveltime.sdk.AcceptType;
 import com.traveltime.sdk.JsonUtils;
+import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.requests.postcodes.*;
 import com.traveltime.sdk.dto.responses.TimeFilterPostcodesResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
@@ -29,11 +30,11 @@ public class TimeFilterPostcodesRequest extends TravelTimeRequest<TimeFilterPost
     List<ArrivalSearch> arrivalSearches;
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(URI baseUri, String appId, String apiKey) {
+    public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
         String uri = baseUri + "time-filter/postcodes";
         return JsonUtils
             .toJson(this)
-            .map(json -> createPostRequest(uri, appId, apiKey, json, AcceptType.APPLICATION_JSON));
+            .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_JSON));
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.traveltime.sdk;
 
+import com.traveltime.sdk.auth.KeyAuth;
+import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.GeocodingRequest;
 import com.traveltime.sdk.dto.requests.ReverseGeocodingRequest;
@@ -18,7 +20,8 @@ public class GeocodingTest {
 
     @Before
     public void init() {
-        sdk = new TravelTimeSDK(System.getenv("APP_ID"), System.getenv("API_KEY"));
+        TravelTimeCredentials credentials = new KeyAuth(System.getenv("APP_ID"), System.getenv("API_KEY"));
+        sdk = new TravelTimeSDK(credentials);
     }
 
     @Test

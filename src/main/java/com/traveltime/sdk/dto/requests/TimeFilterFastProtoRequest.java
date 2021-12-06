@@ -3,6 +3,7 @@ package com.traveltime.sdk.dto.requests;
 import com.igeolise.traveltime.rabbitmq.requests.RequestsCommon;
 import com.igeolise.traveltime.rabbitmq.requests.TimeFilterFastRequestOuterClass.TimeFilterFastRequest;
 import com.igeolise.traveltime.rabbitmq.responses.TimeFilterFastResponseOuterClass.TimeFilterFastResponse;
+import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.proto.OneToMany;
 import com.traveltime.sdk.dto.responses.TimeFilterFastProtoResponse;
@@ -62,11 +63,11 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
     }
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(URI baseUri, String username, String password) {
+    public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
         String countryCode = oneToMany.getCountry().getValue();
         String transportation = oneToMany.getTransportation().getValue();
         String uri = baseUri + countryCode + "/time-filter/fast/" + transportation;
-        return Either.right(createProtobufRequest(uri, username, password, createByteArray()));
+        return Either.right(createProtobufRequest(credentials, uri, createByteArray()));
     }
 
     private Either<TravelTimeError, TimeFilterFastProtoResponse> parseResponse(TimeFilterFastResponse response) {

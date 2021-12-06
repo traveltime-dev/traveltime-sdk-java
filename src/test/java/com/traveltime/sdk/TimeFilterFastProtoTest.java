@@ -1,6 +1,8 @@
 package com.traveltime.sdk;
 
 
+import com.traveltime.sdk.auth.BaseAuth;
+import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.TimeFilterFastProtoRequest;
 import com.traveltime.sdk.dto.requests.proto.Country;
@@ -21,7 +23,11 @@ public class TimeFilterFastProtoTest {
 
     @Before
     public void init() {
-        sdk = new TravelTimeSDK(System.getenv("PROTO_USERNAME"), System.getenv("PROTO_PASSWORD"));
+        TravelTimeCredentials credentials = new BaseAuth(
+            System.getenv("PROTO_USERNAME"),
+            System.getenv("PROTO_PASSWORD")
+        );
+        sdk = new TravelTimeSDK(credentials);
     }
 
     @Test
@@ -36,7 +42,6 @@ public class TimeFilterFastProtoTest {
             Country.NETHERLANDS
         );
         TimeFilterFastProtoRequest request = new TimeFilterFastProtoRequest(oneToMany);
-
         Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
         Assert.assertTrue(response.isRight());
     }
