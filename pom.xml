@@ -6,7 +6,7 @@
 
     <groupId>com.traveltime</groupId>
     <artifactId>traveltime-sdk-java</artifactId>
-    <version>1.0.9</version>
+    <version>1.0.10</version>
 
     <distributionManagement>
         <repository>
@@ -61,12 +61,12 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.8</version>
+            <version>2.13.0</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>2.6.0</version>
+            <version>2.13.0</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

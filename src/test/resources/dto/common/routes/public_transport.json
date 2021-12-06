@@ -15,7 +15,7 @@
   "line" : "88",
   "departure_station" : "Regent's Park Barracks",
   "arrival_station" : "Haymarket  Charles II Street",
-  "departs_at" : "08:32",
-  "arrives_at" : "08:56",
+  "departs_at" : "08:32:00",
+  "arrives_at" : "08:56:00",
   "num_stops" : 10
 }

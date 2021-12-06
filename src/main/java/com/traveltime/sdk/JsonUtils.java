@@ -13,7 +13,7 @@ import io.vavr.control.Either;
 import io.vavr.control.Try;
 import org.locationtech.jts.geom.Geometry;
 
-import static com.fasterxml.jackson.databind.PropertyNamingStrategy.SNAKE_CASE;
+import static com.fasterxml.jackson.databind.PropertyNamingStrategies.SNAKE_CASE;
 
 public class JsonUtils {
 
