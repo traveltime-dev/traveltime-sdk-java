@@ -2,6 +2,7 @@ package com.traveltime.sdk.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NonNull;
 import lombok.Value;
 import okhttp3.Headers;
 
@@ -9,7 +10,9 @@ import okhttp3.Headers;
 @Builder
 @AllArgsConstructor
 public class KeyAuth implements TravelTimeCredentials {
+    @NonNull
     String appId;
+    @NonNull
     String apiKey;
 
     @Override
