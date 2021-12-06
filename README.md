@@ -43,46 +43,52 @@ Body attributes:
 * intersections ( optional): Define intersections of shapes that are results of previously defined searches.
 
 ```java
-    DepartureSearch departureSearch1 = new DepartureSearch(
-        "Public transport from Trafalgar Square",
-        new Coordinates(51.507609, -0.128315),
-        new PublicTransport(),
-        Date.from(Instant.now()),
-        900
-    );
+    DepartureSearch departureSearch1 = DepartureSearch
+        .builder()
+        .id("Public transport from Trafalgar Square")
+        .coords(new Coordinates(51.507609, -0.128315))
+        .transportation(PublicTransport.builder().build())
+        .departureTime(Instant.now())
+        .travelTime(900)
+        .build();
 
-    DepartureSearch departureSearch2 = new DepartureSearch(
-        "Driving from Trafalgar Square",
-        new Coordinates(51.507609, -0.128315),
-        new Driving(),
-        Date.from(Instant.now()),
-        900
-    );
+    DepartureSearch departureSearch2 = DepartureSearch
+        .builder()
+        .id("Driving from Trafalgar Square")
+        .coords(new Coordinates(51.507609, -0.128315))
+        .transportation(Driving.builder().build())
+        .departureTime(Instant.now())
+        .travelTime(900)
+        .build();
 
-    ArrivalSearch arrivalSearch = new ArrivalSearch(
-        "Public transport to Trafalgar Square",
-        new Coordinates(51.507609, -0.128315),
-        new PublicTransport(),
-        Date.from(Instant.now()),
-        900
-    );
+    ArrivalSearch arrivalSearch = ArrivalSearch
+        .builder()
+        .id("Public transport to Trafalgar Square")
+        .coords(new Coordinates(51.507609, -0.128315))
+        .transportation(Driving.builder().build())
+        .arrivalTime(Instant.now())
+        .travelTime(900)
+        .build();
 
-    Union union = new Union(
-        "Union of driving and public transport",
-        Arrays.asList("Public transport from Trafalgar Square", "Driving from Trafalgar Square")
-    );
+    Union union = Union
+        .builder()
+        .id("Union of driving and public transport")
+        .searchIds(Arrays.asList("Public transport from Trafalgar Square", "Driving from Trafalgar Square"))
+        .build();
 
-    Intersection intersection = new Intersection(
-        "Intersection of driving and public transport",
-        Arrays.asList("Public transport from Trafalgar Square", "Driving from Trafalgar Square")
-    );
+    Intersection intersection = Intersection
+        .builder()
+        .id("Intersection of driving and public transport")
+        .searchIds(Arrays.asList("Public transport from Trafalgar Square", "Driving from Trafalgar Square"))
+        .build();
 
-    TimeMapRequest request = new TimeMapRequest(
-        Arrays.asList(departureSearch1, departureSearch2),
-        Collections.singletonList(arrivalSearch),
-        Collections.singletonList(intersection),
-        Collections.singletonList(union)
-    );
+    TimeMapRequest request = TimeMapRequest
+        .builder()
+        .departureSearches(Arrays.asList(departureSearch1, departureSearch2))
+        .arrivalSearches(Collections.singletonList(arrivalSearch))
+        .unions(Collections.singletonList(union))
+        .intersections(Collections.singletonList(intersection))
+        .build();
 
     Either<TravelTimeError, TimeMapResponse> response = sdk.send(request);
 
@@ -113,32 +119,35 @@ Body attributes:
         new Location("ZSL London Zoo", new Coordinates(51.536067,-0.153596))
     );
 
-    DepartureSearch departureSearch = new DepartureSearch(
-        "Forward search example",
-        "London center",
-        Arrays.asList("Hyde Park", "ZSL London Zoo"),
-        new PublicTransport(),
-        Date.from(Instant.now()),
-        1800,
-        Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE) 
-    );  
-    
-    ArrivalSearch arrivalSearch = new ArrivalSearch(
-        "Backward search example",
-        Arrays.asList("Hyde Park", "ZSL London Zoo"),
-        "London center",
-        new PublicTransport(),
-        Date.from(Instant.now()),
-        1900,
-        Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES),
-        new FullRange(true, 3, 600) 
-    );  
-    
-    TimeFilterRequest request = new TimeFilterRequest(
-        locations,
-        Collections.singletonList(departureSearch),
-        Collections.singletonList(arrivalSearch)
-    );  
+    DepartureSearch departureSearch = DepartureSearch
+        .builder()
+        .id("Forward search example")
+        .departureLocationId("London center")
+        .arrivalLocationIds(Arrays.asList("Hyde Park", "ZSL London Zoo"))
+        .transportation(PublicTransport.builder().build())
+        .departureTime(Instant.now())
+        .travelTime(1800)
+        .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE))
+        .build();
+
+    ArrivalSearch arrivalSearch = ArrivalSearch
+        .builder()
+        .id("Backward search example")
+        .departureLocationIds(Arrays.asList("Hyde Park", "ZSL London Zoo"))
+        .arrivalLocationId("London center")
+        .transportation(PublicTransport.builder().build())
+        .arrivalTime(Instant.now())
+        .travelTime(900)
+        .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES))
+        .range(FullRange.builder().enabled(true).maxResults(3).width(600).build())
+        .build();
+
+    TimeFilterRequest request = TimeFilterRequest
+        .builder()
+        .locations(locations)
+        .arrivalSearches(Collections.singletonList(arrivalSearch))
+        .departureSearches(Collections.singletonList(departureSearch))
+        .build();
     
     Either<TravelTimeError, TimeFilterResponse> response = sdk.send(request);   
     
@@ -166,31 +175,34 @@ Body attributes:
         new Location("ZSL London Zoo", new Coordinates(51.536067,-0.153596))
     );
 
-    DepartureSearch departureSearch = new DepartureSearch(
-        "Departure search example",
-        "London center",
-        Arrays.asList("Hyde Park", "ZSL London Zoo"),
-        new Driving(),
-        Date.from(Instant.now()),
-        Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE)
-    );
+    DepartureSearch departureSearch = DepartureSearch
+        .builder()
+        .id("Departure search example")
+        .departureLocationId("London center")
+        .arrivalLocationIds(Arrays.asList("Hyde Park", "ZSL London Zoo"))
+        .transportation(Driving.builder().build())
+        .departureTime(Instant.now())
+        .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE))
+        .build();
+    
+    ArrivalSearch arrivalSearch = ArrivalSearch
+        .builder()
+        .id("Arrival search example")
+        .arrivalLocationId("London center")
+        .departureLocationIds(Arrays.asList("Hyde Park", "ZSL London Zoo"))
+        .transportation(PublicTransport.builder().build())
+        .arrivalTime(Instant.now())
+        .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES))
+        .range(FullRange.builder().enabled(true).maxResults(3).width(1800).build())
+        .build();
 
-    ArrivalSearch arrivalSearch = new ArrivalSearch(
-        "Arrival search example",
-        Arrays.asList("Hyde Park", "ZSL London Zoo"),
-        "London center",
-        new PublicTransport(),
-        Date.from(Instant.now()),
-        Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES),
-        new FullRange(true, 1, 1800)
-    );
-
-    RoutesRequest request = new RoutesRequest(
-        locations,
-        Collections.singletonList(departureSearch),
-        Collections.singletonList(arrivalSearch)
-    );
-
+    RoutesRequest request = RoutesRequest
+        .builder()
+        .locations(locations)
+        .departureSearches(Collections.singletonList(departureSearch))
+        .arrivalSearches(Collections.singletonList(arrivalSearch))
+        .build();
+    
     Either<TravelTimeError, RoutesResponse> response = sdk.send(request);
 
     if(response.isRight()) {
@@ -213,3 +225,54 @@ Get information about currently supported countries and find out what points sup
         System.out.println(response.getLeft().getMessage());
     }
 ```
+
+### [Geocoding (Search)](https://traveltime.com/docs/api/reference/geocoding-search)
+Match a query string to geographic coordinates.
+
+Body attributes:
+* query (String): A query to geocode. Can be an address, a postcode or a venue.
+* within_country (String, optional): Only return the results that are within the specified country.
+  If no results are found it will return the country itself. Format:ISO 3166-1 alpha-2 or alpha-3
+* exclude_location_types (String, optional): Exclude location types from results. Available values: "country".
+
+```java
+    GeocodingRequest request = GeocodingRequest
+        .builder()
+        .query("Geneva")
+        .withinCountries(Arrays.asList("CH", "DE"))
+        .limit(1)
+        .build();
+
+    Either<TravelTimeError, FeatureCollection> response = sdk.send(request);
+    
+    if(response.isRight()) {
+        System.out.println(response.get().getMaps().size());
+    } else {
+        System.out.println(response.getLeft().getMessage());
+    }
+```
+
+### Time Filter Fast Proto
+
+```java
+    OneToMany oneToMany = OneToMany
+        .builder()
+        .originCoordinate(new Coordinates(51.425709, -0.122061))
+        .destinationCoordinates(Collections.singletonList(new Coordinates(51.348605, -0.314783)))
+        .transportation(Transportation.DRIVING_FERRY)
+        .travelTime(7200)
+        .country(Country.NETHERLANDS)
+        .build();
+
+    TimeFilterFastProtoRequest request = TimeFilterFastProtoRequest
+        .builder()
+        .oneToMany(oneToMany)
+        .build();
+    
+    if(response.isRight()) {
+        System.out.println(response.get().getMaps().size());
+    } else {
+        System.out.println(response.getLeft().getMessage());
+    }
+```
+

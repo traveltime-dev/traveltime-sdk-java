@@ -4,7 +4,6 @@ import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.FullRange;
 import com.traveltime.sdk.dto.common.Location;
 import com.traveltime.sdk.dto.common.Property;
-import com.traveltime.sdk.dto.common.transportation.MaxChanges;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.RoutesRequest;
@@ -71,7 +70,7 @@ public class RoutesTest {
         Transportation transportation
     ) {
         ArrivalSearch as = new ArrivalSearch(
-        "Test arrival search",
+            "Test arrival search",
             departureLocations,
             arrivalLocation,
             transportation,
