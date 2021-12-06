@@ -294,3 +294,8 @@ Body attributes:
     }
 ```
 
+## Support
+
+If you have problems, please write an issue or contact us by writing to support@traveltime.com
+
+
