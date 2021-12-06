@@ -3,6 +3,7 @@ package com.traveltime.sdk.dto.requests;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.AcceptType;
 import com.traveltime.sdk.JsonUtils;
+import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.requests.timefilter.ArrivalSearch;
 import com.traveltime.sdk.dto.requests.timefilter.DepartureSearch;
 import com.traveltime.sdk.dto.common.Location;
@@ -32,11 +33,11 @@ public class TimeFilterRequest extends TravelTimeRequest<TimeFilterResponse> {
     List<ArrivalSearch> arrivalSearches;
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(URI baseUri, String appId, String apiKey) {
+    public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
         String uri = baseUri + "time-filter";
         return JsonUtils
             .toJson(this)
-            .map(json -> createPostRequest(uri, appId, apiKey, json, AcceptType.APPLICATION_JSON));
+            .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_JSON));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.traveltime.sdk;
 
+import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.requests.ProtoRequest;
 import com.traveltime.sdk.dto.requests.TravelTimeRequest;
 import com.traveltime.sdk.dto.responses.errors.IOError;
@@ -29,9 +30,7 @@ public class TravelTimeSDK {
     private final Validator validator = factory.getValidator();
 
     @NonNull
-    private String appId;
-    @NonNull
-    private String apiKey;
+    private final TravelTimeCredentials credentials;
 
     @Builder.Default
     private URI baseUri = URI.create("https://api.traveltimeapp.com/v4/");
@@ -94,7 +93,7 @@ public class TravelTimeSDK {
 
     public <T> Either<TravelTimeError, T> sendProto(ProtoRequest<T> request) {
         return request
-            .createRequest(baseProtoUri, appId, apiKey)
+            .createRequest(baseProtoUri, credentials)
             .flatMap(this::executeRequest)
             .flatMap(response -> parseByteResponse(request, response));
     }
@@ -105,7 +104,7 @@ public class TravelTimeSDK {
             return Either.left(validationError.get());
         } else {
             return request
-                .createRequest(baseUri, appId, apiKey)
+                .createRequest(baseUri, credentials)
                 .flatMap(this::executeRequest)
                 .flatMap(response -> getHttpResponse(request, response));
         }
@@ -134,11 +133,12 @@ public class TravelTimeSDK {
     public <T> CompletableFuture<Either<TravelTimeError, T>> sendAsync(TravelTimeRequest<T> request) {
         final CompletableFuture<Either<TravelTimeError, T>> future = new CompletableFuture<>();
         Option<ValidationError> validationError = validate(request);
+
         if(validationError.isDefined()) {
             future.complete(Either.left(validationError.get()));
         } else {
             request
-                .createRequest(baseUri, appId, apiKey)
+                .createRequest(baseUri, credentials)
                 .peekLeft(error -> future.complete(Either.left(error)))
                 .peek(createdRequest -> completeFuture(future, request, createdRequest));
         }

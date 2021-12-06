@@ -3,6 +3,7 @@ package com.traveltime.sdk.dto.requests;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.AcceptType;
 import com.traveltime.sdk.JsonUtils;
+import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.requests.timemap.ArrivalSearch;
 import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
 import com.traveltime.sdk.dto.requests.timemap.Intersection;
@@ -39,11 +40,11 @@ public class TimeMapGeoJsonRequest extends TravelTimeRequest<FeatureCollection> 
     List<Union> unions;
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(URI baseUri, String appId, String apiKey) {
+    public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
         String uri = baseUri + "time-map";
         return JsonUtils
             .toJson(this)
-            .map(json -> createPostRequest(uri, appId, apiKey, json, AcceptType.APPLICATION_GEO_JSON));
+            .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_GEO_JSON));
     }
 
     @Override

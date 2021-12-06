@@ -1,6 +1,7 @@
 package com.traveltime.sdk.dto.requests;
 
 import com.traveltime.sdk.AcceptType;
+import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import okhttp3.MediaType;
@@ -13,7 +14,7 @@ import java.util.List;
 public abstract class TravelTimeRequest<T> {
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public abstract Either<TravelTimeError, Request> createRequest(URI baseUri, String appId, String apiKey);
+    public abstract Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials);
 
     public abstract Class<T> responseType();
 
@@ -26,28 +27,24 @@ public abstract class TravelTimeRequest<T> {
 
     protected Request createGetRequest(
         String url,
-        String appId,
-        String apiKey
+        TravelTimeCredentials credentials
     ) {
         return new Request.Builder()
             .url(url)
-            .addHeader("X-Application-Id", appId)
-            .addHeader("X-Api-Key", apiKey)
+            .headers(credentials.getHeaders())
             .get()
             .build();
     }
 
     protected Request createPostRequest(
+        TravelTimeCredentials credentials,
         String url,
-        String appId,
-        String apiKey,
         String jsonString,
         AcceptType acceptType
     ) {
         return new Request.Builder()
             .url(url)
-            .addHeader("X-Application-Id", appId)
-            .addHeader("X-Api-Key", apiKey)
+            .headers(credentials.getHeaders())
             .addHeader("Accept", acceptType.getValue())
             .post(RequestBody.create(jsonString, JSON))
             .build();

@@ -1,6 +1,7 @@
 package com.traveltime.sdk.dto.requests;
 
 
+import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.responses.MapInfoResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
@@ -18,8 +19,8 @@ import java.net.URI;
 @EqualsAndHashCode(callSuper = true)
 public class MapInfoRequest extends TravelTimeRequest<MapInfoResponse> {
     @Override
-    public Either<TravelTimeError, Request> createRequest(URI baseUri, String appId, String apiKey) {
-        return Either.right(createGetRequest(baseUri + "map-info", appId, apiKey));
+    public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
+        return Either.right(createGetRequest(baseUri + "map-info", credentials));
     }
 
     @Override
