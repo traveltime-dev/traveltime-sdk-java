@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 
 @AllArgsConstructor
-public class JsonProcessingError implements TravelTimeError {
+public class XmlError implements TravelTimeError {
     @NonNull
-    String errorMsg;
+    Throwable cause;
 
     @Override
     public String getMessage() {
-        return errorMsg;
+        return cause.getMessage();
     }
 }
