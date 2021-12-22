@@ -16,6 +16,7 @@ import org.locationtech.jts.geom.Geometry;
 import static com.fasterxml.jackson.databind.PropertyNamingStrategies.SNAKE_CASE;
 
 public class JsonUtils {
+    private static final String IO_JSON_ERROR = "Something went wrong when parsing json response:";
 
     private JsonUtils() {
         throw new IllegalStateException("Utility class");
@@ -37,7 +38,7 @@ public class JsonUtils {
         return Try
             .of(() -> DEFAULT_MAPPER.readValue(content, clazz))
             .toEither()
-            .mapLeft(IOError::new);
+            .mapLeft(cause -> new IOError(cause, IO_JSON_ERROR + cause.getMessage()));
     }
 
     public static Either<TravelTimeError, String> toJsonPretty(final Object value) {

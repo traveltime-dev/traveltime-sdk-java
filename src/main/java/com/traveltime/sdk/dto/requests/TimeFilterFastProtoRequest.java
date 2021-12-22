@@ -22,6 +22,7 @@ import java.net.URI;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProtoResponse> {
+    private final static String IO_PROTO_ERROR = "Something went wrong when parsing proto response:";
     @NonNull
     OneToMany oneToMany;
 
@@ -83,7 +84,7 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
         return Try
             .of(() -> TimeFilterFastResponse.parseFrom(body))
             .toEither()
-            .<TravelTimeError>mapLeft(IOError::new)
+            .<TravelTimeError>mapLeft(cause -> new IOError(cause, IO_PROTO_ERROR + cause.getMessage()))
             .flatMap(this::parseResponse);
     }
 }
