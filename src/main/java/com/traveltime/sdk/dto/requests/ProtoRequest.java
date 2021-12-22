@@ -22,7 +22,7 @@ public abstract class ProtoRequest<T> {
     ) {
         return new Request.Builder()
             .url(url)
-            .headers(credentials.getHeaders())
+            .headers(credentials.getBasicCredentialsHeaders())
             .addHeader("Content-Type", AcceptType.APPLICATION_OCTET_STREAM.getValue())
             .post(RequestBody.create(requestBody))
             .build();
