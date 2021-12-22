@@ -8,6 +8,9 @@ public class IOError implements TravelTimeError {
     @NonNull
     Throwable cause;
 
+    @NonNull
+    String errorMessage;
+
     @Override
     public String getMessage() {
         return cause.getMessage();

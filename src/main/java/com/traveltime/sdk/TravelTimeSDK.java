@@ -27,6 +27,7 @@ public class TravelTimeSDK {
     private final OkHttpClient client = new OkHttpClient();
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     private final Validator validator = factory.getValidator();
+    private static final String IO_CONNECTION_ERROR = "Something went wrong when connecting to the Traveltime API: ";
 
     @NonNull
     private final TravelTimeCredentials credentials;
@@ -73,8 +74,9 @@ public class TravelTimeSDK {
         Either<TravelTimeError, T> protoResponse = Try
             .of(() -> Objects.requireNonNull(response.body()).bytes())
             .toEither()
-            .<TravelTimeError>mapLeft(IOError::new)
+            .<TravelTimeError>mapLeft(cause -> new IOError(cause, IO_CONNECTION_ERROR + cause.getMessage()))
             .flatMap(request::parseBytes);
+
 
         response.close();
         return protoResponse;
@@ -84,7 +86,7 @@ public class TravelTimeSDK {
         Either<TravelTimeError, T> httpResponse = Try
             .of(() -> Objects.requireNonNull(response.body()).string())
             .toEither()
-            .<TravelTimeError>mapLeft(IOError::new)
+            .<TravelTimeError>mapLeft(cause -> new IOError(cause, IO_CONNECTION_ERROR + cause.getMessage()))
             .flatMap(body -> parseJsonBody(request, response.code(), body));
 
         response.close();
@@ -95,7 +97,7 @@ public class TravelTimeSDK {
         return Try
             .of(() -> client.newCall(request).execute())
             .toEither()
-            .mapLeft(IOError::new);
+            .mapLeft(cause -> new IOError(cause, IO_CONNECTION_ERROR + cause.getMessage()));
     }
 
     public <T> Either<TravelTimeError, T> sendProto(ProtoRequest<T> request) {
@@ -127,7 +129,8 @@ public class TravelTimeSDK {
             .enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    future.complete(Either.left(new IOError(e)));
+
+                    future.complete(Either.left(new IOError(e, IO_CONNECTION_ERROR + e.getMessage())));
                 }
 
                 @Override
