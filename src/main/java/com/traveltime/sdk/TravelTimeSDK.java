@@ -3,11 +3,9 @@ package com.traveltime.sdk;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.requests.ProtoRequest;
 import com.traveltime.sdk.dto.requests.TravelTimeRequest;
-import com.traveltime.sdk.dto.responses.errors.IOError;
-import com.traveltime.sdk.dto.responses.errors.ResponseError;
-import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
-import com.traveltime.sdk.dto.responses.errors.ValidationError;
+import com.traveltime.sdk.dto.responses.errors.*;
 import com.traveltime.sdk.utils.JsonUtils;
+import de.micromata.opengis.kml.v_2_2_0.Kml;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
@@ -55,7 +53,15 @@ public class TravelTimeSDK {
 
     private <T> Either<TravelTimeError, T> parseJsonBody(TravelTimeRequest<T> request, int responseCode, String body) {
         if(responseCode == 200) {
-            return JsonUtils.fromJson(body, request.responseType());
+            if(request.responseType() == Kml.class) {
+                return Try
+                    .of(() -> (T)Kml.unmarshal(body))
+                    .toEither()
+                    .mapLeft(XmlError::new);
+            }
+            else {
+                return JsonUtils.fromJson(body, request.responseType());
+            }
         } else {
             return JsonUtils
                 .fromJson(body, ResponseError.class)
