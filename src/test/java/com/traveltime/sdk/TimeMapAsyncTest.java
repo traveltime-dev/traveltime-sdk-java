@@ -1,6 +1,5 @@
 package com.traveltime.sdk;
 
-import com.traveltime.sdk.auth.KeyAuth;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
@@ -26,7 +25,10 @@ public class TimeMapAsyncTest {
 
     @Before
     public void init() {
-        TravelTimeCredentials credentials = new KeyAuth(System.getenv("APP_ID"), System.getenv("API_KEY"));
+        TravelTimeCredentials credentials = new TravelTimeCredentials(
+            System.getenv("APP_ID"),
+            System.getenv("API_KEY")
+        );
         sdk = new TravelTimeSDK(credentials);
     }
 

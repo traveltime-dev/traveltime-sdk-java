@@ -26,17 +26,8 @@ Check indvidual function documentation or API documention for information on how
 ### Authentication
 In order to authenticate with Travel Time API, you will have to supply the Credentials.
 
-APP_ID and API_Key for base requests:
-
 ```java
 TravelTimeCredentials credentials = new KeyAuth("APP_ID", "API_KEY");
-TravelTimeSDK sdk = new TravelTimeSDK(credentials);
-```
-
-USERNAME and PASSWORD for proto requests:
-
-```java
-TravelTimeCredentials credentials = new BaseAuth("PROTO_USERNAME","PROTO_PASSWORD");
 TravelTimeSDK sdk = new TravelTimeSDK(credentials);
 ```
 
