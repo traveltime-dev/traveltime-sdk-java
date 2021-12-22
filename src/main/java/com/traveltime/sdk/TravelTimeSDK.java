@@ -77,7 +77,6 @@ public class TravelTimeSDK {
             .<TravelTimeError>mapLeft(cause -> new IOError(cause, IO_CONNECTION_ERROR + cause.getMessage()))
             .flatMap(request::parseBytes);
 
-
         response.close();
         return protoResponse;
     }
@@ -129,7 +128,6 @@ public class TravelTimeSDK {
             .enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-
                     future.complete(Either.left(new IOError(e, IO_CONNECTION_ERROR + e.getMessage())));
                 }
 

@@ -1,7 +1,5 @@
 package com.traveltime.sdk;
 
-
-import com.traveltime.sdk.auth.BaseAuth;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.TimeFilterFastProtoRequest;
@@ -23,9 +21,9 @@ public class TimeFilterFastProtoTest {
 
     @Before
     public void init() {
-        TravelTimeCredentials credentials = new BaseAuth(
-            System.getenv("PROTO_USERNAME"),
-            System.getenv("PROTO_PASSWORD")
+        TravelTimeCredentials credentials = new TravelTimeCredentials(
+            System.getenv("APP_ID"),
+            System.getenv("API_KEY")
         );
         sdk = new TravelTimeSDK(credentials);
     }

@@ -1,6 +1,5 @@
 package com.traveltime.sdk;
 
-import com.traveltime.sdk.auth.KeyAuth;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.requests.MapInfoRequest;
 import com.traveltime.sdk.dto.responses.MapInfoResponse;
@@ -16,7 +15,10 @@ public class MapInfoTest {
 
     @Before
     public void init() {
-        TravelTimeCredentials credentials = new KeyAuth(System.getenv("APP_ID"), System.getenv("API_KEY"));
+        TravelTimeCredentials credentials = new TravelTimeCredentials(
+            System.getenv("APP_ID"),
+            System.getenv("API_KEY")
+        );
         sdk = new TravelTimeSDK(credentials);
     }
 

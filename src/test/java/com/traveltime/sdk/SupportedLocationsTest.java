@@ -1,11 +1,9 @@
 package com.traveltime.sdk;
 
-import com.traveltime.sdk.auth.KeyAuth;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.Location;
 import com.traveltime.sdk.dto.requests.SupportedLocationsRequest;
-import com.traveltime.sdk.dto.responses.errors.ResponseError;
 import com.traveltime.sdk.dto.responses.SupportedLocationsResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
@@ -21,7 +19,10 @@ public class SupportedLocationsTest {
 
     @Before
     public void init() {
-        TravelTimeCredentials credentials = new KeyAuth(System.getenv("APP_ID"), System.getenv("API_KEY"));
+        TravelTimeCredentials credentials = new TravelTimeCredentials(
+            System.getenv("APP_ID"),
+            System.getenv("API_KEY")
+        );
         sdk = new TravelTimeSDK(credentials);
     }
 
