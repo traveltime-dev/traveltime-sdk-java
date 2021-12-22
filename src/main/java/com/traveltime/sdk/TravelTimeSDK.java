@@ -29,7 +29,7 @@ public class TravelTimeSDK {
     private final OkHttpClient client = new OkHttpClient();
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     private final Validator validator = factory.getValidator();
-    private static final String IO_CONNECTION_ERROR = "Something went wrong when connecting to the Traveltime API:";
+    private static final String IO_CONNECTION_ERROR = "Something went wrong when connecting to the Traveltime API: ";
 
     @NonNull
     private final TravelTimeCredentials credentials;

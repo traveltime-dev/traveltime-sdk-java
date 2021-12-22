@@ -22,7 +22,7 @@ import java.net.URI;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProtoResponse> {
-    private final static String IO_PROTO_ERROR = "Something went wrong when parsing proto response:";
+    private final static String IO_PROTO_ERROR = "Something went wrong when parsing proto response: ";
     @NonNull
     OneToMany oneToMany;
 

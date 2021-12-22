@@ -16,7 +16,7 @@ import org.locationtech.jts.geom.Geometry;
 import static com.fasterxml.jackson.databind.PropertyNamingStrategies.SNAKE_CASE;
 
 public class JsonUtils {
-    private static final String IO_JSON_ERROR = "Something went wrong when parsing json response:";
+    private static final String IO_JSON_ERROR = "Something went wrong when parsing json response: ";
 
     private JsonUtils() {
         throw new IllegalStateException("Utility class");
