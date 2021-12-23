@@ -27,7 +27,7 @@ Check indvidual function documentation or API documention for information on how
 In order to authenticate with Travel Time API, you will have to supply the Credentials.
 
 ```java
-TravelTimeCredentials credentials = new KeyAuth("APP_ID", "API_KEY");
+TravelTimeCredentials credentials = new TravelTimeCredentials("APP_ID", "API_KEY");
 TravelTimeSDK sdk = new TravelTimeSDK(credentials);
 ```
 
