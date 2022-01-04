@@ -10,6 +10,7 @@ import java.util.Map;
 @Value
 @Builder
 @Jacksonized
+@Getter
 @AllArgsConstructor
 public class ResponseError implements TravelTimeError {
     @NonNull
