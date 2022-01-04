@@ -15,6 +15,6 @@ public class IOError implements TravelTimeError {
 
     @Override
     public String getMessage() {
-        return cause.getMessage();
+        return errorMessage;
     }
 }
