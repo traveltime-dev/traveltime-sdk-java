@@ -70,7 +70,7 @@ public class TravelTimeSDK {
         }
     }
 
-    private <T> Either<TravelTimeError, T> parseByteResponse(ProtoRequest<T> request, Response response) {
+    private <T> Either<TravelTimeError, T> deserializeResponse(ProtoRequest<T> request, Response response) {
         Either<TravelTimeError, T> protoResponse = Try
             .of(() -> Objects.requireNonNull(response.body()).bytes())
             .toEither()
@@ -114,7 +114,7 @@ public class TravelTimeSDK {
         return request
             .createRequest(baseProtoUri, credentials)
             .flatMap(this::executeRequest)
-            .flatMap(response -> parseByteResponse(request, response));
+            .flatMap(response -> deserializeResponse(request, response));
     }
 
     public <T> Either<TravelTimeError, T> send(TravelTimeRequest<T> request) {
@@ -144,7 +144,7 @@ public class TravelTimeSDK {
 
                 @Override
                 public void onResponse(Call call, Response response) {
-                    future.complete(parseByteResponse(protoRequest, response));
+                    future.complete(deserializeResponse(protoRequest, response));
                 }
             });
     }
