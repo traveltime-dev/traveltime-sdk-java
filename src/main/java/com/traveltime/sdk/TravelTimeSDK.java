@@ -70,7 +70,7 @@ public class TravelTimeSDK {
         }
     }
 
-    private <T> Either<TravelTimeError, T> parseByteResponse(ProtoRequest<T> request, Response response) {
+    private <T> Either<TravelTimeError, T> deserializeResponse(ProtoRequest<T> request, Response response) {
         Either<TravelTimeError, T> protoResponse = Try
             .of(() -> Objects.requireNonNull(response.body()).bytes())
             .toEither()
@@ -99,11 +99,22 @@ public class TravelTimeSDK {
             .mapLeft(cause -> new IOError(cause, IO_CONNECTION_ERROR + cause.getMessage()));
     }
 
+    public <T> CompletableFuture<Either<TravelTimeError, T>> sendProtoAsync(ProtoRequest<T> request) {
+        final CompletableFuture<Either<TravelTimeError, T>> future = new CompletableFuture<>();
+        request
+            .createRequest(baseProtoUri, credentials)
+            .peekLeft(error -> future.complete(Either.left(error)))
+            .peek(createdRequest -> completeProtoFuture(future, request, createdRequest));
+
+        return future;
+    }
+
+
     public <T> Either<TravelTimeError, T> sendProto(ProtoRequest<T> request) {
         return request
             .createRequest(baseProtoUri, credentials)
             .flatMap(this::executeRequest)
-            .flatMap(response -> parseByteResponse(request, response));
+            .flatMap(response -> deserializeResponse(request, response));
     }
 
     public <T> Either<TravelTimeError, T> send(TravelTimeRequest<T> request) {
@@ -116,6 +127,26 @@ public class TravelTimeSDK {
                 .flatMap(this::executeRequest)
                 .flatMap(response -> getHttpResponse(request, response));
         }
+    }
+
+    private <T> void completeProtoFuture(
+        CompletableFuture<Either<TravelTimeError, T>> future,
+        ProtoRequest<T> protoRequest,
+        Request request
+    ) {
+        client
+            .newCall(request)
+            .enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    future.complete(Either.left(new IOError(e, IO_CONNECTION_ERROR + e.getMessage())));
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) {
+                    future.complete(deserializeResponse(protoRequest, response));
+                }
+            });
     }
 
     private <T> void completeFuture(
