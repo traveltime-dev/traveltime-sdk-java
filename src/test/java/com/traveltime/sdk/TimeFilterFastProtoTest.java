@@ -15,6 +15,8 @@ import org.junit.Test;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class TimeFilterFastProtoTest {
     TravelTimeSDK sdk;
@@ -42,5 +44,21 @@ public class TimeFilterFastProtoTest {
         TimeFilterFastProtoRequest request = new TimeFilterFastProtoRequest(oneToMany);
         Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
         Assert.assertTrue(response.isRight());
+    }
+
+    @Test
+    public void shouldSendAsyncTimeFilterProtoRequest() throws ExecutionException, InterruptedException {
+        Coordinates origin = new Coordinates(51.425709, -0.122061);
+        List<Coordinates> destinations = Collections.singletonList(new Coordinates(51.348605, -0.314783));
+        OneToMany oneToMany = new OneToMany(
+                origin,
+                destinations,
+                Transportation.PUBLIC_TRANSPORT,
+                7200,
+                Country.NETHERLANDS
+        );
+        TimeFilterFastProtoRequest request = new TimeFilterFastProtoRequest(oneToMany);
+        CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>> response = sdk.sendProtoAsync(request);
+        Assert.assertTrue(response.get().isRight());
     }
 }
