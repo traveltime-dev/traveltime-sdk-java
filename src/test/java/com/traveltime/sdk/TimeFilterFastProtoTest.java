@@ -9,6 +9,7 @@ import com.traveltime.sdk.dto.requests.proto.Transportation;
 import com.traveltime.sdk.dto.responses.TimeFilterFastProtoResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
+import lombok.val;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,6 +51,47 @@ public class TimeFilterFastProtoTest {
         Assert.assertTrue(response.get().isRight());
     }
 
+    @Test
+    public void shouldSendBatchTimeFilterProtoRequest() {
+        Coordinates origin = new Coordinates(51.425709, -0.122061);
+        List<Coordinates> destinations = Arrays.asList(
+            new Coordinates(51.348605, -0.314783),
+            new Coordinates(51.348705, -0.314783),
+            new Coordinates(51.348805, -0.314783),
+            new Coordinates(51.348905, -0.314783),
+            new Coordinates(51.348605, -0.314883),
+            new Coordinates(51.348705, -0.314883),
+            new Coordinates(51.348805, -0.314883),
+            new Coordinates(51.348905, -0.314883),
+            new Coordinates(51.348605, -0.314983),
+            new Coordinates(51.348705, -0.314983)
+        );
+        TimeFilterFastProtoRequest request = oneToMany(origin, destinations);
+        Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProtoBatched(request, 3);
+        Assert.assertTrue(response.isRight());
+        Assert.assertEquals(10, response.get().getTravelTimes().size());
+    }
+
+    @Test
+    public void shouldSendBatchAsyncTimeFilterProtoRequest() {
+        Coordinates origin = new Coordinates(51.425709, -0.122061);
+        List<Coordinates> destinations = Arrays.asList(
+            new Coordinates(51.348605, -0.314783),
+            new Coordinates(51.348705, -0.314783),
+            new Coordinates(51.348805, -0.314783),
+            new Coordinates(51.348905, -0.314783),
+            new Coordinates(51.348605, -0.314883),
+            new Coordinates(51.348705, -0.314883),
+            new Coordinates(51.348805, -0.314883),
+            new Coordinates(51.348905, -0.314883),
+            new Coordinates(51.348605, -0.314983),
+            new Coordinates(51.348705, -0.314983)
+        );
+        TimeFilterFastProtoRequest request = oneToMany(origin, destinations);
+        val response = sdk.sendProtoAsyncBatched(request, 3).join();
+        Assert.assertTrue(response.isRight());
+        Assert.assertEquals(10, response.get().getTravelTimes().size());
+    }
 
     @Test
     public void shouldSendMultipleAsyncTimeFilterProtoRequests() {
