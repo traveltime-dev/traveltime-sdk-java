@@ -8,6 +8,7 @@ import java.util.List;
 @Value
 @Builder
 @AllArgsConstructor
+@With
 public class OneToMany {
     @NonNull
     Coordinates originCoordinate;
