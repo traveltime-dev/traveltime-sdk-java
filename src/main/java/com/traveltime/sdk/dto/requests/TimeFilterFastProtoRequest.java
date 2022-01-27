@@ -27,38 +27,9 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
     OneToMany oneToMany;
 
     private byte[] createByteArray() {
-        Coordinates origin = oneToMany.getOriginCoordinate();
-
-        RequestsCommon.Coords departure = RequestsCommon
-            .Coords
-            .newBuilder()
-            .setLat(origin.getLat().floatValue())
-            .setLng(origin.getLng().floatValue())
-            .build();
-
-        RequestsCommon.Transportation transportation = RequestsCommon
-            .Transportation
-            .newBuilder()
-            .setTypeValue(oneToMany.getTransportation().getCode())
-            .build();
-
-        TimeFilterFastRequest.OneToMany.Builder oneToManyBuilder = TimeFilterFastRequest
-            .OneToMany
-            .newBuilder()
-            .setDepartureLocation(departure)
-            .setArrivalTimePeriod(RequestsCommon.TimePeriod.WEEKDAY_MORNING)
-            .setTransportation(transportation)
-            .setTravelTime(oneToMany.getTravelTime());
-
-        double mult = Math.pow(10, 5);
-        for(Coordinates dest : oneToMany.getDestinationCoordinates()) {
-            oneToManyBuilder.addLocationDeltas((int)Math.round((dest.getLat() - origin.getLat()) * mult));
-            oneToManyBuilder.addLocationDeltas((int)Math.round((dest.getLng() - origin.getLng()) * mult));
-        }
-
         return TimeFilterFastRequest
             .newBuilder()
-            .setOneToManyRequest(oneToManyBuilder.build())
+            .setOneToManyRequest(oneToMany.getUnderlying())
             .build()
             .toByteArray();
     }

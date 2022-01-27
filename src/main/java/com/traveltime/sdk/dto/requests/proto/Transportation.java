@@ -13,4 +13,12 @@ public enum Transportation {
 
     private final String value;
     private final Integer code;
+
+    public static Transportation ofInt(int i) {
+        for (Transportation t : Transportation.values()) {
+            if (t.code.intValue() == i) return t;
+        }
+
+        throw new IllegalArgumentException("Transportation not found for value: " + i);
+    }
 }
