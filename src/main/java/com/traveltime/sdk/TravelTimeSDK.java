@@ -32,6 +32,7 @@ public class TravelTimeSDK {
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     private final Validator validator = factory.getValidator();
     private static final String IO_CONNECTION_ERROR = "Something went wrong when connecting to the Traveltime API: ";
+    private static final int DEFAULT_BATCH_SIZE = 100_000;
 
     @NonNull
     private final TravelTimeCredentials credentials;
@@ -129,10 +130,22 @@ public class TravelTimeSDK {
     }
 
     public Either<TravelTimeError, TimeFilterFastProtoResponse> sendProtoBatched(
+        TimeFilterFastProtoRequest request
+    ) {
+        return getFuture(sendProtoAsyncBatched(request, DEFAULT_BATCH_SIZE));
+    }
+
+    public Either<TravelTimeError, TimeFilterFastProtoResponse> sendProtoBatched(
         TimeFilterFastProtoRequest request,
         int batchSizeHint
     ) {
         return getFuture(sendProtoAsyncBatched(request, batchSizeHint));
+    }
+
+    public CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>> sendProtoAsyncBatched(
+        TimeFilterFastProtoRequest request
+    ) {
+        return sendProtoAsyncBatched(request, DEFAULT_BATCH_SIZE);
     }
 
     public CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>> sendProtoAsyncBatched(
