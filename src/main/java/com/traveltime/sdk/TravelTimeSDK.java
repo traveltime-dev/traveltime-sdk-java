@@ -133,7 +133,7 @@ public class TravelTimeSDK {
     public Either<TravelTimeError, TimeFilterFastProtoResponse> sendProtoBatched(
         TimeFilterFastProtoRequest request
     ) {
-        return getFuture(sendProtoAsyncBatchedCount(request, DEFAULT_BATCH_COUNT));
+        return sendProtoBatchedCount(request, DEFAULT_BATCH_COUNT);
     }
 
     public Either<TravelTimeError, TimeFilterFastProtoResponse> sendProtoBatched(
