@@ -243,4 +243,17 @@ public class TravelTimeSDK {
 
         return future;
     }
+
+    /** Only useful for applications that need to aggressively clean up resources, as this is done automatically by OkHttp. */
+    public void close() {
+        client.dispatcher().executorService().shutdown();
+        client.connectionPool().evictAll();
+        try {
+            if (client.cache() != null) {
+                client.cache().close();
+            }
+        } catch (IOException ignored) {
+
+        }
+    }
 }
