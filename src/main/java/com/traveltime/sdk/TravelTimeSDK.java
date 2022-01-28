@@ -248,12 +248,5 @@ public class TravelTimeSDK {
     public void close() {
         client.dispatcher().executorService().shutdown();
         client.connectionPool().evictAll();
-        try {
-            if (client.cache() != null) {
-                client.cache().close();
-            }
-        } catch (IOException ignored) {
-
-        }
     }
 }
