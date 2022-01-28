@@ -32,7 +32,8 @@ public class TravelTimeSDK {
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     private final Validator validator = factory.getValidator();
     private static final String IO_CONNECTION_ERROR = "Something went wrong when connecting to the Traveltime API: ";
-    private static final int DEFAULT_BATCH_SIZE = 100_000;
+    private static final int DEFAULT_BATCH_COUNT = 4;
+    private static final int MINIMUM_SPLIT_SIZE =  10_000;
 
     @NonNull
     private final TravelTimeCredentials credentials;
@@ -132,7 +133,7 @@ public class TravelTimeSDK {
     public Either<TravelTimeError, TimeFilterFastProtoResponse> sendProtoBatched(
         TimeFilterFastProtoRequest request
     ) {
-        return getFuture(sendProtoAsyncBatched(request, DEFAULT_BATCH_SIZE));
+        return sendProtoBatchedCount(request, DEFAULT_BATCH_COUNT);
     }
 
     public Either<TravelTimeError, TimeFilterFastProtoResponse> sendProtoBatched(
@@ -142,10 +143,34 @@ public class TravelTimeSDK {
         return getFuture(sendProtoAsyncBatched(request, batchSizeHint));
     }
 
+    public Either<TravelTimeError, TimeFilterFastProtoResponse> sendProtoBatchedCount(
+        TimeFilterFastProtoRequest request,
+        int batchCount
+    ) {
+        int requestSize = request.getOneToMany().getDestinationCoordinates().size();
+        if(requestSize / batchCount < MINIMUM_SPLIT_SIZE) {
+            return sendProto(request);
+        } else {
+            return getFuture(sendProtoAsyncBatched(request, requestSize / batchCount));
+        }
+    }
+
     public CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>> sendProtoAsyncBatched(
         TimeFilterFastProtoRequest request
     ) {
-        return sendProtoAsyncBatched(request, DEFAULT_BATCH_SIZE);
+        return sendProtoAsyncBatchedCount(request, DEFAULT_BATCH_COUNT);
+    }
+
+    public CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>> sendProtoAsyncBatchedCount(
+        TimeFilterFastProtoRequest request,
+        int batchCount
+    ) {
+        int requestSize = request.getOneToMany().getDestinationCoordinates().size();
+        if(requestSize / batchCount < MINIMUM_SPLIT_SIZE) {
+            return sendProtoAsync(request);
+        } else {
+            return sendProtoAsyncBatched(request, requestSize / batchCount);
+        }
     }
 
     public CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>> sendProtoAsyncBatched(
