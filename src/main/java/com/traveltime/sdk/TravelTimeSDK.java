@@ -148,11 +148,7 @@ public class TravelTimeSDK {
         int batchCount
     ) {
         int requestSize = request.getOneToMany().getDestinationCoordinates().size();
-        if(requestSize / batchCount < MINIMUM_SPLIT_SIZE) {
-            return sendProto(request);
-        } else {
-            return getFuture(sendProtoAsyncBatched(request, requestSize / batchCount));
-        }
+        return getFuture(sendProtoAsyncBatched(request, Math.max(MINIMUM_SPLIT_SIZE, requestSize / batchCount)));
     }
 
     public CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>> sendProtoAsyncBatched(
@@ -166,11 +162,7 @@ public class TravelTimeSDK {
         int batchCount
     ) {
         int requestSize = request.getOneToMany().getDestinationCoordinates().size();
-        if(requestSize / batchCount < MINIMUM_SPLIT_SIZE) {
-            return sendProtoAsync(request);
-        } else {
-            return sendProtoAsyncBatched(request, requestSize / batchCount);
-        }
+        return sendProtoAsyncBatched(request, Math.max(MINIMUM_SPLIT_SIZE, requestSize / batchCount));
     }
 
     public CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>> sendProtoAsyncBatched(
