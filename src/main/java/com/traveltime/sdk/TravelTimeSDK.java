@@ -106,13 +106,16 @@ public class TravelTimeSDK {
     }
 
     public <T> CompletableFuture<Either<TravelTimeError, T>> sendProtoAsync(ProtoRequest<T> request) {
-        final CompletableFuture<Either<TravelTimeError, T>> future = new CompletableFuture<>();
-        request
-            .createRequest(baseProtoUri, credentials)
-            .peekLeft(error -> future.complete(Either.left(error)))
-            .peek(createdRequest -> completeProtoFuture(future, request, createdRequest));
+        return CompletableFuture
+            .supplyAsync(() -> request.createRequest(baseProtoUri, credentials))
+            .thenCompose(req -> {
+                final CompletableFuture<Either<TravelTimeError, T>> future = new CompletableFuture<>();
 
-        return future;
+                req.peekLeft(error -> future.complete(Either.left(error)))
+                    .peek(createdRequest -> completeProtoFuture(future, request, createdRequest));
+
+                return future;
+            });
     }
 
     public <T> Either<TravelTimeError, T> sendProto(ProtoRequest<T> request) {
@@ -246,19 +249,24 @@ public class TravelTimeSDK {
     }
 
     public <T> CompletableFuture<Either<TravelTimeError, T>> sendAsync(TravelTimeRequest<T> request) {
-        final CompletableFuture<Either<TravelTimeError, T>> future = new CompletableFuture<>();
-        Option<ValidationError> validationError = validate(request);
+        return CompletableFuture
+            .supplyAsync(() -> validate(request))
+            .thenCompose(validationError -> {
+                if (validationError.isDefined()) {
+                    return CompletableFuture.completedFuture(Either.left(validationError.get()));
+                }
+                return CompletableFuture
+                    .supplyAsync(() -> request.createRequest(baseUri, credentials))
+                    .thenCompose(req -> {
+                        CompletableFuture<Either<TravelTimeError, T>> future = new CompletableFuture<>();
 
-        if(validationError.isDefined()) {
-            future.complete(Either.left(validationError.get()));
-        } else {
-            request
-                .createRequest(baseUri, credentials)
-                .peekLeft(error -> future.complete(Either.left(error)))
-                .peek(createdRequest -> completeFuture(future, request, createdRequest));
-        }
+                        req.peekLeft(error -> future.complete(Either.left(error)))
+                           .peek(createdRequest -> completeFuture(future, request, createdRequest));
 
-        return future;
+                        return future;
+                    });
+                }
+            );
     }
 
     /** Only useful for applications that need to aggressively clean up resources, as this is done automatically by OkHttp. */
