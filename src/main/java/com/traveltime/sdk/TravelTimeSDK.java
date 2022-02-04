@@ -107,7 +107,7 @@ public class TravelTimeSDK {
 
     public <T> CompletableFuture<Either<TravelTimeError, T>> sendProtoAsync(ProtoRequest<T> request) {
         return CompletableFuture
-            .supplyAsync(() -> request.createRequest(baseProtoUri, credentials))
+            .supplyAsync(() -> request.createRequest(baseProtoUri, credentials), client.dispatcher().executorService())
             .thenCompose(req -> {
                 final CompletableFuture<Either<TravelTimeError, T>> future = new CompletableFuture<>();
 
