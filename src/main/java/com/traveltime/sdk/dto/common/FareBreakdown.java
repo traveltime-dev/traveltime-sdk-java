@@ -1,6 +1,5 @@
 package com.traveltime.sdk.dto.common;
 
-import jakarta.validation.Valid;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
@@ -15,7 +14,6 @@ public class FareBreakdown {
     List<String> modes;
     @NonNull
     List<Integer> routePartIds;
-    @Valid
     @NonNull
     List<Ticket> tickets;
 }

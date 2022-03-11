@@ -7,7 +7,6 @@ import com.traveltime.sdk.dto.requests.postcodes.*;
 import com.traveltime.sdk.dto.responses.TimeFilterPostcodesResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -24,9 +23,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class TimeFilterPostcodesRequest extends TravelTimeRequest<TimeFilterPostcodesResponse> {
-    @Valid
     List<DepartureSearch> departureSearches;
-    @Valid
     List<ArrivalSearch> arrivalSearches;
 
     @Override

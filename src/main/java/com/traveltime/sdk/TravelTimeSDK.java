@@ -9,9 +9,7 @@ import com.traveltime.sdk.dto.responses.errors.*;
 import com.traveltime.sdk.utils.JsonUtils;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
 import io.vavr.control.Either;
-import io.vavr.control.Option;
 import io.vavr.control.Try;
-import jakarta.validation.*;
 import lombok.*;
 import okhttp3.*;
 
@@ -19,18 +17,14 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class TravelTimeSDK {
     private final OkHttpClient client = new OkHttpClient();
-    private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-    private final Validator validator = factory.getValidator();
     private static final String IO_CONNECTION_ERROR = "Something went wrong when connecting to the Traveltime API: ";
     private static final int DEFAULT_BATCH_COUNT = 4;
     private static final int MINIMUM_SPLIT_SIZE =  10_000;
@@ -43,20 +37,6 @@ public class TravelTimeSDK {
 
     @Builder.Default
     private URI baseProtoUri = URI.create("https://proto.api.traveltimeapp.com/api/v2/");
-
-    private <T> Option<ValidationError> validate(TravelTimeRequest<T> request) {
-        Set<ConstraintViolation<TravelTimeRequest<T>>> violations = validator.validate(request);
-        if(!violations.isEmpty()) {
-            String msg = violations
-                .stream()
-                .map(ConstraintViolation::getMessage)
-                .collect(Collectors.joining(". "));
-
-            return Option.of(new ValidationError(msg));
-        }
-
-        return Option.none();
-    }
 
     private <T> Either<TravelTimeError, T> parseJsonBody(TravelTimeRequest<T> request, int responseCode, String body) {
         if(responseCode == 200) {
@@ -197,15 +177,11 @@ public class TravelTimeSDK {
     }
 
     public <T> Either<TravelTimeError, T> send(TravelTimeRequest<T> request) {
-        Option<ValidationError> validationError = validate(request);
-        if(validationError.isDefined()) {
-            return Either.left(validationError.get());
-        } else {
-            return request
-                .createRequest(baseUri, credentials)
-                .flatMap(this::executeRequest)
-                .flatMap(response -> getHttpResponse(request, response));
-        }
+        return request
+            .createRequest(baseUri, credentials)
+            .flatMap(this::executeRequest)
+            .flatMap(response -> getHttpResponse(request, response));
+
     }
 
     private <T> void completeProtoFuture(
@@ -250,23 +226,15 @@ public class TravelTimeSDK {
 
     public <T> CompletableFuture<Either<TravelTimeError, T>> sendAsync(TravelTimeRequest<T> request) {
         return CompletableFuture
-            .supplyAsync(() -> validate(request))
-            .thenCompose(validationError -> {
-                if (validationError.isDefined()) {
-                    return CompletableFuture.completedFuture(Either.left(validationError.get()));
-                }
-                return CompletableFuture
-                    .supplyAsync(() -> request.createRequest(baseUri, credentials))
-                    .thenCompose(req -> {
-                        CompletableFuture<Either<TravelTimeError, T>> future = new CompletableFuture<>();
+            .supplyAsync(() -> request.createRequest(baseUri, credentials))
+            .thenCompose(req -> {
+                CompletableFuture<Either<TravelTimeError, T>> future = new CompletableFuture<>();
+                req
+                    .peekLeft(error -> future.complete(Either.left(error)))
+                    .peek(createdRequest -> completeFuture(future, request, createdRequest));
 
-                        req.peekLeft(error -> future.complete(Either.left(error)))
-                           .peek(createdRequest -> completeFuture(future, request, createdRequest));
-
-                        return future;
-                    });
-                }
-            );
+                return future;
+            });
     }
 
     /** Only useful for applications that need to aggressively clean up resources, as this is done automatically by OkHttp. */

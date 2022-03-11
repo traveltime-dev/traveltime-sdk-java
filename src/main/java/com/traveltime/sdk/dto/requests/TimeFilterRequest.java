@@ -10,7 +10,6 @@ import com.traveltime.sdk.dto.common.Location;
 import com.traveltime.sdk.dto.responses.TimeFilterResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
-import jakarta.validation.Valid;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
@@ -27,9 +26,7 @@ import java.util.List;
 public class TimeFilterRequest extends TravelTimeRequest<TimeFilterResponse> {
     @NonNull
     List<Location> locations;
-    @Valid
     List<DepartureSearch> departureSearches;
-    @Valid
     List<ArrivalSearch> arrivalSearches;
 
     @Override

@@ -11,7 +11,6 @@ import com.traveltime.sdk.dto.requests.timemap.Union;
 import com.traveltime.sdk.dto.responses.TimeMapResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
-import jakarta.validation.Valid;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
@@ -26,9 +25,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimeMapRequest extends TravelTimeRequest<TimeMapResponse> {
-    @Valid
     List<DepartureSearch> departureSearches;
-    @Valid
+
     List<ArrivalSearch> arrivalSearches;
 
     List<Intersection> intersections;

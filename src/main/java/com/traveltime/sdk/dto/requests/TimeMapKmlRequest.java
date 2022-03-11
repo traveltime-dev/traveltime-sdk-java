@@ -11,7 +11,6 @@ import com.traveltime.sdk.utils.AcceptType;
 import com.traveltime.sdk.utils.JsonUtils;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
 import io.vavr.control.Either;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -29,9 +28,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimeMapKmlRequest extends TravelTimeRequest<Kml>{
-    @Valid
     List<DepartureSearch> departureSearches;
-    @Valid
+
     List<ArrivalSearch> arrivalSearches;
 
     List<Intersection> intersections;

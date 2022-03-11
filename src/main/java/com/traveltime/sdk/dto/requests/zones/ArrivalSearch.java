@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.FullRange;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
@@ -27,12 +25,10 @@ public class ArrivalSearch {
     @NonNull
     Instant arrivalTime;
     @NonNull
-    @Positive(message = "travelTime must be greater than 0")
     Integer travelTime;
     @NonNull
     Double reachablePostcodesThreshold;
     @NonNull
     List<Property> properties;
-    @Valid
     FullRange range;
 }

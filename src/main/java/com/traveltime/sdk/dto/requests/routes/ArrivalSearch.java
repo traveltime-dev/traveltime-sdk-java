@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.dto.common.FullRange;
 import com.traveltime.sdk.dto.common.Property;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
-import jakarta.validation.Valid;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
@@ -29,6 +28,5 @@ public class ArrivalSearch {
     Instant arrivalTime;
     @NonNull
     List<Property> properties;
-    @Valid
     FullRange range;
 }
