@@ -4,7 +4,6 @@ import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.requests.TravelTimeRequest;
 import com.traveltime.sdk.dto.responses.errors.*;
 import com.traveltime.sdk.utils.JsonUtils;
-import de.micromata.opengis.kml.v_2_2_0.Kml;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import lombok.*;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 @Builder
 @AllArgsConstructor
@@ -33,15 +31,7 @@ public class TravelTimeSDK {
 
     private <T> Either<TravelTimeError, T> parseJsonBody(TravelTimeRequest<T> request, int responseCode, String body) {
         if(responseCode == 200) {
-            if(request.responseType() == Kml.class) {
-                return Try
-                    .of(() -> (T)Kml.unmarshal(body))
-                    .toEither()
-                    .mapLeft(XmlError::new);
-            }
-            else {
-                return JsonUtils.fromJson(body, request.responseType());
-            }
+            return JsonUtils.fromJson(body, request.responseType());
         } else {
             return JsonUtils
                 .fromJson(body, ResponseError.class)
@@ -65,14 +55,6 @@ public class TravelTimeSDK {
             .of(() -> client.newCall(request).execute())
             .toEither()
             .mapLeft(cause -> new IOError(cause, IO_CONNECTION_ERROR + cause.getMessage()));
-    }
-
-    private static <T> Either<TravelTimeError, T> getFuture(CompletableFuture<Either<TravelTimeError, T>> future) {
-        try {
-            return future.get();
-        } catch (InterruptedException | ExecutionException e) {
-            return Either.left(new IOError(e, "Error while executing an async request."));
-        }
     }
 
     public <T> Either<TravelTimeError, T> send(TravelTimeRequest<T> request) {

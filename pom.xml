@@ -6,7 +6,7 @@
 
     <groupId>com.traveltime</groupId>
     <artifactId>traveltime-sdk-java</artifactId>
-    <version>1.1.14-Snapshot</version>
+    <version>1.1.15-Snapshot</version>
 
     <distributionManagement>
         <repository>
@@ -69,11 +69,6 @@
             <groupId>io.vavr</groupId>
             <artifactId>vavr</artifactId>
             <version>0.10.4</version>
-        </dependency>
-        <dependency>
-            <groupId>de.micromata.jak</groupId>
-            <artifactId>JavaAPIforKml</artifactId>
-            <version>2.2.1</version>
         </dependency>
 
     </dependencies>
