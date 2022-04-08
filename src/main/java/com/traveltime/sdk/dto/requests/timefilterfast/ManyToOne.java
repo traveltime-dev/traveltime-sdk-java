@@ -1,7 +1,6 @@
 package com.traveltime.sdk.dto.requests.timefilterfast;
 
 import com.traveltime.sdk.dto.common.Property;
-import com.traveltime.sdk.dto.common.transportation.Transportation;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 

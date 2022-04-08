@@ -6,13 +6,13 @@ import com.traveltime.sdk.dto.common.FullRange;
 import com.traveltime.sdk.dto.common.Location;
 import com.traveltime.sdk.dto.common.Property;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
-import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.TimeFilterFastRequest;
 import com.traveltime.sdk.dto.requests.TimeFilterRequest;
 import com.traveltime.sdk.dto.requests.timefilter.*;
 import com.traveltime.sdk.dto.requests.timefilterfast.ArrivalSearches;
 import com.traveltime.sdk.dto.requests.timefilterfast.ManyToOne;
 import com.traveltime.sdk.dto.requests.timefilterfast.OneToMany;
+import com.traveltime.sdk.dto.requests.timefilterfast.transportation.DrivingAndPublicTransport;
 import com.traveltime.sdk.dto.responses.*;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
@@ -44,14 +44,13 @@ public class TimeFilterTest {
             new Location("location2", new Coordinates(51.508824,-0.167093)),
             new Location("location3", new Coordinates(51.536067,-0.153596))
         );
-        Transportation transport = PublicTransport.builder().build();
-
         TimeFilterRequest request = new TimeFilterRequest(
             locations,
-            createDepartureSearch("location1", Arrays.asList("location2", "location3"), transport),
-            createArrivalSearch(Arrays.asList("location2", "location3"), "location1", transport)
+            createDepartureSearch("location1", Arrays.asList("location2", "location3")),
+            createArrivalSearch(Arrays.asList("location2", "location3"), "location1")
         );
 
+        System.out.println(request);
         Either<TravelTimeError, TimeFilterResponse> response = sdk.send(request);
         Assert.assertTrue(response.isRight());
     }
@@ -63,10 +62,9 @@ public class TimeFilterTest {
             new Location("location2", new Coordinates(51.508824,-0.167093)),
             new Location("location3", new Coordinates(51.536067,-0.153596))
         );
-        Transportation transport = PublicTransport.builder().build();
         ArrivalSearches arrivalSearches = new ArrivalSearches(
-            createManyToOne("location1", Arrays.asList("location2", "location3"), transport),
-            createOneToMany("location1", Arrays.asList("location2", "location3"), transport)
+            createManyToOne("location1", Arrays.asList("location2", "location3")),
+            createOneToMany("location1", Arrays.asList("location2", "location3"))
         );
 
         TimeFilterFastRequest request = new TimeFilterFastRequest(locations, arrivalSearches);
@@ -77,14 +75,13 @@ public class TimeFilterTest {
 
     private List<ManyToOne> createManyToOne(
         String arrivalLocation,
-        List<String> departureLocations,
-        Transportation transportation
+        List<String> departureLocations
     ) {
         ManyToOne manyToOne = new ManyToOne(
             "test many to one",
             arrivalLocation,
             departureLocations,
-            transportation,
+            DrivingAndPublicTransport.builder().build(),
             900,
             "weekday_morning",
             Arrays.asList(Property.TRAVEL_TIME, Property.FARES)
@@ -95,14 +92,13 @@ public class TimeFilterTest {
 
     private List<OneToMany> createOneToMany(
         String departureLocation,
-        List<String> arrivalLocations,
-        Transportation transportation
+        List<String> arrivalLocations
     ) {
         OneToMany oneToMany = new OneToMany(
             "test one to many",
             departureLocation,
             arrivalLocations,
-            transportation,
+            DrivingAndPublicTransport.builder().build(),
             900,
             "weekday_morning",
             Arrays.asList(Property.TRAVEL_TIME, Property.FARES)
@@ -113,14 +109,13 @@ public class TimeFilterTest {
 
     private List<DepartureSearch> createDepartureSearch(
         String departureLocation,
-        List<String> arrivalLocations,
-        Transportation transportation
+        List<String> arrivalLocations
     ) {
         DepartureSearch ds = new DepartureSearch(
             "Test departure search",
             departureLocation,
             arrivalLocations,
-            transportation,
+            PublicTransport.builder().build(),
             Instant.now(),
             900,
             Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE),
@@ -131,14 +126,13 @@ public class TimeFilterTest {
 
     private List<ArrivalSearch> createArrivalSearch(
         List<String> departureLocations,
-        String arrivalLocation,
-        Transportation transportation
+        String arrivalLocation
     ) {
         ArrivalSearch as = new ArrivalSearch(
         "Test arrival search",
             departureLocations,
             arrivalLocation,
-            transportation,
+            PublicTransport.builder().build(),
             Instant.now(),
             900,
             Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES),

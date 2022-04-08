@@ -1,6 +1,7 @@
 package com.traveltime.sdk.dto.common.transportation;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.traveltime.sdk.dto.common.MaxChanges;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.*;

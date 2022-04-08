@@ -1,23 +1,17 @@
-package com.traveltime.sdk.dto.common.transportation;
+package com.traveltime.sdk.dto.requests.timefilterfast.transportation;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.traveltime.sdk.dto.common.MaxChanges;
-import jakarta.validation.Valid;
+import com.traveltime.sdk.dto.requests.timefilterfast.Transportation;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
-
 
 @Value
 @Builder
 @Jacksonized
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Bus implements Transportation {
-    @Positive(message = "ptChangeDelay must be greater than 0")
-    Integer ptChangeDelay;
+public class PublicTransport implements Transportation {
     @Positive(message = "walkingTime must be greater than 0")
     Integer walkingTime;
-    @Valid
-    MaxChanges maxChanges;
 }
