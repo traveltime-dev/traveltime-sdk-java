@@ -1,7 +1,7 @@
 package com.traveltime.sdk.dto.common.transportation;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.traveltime.sdk.dto.common.roundlimit.RoundLimit;
+import com.traveltime.sdk.dto.common.MaxChanges;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -24,5 +24,5 @@ public class DrivingTrain implements Transportation {
     @Positive(message = "walkingTime must be greater than 0")
     Integer walkingTime;
     @Valid
-    RoundLimit roundLimit;
+    MaxChanges maxChanges;
 }
