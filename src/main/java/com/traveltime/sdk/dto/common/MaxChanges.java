@@ -1,4 +1,4 @@
-package com.traveltime.sdk.dto.common.transportation;
+package com.traveltime.sdk.dto.common;
 
 import jakarta.validation.constraints.Positive;
 import lombok.*;

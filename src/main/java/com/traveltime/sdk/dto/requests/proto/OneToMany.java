@@ -23,16 +23,16 @@ public class OneToMany {
     Country country;
 
     /**
-     * @param originCoordinate The coordinates of location we should start the search from.
+     * @param originCoordinate       The coordinates of location we should start the search from.
      * @param destinationCoordinates The coordinates of locations we run the search to. If the class implementing this list
      *                               does not implement the {@code RandomAccess} interface it will be internally converted into an {@code ArrayList}.
-     * @param transportation Transportation mode.
-     * @param travelTime Travel time limit.
-     * @param country The country to run the search in.
+     * @param transportation         Transportation mode.
+     * @param travelTime             Travel time limit.
+     * @param country                The country to run the search in.
      */
     public OneToMany(@NonNull Coordinates originCoordinate, @NonNull List<Coordinates> destinationCoordinates, @NonNull Transportation transportation, @NonNull Integer travelTime, @NonNull Country country) {
         this.originCoordinate = originCoordinate;
-        if(destinationCoordinates instanceof RandomAccess) {
+        if (destinationCoordinates instanceof RandomAccess) {
             this.destinationCoordinates = destinationCoordinates;
         } else {
             this.destinationCoordinates = new ArrayList<>(destinationCoordinates);
