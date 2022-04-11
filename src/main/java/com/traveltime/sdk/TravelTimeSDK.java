@@ -28,12 +28,14 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class TravelTimeSDK {
-    private final OkHttpClient client = new OkHttpClient();
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     private final Validator validator = factory.getValidator();
     private static final String IO_CONNECTION_ERROR = "Something went wrong when connecting to the Traveltime API: ";
     private static final int DEFAULT_BATCH_COUNT = 4;
     private static final int MINIMUM_SPLIT_SIZE =  10_000;
+
+    @Builder.Default
+    private OkHttpClient client = new OkHttpClient();
 
     @NonNull
     private final TravelTimeCredentials credentials;
