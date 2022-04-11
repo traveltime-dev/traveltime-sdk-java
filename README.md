@@ -288,7 +288,6 @@ if(response.isRight()) {
 ### Passing custom parameters 
 In order to pass custom parameters, you will have to create TravelTimeSDK builder.
 
-
 ```java
 TravelTimeCredentials credentials = new TravelTimeCredentials("APP_ID", "API_KEY");
 
