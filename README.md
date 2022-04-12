@@ -295,7 +295,7 @@ URI baseUri = "BASE_URI";
 
 OkHttpClient client = new OkHttpClient
     .Builder()
-    .callTimeout(5, TimeUnit.SECONDS)  
+    .callTimeout(120, TimeUnit.SECONDS)  
     .build();
 
 TravelTimeSDK sdk = TravelTimeSDK
