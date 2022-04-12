@@ -285,8 +285,27 @@ if(response.isRight()) {
 }
 ```
 
+### Passing custom parameters 
+In order to pass custom parameters, you will have to create TravelTimeSDK builder.
+
+```java
+TravelTimeCredentials credentials = new TravelTimeCredentials("APP_ID", "API_KEY");
+
+URI baseUri = "BASE_URI";
+
+OkHttpClient client = new OkHttpClient
+    .Builder()
+    .callTimeout(120, TimeUnit.SECONDS)  
+    .build();
+
+TravelTimeSDK sdk = TravelTimeSDK
+    .builder()
+    .baseUri(baseUri)
+    .credentials(credentials)
+    .client(client)
+    .build();
+```
+
 ## Support
 
 If you have problems, please write an issue or contact us by writing to support@traveltime.com
-
-
