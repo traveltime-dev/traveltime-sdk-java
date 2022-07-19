@@ -278,8 +278,10 @@ TimeFilterFastProtoRequest request = TimeFilterFastProtoRequest
     .oneToMany(oneToMany)
     .build();
 
+Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
+
 if(response.isRight()) {
-    System.out.println(response.get().getMaps().size());
+    System.out.println(response.get().getTravelTimes());
 } else {
     System.out.println(response.getLeft().getMessage());
 }
