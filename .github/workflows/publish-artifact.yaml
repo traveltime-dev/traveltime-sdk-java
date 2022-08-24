@@ -21,9 +21,6 @@ jobs:
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
 
-          github:
-            ref_name:
-
       - name: echo version
         run: echo ${{github.ref_name}}
 
