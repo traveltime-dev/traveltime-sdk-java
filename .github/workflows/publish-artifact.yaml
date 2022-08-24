@@ -3,7 +3,7 @@ name: Artifact publish
 on:
   push:
     tags:
-      - "v*.*.*"
+      - "*.*.*"
 
 jobs:
   publish:
@@ -20,9 +20,6 @@ jobs:
           server-id: sonatype
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
-
-      - name: echo version
-        run: echo ${{github.ref_name}}
 
       - name: Update version in pom.xml
         run: mvn --batch-mode release:update-versions -DdevelopmentVersion=${{github.ref_name}}
