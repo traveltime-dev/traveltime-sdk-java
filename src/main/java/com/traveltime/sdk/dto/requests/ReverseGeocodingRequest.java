@@ -2,6 +2,7 @@ package com.traveltime.sdk.dto.requests;
 
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.responses.GeocodingResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import lombok.*;
@@ -15,7 +16,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class ReverseGeocodingRequest extends TravelTimeRequest<FeatureCollection> {
+public class ReverseGeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
     @NonNull
     Coordinates coordinates;
 
@@ -31,7 +32,7 @@ public class ReverseGeocodingRequest extends TravelTimeRequest<FeatureCollection
     }
 
     @Override
-    public Class<FeatureCollection> responseType() {
-        return FeatureCollection.class;
+    public Class<GeocodingResponse> responseType() {
+        return GeocodingResponse.class;
     }
 }

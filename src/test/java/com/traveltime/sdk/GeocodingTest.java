@@ -4,9 +4,9 @@ import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.GeocodingRequest;
 import com.traveltime.sdk.dto.requests.ReverseGeocodingRequest;
+import com.traveltime.sdk.dto.responses.GeocodingResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
-import org.geojson.FeatureCollection;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class GeocodingTest {
     @Test
     public void shouldSendGeocodingRequest() {
         GeocodingRequest request = new GeocodingRequest("Geneva", Arrays.asList("CH", "DE"), 1);
-        Either<TravelTimeError, FeatureCollection> response = sdk.send(request);
+        Either<TravelTimeError, GeocodingResponse> response = sdk.send(request);
         Assert.assertTrue(response.isRight());
     }
 
@@ -39,7 +39,7 @@ public class GeocodingTest {
             new Coordinates(51.507281, -0.132120),
             Collections.singletonList("GB")
         );
-        Either<TravelTimeError, FeatureCollection> response = sdk.send(request);
+        Either<TravelTimeError, GeocodingResponse> response = sdk.send(request);
         Assert.assertTrue(response.isRight());
     }
 }
