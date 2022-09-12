@@ -27,9 +27,6 @@ jobs:
         with:
           strip_v: true
 
-      - name: Update version in pom.xml
-        run: mvn --batch-mode release:update-versions -DdevelopmentVersion=${{steps.tag.outputs.tag}}
-
       - name: Publish package
         env:
           APP_ID: ${{ secrets.APP_ID }}
@@ -38,4 +35,4 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
           PROTO_USERNAME: ${{ secrets.PROTO_USERNAME }}
           PROTO_PASSWORD: ${{ secrets.PROTO_PASSWORD }}
-        run: mvn --batch-mode deploy
+        run: mvn --batch-mode deploy -DdevelopmentVersion=${{steps.tag.outputs.tag}}
