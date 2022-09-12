@@ -3,7 +3,7 @@ name: Artifact publish
 on:
   push:
     tags:
-      - "*.*.*"
+      - "v*.*.*"
 
 jobs:
   publish:
@@ -20,9 +20,15 @@ jobs:
           server-id: sonatype
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
+          
+      - name: Get tag
+        id: tag
+        uses: dawidd6/action-get-tag@v1
+        with:
+          strip_v: true
 
       - name: Update version in pom.xml
-        run: mvn --batch-mode release:update-versions -DdevelopmentVersion=${{github.ref_name}}
+        run: mvn --batch-mode release:update-versions -DdevelopmentVersion=${{steps.tag.outputs.tag}}
 
       - name: Publish package
         env:
