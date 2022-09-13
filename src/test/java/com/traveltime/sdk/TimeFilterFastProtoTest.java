@@ -14,9 +14,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Stream;
@@ -41,6 +39,31 @@ public class TimeFilterFastProtoTest {
         Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
         Assert.assertTrue(response.isRight());
     }
+
+    @Test
+    public void shouldSplitProtoRequestsTest() {
+        TimeFilterFastProtoRequest request = oneToMany(
+            new Coordinates(51.425709, -0.122061),
+            generateCoordinates(12)
+        );
+
+        List<TimeFilterFastProtoRequest> requests = TimeFilterFastProtoRequest.split(request, 3);
+
+        Assert.assertEquals(4, requests.size());
+        Assert.assertTrue(requests.stream().allMatch(req -> req.getOneToMany().getDestinationCoordinates().size() <= 3));
+    }
+
+    @Test
+    public void shouldSplitProtoRequestsEvenlyTest() {
+        TimeFilterFastProtoRequest request = oneToMany(
+            new Coordinates(51.425709, -0.122061),
+            generateCoordinates(1001)
+        );
+
+        List<TimeFilterFastProtoRequest> requests = TimeFilterFastProtoRequest.split(request, 100);
+        Assert.assertTrue(requests.stream().allMatch(req -> req.getOneToMany().getDestinationCoordinates().size() != 1));
+    }
+
 
     @Test
     public void shouldSendAsyncTimeFilterProtoRequest() throws ExecutionException, InterruptedException {
@@ -122,6 +145,13 @@ public class TimeFilterFastProtoTest {
             .allMatch(Either::isRight);
 
         Assert.assertTrue(result);
+    }
+
+    public List<Coordinates> generateCoordinates(int size) {
+        Random r = new Random();
+        List<Coordinates> list = new ArrayList<>();
+        for (int i = 0; i < size; i++) list.add(new Coordinates(r.nextDouble(), r.nextDouble()));
+        return list;
     }
 
     public TimeFilterFastProtoRequest oneToMany(
