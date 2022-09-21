@@ -8,6 +8,7 @@ import com.traveltime.sdk.dto.requests.*;
 import com.traveltime.sdk.dto.requests.timemap.*;
 import com.traveltime.sdk.dto.responses.*;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import com.traveltime.sdk.utils.JsonUtils;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
 import io.vavr.control.Either;
 import org.geojson.FeatureCollection;
@@ -45,6 +46,24 @@ public class TimeMapTest {
         );
 
         Either<TravelTimeError, TimeMapResponse> response = sdk.send(request);
+        Assert.assertTrue(response.isRight());
+    }
+
+    @Test
+    public void shouldReceiveValidJsonResponse() {
+        Coordinates coords = new Coordinates(51.507609,-0.128315);
+        Transportation transportation = PublicTransport.builder().build();
+        List<String> searchIds = Arrays.asList("Test arrival search", "Test departure search");
+
+        TimeMapRequest request = new TimeMapRequest(
+            createDepartureSearch(coords, transportation),
+            createArrivalSearch(coords, transportation),
+            createIntersection(searchIds),
+            createUnion(searchIds)
+        );
+
+        Either<TravelTimeError, String> response = sdk.getJsonResponse(request);
+        Assert.assertTrue(JsonUtils.isJsonValid(response.get()));
         Assert.assertTrue(response.isRight());
     }
 

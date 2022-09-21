@@ -89,12 +89,22 @@ public class TravelTimeSDK {
         return protoResponse;
     }
 
-    private <T> Either<TravelTimeError, T> getHttpResponse(TravelTimeRequest<T> request, Response response) {
-        Either<TravelTimeError, T> httpResponse = Try
+    private <T> Either<TravelTimeError, T> getParsedResponse(TravelTimeRequest<T> request, Response response) {
+        val httpResponse = Try
             .of(() -> Objects.requireNonNull(response.body()).string())
             .toEither()
             .<TravelTimeError>mapLeft(cause -> new IOError(cause, IO_CONNECTION_ERROR + cause.getMessage()))
             .flatMap(body -> parseJsonBody(request, response.code(), body));
+
+        response.close();
+        return httpResponse;
+    }
+
+    private Either<TravelTimeError, String> getUnparsedResponse(Response response) {
+       val httpResponse = Try
+            .of(() -> Objects.requireNonNull(response.body()).string())
+            .toEither()
+            .<TravelTimeError>mapLeft(cause -> new IOError(cause, IO_CONNECTION_ERROR + cause.getMessage()));
 
         response.close();
         return httpResponse;
@@ -206,7 +216,19 @@ public class TravelTimeSDK {
             return request
                 .createRequest(baseUri, credentials)
                 .flatMap(this::executeRequest)
-                .flatMap(response -> getHttpResponse(request, response));
+                .flatMap(response -> getParsedResponse(request, response));
+        }
+    }
+
+    public <T> Either<TravelTimeError, String> getJsonResponse(TravelTimeRequest<T> request) {
+        Option<ValidationError> validationError = validate(request);
+        if(validationError.isDefined()) {
+            return Either.left(validationError.get());
+        } else {
+            return request
+                .createRequest(baseUri, credentials)
+                .flatMap(this::executeRequest)
+                .flatMap(this::getUnparsedResponse);
         }
     }
 
@@ -245,7 +267,7 @@ public class TravelTimeSDK {
 
                 @Override
                 public void onResponse(Call call, Response response) {
-                    future.complete(getHttpResponse(travelTimeRequest, response));
+                    future.complete(getParsedResponse(travelTimeRequest, response));
                 }
            });
     }
