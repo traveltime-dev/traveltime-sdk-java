@@ -5,19 +5,23 @@ import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.TimeFilterFastProtoRequest;
 import com.traveltime.sdk.dto.requests.proto.*;
+import javafx.util.Pair;
 import lombok.val;
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.Point;
 
+import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static io.vavr.API.*;
+import static io.vavr.Patterns.$Left;
+import static io.vavr.Patterns.$Right;
 
 
 public class TimeFilterProtoExample {
     public static void main(String[] args) {
-        val origin = new Coordinates(53.1234, 54.2314);
-        val locations = Utils.generateLocations("cafe", origin, 0.4, 2);
+        val origin = new Coordinates(51.425709, -0.122061);
+        val locations = Utils.generateLocations("gas station", origin, 0.004, 100);
         val destinations = locations
             .stream()
             .map(loc -> new Coordinates(loc.getValue().getLat(), loc.getValue().getLng()))
@@ -27,8 +31,30 @@ public class TimeFilterProtoExample {
 
         val sdk = new TravelTimeSDK(new TravelTimeCredentials("appId", "apiKey"));
         val response = sdk.sendProto(request);
-        System.out.println(response);
+
+        val res = Match(response).of(
+            Case($Right($()), v -> "Closest gas stations: " + String.join(", ", findClosest(v.getTravelTimes(), locations, 3))),
+            Case($Left($()), v -> "Failed with error: " + v.getMessage())
+        );
+
+        System.out.println(res);
     }
+
+    private static List<String> findClosest(
+        List<Integer> travelTimes,
+        List<Pair<String, Coordinates>> locations,
+        int top
+    ) {
+        return IntStream
+            .range(0, Math.min(travelTimes.size(), locations.size()))
+            .mapToObj(i -> new Pair<>(locations.get(i).getKey(), travelTimes.get(i)))
+            .sorted(Comparator.comparing(Pair::getValue))
+            .map(Pair::getKey)
+            .collect(Collectors.toList())
+            .subList(0, top);
+    }
+
+
 
     private static TimeFilterFastProtoRequest oneToMany(
         Coordinates origin,
