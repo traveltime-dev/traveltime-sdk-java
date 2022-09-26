@@ -27,7 +27,7 @@ public class TimeFilterProtoExample {
             .map(loc -> new Coordinates(loc.getValue().getLat(), loc.getValue().getLng()))
             .collect(Collectors.toList());
 
-        val request = oneToMany(origin, destinations);
+        val request = createRequest(origin, destinations);
 
         val sdk = new TravelTimeSDK(new TravelTimeCredentials("appId", "apiKey"));
         val response = sdk.sendProto(request);
@@ -54,9 +54,7 @@ public class TimeFilterProtoExample {
             .subList(0, top);
     }
 
-
-
-    private static TimeFilterFastProtoRequest oneToMany(
+    private static TimeFilterFastProtoRequest createRequest(
         Coordinates origin,
         List<Coordinates> destinations
     ) {
