@@ -5,12 +5,13 @@ import lombok.Builder;
 import lombok.NonNull;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
+import org.geojson.GeoJsonObject;
 
 @Value
 @Builder
 @Jacksonized
 @AllArgsConstructor
-public class Feature<G extends Geometry, P> {
+public class Feature<G extends GeoJsonObject, P> {
     @NonNull
     String type;
 
