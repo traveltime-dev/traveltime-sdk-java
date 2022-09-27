@@ -17,7 +17,9 @@ import static io.vavr.API.*;
 import static io.vavr.Patterns.$Left;
 import static io.vavr.Patterns.$Right;
 
-
+/**
+ * Example how to get 3 closest shops using proto
+ */
 public class TimeFilterProtoExample {
     public static void main(String[] args) {
         val origin = new Coordinates(51.425709, -0.122061);
@@ -33,32 +35,20 @@ public class TimeFilterProtoExample {
         val response = sdk.sendProto(request);
 
         val res = Match(response).of(
-            Case($Right($()), v -> "Closest gas stations: " + String.join(", ", findClosest(v.getTravelTimes(), locations, 3))),
+            Case($Right($()), v ->
+                "Closest gas stations: " + String.join(", ", Utils.findClosest(v.getTravelTimes(), locations, 3))
+            ),
             Case($Left($()), v -> "Failed with error: " + v.getMessage())
         );
 
         System.out.println(res);
     }
 
-    private static List<String> findClosest(
-        List<Integer> travelTimes,
-        List<Pair<String, Coordinates>> locations,
-        int top
-    ) {
-        return IntStream
-            .range(0, Math.min(travelTimes.size(), locations.size()))
-            .mapToObj(i -> new Pair<>(locations.get(i).getKey(), travelTimes.get(i)))
-            .sorted(Comparator.comparing(Pair::getValue))
-            .map(Pair::getKey)
-            .collect(Collectors.toList())
-            .subList(0, top);
-    }
-
     private static TimeFilterFastProtoRequest createRequest(
         Coordinates origin,
         List<Coordinates> destinations
     ) {
-        OneToMany oneToMany = new OneToMany(
+        val oneToMany = new OneToMany(
             origin,
             destinations,
             Transportation.WALKING,

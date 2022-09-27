@@ -15,6 +15,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static io.vavr.API.*;
+import static io.vavr.Patterns.$Left;
+import static io.vavr.Patterns.$Right;
+
+/**
+ * Example how to get 3 closest shops
+ */
 public class TimeFilterExample {
 
     public static void main(String[] args) {
@@ -23,7 +30,7 @@ public class TimeFilterExample {
         val departureLocation = new Location(departureLocationId, departureCoordinates);
 
         val arrivalLocations = Utils
-            .generateLocations("shop", departureCoordinates, 0.005, 10)
+            .generateLocations("shop", departureCoordinates, 0.005, 100)
             .stream()
             .map(pair -> new Location(pair.getKey(), pair.getValue()))
             .collect(Collectors.toList());
@@ -35,7 +42,14 @@ public class TimeFilterExample {
 
         val sdk = new TravelTimeSDK(new TravelTimeCredentials("appId", "apiKey"));
         val response = sdk.send(request);
-        System.out.println(response);
+        val res = Match(response).of(
+            Case($Right($()), v ->
+                "Closest shops: " + String.join(", ", Utils.findClosest(v.getResults().get(0).getLocations(), 3))
+            ),
+            Case($Left($()), v -> "Failed with error: " + v.getMessage())
+        );
+
+        System.out.println(res);
     }
 
 
@@ -45,7 +59,7 @@ public class TimeFilterExample {
         List<Location> locations
     ) {
         val oneToMany = new OneToMany(
-            "Get shortest path to a shop",
+            "Get the shortest path to a shop",
             departureLocationId,
             arrivalLocationIds,
             new Walking(),

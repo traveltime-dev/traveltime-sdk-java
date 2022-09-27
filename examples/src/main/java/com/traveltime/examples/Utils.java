@@ -1,13 +1,15 @@
 package com.traveltime.examples;
 
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.responses.timefilterfast.Location;
 import javafx.util.Pair;
 
-import org.locationtech.jts.geom.Point;
-
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Utils {
     private static Random rd = new Random();
@@ -31,5 +33,28 @@ public class Utils {
             locations.add(new Pair<>(name + " " + i, generateCoordinates(center, range)));
         }
         return locations;
+    }
+
+    public static List<String> findClosest(List<Location> locations, int top) {
+        return locations
+                .stream()
+                .sorted(Comparator.comparing(left -> left.getProperties().getTravelTime()))
+                .map(Location::getId)
+                .collect(Collectors.toList())
+                .subList(0, top);
+    }
+
+    public static List<String> findClosest(
+            List<Integer> travelTimes,
+            List<Pair<String, Coordinates>> locations,
+            int top
+    ) {
+        return IntStream
+                .range(0, Math.min(travelTimes.size(), locations.size()))
+                .mapToObj(i -> new Pair<>(locations.get(i).getKey(), travelTimes.get(i)))
+                .sorted(Comparator.comparing(Pair::getValue))
+                .map(Pair::getKey)
+                .collect(Collectors.toList())
+                .subList(0, top);
     }
 }
