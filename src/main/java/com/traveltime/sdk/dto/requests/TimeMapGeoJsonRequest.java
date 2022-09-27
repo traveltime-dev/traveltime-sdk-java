@@ -1,14 +1,15 @@
 package com.traveltime.sdk.dto.requests;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.traveltime.sdk.utils.AcceptType;
-import com.traveltime.sdk.utils.JsonUtils;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.requests.timemap.ArrivalSearch;
 import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
 import com.traveltime.sdk.dto.requests.timemap.Intersection;
 import com.traveltime.sdk.dto.requests.timemap.Union;
+import com.traveltime.sdk.dto.responses.TimeMapGeoJsonResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import com.traveltime.sdk.utils.AcceptType;
+import com.traveltime.sdk.utils.JsonUtils;
 import io.vavr.control.Either;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -17,8 +18,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 import okhttp3.Request;
-import org.geojson.FeatureCollection;
-
 
 import java.net.URI;
 import java.util.List;
@@ -29,7 +28,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TimeMapGeoJsonRequest extends TravelTimeRequest<FeatureCollection> {
+public class TimeMapGeoJsonRequest extends TravelTimeRequest<TimeMapGeoJsonResponse> {
     @Valid
     List<DepartureSearch> departureSearches;
     @Valid
@@ -48,7 +47,7 @@ public class TimeMapGeoJsonRequest extends TravelTimeRequest<FeatureCollection> 
     }
 
     @Override
-    public Class<FeatureCollection> responseType() {
-        return FeatureCollection.class;
+    public Class<TimeMapGeoJsonResponse> responseType() {
+        return TimeMapGeoJsonResponse.class;
     }
 }

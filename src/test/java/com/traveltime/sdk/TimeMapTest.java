@@ -8,13 +8,14 @@ import com.traveltime.sdk.dto.requests.*;
 import com.traveltime.sdk.dto.requests.timemap.*;
 import com.traveltime.sdk.dto.responses.*;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import com.traveltime.sdk.dto.responses.timemap.ResponseProperties;
 import com.traveltime.sdk.utils.JsonUtils;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
 import io.vavr.control.Either;
-import org.geojson.FeatureCollection;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
@@ -80,8 +81,15 @@ public class TimeMapTest {
             createUnion(searchIds)
         );
 
-        Either<TravelTimeError, FeatureCollection> response = sdk.send(request);
+        ResponseProperties expectedProperties = new ResponseProperties(
+            null,
+            null
+        );
+
+        Either<TravelTimeError, TimeMapGeoJsonResponse> response = sdk.send(request);
         Assert.assertTrue(response.isRight());
+        Assert.assertEquals(response.get().getFeatures().get(0).getProperties(), expectedProperties);
+        Assert.assertTrue(response.get().toString().contains("ResponseProperties(isOnlyWalking=null, agencies=null"));
     }
 
     @Test

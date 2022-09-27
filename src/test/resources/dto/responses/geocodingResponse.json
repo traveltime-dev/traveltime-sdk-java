@@ -1,0 +1,32 @@
+{
+  "type" : "FeatureCollection",
+  "features" : [ {
+    "type" : "Feature",
+    "geometry" : {
+      "type" : "Point",
+      "coordinates" : [ 7.4514512, 46.9482713 ]
+    },
+    "properties" : {
+      "name" : "Bern, Bern-Mittelland administrative district, Bernese Mittelland administrative region, Bern, Switzerland",
+      "label" : "Bern, Bern-Mittelland administrative district, Bernese Mittelland administrative region, Bern, Switzerland",
+      "score" : 0.78,
+      "category" : "boundary",
+      "type" : "administrative",
+      "region" : "Bernese Mittelland administrative region",
+      "county" : "Bern-Mittelland administrative district",
+      "macroregion" : "Bern",
+      "city" : "Bern",
+      "country" : "Switzerland",
+      "country_code" : "CHE",
+      "features" : {
+        "cross_country_modes" : [ ],
+        "public_transport" : {
+          "date_start" : "2021-11-17T16:00:00Z",
+          "date_end" : "2022-01-20T16:00:00Z"
+        },
+        "fares" : false,
+        "postcodes" : false
+      }
+    }
+  } ]
+}

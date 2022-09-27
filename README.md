@@ -234,7 +234,6 @@ Body attributes:
 * query: A query to geocode. Can be an address, a postcode or a venue.
 * within_country: Only return the results that are within the specified country.
   If no results are found it will return the country itself. Format:ISO 3166-1 alpha-2 or alpha-3
-* exclude_location_types: Exclude location types from results. Available values: "country".
 
 ```java
 GeocodingRequest request = GeocodingRequest
@@ -244,10 +243,10 @@ GeocodingRequest request = GeocodingRequest
     .limit(1)
     .build();
 
-Either<TravelTimeError, FeatureCollection> response = sdk.send(request);
+Either<TravelTimeError, GeocodingResponse> response = sdk.send(request);
     
 if(response.isRight()) {
-    System.out.println(response.get().getMaps().size());
+    System.out.println(response.get());
 } else {
     System.out.println(response.getLeft().getMessage());
 }
