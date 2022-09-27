@@ -1,24 +1,18 @@
-package com.traveltime.sdk.dto.responses.geocoding;
+package com.traveltime.sdk.dto.responses.geojson;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NonNull;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
-import org.geojson.Point;
+
+import java.util.List;
 
 @Value
 @Builder
 @Jacksonized
 @AllArgsConstructor
-public class Feature {
-
+public class LineString implements Geometry {
     @NonNull
-    String type;
-
-    @NonNull
-    Point geometry;
-
-    @NonNull
-    Properties properties;
+    List<Coordinates> coordinates;
 }

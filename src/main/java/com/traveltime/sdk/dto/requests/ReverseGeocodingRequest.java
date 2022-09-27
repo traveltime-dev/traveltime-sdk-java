@@ -7,7 +7,6 @@ import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import lombok.*;
 import okhttp3.Request;
-import org.geojson.FeatureCollection;
 
 import java.net.URI;
 import java.util.List;

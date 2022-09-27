@@ -11,7 +11,6 @@ import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import com.traveltime.sdk.utils.JsonUtils;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
 import io.vavr.control.Either;
-import org.geojson.FeatureCollection;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -80,7 +79,7 @@ public class TimeMapTest {
             createUnion(searchIds)
         );
 
-        Either<TravelTimeError, FeatureCollection> response = sdk.send(request);
+        Either<TravelTimeError, TimeMapGeoJsonResponse> response = sdk.send(request);
         Assert.assertTrue(response.isRight());
     }
 
