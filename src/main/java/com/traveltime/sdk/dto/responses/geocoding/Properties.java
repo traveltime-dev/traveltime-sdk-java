@@ -1,6 +1,7 @@
 package com.traveltime.sdk.dto.responses.geocoding;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NonNull;
@@ -11,6 +12,7 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Jacksonized
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Properties {
 
@@ -31,6 +33,8 @@ public class Properties {
     String county;
     String macroregion;
     String city;
+    String town;
+    String district;
     String country;
     String countryCode;
     String localAdmin;
