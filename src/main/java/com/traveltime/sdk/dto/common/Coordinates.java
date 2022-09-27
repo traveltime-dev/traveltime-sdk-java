@@ -1,4 +1,4 @@
-    package com.traveltime.sdk.dto.common;
+package com.traveltime.sdk.dto.common;
 
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
