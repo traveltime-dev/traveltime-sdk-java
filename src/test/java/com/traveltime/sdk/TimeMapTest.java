@@ -15,6 +15,7 @@ import io.vavr.control.Either;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
@@ -88,6 +89,7 @@ public class TimeMapTest {
         Either<TravelTimeError, TimeMapGeoJsonResponse> response = sdk.send(request);
         Assert.assertTrue(response.isRight());
         Assert.assertEquals(response.get().getFeatures().get(0).getProperties(), expectedProperties);
+        Assert.assertTrue(response.get().toString().contains("ResponseProperties(isOnlyWalking=null, agencies=null"));
     }
 
     @Test
