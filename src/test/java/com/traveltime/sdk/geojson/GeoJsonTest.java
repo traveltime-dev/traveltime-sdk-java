@@ -1,8 +1,10 @@
 package com.traveltime.sdk.geojson;
 
 import com.traveltime.sdk.Common;
-import com.traveltime.sdk.dto.responses.geojson.*;
+import com.traveltime.sdk.dto.geojson.FeatureCollection;
+import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import com.traveltime.sdk.utils.JsonUtils;
+import io.vavr.control.Either;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,8 +12,6 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
-import io.vavr.control.Either;
 
 
 public class GeoJsonTest {

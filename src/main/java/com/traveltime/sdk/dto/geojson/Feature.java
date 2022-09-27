@@ -1,4 +1,4 @@
-package com.traveltime.sdk.dto.responses.geojson;
+package com.traveltime.sdk.dto.geojson;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
