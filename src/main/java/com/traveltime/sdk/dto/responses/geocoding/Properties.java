@@ -2,6 +2,7 @@ package com.traveltime.sdk.dto.responses.geocoding;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.traveltime.sdk.dto.responses.mapinfo.Feature;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NonNull;
@@ -41,5 +42,5 @@ public class Properties {
     String continent;
     String postcode;
 
-    com.traveltime.sdk.dto.responses.mapinfo.Feature features;
+    Feature features;
 }
