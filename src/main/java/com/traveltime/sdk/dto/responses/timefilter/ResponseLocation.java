@@ -9,7 +9,7 @@ import java.util.List;
 @Builder
 @Jacksonized
 @AllArgsConstructor
-public class Location {
+public class ResponseLocation {
     String id;
     List<Property> properties;
 }

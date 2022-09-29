@@ -11,6 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 public class Result {
     String searchId;
-    List<Location> locations;
+    List<ResponseLocation> locations;
     List<String> unreachable;
 }
