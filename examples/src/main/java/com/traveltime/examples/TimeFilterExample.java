@@ -7,7 +7,7 @@ import com.traveltime.sdk.dto.common.Location;
 import com.traveltime.sdk.dto.common.Property;
 import com.traveltime.sdk.dto.requests.TimeFilterFastRequest;
 import com.traveltime.sdk.dto.requests.timefilterfast.ArrivalSearches;
-import com.traveltime.sdk.dto.requests.timefilterfast.transportation.Walking;
+import com.traveltime.sdk.dto.requests.timefilterfast.transportation.Driving;
 import com.traveltime.sdk.dto.requests.timefilterfast.OneToMany;
 import lombok.val;
 
@@ -20,7 +20,9 @@ import static io.vavr.Patterns.$Left;
 import static io.vavr.Patterns.$Right;
 
 /**
- * Example how to get 3 closest shops
+ * Example showing how to find 3 closest shops by travel time given a list of shops with locations.
+ * List is generated randomly. Here we are using driving transportation mode, but you can use different ways of
+ * transportation, for example: public transport or walking.
  */
 public class TimeFilterExample {
 
@@ -62,7 +64,7 @@ public class TimeFilterExample {
             "Get the shortest path to a shop",
             departureLocationId,
             arrivalLocationIds,
-            new Walking(),
+            new Driving(),
             7200,
             "weekday_morning",
             Collections.singletonList(Property.TRAVEL_TIME)

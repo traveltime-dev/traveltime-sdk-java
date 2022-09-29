@@ -3,7 +3,7 @@ package com.traveltime.examples;
 import com.traveltime.sdk.TravelTimeSDK;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
-import com.traveltime.sdk.dto.common.transportation.Walking;
+import com.traveltime.sdk.dto.common.transportation.Driving;
 import com.traveltime.sdk.dto.requests.TimeMapWktRequest;
 import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
 import com.traveltime.sdk.dto.responses.timemap.WktResult;
@@ -23,7 +23,9 @@ import static io.vavr.Patterns.$Left;
 import static io.vavr.Patterns.$Right;
 
 /**
- * Example how to get all existing cafes within walking distance
+ * Example showing how to get all existing cafes by travelTime within driving distance.
+ * List is generated randomly. Here we are using driving transportation mode, but you can use different ways of
+ * transportation, for example: public transport or walking.
  */
 public class TimeMapExample {
 
@@ -31,7 +33,7 @@ public class TimeMapExample {
         val origin = new Coordinates(51.41070, -0.15540);
         val request = createRequest(origin);
 
-        val locations = Utils.generateLocations("cafe", origin, 0.004, 100);
+        val locations = Utils.generateLocations("cafe", origin, 0.5, 1000);
 
         val sdk = new TravelTimeSDK(new TravelTimeCredentials("appId", "apiKey"));
         val response = sdk.send(request);
@@ -57,7 +59,7 @@ public class TimeMapExample {
     private static Point getPoint(Pair<String, Coordinates> pair) {
         val gf = new GeometryFactory();
         val coordinate = pair.getValue();
-        return gf.createPoint(new Coordinate(coordinate.getLat(), coordinate.getLng()));
+        return gf.createPoint(new Coordinate(coordinate.getLng(), coordinate.getLat()));
     }
 
     private static TimeMapWktRequest createRequest(
@@ -66,9 +68,9 @@ public class TimeMapExample {
         val ds = new DepartureSearch(
             "Walking area",
             origin,
-            new Walking(),
+            Driving.builder().build(),
             Instant.now(),
-            1800,
+            600,
             null
         );
 
