@@ -73,7 +73,7 @@ public class TimeFilterFastProtoRequest extends ProtoRequest {
         } else {
             int batchCount = originalDestinations.size() / batchSizeHint;
             if (originalDestinations.size() % batchSizeHint > 0 &&
-                    originalDestinations.size() % batchSizeHint < loadFactor * batchSizeHint) {
+                originalDestinations.size() % batchSizeHint < loadFactor * batchSizeHint) {
                 batchCount -= 1;
             }
             int batchSize = (int) Math.ceil((float) originalDestinations.size() / batchCount);
@@ -83,9 +83,9 @@ public class TimeFilterFastProtoRequest extends ProtoRequest {
             for (int offset = 0; offset < originalDestinations.size(); offset += batchSize) {
                 List<Coordinates> batch = originalDestinations.subList(offset, Math.min(offset + batchSize, originalDestinations.size()));
                 batchedDestinations.add(
-                        request.withOneToMany(
-                                request.getOneToMany().withDestinationCoordinates(batch)
-                        )
+                    request.withOneToMany(
+                        request.getOneToMany().withDestinationCoordinates(batch)
+                    )
                 );
             }
             return batchedDestinations;
