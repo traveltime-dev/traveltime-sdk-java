@@ -4,6 +4,8 @@ import com.igeolise.traveltime.rabbitmq.requests.RequestsCommon;
 import com.igeolise.traveltime.rabbitmq.requests.TimeFilterFastRequestOuterClass;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.requests.protodistance.Country;
+import com.traveltime.sdk.dto.requests.protodistance.Transportation;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import lombok.NonNull;
@@ -20,6 +22,10 @@ public class TimeFilterProtoDistanceRequest extends ProtoRequest {
     @NonNull
     List<Coordinates> destinationCoordinates;
     @NonNull
+    Country country;
+    @NonNull
+    Transportation transportation;
+    @NonNull
     Integer travelTime;
 
     private byte[] createByteArray() {
@@ -31,10 +37,10 @@ public class TimeFilterProtoDistanceRequest extends ProtoRequest {
                 .setLng(originCoordinate.getLng().floatValue())
                 .build();
 
-        RequestsCommon.Transportation transportation = RequestsCommon
+        RequestsCommon.Transportation transportationType = RequestsCommon
                 .Transportation
                 .newBuilder()
-                .setType(RequestsCommon.TransportationType.DRIVING_AND_FERRY)
+                .setTypeValue(transportation.getCode())
                 .build();
 
         TimeFilterFastRequestOuterClass.TimeFilterFastRequest.OneToMany.Builder oneToManyBuilder = TimeFilterFastRequestOuterClass.TimeFilterFastRequest
@@ -42,7 +48,7 @@ public class TimeFilterProtoDistanceRequest extends ProtoRequest {
                 .newBuilder()
                 .setDepartureLocation(departure)
                 .setArrivalTimePeriod(RequestsCommon.TimePeriod.WEEKDAY_MORNING)
-                .setTransportation(transportation)
+                .setTransportation(transportationType)
                 .setTravelTime(travelTime);
 
         double mult = Math.pow(10, 5);
@@ -60,7 +66,8 @@ public class TimeFilterProtoDistanceRequest extends ProtoRequest {
 
     @Override
     public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        String uri = "https://proto-with-distance.api.traveltimeapp.com/api/v2/uk/time-filter/fast/driving+ferry";
+        String protoDistanceUri = "https://proto-with-distance.api.traveltimeapp.com/api/v2/";
+        String uri = protoDistanceUri + country.getValue() + "/time-filter/fast/" + transportation.getValue();
         return Either.right(createProtobufRequest(credentials, uri, createByteArray()));
     }
 
