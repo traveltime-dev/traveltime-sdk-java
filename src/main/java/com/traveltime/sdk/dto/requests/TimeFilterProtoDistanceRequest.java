@@ -80,7 +80,9 @@ public class TimeFilterProtoDistanceRequest extends ProtoRequest {
     public TimeFilterProtoDistanceRequest(
         @NonNull Coordinates originCoordinate,
         @NonNull List<Coordinates> destinationCoordinates,
-        @NonNull Integer travelTime
+        @NonNull Integer travelTime,
+        @NonNull Transportation transportation,
+        @NonNull Country country
     ) {
         this.originCoordinate = originCoordinate;
         if (destinationCoordinates instanceof RandomAccess) {
@@ -89,5 +91,7 @@ public class TimeFilterProtoDistanceRequest extends ProtoRequest {
             this.destinationCoordinates = new ArrayList<>(destinationCoordinates);
         }
         this.travelTime = travelTime;
+        this.transportation = transportation;
+        this.country = country;
     }
 }

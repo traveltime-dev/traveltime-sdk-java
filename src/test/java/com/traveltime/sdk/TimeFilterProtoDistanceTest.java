@@ -3,6 +3,8 @@ package com.traveltime.sdk;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.TimeFilterProtoDistanceRequest;
+import com.traveltime.sdk.dto.requests.protodistance.Country;
+import com.traveltime.sdk.dto.requests.protodistance.Transportation;
 import com.traveltime.sdk.dto.responses.ProtoResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
@@ -29,7 +31,9 @@ public class TimeFilterProtoDistanceTest {
     public void shouldSendTimeFilterProtoDistanceRequest() {
         Coordinates origin = new Coordinates(51.425709, -0.122061);
         List<Coordinates> destinations = Collections.singletonList(new Coordinates(51.348605, -0.314783));
-        TimeFilterProtoDistanceRequest request = new TimeFilterProtoDistanceRequest(origin, destinations, 3200);
+        Country country = Country.UNITED_KINGDOM;
+        Transportation transportation = Transportation.DRIVING_FERRY;
+        TimeFilterProtoDistanceRequest request = new TimeFilterProtoDistanceRequest(origin, destinations, 3200, transportation, country);
         Either<TravelTimeError, ProtoResponse> response = sdk.sendProto(request);
         Assert.assertTrue(response.isRight());
     }
