@@ -33,7 +33,7 @@ public class TimeFilterProtoExample {
 
         val request = createRequest(origin, destinations);
 
-        val sdk = new TravelTimeSDK(new TravelTimeCredentials("860ff86d", "7c76711a946508ce579077f408ce676"));
+        val sdk = new TravelTimeSDK(new TravelTimeCredentials("appId", "apiKey"));
         val response = sdk.sendProto(request);
 
         val res = Match(response).of(
