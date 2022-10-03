@@ -9,15 +9,15 @@ import java.util.List;
 
 @Value
 @AllArgsConstructor
-public class TimeFilterFastProtoResponse {
+public class ProtoResponse {
     @NonNull
     List<Integer> travelTimes;
 
-    static public TimeFilterFastProtoResponse merge(List<TimeFilterFastProtoResponse> responses) {
+    public static ProtoResponse merge(List<ProtoResponse> responses) {
         ArrayList<Integer> times = new ArrayList<>();
-        for(TimeFilterFastProtoResponse response : responses) {
+        for(ProtoResponse response : responses) {
             times.addAll(response.travelTimes);
         }
-        return new TimeFilterFastProtoResponse(times);
+        return new ProtoResponse(times);
     }
 }

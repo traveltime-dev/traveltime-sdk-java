@@ -4,7 +4,7 @@ import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.requests.ProtoRequest;
 import com.traveltime.sdk.dto.requests.TimeFilterFastProtoRequest;
 import com.traveltime.sdk.dto.requests.TravelTimeRequest;
-import com.traveltime.sdk.dto.responses.TimeFilterFastProtoResponse;
+import com.traveltime.sdk.dto.responses.ProtoResponse;
 import com.traveltime.sdk.dto.responses.errors.*;
 import com.traveltime.sdk.utils.JsonUtils;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
@@ -78,8 +78,8 @@ public class TravelTimeSDK {
         }
     }
 
-    private <T> Either<TravelTimeError, T> deserializeResponse(ProtoRequest<T> request, Response response) {
-        Either<TravelTimeError, T> protoResponse = Try
+    private Either<TravelTimeError, ProtoResponse> deserializeProtoResponse(ProtoRequest request, Response response) {
+        Either<TravelTimeError, ProtoResponse> protoResponse = Try
             .of(() -> Objects.requireNonNull(response.body()).bytes())
             .toEither()
             .<TravelTimeError>mapLeft(cause -> new IOError(cause, IO_CONNECTION_ERROR + cause.getMessage()))
@@ -117,11 +117,11 @@ public class TravelTimeSDK {
             .mapLeft(cause -> new IOError(cause, IO_CONNECTION_ERROR + cause.getMessage()));
     }
 
-    public <T> CompletableFuture<Either<TravelTimeError, T>> sendProtoAsync(ProtoRequest<T> request) {
+    public CompletableFuture<Either<TravelTimeError, ProtoResponse>> sendProtoAsync(ProtoRequest request) {
         return CompletableFuture
             .supplyAsync(() -> request.createRequest(baseProtoUri, credentials), client.dispatcher().executorService())
             .thenCompose(req -> {
-                final CompletableFuture<Either<TravelTimeError, T>> future = new CompletableFuture<>();
+                final CompletableFuture<Either<TravelTimeError, ProtoResponse>> future = new CompletableFuture<>();
 
                 req.peekLeft(error -> future.complete(Either.left(error)))
                     .peek(createdRequest -> completeProtoFuture(future, request, createdRequest));
@@ -130,11 +130,11 @@ public class TravelTimeSDK {
             });
     }
 
-    public <T> Either<TravelTimeError, T> sendProto(ProtoRequest<T> request) {
+    public Either<TravelTimeError, ProtoResponse> sendProto(ProtoRequest request) {
         return request
             .createRequest(baseProtoUri, credentials)
             .flatMap(this::executeRequest)
-            .flatMap(response -> deserializeResponse(request, response));
+            .flatMap(response -> deserializeProtoResponse(request, response));
     }
 
     private static <T> Either<TravelTimeError, T> getFuture(CompletableFuture<Either<TravelTimeError, T>> future) {
@@ -145,20 +145,20 @@ public class TravelTimeSDK {
         }
     }
 
-    public Either<TravelTimeError, TimeFilterFastProtoResponse> sendProtoBatched(
+    public Either<TravelTimeError, ProtoResponse> sendProtoBatched(
         TimeFilterFastProtoRequest request
     ) {
         return sendProtoBatchedCount(request, DEFAULT_BATCH_COUNT);
     }
 
-    public Either<TravelTimeError, TimeFilterFastProtoResponse> sendProtoBatched(
+    public Either<TravelTimeError, ProtoResponse> sendProtoBatched(
         TimeFilterFastProtoRequest request,
         int batchSizeHint
     ) {
         return getFuture(sendProtoAsyncBatched(request, batchSizeHint));
     }
 
-    public Either<TravelTimeError, TimeFilterFastProtoResponse> sendProtoBatchedCount(
+    public Either<TravelTimeError, ProtoResponse> sendProtoBatchedCount(
         TimeFilterFastProtoRequest request,
         int batchCount
     ) {
@@ -166,13 +166,13 @@ public class TravelTimeSDK {
         return getFuture(sendProtoAsyncBatched(request, Math.max(MINIMUM_SPLIT_SIZE, requestSize / batchCount)));
     }
 
-    public CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>> sendProtoAsyncBatched(
+    public CompletableFuture<Either<TravelTimeError, ProtoResponse>> sendProtoAsyncBatched(
         TimeFilterFastProtoRequest request
     ) {
         return sendProtoAsyncBatchedCount(request, DEFAULT_BATCH_COUNT);
     }
 
-    public CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>> sendProtoAsyncBatchedCount(
+    public CompletableFuture<Either<TravelTimeError, ProtoResponse>> sendProtoAsyncBatchedCount(
         TimeFilterFastProtoRequest request,
         int batchCount
     ) {
@@ -180,13 +180,13 @@ public class TravelTimeSDK {
         return sendProtoAsyncBatched(request, Math.max(MINIMUM_SPLIT_SIZE, requestSize / batchCount));
     }
 
-    public CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>> sendProtoAsyncBatched(
+    public CompletableFuture<Either<TravelTimeError, ProtoResponse>> sendProtoAsyncBatched(
         TimeFilterFastProtoRequest request,
         int batchSizeHint
     ) {
         val splitRequests = TimeFilterFastProtoRequest.split(request, batchSizeHint);
-        val futures = new ArrayList<CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>>>(splitRequests.size());
-        val results = new ArrayList<TimeFilterFastProtoResponse>(splitRequests.size());
+        val futures = new ArrayList<CompletableFuture<Either<TravelTimeError, ProtoResponse>>>(splitRequests.size());
+        val results = new ArrayList<ProtoResponse>(splitRequests.size());
 
         for(val req : splitRequests) {
             futures.add(sendProtoAsync(req));
@@ -203,7 +203,7 @@ public class TravelTimeSDK {
                             results.add(part.get());
                         }
                     }
-                    return Either.right(TimeFilterFastProtoResponse.merge(results));
+                    return Either.right(ProtoResponse.merge(results));
                 }
             );
     }
@@ -232,9 +232,9 @@ public class TravelTimeSDK {
         }
     }
 
-    private <T> void completeProtoFuture(
-        CompletableFuture<Either<TravelTimeError, T>> future,
-        ProtoRequest<T> protoRequest,
+    private void completeProtoFuture(
+        CompletableFuture<Either<TravelTimeError, ProtoResponse>> future,
+        ProtoRequest protoRequest,
         Request request
     ) {
         client
@@ -247,7 +247,7 @@ public class TravelTimeSDK {
 
                 @Override
                 public void onResponse(Call call, Response response) {
-                    future.complete(deserializeResponse(protoRequest, response));
+                    future.complete(deserializeProtoResponse(protoRequest, response));
                 }
             });
     }
