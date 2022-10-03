@@ -16,7 +16,7 @@ import static io.vavr.Patterns.$Right;
 
 /**
  * Example showing how to find 3 closest shops by travel time given a list of shops with locations.
- * List is generated randomly. Here we are using driving transportation mode, but you can use
+ * The list of gas station coordinates is generated randomly. Here we are using driving transportation mode, but you can use
  * different ways of transportation, for example: public transport or walking.
  * This example is similar to TimeFilterExample but is using protobuf to achieve much faster response time.
  * If you're looking for real-time search we recommend to use protobuf.
@@ -33,7 +33,7 @@ public class TimeFilterProtoExample {
 
         val request = createRequest(origin, destinations);
 
-        val sdk = new TravelTimeSDK(new TravelTimeCredentials("appId", "apiKey"));
+        val sdk = new TravelTimeSDK(new TravelTimeCredentials("appId", "apiKey")); // Substitute your credentials here
         val response = sdk.sendProto(request);
 
         val res = Match(response).of(

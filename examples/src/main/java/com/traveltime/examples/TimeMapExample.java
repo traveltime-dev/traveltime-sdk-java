@@ -24,7 +24,8 @@ import static io.vavr.Patterns.$Right;
 
 /**
  * Example showing how to get all existing cafes by travelTime within driving distance.
- * List is generated randomly. Here we are using driving transportation mode, but you can use different ways of
+ * The list of cafe coordinates is generated randomly.
+ * Here we are using driving transportation mode, but you can use different ways of
  * transportation, for example: public transport or walking.
  */
 public class TimeMapExample {
@@ -35,7 +36,7 @@ public class TimeMapExample {
 
         val locations = Utils.generateLocations("cafe", origin, 0.5, 1000);
 
-        val sdk = new TravelTimeSDK(new TravelTimeCredentials("appId", "apiKey"));
+        val sdk = new TravelTimeSDK(new TravelTimeCredentials("appId", "apiKey")); // Substitute your credentials here
         val response = sdk.send(request);
 
         val res = Match(response).of(
@@ -50,10 +51,10 @@ public class TimeMapExample {
 
     private static List<String> locationsInArea(List<Pair<String, Coordinates>> locations, WktResult result) {
         return locations
-                .stream()
-                .filter(location -> result.getShape().contains(getPoint(location) ))
-                .map(Pair::getKey)
-                .collect(Collectors.toList());
+            .stream()
+            .filter(location -> result.getShape().contains(getPoint(location) ))
+            .map(Pair::getKey)
+            .collect(Collectors.toList());
     }
 
     private static Point getPoint(Pair<String, Coordinates> pair) {

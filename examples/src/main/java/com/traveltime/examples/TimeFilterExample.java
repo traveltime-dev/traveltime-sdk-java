@@ -21,14 +21,15 @@ import static io.vavr.Patterns.$Right;
 
 /**
  * Example showing how to find 3 closest shops by travel time given a list of shops with locations.
- * List is generated randomly. Here we are using driving transportation mode, but you can use different ways of
+ * The list of shop coordinates is generated randomly.
+ * Here we are using driving transportation mode, but you can use different ways of
  * transportation, for example: public transport or walking.
  */
 public class TimeFilterExample {
 
     public static void main(String[] args) {
         val departureCoordinates = new Coordinates(51.41070, -0.15540);
-        val departureLocationId = "Departure location";
+        val departureLocationId = "Departure location";  // We use unique localtion ids to be able to cross-reference them in responses.
         val departureLocation = new Location(departureLocationId, departureCoordinates);
 
         val arrivalLocations = Utils
@@ -42,7 +43,7 @@ public class TimeFilterExample {
 
         val request = createRequest(departureLocationId, arrivalLocationIds, arrivalLocations);
 
-        val sdk = new TravelTimeSDK(new TravelTimeCredentials("appId", "apiKey"));
+        val sdk = new TravelTimeSDK(new TravelTimeCredentials("appId", "apiKey")); // Substitute your credentials here
         val response = sdk.send(request);
         val res = Match(response).of(
             Case($Right($()), v ->
