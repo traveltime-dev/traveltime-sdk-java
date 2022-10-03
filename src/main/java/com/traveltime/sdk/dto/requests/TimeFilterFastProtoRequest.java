@@ -11,6 +11,9 @@ import lombok.*;
 import okhttp3.Request;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Value
 @Builder
@@ -56,6 +59,37 @@ public class TimeFilterFastProtoRequest extends ProtoRequest {
             .setOneToManyRequest(oneToManyBuilder.build())
             .build()
             .toByteArray();
+    }
+
+    public static List<TimeFilterFastProtoRequest> split(TimeFilterFastProtoRequest request, int batchSizeHint) {
+        /* Naively splitting requests may lead to situations where the last request is very small and inefficient.
+         * We adjust the batch sizes to never have a situation where a batch is smaller than (loadFactor * batchSizeHint).
+         */
+
+        float loadFactor = 0.1f;
+        List<Coordinates> originalDestinations = request.getOneToMany().getDestinationCoordinates();
+        if (originalDestinations.size() <= batchSizeHint * (loadFactor + 1)) {
+            return Collections.singletonList(request);
+        } else {
+            int batchCount = originalDestinations.size() / batchSizeHint;
+            if (originalDestinations.size() % batchSizeHint > 0 &&
+                    originalDestinations.size() % batchSizeHint < loadFactor * batchSizeHint) {
+                batchCount -= 1;
+            }
+            int batchSize = (int) Math.ceil((float) originalDestinations.size() / batchCount);
+
+            ArrayList<TimeFilterFastProtoRequest> batchedDestinations = new ArrayList<>(batchCount);
+
+            for (int offset = 0; offset < originalDestinations.size(); offset += batchSize) {
+                List<Coordinates> batch = originalDestinations.subList(offset, Math.min(offset + batchSize, originalDestinations.size()));
+                batchedDestinations.add(
+                        request.withOneToMany(
+                                request.getOneToMany().withDestinationCoordinates(batch)
+                        )
+                );
+            }
+            return batchedDestinations;
+        }
     }
 
     @Override
