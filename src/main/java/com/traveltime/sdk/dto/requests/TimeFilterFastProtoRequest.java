@@ -34,7 +34,7 @@ public class TimeFilterFastProtoRequest extends ProtoRequest {
         RequestsCommon.Transportation transportation = RequestsCommon
             .Transportation
             .newBuilder()
-            .setTypeValue(RequestsCommon.TransportationType.DRIVING_AND_FERRY.getNumber())
+            .setTypeValue(oneToMany.getTransportation().getCode())
             .build();
 
         TimeFilterFastRequest.OneToMany.Builder oneToManyBuilder = TimeFilterFastRequest
