@@ -7,8 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Transportation {
     DRIVING_FERRY("driving+ferry", 3),
-    WALKING("walking", 4),
-    DRIVING("driving", 1);
+    WALKING_FERRY("walking+ferry", 7);
 
     private final String value;
     private final Integer code;
