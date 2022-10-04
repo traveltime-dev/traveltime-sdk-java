@@ -2,9 +2,12 @@ package com.traveltime.sdk.dto.requests;
 
 import com.igeolise.traveltime.rabbitmq.requests.RequestsCommon;
 import com.igeolise.traveltime.rabbitmq.requests.TimeFilterFastRequestOuterClass.TimeFilterFastRequest;
+import com.igeolise.traveltime.rabbitmq.responses.TimeFilterFastResponseOuterClass;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.proto.OneToMany;
+import com.traveltime.sdk.dto.responses.TimeFilterProtoResponse;
+import com.traveltime.sdk.dto.responses.errors.ProtoError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import lombok.*;
@@ -14,13 +17,14 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Value
 @Builder
 @AllArgsConstructor
 @With
 @EqualsAndHashCode(callSuper = true)
-public class TimeFilterFastProtoRequest extends ProtoRequest {
+public class TimeFilterProtoRequest extends ProtoRequest<TimeFilterProtoResponse> {
     @NonNull
     OneToMany oneToMany;
 
@@ -61,15 +65,21 @@ public class TimeFilterFastProtoRequest extends ProtoRequest {
             .toByteArray();
     }
 
-    public static List<TimeFilterFastProtoRequest> split(TimeFilterFastProtoRequest request, int batchSizeHint) {
+    @Override
+    public List<Coordinates> getDestinationCoordinates() {
+        return oneToMany.getDestinationCoordinates();
+    }
+
+    @Override
+    public List<ProtoRequest<TimeFilterProtoResponse>> split(int batchSizeHint) {
         /* Naively splitting requests may lead to situations where the last request is very small and inefficient.
          * We adjust the batch sizes to never have a situation where a batch is smaller than (loadFactor * batchSizeHint).
          */
 
         float loadFactor = 0.1f;
-        List<Coordinates> originalDestinations = request.getOneToMany().getDestinationCoordinates();
+        List<Coordinates> originalDestinations = oneToMany.getDestinationCoordinates();
         if (originalDestinations.size() <= batchSizeHint * (loadFactor + 1)) {
-            return Collections.singletonList(request);
+            return Collections.singletonList(this);
         } else {
             int batchCount = originalDestinations.size() / batchSizeHint;
             if (originalDestinations.size() % batchSizeHint > 0 &&
@@ -78,18 +88,41 @@ public class TimeFilterFastProtoRequest extends ProtoRequest {
             }
             int batchSize = (int) Math.ceil((float) originalDestinations.size() / batchCount);
 
-            ArrayList<TimeFilterFastProtoRequest> batchedDestinations = new ArrayList<>(batchCount);
+            ArrayList<ProtoRequest<TimeFilterProtoResponse>> batchedDestinations = new ArrayList<>(batchCount);
 
             for (int offset = 0; offset < originalDestinations.size(); offset += batchSize) {
                 List<Coordinates> batch = originalDestinations.subList(offset, Math.min(offset + batchSize, originalDestinations.size()));
                 batchedDestinations.add(
-                    request.withOneToMany(
-                        request.getOneToMany().withDestinationCoordinates(batch)
+                    this.withOneToMany(
+                        oneToMany.withDestinationCoordinates(batch)
                     )
                 );
             }
             return batchedDestinations;
         }
+    }
+
+    @Override
+    public TimeFilterProtoResponse merge(List<TimeFilterProtoResponse> responses) {
+        List<Integer> times = responses
+            .stream()
+            .flatMap(resp -> resp.getTravelTimes().stream())
+            .collect(Collectors.toList());
+        return new TimeFilterProtoResponse(times);
+    }
+
+    @Override
+    public Either<TravelTimeError, TimeFilterProtoResponse> parseBytes(byte[] body) {
+        return getProtoResponse(body).flatMap(this::parseResponse);
+    }
+
+    private Either<TravelTimeError, TimeFilterProtoResponse> parseResponse(
+        TimeFilterFastResponseOuterClass.TimeFilterFastResponse response
+    ) {
+        if(response.hasError())
+            return Either.left(new ProtoError(response.getError().toString()));
+        else
+            return Either.right(new TimeFilterProtoResponse(response.getProperties().getTravelTimesList()));
     }
 
     @Override

@@ -257,10 +257,10 @@ Filter out points that cannot be reached within specified time limit.
 
 Body attributes:
 * origin: Original point.
-* destination: destination points. Cannot be more than 200,000.
-* transportation: transportation type.
-* travelTime: time limit;
-* country: return the results that are within the specified country
+* destination: Destination points. Cannot be more than 200,000.
+* transportation: Transportation type.
+* travelTime: Time limit;
+* country: Return the results that are within the specified country
 
 ```java
 OneToMany oneToMany = OneToMany
@@ -272,15 +272,43 @@ OneToMany oneToMany = OneToMany
     .country(Country.NETHERLANDS)
     .build();
 
-TimeFilterFastProtoRequest request = TimeFilterFastProtoRequest
+TimeFilterProtoRequest request = TimeFilterProtoRequest
     .builder()
     .oneToMany(oneToMany)
     .build();
 
-Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
+Either<TravelTimeError, TimeFilterProtoResponse> response = sdk.sendProto(request);
 
 if(response.isRight()) {
     System.out.println(response.get().getTravelTimes());
+} else {
+    System.out.println(response.getLeft().getMessage());
+}
+```
+
+### Time Filter Fast with distance (Proto)
+Filter out points that cannot be reached within specified time limit.
+
+Body attributes:
+* origin: Original point.
+* destination: Destination points. Cannot be more than 200,000.
+* transportation: Transportation type.
+* travelTime: Time limit;
+* country: Return the results that are within the specified country
+
+```java
+TimeFilterProtoDistanceRequest request = new TimeFilterProtoDistanceRequest(
+    new Coordinates(51.425709, -0.122061),
+    Collections.singletonList(new Coordinates(51.425600, -0.122000)), 
+    3200,
+    Transportation.DRIVING_FERRY,
+    Country.UNITED_KINGDOM      
+);
+
+Either<TravelTimeError, TimeFilterProtoDistanceResponse> response = sdk.sendProto(request);
+
+if(response.isRight()) {
+    System.out.println(response.get().getDistances());
 } else {
     System.out.println(response.getLeft().getMessage());
 }

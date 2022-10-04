@@ -3,7 +3,7 @@ package com.traveltime.examples;
 import com.traveltime.sdk.TravelTimeSDK;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
-import com.traveltime.sdk.dto.requests.TimeFilterFastProtoRequest;
+import com.traveltime.sdk.dto.requests.TimeFilterProtoRequest;
 import com.traveltime.sdk.dto.requests.proto.*;
 import lombok.val;
 
@@ -46,7 +46,7 @@ public class TimeFilterProtoExample {
         System.out.println(res);
     }
 
-    private static TimeFilterFastProtoRequest createRequest(
+    private static TimeFilterProtoRequest createRequest(
         Coordinates origin,
         List<Coordinates> destinations
     ) {
@@ -58,6 +58,6 @@ public class TimeFilterProtoExample {
             Country.NETHERLANDS
         );
 
-        return new TimeFilterFastProtoRequest(oneToMany);
+        return new TimeFilterProtoRequest(oneToMany);
     }
 }

@@ -2,21 +2,27 @@ package com.traveltime.sdk.dto.requests;
 
 import com.igeolise.traveltime.rabbitmq.requests.RequestsCommon;
 import com.igeolise.traveltime.rabbitmq.requests.TimeFilterFastRequestOuterClass;
+import com.igeolise.traveltime.rabbitmq.responses.TimeFilterFastResponseOuterClass;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.protodistance.Country;
 import com.traveltime.sdk.dto.requests.protodistance.Transportation;
+import com.traveltime.sdk.dto.responses.TimeFilterProtoDistanceResponse;
+import com.traveltime.sdk.dto.responses.errors.ProtoError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
-import lombok.NonNull;
+import lombok.*;
 import okhttp3.Request;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.RandomAccess;
+import java.util.stream.Collectors;
 
-public class TimeFilterProtoDistanceRequest extends ProtoRequest {
+
+public class TimeFilterProtoDistanceRequest extends ProtoRequest<TimeFilterProtoDistanceResponse> {
     @NonNull
     Coordinates originCoordinate;
     @NonNull
@@ -48,6 +54,7 @@ public class TimeFilterProtoDistanceRequest extends ProtoRequest {
                 .newBuilder()
                 .setDepartureLocation(departure)
                 .setArrivalTimePeriod(RequestsCommon.TimePeriod.WEEKDAY_MORNING)
+                .addProperties(TimeFilterFastRequestOuterClass.TimeFilterFastRequest.Property.DISTANCES)
                 .setTransportation(transportationType)
                 .setTravelTime(travelTime);
 
@@ -69,6 +76,69 @@ public class TimeFilterProtoDistanceRequest extends ProtoRequest {
         String protoDistanceUri = "https://proto-with-distance.api.traveltimeapp.com/api/v2/";
         String uri = protoDistanceUri + country.getValue() + "/time-filter/fast/" + transportation.getValue();
         return Either.right(createProtobufRequest(credentials, uri, createByteArray()));
+    }
+
+    public Either<TravelTimeError, TimeFilterProtoDistanceResponse> parseBytes(byte[] body) {
+        return getProtoResponse(body).flatMap(this::parseResponse);
+    }
+
+    private Either<TravelTimeError, TimeFilterProtoDistanceResponse> parseResponse(
+        TimeFilterFastResponseOuterClass.TimeFilterFastResponse response
+    ) {
+        if(response.hasError())
+            return Either.left(new ProtoError(response.getError().toString()));
+        else
+            return Either.right(
+                new TimeFilterProtoDistanceResponse(
+                    response.getProperties().getTravelTimesList(),
+                    response.getProperties().getDistancesList()
+                )
+            );
+    }
+
+    @Override
+    public List<Coordinates> getDestinationCoordinates() {
+        return destinationCoordinates;
+    }
+
+    @Override
+    public List<ProtoRequest<TimeFilterProtoDistanceResponse>> split(int batchSizeHint) {
+        /* Naively splitting requests may lead to situations where the last request is very small and inefficient.
+         * We adjust the batch sizes to never have a situation where a batch is smaller than (loadFactor * batchSizeHint).
+         */
+        float loadFactor = 0.1f;
+        if (destinationCoordinates.size() <= batchSizeHint * (loadFactor + 1)) {
+            return Collections.singletonList(this);
+        } else {
+            int batchCount = destinationCoordinates.size() / batchSizeHint;
+            if (destinationCoordinates.size() % batchSizeHint > 0 &&
+                    destinationCoordinates.size() % batchSizeHint < loadFactor * batchSizeHint) {
+                batchCount -= 1;
+            }
+            int batchSize = (int) Math.ceil((float) destinationCoordinates.size() / batchCount);
+
+            ArrayList<ProtoRequest<TimeFilterProtoDistanceResponse>> batchedDestinations = new ArrayList<>(batchCount);
+
+            for (int offset = 0; offset < destinationCoordinates.size(); offset += batchSize) {
+                List<Coordinates> batch = destinationCoordinates.subList(offset, Math.min(offset + batchSize, destinationCoordinates.size()));
+                batchedDestinations.add(new TimeFilterProtoDistanceRequest(originCoordinate, batch, travelTime, transportation, country));
+            }
+            return batchedDestinations;
+        }
+    }
+
+    @Override
+    public TimeFilterProtoDistanceResponse merge(List<TimeFilterProtoDistanceResponse> responses) {
+        List<Integer> times = responses
+            .stream()
+            .flatMap(resp -> resp.getTravelTimes().stream())
+            .collect(Collectors.toList());
+
+        List<Integer> distances = responses
+            .stream()
+            .flatMap(resp -> resp.getDistances().stream())
+            .collect(Collectors.toList());
+        return new TimeFilterProtoDistanceResponse(times, distances);
     }
 
     /**
