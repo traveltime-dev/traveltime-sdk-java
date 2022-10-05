@@ -20,7 +20,7 @@ import static io.vavr.Patterns.$Left;
 import static io.vavr.Patterns.$Right;
 
 /**
- * Example showing how to find 3 closest shops by travel time given a list of shops with locations.
+ * Example showing how to find 3 closest shops by travel time.
  * The list of shop coordinates is generated randomly.
  * Here we are using driving transportation mode, but you can use different ways of
  * transportation, for example: public transport or walking.
