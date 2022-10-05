@@ -18,7 +18,7 @@ import static io.vavr.Patterns.$Right;
  * Example showing how to find 3 closest gas stations by travel time and distance.
  * The list of gas station coordinates is generated randomly. Here we are using driving+ferry transportation mode,
  * but you can also use walking+ferry.
- * This example is similar to TimeFilterProtoExample, but it also returns distances.
+ * This example is similar to TimeFilterProtoExample, but besides travelTime it returns distances.
  */
 public class TimeFilterProtoDistanceExample {
     public static void main(String[] args) {
