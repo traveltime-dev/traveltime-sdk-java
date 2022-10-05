@@ -6,7 +6,7 @@ import com.igeolise.traveltime.rabbitmq.responses.TimeFilterFastResponseOuterCla
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.proto.OneToMany;
-import com.traveltime.sdk.dto.responses.TimeFilterProtoResponse;
+import com.traveltime.sdk.dto.responses.TimeFilterFastProtoResponse;
 import com.traveltime.sdk.dto.responses.errors.ProtoError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @With
 @EqualsAndHashCode(callSuper = true)
-public class TimeFilterProtoRequest extends ProtoRequest<TimeFilterProtoResponse> {
+public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProtoResponse> {
     @NonNull
     OneToMany oneToMany;
 
@@ -71,7 +71,7 @@ public class TimeFilterProtoRequest extends ProtoRequest<TimeFilterProtoResponse
     }
 
     @Override
-    public List<ProtoRequest<TimeFilterProtoResponse>> split(int batchSizeHint) {
+    public List<ProtoRequest<TimeFilterFastProtoResponse>> split(int batchSizeHint) {
         /* Naively splitting requests may lead to situations where the last request is very small and inefficient.
          * We adjust the batch sizes to never have a situation where a batch is smaller than (loadFactor * batchSizeHint).
          */
@@ -88,7 +88,7 @@ public class TimeFilterProtoRequest extends ProtoRequest<TimeFilterProtoResponse
             }
             int batchSize = (int) Math.ceil((float) originalDestinations.size() / batchCount);
 
-            ArrayList<ProtoRequest<TimeFilterProtoResponse>> batchedDestinations = new ArrayList<>(batchCount);
+            ArrayList<ProtoRequest<TimeFilterFastProtoResponse>> batchedDestinations = new ArrayList<>(batchCount);
 
             for (int offset = 0; offset < originalDestinations.size(); offset += batchSize) {
                 List<Coordinates> batch = originalDestinations.subList(offset, Math.min(offset + batchSize, originalDestinations.size()));
@@ -103,26 +103,26 @@ public class TimeFilterProtoRequest extends ProtoRequest<TimeFilterProtoResponse
     }
 
     @Override
-    public TimeFilterProtoResponse merge(List<TimeFilterProtoResponse> responses) {
+    public TimeFilterFastProtoResponse merge(List<TimeFilterFastProtoResponse> responses) {
         List<Integer> times = responses
             .stream()
             .flatMap(resp -> resp.getTravelTimes().stream())
             .collect(Collectors.toList());
-        return new TimeFilterProtoResponse(times);
+        return new TimeFilterFastProtoResponse(times);
     }
 
     @Override
-    public Either<TravelTimeError, TimeFilterProtoResponse> parseBytes(byte[] body) {
+    public Either<TravelTimeError, TimeFilterFastProtoResponse> parseBytes(byte[] body) {
         return getProtoResponse(body).flatMap(this::parseResponse);
     }
 
-    private Either<TravelTimeError, TimeFilterProtoResponse> parseResponse(
+    private Either<TravelTimeError, TimeFilterFastProtoResponse> parseResponse(
         TimeFilterFastResponseOuterClass.TimeFilterFastResponse response
     ) {
         if(response.hasError())
             return Either.left(new ProtoError(response.getError().toString()));
         else
-            return Either.right(new TimeFilterProtoResponse(response.getProperties().getTravelTimesList()));
+            return Either.right(new TimeFilterFastProtoResponse(response.getProperties().getTravelTimesList()));
     }
 
     @Override

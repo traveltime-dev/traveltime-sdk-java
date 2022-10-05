@@ -3,11 +3,11 @@ package com.traveltime.sdk;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.ProtoRequest;
-import com.traveltime.sdk.dto.requests.TimeFilterProtoRequest;
+import com.traveltime.sdk.dto.requests.TimeFilterFastProtoRequest;
 import com.traveltime.sdk.dto.requests.proto.Country;
 import com.traveltime.sdk.dto.requests.proto.OneToMany;
 import com.traveltime.sdk.dto.requests.proto.Transportation;
-import com.traveltime.sdk.dto.responses.TimeFilterProtoResponse;
+import com.traveltime.sdk.dto.responses.TimeFilterFastProtoResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import lombok.val;
@@ -36,19 +36,19 @@ public class TimeFilterFastProtoTest {
     public void shouldSendTimeFilterProtoRequest() {
         Coordinates origin = new Coordinates(51.425709, -0.122061);
         List<Coordinates> destinations = Collections.singletonList(new Coordinates(51.348605, -0.314783));
-        TimeFilterProtoRequest request = oneToMany(origin, destinations);
-        Either<TravelTimeError, TimeFilterProtoResponse> response = sdk.sendProto(request);
+        TimeFilterFastProtoRequest request = oneToMany(origin, destinations);
+        Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
         Assert.assertTrue(response.isRight());
     }
 
     @Test
     public void shouldSplitProtoRequestsTest() {
-        TimeFilterProtoRequest request = oneToMany(
+        TimeFilterFastProtoRequest request = oneToMany(
             new Coordinates(51.425709, -0.122061),
             Common.generateCoordinates(12)
         );
 
-        List<ProtoRequest<TimeFilterProtoResponse>> requests = request.split(3);
+        List<ProtoRequest<TimeFilterFastProtoResponse>> requests = request.split(3);
 
         Assert.assertEquals(4, requests.size());
         Assert.assertTrue(requests.stream().allMatch(req -> req.getDestinationCoordinates().size() <= 3));
@@ -57,12 +57,12 @@ public class TimeFilterFastProtoTest {
 
     @Test
     public void shouldSplitProtoRequestsEvenlyTest() {
-        TimeFilterProtoRequest request = oneToMany(
+        TimeFilterFastProtoRequest request = oneToMany(
             new Coordinates(51.425709, -0.122061),
             Common.generateCoordinates(1001)
         );
 
-        List<ProtoRequest<TimeFilterProtoResponse>> requests = request.split(100);
+        List<ProtoRequest<TimeFilterFastProtoResponse>> requests = request.split(100);
         Assert.assertTrue(requests.stream().allMatch(req -> req.getDestinationCoordinates().size() != 1));
     }
 
@@ -71,8 +71,8 @@ public class TimeFilterFastProtoTest {
     public void shouldSendAsyncTimeFilterProtoRequest() throws ExecutionException, InterruptedException {
         Coordinates origin = new Coordinates(51.425709, -0.122061);
         List<Coordinates> destinations = Collections.singletonList(new Coordinates(51.348605, -0.314783));
-        TimeFilterProtoRequest request = oneToMany(origin, destinations);
-        CompletableFuture<Either<TravelTimeError, TimeFilterProtoResponse>> response = sdk.sendProtoAsync(request);
+        TimeFilterFastProtoRequest request = oneToMany(origin, destinations);
+        CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>> response = sdk.sendProtoAsync(request);
         Assert.assertTrue(response.get().isRight());
     }
 
@@ -91,8 +91,8 @@ public class TimeFilterFastProtoTest {
             new Coordinates(51.348605, -0.314983),
             new Coordinates(51.348705, -0.314983)
         );
-        TimeFilterProtoRequest request = oneToMany(origin, destinations);
-        Either<TravelTimeError, TimeFilterProtoResponse> response = sdk.sendProtoBatched(request, 3);
+        TimeFilterFastProtoRequest request = oneToMany(origin, destinations);
+        Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProtoBatched(request, 3);
         Assert.assertTrue(response.isRight());
         Assert.assertEquals(10, response.get().getTravelTimes().size());
     }
@@ -112,7 +112,7 @@ public class TimeFilterFastProtoTest {
             new Coordinates(51.348605, -0.314983),
             new Coordinates(51.348705, -0.314983)
         );
-        TimeFilterProtoRequest request = oneToMany(origin, destinations);
+        TimeFilterFastProtoRequest request = oneToMany(origin, destinations);
         val response = sdk.sendProtoAsyncBatched(request, 3).join();
         Assert.assertTrue(response.isRight());
         Assert.assertEquals(10, response.get().getTravelTimes().size());
@@ -130,7 +130,7 @@ public class TimeFilterFastProtoTest {
             new Coordinates(51.323124, -0.312343)
 
         );
-        CompletableFuture<Either<TravelTimeError, TimeFilterProtoResponse>>[] futures = new CompletableFuture[] {
+        CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>>[] futures = new CompletableFuture[] {
             sdk.sendProtoAsync(oneToMany(coordinates.get(0), coordinates)),
             sdk.sendProtoAsync(oneToMany(coordinates.get(1), coordinates)),
             sdk.sendProtoAsync(oneToMany(coordinates.get(2), coordinates)),
@@ -149,7 +149,7 @@ public class TimeFilterFastProtoTest {
         Assert.assertTrue(result);
     }
 
-    public TimeFilterProtoRequest oneToMany(
+    public TimeFilterFastProtoRequest oneToMany(
         Coordinates origin,
         List<Coordinates> destinations
     ) {
@@ -161,6 +161,6 @@ public class TimeFilterFastProtoTest {
             Country.NETHERLANDS
         );
 
-        return new TimeFilterProtoRequest(oneToMany);
+        return new TimeFilterFastProtoRequest(oneToMany);
     }
 }

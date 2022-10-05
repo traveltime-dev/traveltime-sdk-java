@@ -7,7 +7,7 @@ import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.protodistance.Country;
 import com.traveltime.sdk.dto.requests.protodistance.Transportation;
-import com.traveltime.sdk.dto.responses.TimeFilterProtoDistanceResponse;
+import com.traveltime.sdk.dto.responses.TimeFilterFastProtoDistanceResponse;
 import com.traveltime.sdk.dto.responses.errors.ProtoError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
@@ -22,7 +22,7 @@ import java.util.RandomAccess;
 import java.util.stream.Collectors;
 
 
-public class TimeFilterProtoDistanceRequest extends ProtoRequest<TimeFilterProtoDistanceResponse> {
+public class TimeFilterFastProtoDistanceRequest extends ProtoRequest<TimeFilterFastProtoDistanceResponse> {
     @NonNull
     Coordinates originCoordinate;
     @NonNull
@@ -78,18 +78,18 @@ public class TimeFilterProtoDistanceRequest extends ProtoRequest<TimeFilterProto
         return Either.right(createProtobufRequest(credentials, uri, createByteArray()));
     }
 
-    public Either<TravelTimeError, TimeFilterProtoDistanceResponse> parseBytes(byte[] body) {
+    public Either<TravelTimeError, TimeFilterFastProtoDistanceResponse> parseBytes(byte[] body) {
         return getProtoResponse(body).flatMap(this::parseResponse);
     }
 
-    private Either<TravelTimeError, TimeFilterProtoDistanceResponse> parseResponse(
+    private Either<TravelTimeError, TimeFilterFastProtoDistanceResponse> parseResponse(
         TimeFilterFastResponseOuterClass.TimeFilterFastResponse response
     ) {
         if(response.hasError())
             return Either.left(new ProtoError(response.getError().toString()));
         else
             return Either.right(
-                new TimeFilterProtoDistanceResponse(
+                new TimeFilterFastProtoDistanceResponse(
                     response.getProperties().getTravelTimesList(),
                     response.getProperties().getDistancesList()
                 )
@@ -102,7 +102,7 @@ public class TimeFilterProtoDistanceRequest extends ProtoRequest<TimeFilterProto
     }
 
     @Override
-    public List<ProtoRequest<TimeFilterProtoDistanceResponse>> split(int batchSizeHint) {
+    public List<ProtoRequest<TimeFilterFastProtoDistanceResponse>> split(int batchSizeHint) {
         /* Naively splitting requests may lead to situations where the last request is very small and inefficient.
          * We adjust the batch sizes to never have a situation where a batch is smaller than (loadFactor * batchSizeHint).
          */
@@ -117,18 +117,18 @@ public class TimeFilterProtoDistanceRequest extends ProtoRequest<TimeFilterProto
             }
             int batchSize = (int) Math.ceil((float) destinationCoordinates.size() / batchCount);
 
-            ArrayList<ProtoRequest<TimeFilterProtoDistanceResponse>> batchedDestinations = new ArrayList<>(batchCount);
+            ArrayList<ProtoRequest<TimeFilterFastProtoDistanceResponse>> batchedDestinations = new ArrayList<>(batchCount);
 
             for (int offset = 0; offset < destinationCoordinates.size(); offset += batchSize) {
                 List<Coordinates> batch = destinationCoordinates.subList(offset, Math.min(offset + batchSize, destinationCoordinates.size()));
-                batchedDestinations.add(new TimeFilterProtoDistanceRequest(originCoordinate, batch, travelTime, transportation, country));
+                batchedDestinations.add(new TimeFilterFastProtoDistanceRequest(originCoordinate, batch, travelTime, transportation, country));
             }
             return batchedDestinations;
         }
     }
 
     @Override
-    public TimeFilterProtoDistanceResponse merge(List<TimeFilterProtoDistanceResponse> responses) {
+    public TimeFilterFastProtoDistanceResponse merge(List<TimeFilterFastProtoDistanceResponse> responses) {
         List<Integer> times = responses
             .stream()
             .flatMap(resp -> resp.getTravelTimes().stream())
@@ -138,7 +138,7 @@ public class TimeFilterProtoDistanceRequest extends ProtoRequest<TimeFilterProto
             .stream()
             .flatMap(resp -> resp.getDistances().stream())
             .collect(Collectors.toList());
-        return new TimeFilterProtoDistanceResponse(times, distances);
+        return new TimeFilterFastProtoDistanceResponse(times, distances);
     }
 
     /**
@@ -147,7 +147,7 @@ public class TimeFilterProtoDistanceRequest extends ProtoRequest<TimeFilterProto
      *                               does not implement the {@code RandomAccess} interface it will be internally converted into an {@code ArrayList}.
      * @param travelTime             Travel time limit.
      */
-    public TimeFilterProtoDistanceRequest(
+    public TimeFilterFastProtoDistanceRequest(
         @NonNull Coordinates originCoordinate,
         @NonNull List<Coordinates> destinationCoordinates,
         @NonNull Integer travelTime,
