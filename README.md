@@ -253,10 +253,15 @@ if(response.isRight()) {
 ```
 
 ### Time Filter Fast (Proto)
-Filter out points that cannot be reached within specified time limit.
+
+A fast version of time filter communicating using [protocol buffers](https://github.com/protocolbuffers/protobuf).
+
+The request parameters are much more limited and only travel time is returned. In addition, the results are only approximately correct (95% of the results are guaranteed to be within 5% of the routes returned by regular time filter).
+
+This inflexibility comes with a benefit of faster response times (Over 5x faster compared to regular time filter) and larger limits on the amount of destination points.
 
 Body attributes:
-* origin: Original point.
+* origin: Origin point.
 * destination: Destination points. Cannot be more than 200,000.
 * transportation: Transportation type.
 * travelTime: Time limit;
@@ -286,11 +291,18 @@ if(response.isRight()) {
 }
 ```
 
+The responses are in the form of a list where each position denotes either a
+travel time (in seconds) of a journey, or if negative that the journey from the
+origin to the destination point is impossible.
+
 ### Time Filter Fast with distance (Proto)
-Filter out points that cannot be reached within specified time limit.
+
+A fast version of time filter communicating using [protocol buffers](https://github.com/protocolbuffers/protobuf) that supports distance information.
+
+The request parameters are much more limited and only travel time and distance is returned. In addition, the results are only approximately correct (95% of the results are guaranteed to be within 5% of the routes returned by regular time filter).
 
 Body attributes:
-* origin: Original point.
+* origin: Origin point.
 * destination: Destination points. Cannot be more than 200,000.
 * transportation: Transportation type.
 * travelTime: Time limit;
@@ -313,6 +325,10 @@ if(response.isRight()) {
     System.out.println(response.getLeft().getMessage());
 }
 ```
+
+The responses are in the form of lists where each position denotes:
+  * travel time (in seconds) of a journey, or if negative that the journey from the origin to the destination point is impossible.
+  * if a travel time for a position is non negative than the distance list at the same position denotes travel distance in meters for that journey, if the journey is impossible the distance value at the position is *undefined*.
 
 ### Passing custom parameters 
 In order to pass custom parameters, you will have to create TravelTimeSDK builder.
