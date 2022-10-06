@@ -3,7 +3,7 @@ package com.traveltime.examples;
 import com.traveltime.sdk.TravelTimeSDK;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
-import com.traveltime.sdk.dto.requests.TimeFilterProtoRequest;
+import com.traveltime.sdk.dto.requests.TimeFilterFastProtoRequest;
 import com.traveltime.sdk.dto.requests.proto.*;
 import lombok.val;
 
@@ -22,7 +22,7 @@ import static io.vavr.Patterns.$Right;
  * If you're looking for real-time search we recommend to use protobuf.
  * You can find TravelTime protobuf benchmarks at - https://github.com/traveltime-dev/traveltime-benchmarks
  */
-public class TimeFilterProtoExample {
+public class TimeFilterFastProtoExample {
     public static void main(String[] args) {
         val origin = new Coordinates(51.425709, -0.122061);
         val locations = Utils.generateLocations("gas station", origin, 0.004, 100);
@@ -46,7 +46,7 @@ public class TimeFilterProtoExample {
         System.out.println(res);
     }
 
-    private static TimeFilterProtoRequest createRequest(
+    private static TimeFilterFastProtoRequest createRequest(
         Coordinates origin,
         List<Coordinates> destinations
     ) {
@@ -58,6 +58,6 @@ public class TimeFilterProtoExample {
             Country.NETHERLANDS
         );
 
-        return new TimeFilterProtoRequest(oneToMany);
+        return new TimeFilterFastProtoRequest(oneToMany);
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Value
 @AllArgsConstructor
-public class TimeFilterProtoResponse {
+public class TimeFilterFastProtoResponse {
     @NonNull
     List<Integer> travelTimes;
 }

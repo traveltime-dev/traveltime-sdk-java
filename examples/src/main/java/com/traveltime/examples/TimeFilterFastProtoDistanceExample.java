@@ -3,7 +3,7 @@ package com.traveltime.examples;
 import com.traveltime.sdk.TravelTimeSDK;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
-import com.traveltime.sdk.dto.requests.TimeFilterProtoDistanceRequest;
+import com.traveltime.sdk.dto.requests.TimeFilterFastProtoDistanceRequest;
 import com.traveltime.sdk.dto.requests.protodistance.Country;
 import com.traveltime.sdk.dto.requests.protodistance.Transportation;
 import lombok.val;
@@ -18,9 +18,9 @@ import static io.vavr.Patterns.$Right;
  * Example showing how to find 3 closest gas stations by travel time and distance.
  * The list of gas station coordinates is generated randomly. Here we are using driving+ferry transportation mode,
  * but you can also use walking+ferry.
- * This example is similar to TimeFilterProtoExample, but besides travelTime it returns distances.
+ * This example is similar to TimeFilterFastProtoExample, but besides travelTime it returns distances.
  */
-public class TimeFilterProtoDistanceExample {
+public class TimeFilterFastProtoDistanceExample {
     public static void main(String[] args) {
         Coordinates origin = new Coordinates(51.425709, -0.122061);
         val locations = Utils.generateLocations("gas station", origin, 0.004, 100);
@@ -28,7 +28,7 @@ public class TimeFilterProtoDistanceExample {
             .stream()
             .map(loc -> new Coordinates(loc.getValue().getLat(), loc.getValue().getLng()))
             .collect(Collectors.toList());
-        val request = new TimeFilterProtoDistanceRequest(
+        val request = new TimeFilterFastProtoDistanceRequest(
             origin,
             destinations,
             3200,

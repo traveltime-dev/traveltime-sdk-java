@@ -277,12 +277,12 @@ OneToMany oneToMany = OneToMany
     .country(Country.NETHERLANDS)
     .build();
 
-TimeFilterProtoRequest request = TimeFilterProtoRequest
+TimeFilterFastProtoRequest request = TimeFilterFastProtoRequest
     .builder()
     .oneToMany(oneToMany)
     .build();
 
-Either<TravelTimeError, TimeFilterProtoResponse> response = sdk.sendProto(request);
+Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
 
 if(response.isRight()) {
     System.out.println(response.get().getTravelTimes());
@@ -309,7 +309,7 @@ Body attributes:
 * country: Return the results that are within the specified country
 
 ```java
-TimeFilterProtoDistanceRequest request = new TimeFilterProtoDistanceRequest(
+TimeFilterFastProtoDistanceRequest request = new TimeFilterFastProtoDistanceRequest(
     new Coordinates(51.425709, -0.122061),
     Collections.singletonList(new Coordinates(51.425600, -0.122000)), 
     3200,
@@ -317,7 +317,7 @@ TimeFilterProtoDistanceRequest request = new TimeFilterProtoDistanceRequest(
     Country.UNITED_KINGDOM      
 );
 
-Either<TravelTimeError, TimeFilterProtoDistanceResponse> response = sdk.sendProto(request);
+Either<TravelTimeError, TimeFilterFastProtoDistanceResponse> response = sdk.sendProto(request);
 
 if(response.isRight()) {
     System.out.println(response.get().getDistances());
