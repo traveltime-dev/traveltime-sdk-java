@@ -2,7 +2,7 @@ package com.traveltime.examples;
 
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.responses.timefilterfast.Location;
-import javafx.util.Pair;
+
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -58,3 +58,4 @@ public class Utils {
                 .subList(0, top);
     }
 }
+

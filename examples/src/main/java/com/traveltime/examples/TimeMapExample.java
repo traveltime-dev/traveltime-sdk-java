@@ -7,7 +7,6 @@ import com.traveltime.sdk.dto.common.transportation.Driving;
 import com.traveltime.sdk.dto.requests.TimeMapWktRequest;
 import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
 import com.traveltime.sdk.dto.responses.timemap.WktResult;
-import javafx.util.Pair;
 import lombok.val;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
