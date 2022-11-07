@@ -3,6 +3,7 @@ package com.traveltime.sdk.dto.requests;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.responses.GeocodingResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import com.traveltime.sdk.dto.responses.timemap.Rectangle;
 import io.vavr.control.Either;
 import lombok.*;
 import okhttp3.Request;
@@ -22,6 +23,12 @@ public class GeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
 
     Integer limit;
 
+    Boolean formatName;
+
+    Boolean formatExcludeCountry;
+
+    Rectangle bounds;
+
     private String getLimit() {
         if (limit == null)
             return "";
@@ -29,12 +36,43 @@ public class GeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
             return "&limit=" + limit;
     }
 
+    private String getBounds() {
+        if(bounds == null)
+            return "";
+        else
+            return "&bounds="
+                    + bounds.getMinLat()
+                    + ","
+                    + bounds.getMinLng()
+                    + ","
+                    + bounds.getMaxLat()
+                    + ","
+                    + bounds.getMaxLng();
+    }
+
+    private String getFormatName() {
+        if(formatName == null)
+            return "";
+        else
+            return "&format.name=" + formatName;
+    }
+
+    private String getFormatExcludeCountry() {
+        if(formatExcludeCountry == null)
+            return "";
+        else
+            return "&format.exclude.country=" + formatExcludeCountry;
+    }
+
     @Override
     public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
         String uri = baseUri
-            + "geocoding/search?query=" + query
-            + combineCountries(withinCountries)
-            + getLimit();
+                + "geocoding/search?query=" + query
+                + combineCountries(withinCountries)
+                + getLimit()
+                + getFormatName()
+                + getFormatExcludeCountry()
+                + getBounds();
         return Either.right(createGetRequest(uri, credentials));
     }
 
@@ -43,3 +81,4 @@ public class GeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
         return GeocodingResponse.class;
     }
 }
+
