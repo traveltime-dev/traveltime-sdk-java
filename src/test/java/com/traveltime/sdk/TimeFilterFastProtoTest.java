@@ -158,7 +158,7 @@ public class TimeFilterFastProtoTest {
             destinations,
             Transportation.PUBLIC_TRANSPORT,
             7200,
-            Country.NETHERLANDS
+            Country.UNITED_KINGDOM
         );
 
         return new TimeFilterFastProtoRequest(oneToMany);
