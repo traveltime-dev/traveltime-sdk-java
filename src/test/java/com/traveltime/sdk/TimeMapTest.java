@@ -151,7 +151,9 @@ public class TimeMapTest {
             transportation,
             Instant.now(),
             900,
-            new Range(true, 400)
+            new Range(true, 400),
+            false,
+            false
         );
 
         return Collections.singletonList(as);
@@ -164,7 +166,9 @@ public class TimeMapTest {
             transportation,
             Instant.now(),
             900,
-            new Range(true, 400)
+            new Range(true, 400),
+            false,
+            false
         );
         return Collections.singletonList(ds);
     }
