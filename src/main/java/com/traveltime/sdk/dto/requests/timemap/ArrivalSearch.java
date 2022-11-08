@@ -29,4 +29,6 @@ public class ArrivalSearch {
     @Positive(message = "travelTime should be positive")
     Integer travelTime;
     Range range;
+    Boolean singleShape;
+    Boolean noHoles;
 }

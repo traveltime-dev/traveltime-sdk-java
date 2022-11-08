@@ -30,4 +30,6 @@ public class DepartureSearch {
     Integer travelTime;
     @Valid
     Range range;
+    Boolean singleShape;
+    Boolean noHoles;
 }
