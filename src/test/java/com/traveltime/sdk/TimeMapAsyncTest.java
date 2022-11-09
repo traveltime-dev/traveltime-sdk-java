@@ -53,7 +53,9 @@ public class TimeMapAsyncTest {
             transportation,
             Instant.now(),
             900,
-            new Range(true, 400)
+            new Range(true, 400),
+            false,
+            false
         );
 
         return Collections.singletonList(as);

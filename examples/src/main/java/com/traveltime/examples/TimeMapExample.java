@@ -72,7 +72,9 @@ public class TimeMapExample {
             Driving.builder().build(),
             Instant.now(),
             600,
-            null
+            null,
+            false,
+            false
         );
 
         return new TimeMapWktRequest(
