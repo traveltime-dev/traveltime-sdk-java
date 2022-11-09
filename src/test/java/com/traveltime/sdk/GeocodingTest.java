@@ -34,7 +34,12 @@ public class GeocodingTest {
 
     @Test
     public void shouldSendGeocodingRequest() {
-        GeocodingRequest request = new GeocodingRequest("Geneva", Arrays.asList("CH", "DE"), 1);
+        GeocodingRequest request = GeocodingRequest
+                .builder()
+                .query("Geneva")
+                .withinCountries(Arrays.asList("CH", "DE"))
+                .limit(1)
+                .build();
         Either<TravelTimeError, GeocodingResponse> response = sdk.send(request);
         Assert.assertTrue(response.isRight());
     }
