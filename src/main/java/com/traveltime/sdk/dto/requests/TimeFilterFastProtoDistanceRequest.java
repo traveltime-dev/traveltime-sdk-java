@@ -77,8 +77,7 @@ public class TimeFilterFastProtoDistanceRequest extends ProtoRequest<TimeFilterF
 
     @Override
     public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        String protoDistanceUri = "https://proto-with-distance.api.traveltimeapp.com/api/v2/";
-        String uri = protoDistanceUri + country.getValue() + "/time-filter/fast/" + transportation.getValue();
+        String uri = baseUri + country.getValue() + "/time-filter/fast/" + transportation.getValue();
         return Either.right(createProtobufRequest(credentials, uri, createByteArray()));
     }
 
