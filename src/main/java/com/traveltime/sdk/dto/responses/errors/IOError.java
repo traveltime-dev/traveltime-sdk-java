@@ -1,6 +1,6 @@
 package com.traveltime.sdk.dto.responses.errors;
 
-import com.traveltime.sdk.utils.ErrorUtils;
+import com.traveltime.sdk.utils.Utils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
@@ -22,6 +22,6 @@ public class IOError implements TravelTimeError {
     @Override
     public String toString() {
         return "IOError( " + getMessage() + ")\n" +
-                ErrorUtils.printableStackTrace(getCause());
+                Utils.printableStackTrace(getCause());
     }
 }

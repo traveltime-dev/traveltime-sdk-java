@@ -3,12 +3,14 @@ package com.traveltime.sdk.dto.requests;
 import com.traveltime.sdk.utils.AcceptType;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import com.traveltime.sdk.utils.QueryElement;
 import io.vavr.control.Either;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TravelTimeRequest<T> {
@@ -18,11 +20,9 @@ public abstract class TravelTimeRequest<T> {
 
     public abstract Class<T> responseType();
 
-    protected String combineCountries(List<String> withinCountries) {
-        if (withinCountries == null || withinCountries.isEmpty())
-            return "";
-        else
-            return "&within.country=" + String.join(",", withinCountries);
+    protected QueryElement combineCountries(List<String> withinCountries) {
+        if(withinCountries == null) withinCountries = new ArrayList<>();
+        return new QueryElement("within.country", String.join(",", withinCountries));
     }
 
     protected Request createGetRequest(

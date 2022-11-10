@@ -4,6 +4,8 @@ import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.responses.GeocodingResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import com.traveltime.sdk.utils.QueryElement;
+import com.traveltime.sdk.utils.Utils;
 import io.vavr.control.Either;
 import lombok.*;
 import okhttp3.Request;
@@ -23,10 +25,12 @@ public class ReverseGeocodingRequest extends TravelTimeRequest<GeocodingResponse
 
     @Override
     public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        String uri = baseUri.resolve("/geocoding/reverse")
-            + "?lat=" + coordinates.getLat()
-            + "&lng=" + coordinates.getLng()
-            + combineCountries(withinCountries);
+        String query = Utils.composeQuery(
+                new QueryElement("lat", coordinates.getLat().toString()),
+                new QueryElement("lng", coordinates.getLng().toString()),
+                combineCountries(withinCountries)
+        );
+        String uri = Utils.withQuery(baseUri.resolve("/geocoding/reverse"), query).toString();
         return Either.right(createGetRequest(uri, credentials));
     }
 
