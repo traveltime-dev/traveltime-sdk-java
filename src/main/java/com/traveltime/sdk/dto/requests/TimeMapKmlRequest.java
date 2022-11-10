@@ -40,7 +40,7 @@ public class TimeMapKmlRequest extends TravelTimeRequest<Kml>{
 
     @Override
     public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        String uri = baseUri + "time-map";
+        String uri = baseUri.resolve("/time-map").toString();
         return JsonUtils
             .toJson(this)
             .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_KML));

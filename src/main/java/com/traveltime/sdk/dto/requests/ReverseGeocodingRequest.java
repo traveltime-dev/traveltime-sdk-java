@@ -23,8 +23,8 @@ public class ReverseGeocodingRequest extends TravelTimeRequest<GeocodingResponse
 
     @Override
     public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        String uri = baseUri
-            + "geocoding/reverse?lat=" + coordinates.getLat()
+        String uri = baseUri.resolve("/geocoding/reverse")
+            + "?lat=" + coordinates.getLat()
             + "&lng=" + coordinates.getLng()
             + combineCountries(withinCountries);
         return Either.right(createGetRequest(uri, credentials));

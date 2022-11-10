@@ -28,7 +28,7 @@ public class TimeFilterDistrictsRequest extends TravelTimeRequest<TimeFilterDist
 
     @Override
     public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        String uri = baseUri + "time-filter/postcode-districts";
+        String uri = baseUri.resolve("/time-filter/postcode-districts").toString();
         return JsonUtils
             .toJson(this)
             .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_JSON));

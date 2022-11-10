@@ -26,7 +26,7 @@ public class SupportedLocationsRequest extends TravelTimeRequest<SupportedLocati
 
     @Override
     public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        String uri = baseUri + "supported-locations";
+        String uri = baseUri.resolve("/supported-locations").toString();
         return JsonUtils
             .toJson(this)
             .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_JSON));

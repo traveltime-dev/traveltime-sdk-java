@@ -28,7 +28,7 @@ public class TimeFilterFastRequest extends TravelTimeRequest<TimeFilterFastRespo
 
     @Override
     public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        String uri = baseUri + "time-filter/fast";
+        String uri = baseUri.resolve("/time-filter/fast").toString();
         return JsonUtils
             .toJson(this)
             .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_JSON));

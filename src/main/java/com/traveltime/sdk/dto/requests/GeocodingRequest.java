@@ -66,8 +66,8 @@ public class GeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
 
     @Override
     public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        String uri = baseUri
-                + "geocoding/search?query=" + query
+        String uri = baseUri.resolve("/geocoding/search")
+                + "?query=" + query
                 + combineCountries(withinCountries)
                 + getLimit()
                 + getFormatName()

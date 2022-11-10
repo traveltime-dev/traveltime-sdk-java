@@ -34,7 +34,7 @@ public class TimeFilterRequest extends TravelTimeRequest<TimeFilterResponse> {
 
     @Override
     public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        String uri = baseUri + "time-filter";
+        String uri = baseUri.resolve("/time-filter").toString();
         return JsonUtils
             .toJson(this)
             .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_JSON));

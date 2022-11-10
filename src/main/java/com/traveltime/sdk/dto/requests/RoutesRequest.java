@@ -34,7 +34,7 @@ public class RoutesRequest extends TravelTimeRequest<RoutesResponse> {
 
     @Override
     public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        String uri = baseUri + "routes";
+        String uri = baseUri.resolve("/routes").toString();
         return JsonUtils
             .toJson(this)
             .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_JSON));

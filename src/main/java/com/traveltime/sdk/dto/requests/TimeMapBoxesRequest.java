@@ -40,7 +40,7 @@ public class TimeMapBoxesRequest  extends TravelTimeRequest<TimeMapBoxesResponse
 
     @Override
     public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        String uri = baseUri + "time-map";
+        String uri = baseUri.resolve("/time-map").toString();
         AcceptType acceptType = AcceptType.APPLICATION_BOUNDING_BOXES_JSON;
         return JsonUtils
             .toJson(this)

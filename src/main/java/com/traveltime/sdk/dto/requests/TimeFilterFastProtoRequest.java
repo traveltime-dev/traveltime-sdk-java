@@ -129,7 +129,7 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
     public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
         String countryCode = oneToMany.getCountry().getValue();
         String transportation = oneToMany.getTransportation().getValue();
-        String uri = baseUri + countryCode + "/time-filter/fast/" + transportation;
+        String uri = baseUri.resolve(countryCode).resolve("/time-filter/fast/").resolve(transportation).toString();
         return Either.right(createProtobufRequest(credentials, uri, createByteArray()));
     }
 }

@@ -20,7 +20,7 @@ import java.net.URI;
 public class MapInfoRequest extends TravelTimeRequest<MapInfoResponse> {
     @Override
     public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        return Either.right(createGetRequest(baseUri + "map-info", credentials));
+        return Either.right(createGetRequest(baseUri.resolve("/map-info").toString(), credentials));
     }
 
     @Override
