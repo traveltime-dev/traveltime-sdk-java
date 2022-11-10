@@ -296,4 +296,18 @@ public class TravelTimeSDK {
         client.dispatcher().executorService().shutdown();
         client.connectionPool().evictAll();
     }
+
+    public static class TravelTimeSDKBuilder {
+        public TravelTimeSDKBuilder baseUri(URI uri) {
+            baseUri$value = uri.resolve("/");
+            baseUri$set = true;
+            return this;
+        }
+
+        public TravelTimeSDKBuilder baseProtoUri(URI uri) {
+            baseProtoUri$value = uri.resolve("/");
+            baseProtoUri$set = true;
+            return this;
+        }
+    }
 }
