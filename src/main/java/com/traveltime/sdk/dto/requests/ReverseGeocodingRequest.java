@@ -8,9 +8,9 @@ import com.traveltime.sdk.utils.QueryElement;
 import com.traveltime.sdk.utils.Utils;
 import io.vavr.control.Either;
 import lombok.*;
+import okhttp3.HttpUrl;
 import okhttp3.Request;
 
-import java.net.URI;
 import java.util.List;
 
 @Value
@@ -18,19 +18,19 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ReverseGeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
-    @NonNull
-    Coordinates coordinates;
+    @NonNull Coordinates coordinates;
 
     List<String> withinCountries;
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        String query = Utils.composeQuery(
+    public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
+        val builder = baseUri.newBuilder().addPathSegments("geocoding/reverse");
+        val uri = Utils.withQuery(
+                builder,
                 new QueryElement("lat", coordinates.getLat().toString()),
                 new QueryElement("lng", coordinates.getLng().toString()),
                 combineCountries(withinCountries)
-        );
-        String uri = Utils.withQuery(baseUri.resolve("/geocoding/reverse"), query).toString();
+        ).build();
         return Either.right(createGetRequest(uri, credentials));
     }
 

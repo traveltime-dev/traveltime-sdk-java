@@ -8,14 +8,11 @@ import com.traveltime.sdk.dto.responses.TimeFilterPostcodesResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
 import lombok.extern.jackson.Jacksonized;
+import okhttp3.HttpUrl;
 import okhttp3.Request;
 
-import java.net.URI;
 import java.util.List;
 
 @Value
@@ -30,8 +27,8 @@ public class TimeFilterPostcodesRequest extends TravelTimeRequest<TimeFilterPost
     List<ArrivalSearch> arrivalSearches;
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        String uri = baseUri.resolve("/time-filter/postcodes").toString();
+    public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
+        val uri = baseUri.newBuilder().addPathSegments("time-filter/postcodes").build();
         return JsonUtils
             .toJson(this)
             .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_JSON));

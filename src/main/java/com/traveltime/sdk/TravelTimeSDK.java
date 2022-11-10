@@ -117,7 +117,7 @@ public class TravelTimeSDK {
 
     public <T> CompletableFuture<Either<TravelTimeError, T>> sendProtoAsync(ProtoRequest<T> request) {
         return CompletableFuture
-            .supplyAsync(() -> request.createRequest(baseProtoUri, credentials), client.dispatcher().executorService())
+            .supplyAsync(() -> request.createRequest(HttpUrl.get(baseProtoUri), credentials), client.dispatcher().executorService())
             .thenCompose(req -> {
                 final CompletableFuture<Either<TravelTimeError, T>> future = new CompletableFuture<>();
 
@@ -130,7 +130,7 @@ public class TravelTimeSDK {
 
     public <T> Either<TravelTimeError, T> sendProto(ProtoRequest<T> request) {
         return request
-            .createRequest(baseProtoUri, credentials)
+            .createRequest(HttpUrl.get(baseProtoUri), credentials)
             .flatMap(this::executeRequest)
             .flatMap(response -> deserializeProtoResponse(request, response));
     }
@@ -212,7 +212,7 @@ public class TravelTimeSDK {
             return Either.left(validationError.get());
         } else {
             return request
-                .createRequest(baseUri, credentials)
+                .createRequest(HttpUrl.get(baseUri), credentials)
                 .flatMap(this::executeRequest)
                 .flatMap(response -> getParsedResponse(request, response));
         }
@@ -224,7 +224,7 @@ public class TravelTimeSDK {
             return Either.left(validationError.get());
         } else {
             return request
-                .createRequest(baseUri, credentials)
+                .createRequest(HttpUrl.get(baseUri), credentials)
                 .flatMap(this::executeRequest)
                 .flatMap(this::getUnparsedResponse);
         }
@@ -278,7 +278,7 @@ public class TravelTimeSDK {
                     return CompletableFuture.completedFuture(Either.left(validationError.get()));
                 }
                 return CompletableFuture
-                    .supplyAsync(() -> request.createRequest(baseUri, credentials))
+                    .supplyAsync(() -> request.createRequest(HttpUrl.get(baseUri), credentials))
                     .thenCompose(req -> {
                         CompletableFuture<Either<TravelTimeError, T>> future = new CompletableFuture<>();
 
@@ -295,19 +295,5 @@ public class TravelTimeSDK {
     public void close() {
         client.dispatcher().executorService().shutdown();
         client.connectionPool().evictAll();
-    }
-
-    public static class TravelTimeSDKBuilder {
-        public TravelTimeSDKBuilder baseUri(URI uri) {
-            baseUri$value = uri.resolve("/");
-            baseUri$set = true;
-            return this;
-        }
-
-        public TravelTimeSDKBuilder baseProtoUri(URI uri) {
-            baseProtoUri$value = uri.resolve("/");
-            baseProtoUri$set = true;
-            return this;
-        }
     }
 }

@@ -8,9 +8,9 @@ import com.traveltime.sdk.utils.QueryElement;
 import com.traveltime.sdk.utils.Utils;
 import io.vavr.control.Either;
 import lombok.*;
+import okhttp3.HttpUrl;
 import okhttp3.Request;
 
-import java.net.URI;
 import java.util.List;
 
 @Value
@@ -49,16 +49,17 @@ public class GeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
     }
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        String uriQuery = Utils.composeQuery(
+    public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
+        val builder = baseUri.newBuilder().addPathSegments("geocoding/search");
+        val uri = Utils.withQuery(
+                builder,
                 new QueryElement("query", query),
                 combineCountries(withinCountries),
                 getLimit(),
                 getFormatName(),
                 getFormatExcludeCountry(),
                 getBounds()
-        );
-        String uri = Utils.withQuery(baseUri.resolve("/geocoding/search"), uriQuery).toString();
+        ).build();
         return Either.right(createGetRequest(uri, credentials));
     }
 
