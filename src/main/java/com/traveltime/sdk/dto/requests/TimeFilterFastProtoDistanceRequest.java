@@ -21,7 +21,11 @@ import java.util.List;
 import java.util.RandomAccess;
 import java.util.stream.Collectors;
 
-
+@Value
+@Builder
+@AllArgsConstructor
+@With
+@EqualsAndHashCode(callSuper = true)
 public class TimeFilterFastProtoDistanceRequest extends ProtoRequest<TimeFilterFastProtoDistanceResponse> {
     @NonNull
     Coordinates originCoordinate;
