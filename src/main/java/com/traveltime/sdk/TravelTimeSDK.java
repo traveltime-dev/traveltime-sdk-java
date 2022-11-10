@@ -139,7 +139,7 @@ public class TravelTimeSDK {
         try {
             return future.get();
         } catch (InterruptedException | ExecutionException e) {
-            return Either.left(new IOError(e, "Error while executing an async request."));
+            return Either.left(new IOError(e, "Error while executing an async request: " + e.getCause()));
         }
     }
 

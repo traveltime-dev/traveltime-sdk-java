@@ -12,6 +12,7 @@ import java.util.Map;
 @Jacksonized
 @Getter
 @AllArgsConstructor
+@ToString
 public class ResponseError implements TravelTimeError {
     @NonNull
     Integer httpStatus;
