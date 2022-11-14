@@ -78,7 +78,12 @@ public class TimeFilterFastProtoDistanceRequest extends ProtoRequest<TimeFilterF
 
     @Override
     public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
-        val uri = baseUri.newBuilder().addPathSegments(country.getValue()).addPathSegments("/time-filter/fast/").addPathSegments(transportation.getValue()).build();
+        val uri = baseUri.newBuilder()
+                .addPathSegments(country.getValue())
+                .addPathSegments("time-filter/fast")
+                .addPathSegments(transportation.getValue())
+                .build();
+
         return Either.right(createProtobufRequest(credentials, uri, createByteArray()));
     }
 
