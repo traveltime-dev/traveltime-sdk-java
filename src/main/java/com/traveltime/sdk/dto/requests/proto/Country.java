@@ -1,19 +1,21 @@
 package com.traveltime.sdk.dto.requests.proto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Value;
 
-@Getter
-@AllArgsConstructor
-public enum Country {
-    NETHERLANDS("nl"),
-    AUSTRIA("at"),
-    BELGIUM("be"),
-    GERMANY("de"),
-    FRANCE("fr"),
-    IRELAND("ie"),
-    LITHUANIA("lt"),
-    UNITED_KINGDOM("uk");
+public interface Country {
+    String getValue();
 
-    private final String value;
+    Country NETHERLANDS = Countries.NETHERLANDS;
+    Country AUSTRIA = Countries.AUSTRIA;
+    Country BELGIUM = Countries.BELGIUM;
+    Country GERMANY = Countries.GERMANY;
+    Country FRANCE = Countries.FRANCE;
+    Country IRELAND = Countries.IRELAND;
+    Country LITHUANIA = Countries.LITHUANIA;
+    Country UNITED_KINGDOM = Countries.UNITED_KINGDOM;
+
+    @Value
+    class Custom implements Country {
+        String value;
+    }
 }

@@ -1,13 +1,15 @@
 package com.traveltime.sdk.dto.requests.protodistance;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Value;
 
-@Getter
-@AllArgsConstructor
-public enum Country {
-    IRELAND("ie"),
-    UNITED_KINGDOM("uk");
+public interface Country {
+    String getValue();
 
-    private final String value;
+    Country IRELAND = Countries.IRELAND;
+    Country UNITED_KINGDOM = Countries.UNITED_KINGDOM;
+
+    @Value
+    class Custom implements Country {
+        String value;
+    }
 }
