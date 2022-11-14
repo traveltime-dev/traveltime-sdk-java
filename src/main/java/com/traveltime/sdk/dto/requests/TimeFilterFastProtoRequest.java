@@ -14,7 +14,6 @@ import lombok.*;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

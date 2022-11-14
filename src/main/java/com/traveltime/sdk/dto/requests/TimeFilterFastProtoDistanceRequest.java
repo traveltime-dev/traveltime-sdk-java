@@ -15,7 +15,6 @@ import lombok.*;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -103,11 +102,6 @@ public class TimeFilterFastProtoDistanceRequest extends ProtoRequest<TimeFilterF
                     response.getProperties().getDistancesList()
                 )
             );
-    }
-
-    @Override
-    public List<Coordinates> getDestinationCoordinates() {
-        return destinationCoordinates;
     }
 
     @Override
