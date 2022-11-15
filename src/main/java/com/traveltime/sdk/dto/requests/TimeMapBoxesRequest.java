@@ -12,14 +12,11 @@ import com.traveltime.sdk.dto.responses.TimeMapBoxesResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
 import lombok.extern.jackson.Jacksonized;
+import okhttp3.HttpUrl;
 import okhttp3.Request;
 
-import java.net.URI;
 import java.util.List;
 
 @Value
@@ -39,8 +36,8 @@ public class TimeMapBoxesRequest  extends TravelTimeRequest<TimeMapBoxesResponse
     List<Union> unions;
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        String uri = baseUri + "time-map";
+    public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
+        val uri = baseUri.newBuilder().addPathSegments("time-map").build();
         AcceptType acceptType = AcceptType.APPLICATION_BOUNDING_BOXES_JSON;
         return JsonUtils
             .toJson(this)

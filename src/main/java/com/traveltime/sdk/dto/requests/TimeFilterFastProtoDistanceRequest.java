@@ -12,9 +12,9 @@ import com.traveltime.sdk.dto.responses.errors.ProtoError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import lombok.*;
+import okhttp3.HttpUrl;
 import okhttp3.Request;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -76,9 +76,13 @@ public class TimeFilterFastProtoDistanceRequest extends ProtoRequest<TimeFilterF
     }
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        String protoDistanceUri = "https://proto-with-distance.api.traveltimeapp.com/api/v2/";
-        String uri = protoDistanceUri + country.getValue() + "/time-filter/fast/" + transportation.getValue();
+    public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
+        val uri = baseUri.newBuilder()
+                .addPathSegments(country.getValue())
+                .addPathSegments("time-filter/fast")
+                .addPathSegments(transportation.getValue())
+                .build();
+
         return Either.right(createProtobufRequest(credentials, uri, createByteArray()));
     }
 
@@ -98,11 +102,6 @@ public class TimeFilterFastProtoDistanceRequest extends ProtoRequest<TimeFilterF
                     response.getProperties().getDistancesList()
                 )
             );
-    }
-
-    @Override
-    public List<Coordinates> getDestinationCoordinates() {
-        return destinationCoordinates;
     }
 
     @Override

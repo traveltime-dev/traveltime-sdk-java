@@ -50,7 +50,6 @@ public class TimeFilterTest {
             createArrivalSearch(Arrays.asList("location2", "location3"), "location1")
         );
 
-        System.out.println(request);
         Either<TravelTimeError, TimeFilterResponse> response = sdk.send(request);
         Assert.assertTrue(response.isRight());
     }

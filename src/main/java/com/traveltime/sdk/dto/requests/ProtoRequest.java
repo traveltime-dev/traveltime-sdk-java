@@ -8,6 +8,7 @@ import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
+import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
@@ -17,7 +18,7 @@ import java.util.List;
 public abstract class ProtoRequest<T> {
     private static final String IO_PROTO_ERROR = "Something went wrong when parsing proto response: ";
 
-    public abstract Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials);
+    public abstract Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials);
 
     public abstract List<Coordinates> getDestinationCoordinates();
 
@@ -36,7 +37,7 @@ public abstract class ProtoRequest<T> {
 
     protected Request createProtobufRequest(
         TravelTimeCredentials credentials,
-        String url,
+        HttpUrl url,
         byte[] requestBody
     ) {
         return new Request.Builder()

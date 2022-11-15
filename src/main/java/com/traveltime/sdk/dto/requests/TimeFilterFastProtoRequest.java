@@ -11,9 +11,9 @@ import com.traveltime.sdk.dto.responses.errors.ProtoError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
 import lombok.*;
+import okhttp3.HttpUrl;
 import okhttp3.Request;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -126,10 +126,15 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
     }
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
+    public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
         String countryCode = oneToMany.getCountry().getValue();
         String transportation = oneToMany.getTransportation().getValue();
-        String uri = baseUri + countryCode + "/time-filter/fast/" + transportation;
+        val uri = baseUri.newBuilder()
+                .addPathSegments(countryCode)
+                .addPathSegments("time-filter/fast")
+                .addPathSegments(transportation)
+                .build();
+
         return Either.right(createProtobufRequest(credentials, uri, createByteArray()));
     }
 }

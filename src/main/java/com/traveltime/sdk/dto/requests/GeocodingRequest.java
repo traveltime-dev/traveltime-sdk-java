@@ -4,11 +4,13 @@ import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.responses.GeocodingResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import com.traveltime.sdk.dto.responses.timemap.Rectangle;
+import com.traveltime.sdk.utils.QueryElement;
+import com.traveltime.sdk.utils.Utils;
 import io.vavr.control.Either;
 import lombok.*;
+import okhttp3.HttpUrl;
 import okhttp3.Request;
 
-import java.net.URI;
 import java.util.List;
 
 @Value
@@ -29,50 +31,35 @@ public class GeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
 
     Rectangle bounds;
 
-    private String getLimit() {
-        if (limit == null)
-            return "";
-        else
-            return "&limit=" + limit;
+    private QueryElement getLimit() {
+        return new QueryElement("limit", limit == null ? "" : limit.toString());
     }
 
-    private String getBounds() {
-        if(bounds == null)
-            return "";
-        else
-            return "&bounds="
-                    + bounds.getMinLat()
-                    + ","
-                    + bounds.getMinLng()
-                    + ","
-                    + bounds.getMaxLat()
-                    + ","
-                    + bounds.getMaxLng();
+    private QueryElement getBounds() {
+        String value = bounds == null ? "" : bounds.getMinLat() + "," + bounds.getMinLng() + "," + bounds.getMaxLat() + "," + bounds.getMaxLng();
+        return new QueryElement("bounds", value);
     }
 
-    private String getFormatName() {
-        if(formatName == null)
-            return "";
-        else
-            return "&format.name=" + formatName;
+    private QueryElement getFormatName() {
+        return new QueryElement("format.name", formatName == null ? "" : formatName.toString());
     }
 
-    private String getFormatExcludeCountry() {
-        if(formatExcludeCountry == null)
-            return "";
-        else
-            return "&format.exclude.country=" + formatExcludeCountry;
+    private QueryElement getFormatExcludeCountry() {
+        return new QueryElement("format.exclude.country", formatExcludeCountry == null ? "" : formatExcludeCountry.toString());
     }
 
     @Override
-    public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        String uri = baseUri
-                + "geocoding/search?query=" + query
-                + combineCountries(withinCountries)
-                + getLimit()
-                + getFormatName()
-                + getFormatExcludeCountry()
-                + getBounds();
+    public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
+        val builder = baseUri.newBuilder().addPathSegments("geocoding/search");
+        val uri = Utils.withQuery(
+                builder,
+                new QueryElement("query", query),
+                combineCountries(withinCountries),
+                getLimit(),
+                getFormatName(),
+                getFormatExcludeCountry(),
+                getBounds()
+        ).build();
         return Either.right(createGetRequest(uri, credentials));
     }
 

@@ -9,9 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
+import okhttp3.HttpUrl;
 import okhttp3.Request;
-
-import java.net.URI;
 
 @Value
 @Builder
@@ -19,8 +18,8 @@ import java.net.URI;
 @EqualsAndHashCode(callSuper = true)
 public class MapInfoRequest extends TravelTimeRequest<MapInfoResponse> {
     @Override
-    public Either<TravelTimeError, Request> createRequest(URI baseUri, TravelTimeCredentials credentials) {
-        return Either.right(createGetRequest(baseUri + "map-info", credentials));
+    public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
+        return Either.right(createGetRequest(baseUri.newBuilder().addPathSegments("map-info").build(), credentials));
     }
 
     @Override
