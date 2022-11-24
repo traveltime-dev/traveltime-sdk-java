@@ -77,14 +77,24 @@ public class TravelTimeSDK {
     }
 
     private <T> Either<TravelTimeError, T> deserializeProtoResponse(ProtoRequest<T> request, Response response) {
-        Either<TravelTimeError, T> protoResponse = Try
-            .of(() -> Objects.requireNonNull(response.body()).bytes())
-            .toEither()
-            .<TravelTimeError>mapLeft(cause -> new IOError(cause, IO_CONNECTION_ERROR + cause.getMessage()))
-            .flatMap(request::parseBytes);
+        String url = response.request().url().toString();
+        switch(response.code()){
+            case 404: {
+                NetworkError error = new NetworkError("Network response is 404 (Not found). " + url
+                + " does not exist, has been moved, or has a broken link.");
+                return Either.left(error);
+            }
+            default: {
+                Either<TravelTimeError, T> protoResponse = Try
+                        .of(() -> Objects.requireNonNull(response.body()).bytes())
+                        .toEither()
+                        .<TravelTimeError>mapLeft(cause -> new IOError(cause, IO_CONNECTION_ERROR + cause.getMessage()))
+                        .flatMap(request::parseBytes);
 
-        response.close();
-        return protoResponse;
+                response.close();
+                return protoResponse;
+            }
+        }
     }
 
     private <T> Either<TravelTimeError, T> getParsedResponse(TravelTimeRequest<T> request, Response response) {
