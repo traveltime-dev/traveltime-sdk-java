@@ -80,8 +80,8 @@ public class TravelTimeSDK {
         String url = response.request().url().toString();
         switch(response.code()){
             case 404: {
-                NetworkError error = new NetworkError("Network response is 404 (Not found). " + url
-                + " does not exist, has been moved, or has a broken link.");
+                RequestError error = new RequestError("Network response is 404 (Not found). Make sure URL " +
+                        url + " is correct.");
                 return Either.left(error);
             }
             default: {

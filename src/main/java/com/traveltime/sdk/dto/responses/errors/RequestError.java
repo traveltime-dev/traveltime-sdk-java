@@ -6,7 +6,7 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @ToString
-public class NetworkError implements TravelTimeError {
+public class RequestError implements TravelTimeError {
     @NonNull
     String errorMsg;
 
