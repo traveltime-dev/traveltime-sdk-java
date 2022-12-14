@@ -27,12 +27,16 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimeMapWktRequest extends TravelTimeRequest<TimeMapWktResponse> {
     @Valid
+    @Singular
     List<DepartureSearch> departureSearches;
     @Valid
+    @Singular
     List<ArrivalSearch> arrivalSearches;
 
+    @Singular
     List<Intersection> intersections;
 
+    @Singular
     List<Union> unions;
 
     @Builder.Default

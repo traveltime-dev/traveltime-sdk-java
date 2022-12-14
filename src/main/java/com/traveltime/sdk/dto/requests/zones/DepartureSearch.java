@@ -32,6 +32,7 @@ public class DepartureSearch {
     @NonNull
     Double reachablePostcodesThreshold;
     @NonNull
+    @Singular
     List<Property> properties;
     @Valid
     FullRange range;

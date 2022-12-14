@@ -26,10 +26,13 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RoutesRequest extends TravelTimeRequest<RoutesResponse> {
     @NonNull
+    @Singular
     List<Location> locations;
     @Valid
+    @Singular
     List<DepartureSearch> departureSearches;
     @Valid
+    @Singular
     List<ArrivalSearch> arrivalSearches;
 
     @Override

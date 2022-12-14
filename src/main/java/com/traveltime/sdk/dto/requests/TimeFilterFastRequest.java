@@ -22,6 +22,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class TimeFilterFastRequest extends TravelTimeRequest<TimeFilterFastResponse> {
     @NonNull
+    @Singular
     List<Location> locations;
     @NonNull
     ArrivalSearches arrivalSearches;

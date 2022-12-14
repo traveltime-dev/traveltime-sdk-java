@@ -20,6 +20,7 @@ import java.util.List;
 public class ReverseGeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
     @NonNull Coordinates coordinates;
 
+    @Singular
     List<String> withinCountries;
 
     @Override

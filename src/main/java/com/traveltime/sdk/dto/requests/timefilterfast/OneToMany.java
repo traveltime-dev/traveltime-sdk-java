@@ -16,6 +16,7 @@ public class OneToMany {
     @NonNull
     String departureLocationId;
     @NonNull
+    @Singular
     List<String> arrivalLocationIds;
     @NonNull
     Transportation transportation;
@@ -24,5 +25,6 @@ public class OneToMany {
     @NonNull
     String arrivalTimePeriod;
     @NonNull
+    @Singular
     List<Property> properties;
 }

@@ -13,5 +13,6 @@ public class Union {
     @NonNull
     String id;
     @NonNull
+    @Singular
     List<String> searchIds;
 }

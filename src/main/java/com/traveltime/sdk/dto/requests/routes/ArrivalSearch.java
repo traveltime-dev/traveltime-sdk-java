@@ -20,6 +20,7 @@ public class ArrivalSearch {
     @NonNull
     String id;
     @NonNull
+    @Singular
     List<String> departureLocationIds;
     @NonNull
     String arrivalLocationId;
@@ -28,6 +29,7 @@ public class ArrivalSearch {
     @NonNull
     Instant arrivalTime;
     @NonNull
+    @Singular
     List<Property> properties;
     @Valid
     FullRange range;
