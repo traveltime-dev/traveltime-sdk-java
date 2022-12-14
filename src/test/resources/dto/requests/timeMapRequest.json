@@ -26,5 +26,7 @@
       "enabled" : true,
       "width" : 3600
     }
-  } ]
+  } ],
+  "intersections" : [ ],
+  "unions" : [ ]
 }
