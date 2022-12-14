@@ -1,5 +1,8 @@
 package com.traveltime.sdk;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
+import com.traveltime.sdk.dto.common.Property;
 import com.traveltime.sdk.dto.common.route.*;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.*;
@@ -64,5 +67,12 @@ public class JsonUtilsTest {
             String result = JsonUtils.toJsonPretty(JsonUtils.fromJson(expectedContent, json.getKey()).get()).get();
             Assert.assertEquals(expectedContent, result);
         }
+    }
+
+    @Test
+    public void shouldParseListOfProperties() throws IOException {
+        String expectedContent = Common.readFile("dto/common/properties.json");
+        String result = JsonUtils.toJsonPretty(JsonUtils.fromJson(expectedContent, new TypeReference<List<Property>>() {}).get()).get();
+        Assert.assertEquals(expectedContent, result);
     }
 }

@@ -1,5 +1,6 @@
 package com.traveltime.sdk.utils;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -11,7 +12,6 @@ import com.traveltime.sdk.parsers.JTSGeometrySerializer;
 import com.traveltime.sdk.parsers.JTSGeometryDeserializer;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
-import lombok.val;
 import org.locationtech.jts.geom.Geometry;
 
 import static com.fasterxml.jackson.databind.PropertyNamingStrategies.SNAKE_CASE;
@@ -38,6 +38,13 @@ public class JsonUtils {
     public static <T> Either<TravelTimeError, T> fromJson(final String content, final Class<T> clazz) {
         return Try
             .of(() -> DEFAULT_MAPPER.readValue(content, clazz))
+            .toEither()
+            .mapLeft(cause -> new IOError(cause, IO_JSON_ERROR + cause.getMessage()));
+    }
+
+    public static <T> Either<TravelTimeError, T> fromJson(final String content, final TypeReference<T> type) {
+        return Try
+            .of(() -> DEFAULT_MAPPER.readValue(content, type))
             .toEither()
             .mapLeft(cause -> new IOError(cause, IO_JSON_ERROR + cause.getMessage()));
     }
