@@ -74,7 +74,8 @@ ArrivalSearch arrivalSearch = ArrivalSearch
 Union union = Union
     .builder()
     .id("Union of driving and public transport")
-    .searchIds(Arrays.asList("Public transport from Trafalgar Square", "Driving from Trafalgar Square"))
+    .searchId("Public transport from Trafalgar Square")
+    .searchId("Driving from Trafalgar Square")
     .build();
 
 Intersection intersection = Intersection
@@ -86,9 +87,9 @@ Intersection intersection = Intersection
 TimeMapRequest request = TimeMapRequest
     .builder()
     .departureSearches(Arrays.asList(departureSearch1, departureSearch2))
-    .arrivalSearches(Collections.singletonList(arrivalSearch))
-    .unions(Collections.singletonList(union))
-    .intersections(Collections.singletonList(intersection))
+    .arrivalSearch(arrivalSearch)
+    .union(union)
+    .intersection(intersection)
     .build();
 
 Either<TravelTimeError, TimeMapResponse> response = sdk.send(request);
@@ -146,8 +147,8 @@ ArrivalSearch arrivalSearch = ArrivalSearch
 TimeFilterRequest request = TimeFilterRequest
     .builder()
     .locations(locations)
-    .arrivalSearches(Collections.singletonList(arrivalSearch))
-    .departureSearches(Collections.singletonList(departureSearch))
+    .arrivalSearch(arrivalSearch)
+    .departureSearch(departureSearch)
     .build();
     
 Either<TravelTimeError, TimeFilterResponse> response = sdk.send(request);   
@@ -200,8 +201,8 @@ ArrivalSearch arrivalSearch = ArrivalSearch
 RoutesRequest request = RoutesRequest
     .builder()
     .locations(locations)
-    .departureSearches(Collections.singletonList(departureSearch))
-    .arrivalSearches(Collections.singletonList(arrivalSearch))
+    .arrivalSearch(arrivalSearch)
+    .departureSearch(departureSearch)
     .build();
     
 Either<TravelTimeError, RoutesResponse> response = sdk.send(request);

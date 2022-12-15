@@ -23,6 +23,7 @@ public class DepartureSearch {
     @NonNull
     String departureLocationId;
     @NonNull
+    @Singular
     List<String> arrivalLocationIds;
     @NonNull
     Transportation transportation;
@@ -32,6 +33,7 @@ public class DepartureSearch {
     @Positive(message = "travelTime must be greater than 0")
     Integer travelTime;
     @NonNull
+    @Singular
     List<Property> properties;
     @Valid
     FullRange range;

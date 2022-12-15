@@ -21,6 +21,7 @@ public class GeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
     @NonNull
     String query;
 
+    @Singular
     List<String> withinCountries;
 
     Integer limit;

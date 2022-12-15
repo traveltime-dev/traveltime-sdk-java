@@ -32,6 +32,7 @@ public class ArrivalSearch {
     @Positive(message = "travelTime should be positive")
     Integer travelTime;
     @NonNull
+    @Singular
     List<Property> properties;
     @Valid
     FullRange range;

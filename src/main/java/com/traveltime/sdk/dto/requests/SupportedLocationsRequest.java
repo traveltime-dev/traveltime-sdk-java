@@ -22,6 +22,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class SupportedLocationsRequest extends TravelTimeRequest<SupportedLocationsResponse> {
     @NonNull
+    @Singular
     List<Location> locations;
 
     @Override

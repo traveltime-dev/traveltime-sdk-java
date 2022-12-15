@@ -26,10 +26,13 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimeFilterRequest extends TravelTimeRequest<TimeFilterResponse> {
     @NonNull
+    @Singular
     List<Location> locations;
     @Valid
+    @Singular
     List<DepartureSearch> departureSearches;
     @Valid
+    @Singular
     List<ArrivalSearch> arrivalSearches;
 
     @Override

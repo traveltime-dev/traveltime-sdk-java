@@ -20,7 +20,9 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class TimeFilterSectorsRequest extends TravelTimeRequest<TimeFilterSectorsResponse> {
+    @Singular
     List<DepartureSearch> departureSearches;
+    @Singular
     List<ArrivalSearch> arrivalSearches;
 
     @Override

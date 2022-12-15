@@ -16,6 +16,7 @@ public class ManyToOne {
     @NonNull
     String arrivalLocationId;
     @NonNull
+    @Singular
     List<String> departureLocationIds;
     @NonNull
     Transportation transportation;
@@ -24,5 +25,6 @@ public class ManyToOne {
     @NonNull
     String arrivalTimePeriod;
     @NonNull
+    @Singular
     List<Property> properties;
 }

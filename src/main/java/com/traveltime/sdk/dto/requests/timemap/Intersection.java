@@ -13,5 +13,6 @@ public class Intersection {
     @NonNull
     String id;
     @NonNull
+    @Singular
     List<String> searchIds;
 }

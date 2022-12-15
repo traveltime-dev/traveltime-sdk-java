@@ -21,6 +21,7 @@ public class ArrivalSearch {
     @NonNull
     String id;
     @NonNull
+    @Singular
     List<String> departureLocationIds;
     @NonNull
     String arrivalLocationId;

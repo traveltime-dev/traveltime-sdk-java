@@ -30,6 +30,7 @@ public class TimeFilterFastProtoDistanceRequest extends ProtoRequest<TimeFilterF
     @NonNull
     Coordinates originCoordinate;
     @NonNull
+    @Singular
     List<Coordinates> destinationCoordinates;
     @NonNull
     Country country;

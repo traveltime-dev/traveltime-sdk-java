@@ -14,6 +14,7 @@ public class OneToMany {
     @NonNull
     Coordinates originCoordinate;
     @NonNull
+    @Singular
     List<Coordinates> destinationCoordinates;
     @NonNull
     Transportation transportation;

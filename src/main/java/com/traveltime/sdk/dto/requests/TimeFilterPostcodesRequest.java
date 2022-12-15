@@ -22,8 +22,10 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class TimeFilterPostcodesRequest extends TravelTimeRequest<TimeFilterPostcodesResponse> {
     @Valid
+    @Singular
     List<DepartureSearch> departureSearches;
     @Valid
+    @Singular
     List<ArrivalSearch> arrivalSearches;
 
     @Override

@@ -22,12 +22,14 @@ public class DepartureSearch {
     @NonNull
     String departureLocationId;
     @NonNull
+    @Singular
     List<String> arrivalLocationIds;
     @NonNull
     Transportation transportation;
     @NonNull
     Instant departureTime;
     @NonNull
+    @Singular
     List<Property> properties;
     @Valid
     FullRange range;
