@@ -30,4 +30,8 @@ public interface Transportation {
         private final String value;
         private final Integer code;
     }
+
+    static Transportation[] values() {
+        return Transportation.Modes.values();
+    }
 }
