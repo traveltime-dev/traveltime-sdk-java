@@ -12,4 +12,8 @@ public interface Country {
     class Custom implements Country {
         String value;
     }
+
+    static Country[] values() {
+        return Countries.values();
+    }
 }
