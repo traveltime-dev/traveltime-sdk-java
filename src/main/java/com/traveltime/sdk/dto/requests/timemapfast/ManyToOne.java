@@ -19,7 +19,6 @@ public class ManyToOne {
     @NonNull
     Integer travelTime;
     @NonNull
-    LevelOfDetail levelOfDetail;
-    @NonNull
     Transportation transportation;
+    LevelOfDetail levelOfDetail;
 }

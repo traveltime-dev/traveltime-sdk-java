@@ -19,7 +19,6 @@ public class OneToMany {
     @NonNull
     Integer travelTime;
     @NonNull
-    LevelOfDetail levelOfDetail;
-    @NonNull
     Transportation transportation;
+    LevelOfDetail levelOfDetail;
 }
