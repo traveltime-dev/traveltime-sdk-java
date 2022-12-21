@@ -1,7 +1,6 @@
-package com.traveltime.sdk.dto.requests.timefilterfast.transportation;
+package com.traveltime.sdk.dto.common.transportationfast;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.traveltime.sdk.dto.requests.timefilterfast.Transportation;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
