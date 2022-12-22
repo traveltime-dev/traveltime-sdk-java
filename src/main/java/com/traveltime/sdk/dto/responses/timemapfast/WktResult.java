@@ -1,20 +1,16 @@
 package com.traveltime.sdk.dto.responses.timemapfast;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.traveltime.sdk.dto.common.Shape;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
-
-import java.util.List;
+import org.locationtech.jts.geom.Geometry;
 
 @Value
 @Builder
 @Jacksonized
 @AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Result {
+public class WktResult {
     String searchId;
-    List<Shape> shapes;
+    Geometry shape;
 }
