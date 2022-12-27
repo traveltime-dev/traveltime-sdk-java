@@ -2,7 +2,7 @@ package com.traveltime.sdk.dto.requests;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
-import com.traveltime.sdk.dto.requests.timefilterfast.ArrivalSearches;
+import com.traveltime.sdk.dto.requests.timemapfast.ArrivalSearches;
 import com.traveltime.sdk.dto.responses.TimeMapFastBoxesResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import com.traveltime.sdk.utils.AcceptType;
