@@ -72,7 +72,7 @@ public class TravelTimeSDK {
         } else {
             return JsonUtils
                 .fromJson(body, ResponseError.class)
-                .flatMap(Either::left);
+                .flatMap(responseError -> Either.left(responseError));
         }
     }
 
