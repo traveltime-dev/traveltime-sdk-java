@@ -12,7 +12,6 @@ import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
-import java.net.URI;
 import java.util.List;
 
 public abstract class ProtoRequest<T> {

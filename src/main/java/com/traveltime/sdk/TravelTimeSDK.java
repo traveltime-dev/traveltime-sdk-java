@@ -72,29 +72,25 @@ public class TravelTimeSDK {
         } else {
             return JsonUtils
                 .fromJson(body, ResponseError.class)
-                .flatMap(responseError -> Either.left(responseError));
+                .flatMap(Either::left);
         }
     }
 
     private <T> Either<TravelTimeError, T> deserializeProtoResponse(ProtoRequest<T> request, Response response) {
         String url = response.request().url().toString();
-        switch(response.code()){
-            case 404: {
-                RequestError error = new RequestError("Network response is 404 (Not found). Make sure URL " +
-                        url + " is correct.");
-                return Either.left(error);
-            }
-            default: {
-                Either<TravelTimeError, T> protoResponse = Try
-                        .of(() -> Objects.requireNonNull(response.body()).bytes())
-                        .toEither()
-                        .<TravelTimeError>mapLeft(cause -> new IOError(cause, IO_CONNECTION_ERROR + cause.getMessage()))
-                        .flatMap(request::parseBytes);
-
-                response.close();
-                return protoResponse;
-            }
+        if (response.code() == 404) {
+            RequestError error = new RequestError("Network response is 404 (Not found). Make sure URL " +
+                    url + " is correct.");
+            return Either.left(error);
         }
+        Either<TravelTimeError, T> protoResponse = Try
+                .of(() -> Objects.requireNonNull(response.body()).bytes())
+                .toEither()
+                .<TravelTimeError>mapLeft(cause -> new IOError(cause, IO_CONNECTION_ERROR + cause.getMessage()))
+                .flatMap(request::parseBytes);
+
+        response.close();
+        return protoResponse;
     }
 
     private <T> Either<TravelTimeError, T> getParsedResponse(TravelTimeRequest<T> request, Response response) {

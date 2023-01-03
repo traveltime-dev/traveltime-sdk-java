@@ -28,8 +28,8 @@ public class TimeMapFastBoxesRequest extends TravelTimeRequest<TimeMapFastBoxesR
         val uri = baseUri.newBuilder().addPathSegments("time-map/fast").build();
         AcceptType acceptType = AcceptType.APPLICATION_BOUNDING_BOXES_JSON;
         return JsonUtils
-            .toJson(this)
-            .map(json -> createPostRequest(credentials, uri, json, acceptType));
+                .toJson(this)
+                .map(json -> createPostRequest(credentials, uri, json, acceptType));
     }
 
     @Override

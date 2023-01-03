@@ -10,7 +10,6 @@ import com.traveltime.sdk.dto.requests.TimeMapFastRequest;
 import com.traveltime.sdk.dto.requests.TimeMapFastWktRequest;
 import com.traveltime.sdk.dto.requests.timemapfast.ArrivalSearches;
 import com.traveltime.sdk.dto.requests.timemapfast.OneToMany;
-
 import com.traveltime.sdk.dto.responses.TimeMapFastBoxesResponse;
 import com.traveltime.sdk.dto.responses.TimeMapFastGeoJsonResponse;
 import com.traveltime.sdk.dto.responses.TimeMapFastResponse;
@@ -30,15 +29,15 @@ public class TimeMapFastTest {
     @Before
     public void init() {
         TravelTimeCredentials credentials = new TravelTimeCredentials(
-            System.getenv("APP_ID"),
-            System.getenv("API_KEY")
+                System.getenv("APP_ID"),
+                System.getenv("API_KEY")
         );
         sdk = new TravelTimeSDK(credentials);
     }
 
     @Test
     public void shouldSendTimeMapFastRequest() {
-        Coordinates coords = new Coordinates(51.507609,-0.128315);
+        Coordinates coords = new Coordinates(51.507609, -0.128315);
         Transportation transportation = new PublicTransport();
 
         TimeMapFastRequest request = new TimeMapFastRequest(
@@ -51,7 +50,7 @@ public class TimeMapFastTest {
 
     @Test
     public void shouldReceiveValidJsonResponse() {
-        Coordinates coords = new Coordinates(51.507609,-0.128315);
+        Coordinates coords = new Coordinates(51.507609, -0.128315);
         Transportation transportation = new PublicTransport();
 
         TimeMapFastRequest request = new TimeMapFastRequest(
@@ -65,7 +64,7 @@ public class TimeMapFastTest {
 
     @Test
     public void shouldSendTimeMapFastGeoJsonRequest() {
-        Coordinates coords = new Coordinates(51.507609,-0.128315);
+        Coordinates coords = new Coordinates(51.507609, -0.128315);
         Transportation transportation = new PublicTransport();
 
         TimeMapFastGeoJsonRequest request = new TimeMapFastGeoJsonRequest(
@@ -78,7 +77,7 @@ public class TimeMapFastTest {
 
     @Test
     public void shouldSendTimeMapFastBoundingBoxRequest() {
-        Coordinates coords = new Coordinates(51.507609,-0.128315);
+        Coordinates coords = new Coordinates(51.507609, -0.128315);
         Transportation transportation = new PublicTransport();
 
         TimeMapFastBoxesRequest request = new TimeMapFastBoxesRequest(
@@ -91,7 +90,7 @@ public class TimeMapFastTest {
 
     @Test
     public void shouldSendTimeMapFastWktRequest() {
-        Coordinates coords = new Coordinates(51.507609,-0.128315);
+        Coordinates coords = new Coordinates(51.507609, -0.128315);
         Transportation transportation = new PublicTransport();
 
         TimeMapFastWktRequest request = new TimeMapFastWktRequest(

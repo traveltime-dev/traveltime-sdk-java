@@ -37,8 +37,8 @@ public class TimeMapFastWktRequest extends TravelTimeRequest<TimeMapFastWktRespo
     public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
         val uri = baseUri.newBuilder().addPathSegments("time-map/fast").build();
         return JsonUtils
-            .toJson(this)
-            .map(json -> createPostRequest(credentials, uri, json, acceptType()));
+                .toJson(this)
+                .map(json -> createPostRequest(credentials, uri, json, acceptType()));
     }
 
     @Override

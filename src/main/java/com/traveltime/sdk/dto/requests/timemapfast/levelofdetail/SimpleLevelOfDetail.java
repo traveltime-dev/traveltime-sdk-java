@@ -9,6 +9,6 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 @Value
 public class SimpleLevelOfDetail implements LevelOfDetail {
-  @NonNull
-  Level level;
+    @NonNull
+    Level level;
 }

@@ -3,7 +3,10 @@ package com.traveltime.sdk.dto.requests.timemapfast;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.transportationfast.Transportation;
 import com.traveltime.sdk.dto.requests.timemapfast.levelofdetail.LevelOfDetail;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NonNull;
+import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
 @Value
