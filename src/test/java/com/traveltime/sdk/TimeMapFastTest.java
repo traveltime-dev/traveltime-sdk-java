@@ -115,6 +115,7 @@ public class TimeMapFastTest {
         return ArrivalSearches
                 .builder()
                 .oneToMany(Collections.singletonList(oneToMany))
+                .manyToOne(Collections.emptyList())
                 .build();
     }
 }
