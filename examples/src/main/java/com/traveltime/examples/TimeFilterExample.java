@@ -5,9 +5,9 @@ import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.Location;
 import com.traveltime.sdk.dto.common.Property;
+import com.traveltime.sdk.dto.common.transportationfast.Driving;
 import com.traveltime.sdk.dto.requests.TimeFilterFastRequest;
 import com.traveltime.sdk.dto.requests.timefilterfast.ArrivalSearches;
-import com.traveltime.sdk.dto.requests.timefilterfast.transportation.Driving;
 import com.traveltime.sdk.dto.requests.timefilterfast.OneToMany;
 import lombok.val;
 

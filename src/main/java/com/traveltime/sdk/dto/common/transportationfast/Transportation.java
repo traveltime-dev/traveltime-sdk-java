@@ -1,8 +1,7 @@
-package com.traveltime.sdk.dto.requests.timefilterfast;
+package com.traveltime.sdk.dto.common.transportationfast;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.traveltime.sdk.dto.requests.timefilterfast.transportation.*;
 
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,

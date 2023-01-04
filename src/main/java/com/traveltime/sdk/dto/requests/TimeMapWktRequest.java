@@ -43,11 +43,7 @@ public class TimeMapWktRequest extends TravelTimeRequest<TimeMapWktResponse> {
     boolean withHoles = true;
 
     public AcceptType acceptType() {
-        if (withHoles) {
-            return AcceptType.APPLICATION_WKT_JSON;
-        } else {
-            return AcceptType.APPLICATION_WKT_NO_HOLES_JSON;
-        }
+        return withHoles ? AcceptType.APPLICATION_WKT_JSON : AcceptType.APPLICATION_WKT_NO_HOLES_JSON;
     }
 
     @Override

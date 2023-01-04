@@ -1,5 +1,6 @@
 package com.traveltime.sdk.dto.responses.timemap;
 
+import com.traveltime.sdk.dto.common.Shape;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 

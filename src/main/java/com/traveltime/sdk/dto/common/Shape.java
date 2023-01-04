@@ -1,7 +1,8 @@
-package com.traveltime.sdk.dto.responses.timemap;
+package com.traveltime.sdk.dto.common;
 
-import com.traveltime.sdk.dto.common.Coordinates;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
