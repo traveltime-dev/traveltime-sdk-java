@@ -112,16 +112,20 @@ OneToMany oneToMany = OneToMany
   .coords(new Coordinates(51.507609, -0.128315))
   .travelTime(900)
   .build();
+
 ArrivalSearches arrivalSearches = ArrivalSearches
   .builder()
   .oneToMany(Arrays.asList(oneToMany))
   .manyToOne(Collections.emptyList())
   .build();
+
 TimeMapFastRequest request = TimeMapFastRequest
   .builder()
   .arrivalSearches(arrivalSearches)
   .build();
+
 Either<TravelTimeError, TimeMapFastResponse> response = sdk.send(request);
+
 if(response.isRight()) {
   System.out.println(response.get().getResults());
 } else {
@@ -346,6 +350,7 @@ DepartureSearch departureSearch = DepartureSearch
   .reachablePostcodesThreshold(0.1)
   .properties(Arrays.asList(Property.COVERAGE, Property.TRAVEL_TIME_ALL, Property.TRAVEL_TIME_REACHABLE))
   .build();
+
 ArrivalSearch arrivalSearch = ArrivalSearch
   .builder()
   .id("public transport to Trafalgar Square")
@@ -356,12 +361,15 @@ ArrivalSearch arrivalSearch = ArrivalSearch
   .reachablePostcodesThreshold(0.1)
   .properties(Arrays.asList(Property.COVERAGE, Property.TRAVEL_TIME_ALL, Property.TRAVEL_TIME_REACHABLE))
   .build();
+
 TimeFilterDistrictsRequest request = TimeFilterDistrictsRequest
   .builder()
   .arrivalSearches(Arrays.asList(arrivalSearch))
   .departureSearches(Arrays.asList(departureSearch))
   .build();
+
 Either < TravelTimeError, TimeFilterDistrictsResponse > response = sdk.send(request);
+
 if (response.isRight()) {
   System.out.println(response.get().getResults());
 } else {
@@ -383,6 +391,7 @@ DepartureSearch departureSearch = DepartureSearch
   .reachablePostcodesThreshold(0.1)
   .properties(Arrays.asList(Property.COVERAGE, Property.TRAVEL_TIME_ALL, Property.TRAVEL_TIME_REACHABLE))
   .build();
+
 ArrivalSearch arrivalSearch = ArrivalSearch
   .builder()
   .id("public transport to Trafalgar Square")
@@ -393,12 +402,15 @@ ArrivalSearch arrivalSearch = ArrivalSearch
   .reachablePostcodesThreshold(0.1)
   .properties(Arrays.asList(Property.COVERAGE, Property.TRAVEL_TIME_ALL, Property.TRAVEL_TIME_REACHABLE))
   .build();
+
 TimeFilterSectorsRequest request = TimeFilterSectorsRequest
   .builder()
   .arrivalSearches(Arrays.asList(arrivalSearch))
   .departureSearches(Arrays.asList(departureSearch))
   .build();
+
 Either < TravelTimeError, TimeFilterSectorsResponse > response = sdk.send(request);
+
 if (response.isRight()) {
   System.out.println(response.get().getResults());
 } else {
@@ -419,6 +431,7 @@ DepartureSearch departureSearch = DepartureSearch
   .transportation(PublicTransport.builder().build())
   .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE))
   .build();
+
 ArrivalSearch arrivalSearch = ArrivalSearch
   .builder()
   .id("public transport to Trafalgar Square")
@@ -428,12 +441,15 @@ ArrivalSearch arrivalSearch = ArrivalSearch
   .transportation(PublicTransport.builder().build())
   .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE))
   .build();
+
 TimeFilterPostcodesRequest request = TimeFilterPostcodesRequest
   .builder()
   .arrivalSearches(Arrays.asList(arrivalSearch))
   .departureSearches(Arrays.asList(departureSearch))
   .build();
+
 Either < TravelTimeError, TimeFilterPostcodesResponse > response = sdk.send(request);
+
 if (response.isRight()) {
   System.out.println(response.get().getResults());
 } else {
@@ -473,7 +489,9 @@ ReverseGeocodingRequest request = ReverseGeocodingRequest
   .builder()
   .coordinates(new Coordinates(51.507281, -0.132120))
   .build();
+
 Either < TravelTimeError, GeocodingResponse > response = sdk.send(request);
+
 if (response.isRight()) {
   System.out.println(response.get().getFeatures());
 } else {
@@ -486,6 +504,7 @@ Get information about currently supported countries and find out what points sup
 
 ```java
 MapInfoRequest request = new MapInfoRequest();
+
 Either<TravelTimeError, MapInfoResponse> response = sdk.send(request);
 
 if(response.isRight()) {
@@ -505,11 +524,14 @@ List < Location > locations = Arrays.asList(
   new Location("Bangkok", new Coordinates(13.761866, 100.544818)),
   new Location("Lisbon", new Coordinates(38.721869, -9.138549))
 );
+
 SupportedLocationsRequest request = SupportedLocationsRequest
   .builder()
   .locations(locations)
   .build();
+
 Either < TravelTimeError, SupportedLocationsResponse > response = sdk.send(request);
+
 if (response.isRight()) {
   System.out.println(response.get().getLocations());
 } else {
