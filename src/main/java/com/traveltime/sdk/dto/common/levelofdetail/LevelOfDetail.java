@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
-        property = "scaleType"
+        property = "scale_type"
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = SimpleLevelOfDetail.class, name = "simple"),
