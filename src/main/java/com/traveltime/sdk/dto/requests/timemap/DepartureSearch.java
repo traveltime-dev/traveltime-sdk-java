@@ -2,6 +2,7 @@ package com.traveltime.sdk.dto.requests.timemap;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.levelofdetail.LevelOfDetail;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
@@ -30,6 +31,7 @@ public class DepartureSearch {
     Integer travelTime;
     @Valid
     Range range;
+    LevelOfDetail levelOfDetail;
     Boolean singleShape;
     Boolean noHoles;
 }

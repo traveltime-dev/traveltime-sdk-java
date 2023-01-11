@@ -1,4 +1,4 @@
-package com.traveltime.sdk.dto.requests.timemapfast.levelofdetail;
+package com.traveltime.sdk.dto.common.levelofdetail;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
