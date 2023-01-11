@@ -2,6 +2,8 @@ package com.traveltime.sdk;
 
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.levelofdetail.Level;
+import com.traveltime.sdk.dto.common.levelofdetail.SimpleLevelOfDetail;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.*;
@@ -152,6 +154,7 @@ public class TimeMapTest {
             Instant.now(),
             900,
             new Range(true, 400),
+            new SimpleLevelOfDetail(Level.MEDIUM),
             false,
             false
         );
@@ -167,6 +170,7 @@ public class TimeMapTest {
             Instant.now(),
             900,
             new Range(true, 400),
+            new SimpleLevelOfDetail(Level.MEDIUM),
             false,
             false
         );
