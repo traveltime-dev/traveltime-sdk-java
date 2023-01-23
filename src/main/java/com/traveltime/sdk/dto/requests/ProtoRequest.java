@@ -43,6 +43,7 @@ public abstract class ProtoRequest<T> {
             .url(url)
             .headers(credentials.getBasicCredentialsHeaders())
             .addHeader("Content-Type", AcceptType.APPLICATION_OCTET_STREAM.getValue())
+            .addHeader("User-Agent", "Travel Time Java SDK")
             .post(RequestBody.create(requestBody))
             .build();
     }
