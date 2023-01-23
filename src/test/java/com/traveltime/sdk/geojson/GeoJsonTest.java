@@ -29,7 +29,6 @@ public class GeoJsonTest {
             String expectedContent = Common.readFile(json.getValue());
             Either<TravelTimeError, Object> fromJson = JsonUtils.fromJson(expectedContent, json.getKey());
             if (fromJson.isLeft()) {
-                System.out.println(fromJson.getLeft().getMessage());
                 Assert.fail();
             }
             else {
