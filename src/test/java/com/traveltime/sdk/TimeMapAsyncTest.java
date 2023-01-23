@@ -28,8 +28,7 @@ public class TimeMapAsyncTest {
     @Before
     public void init() {
         TravelTimeCredentials credentials = new TravelTimeCredentials(
-            System.getenv("APP_ID"),
-            System.getenv("API_KEY")
+                "4da26ce0", "2b02f9b9e85a21abe9a1611733c2c53a"
         );
         sdk = new TravelTimeSDK(credentials);
     }
@@ -45,6 +44,7 @@ public class TimeMapAsyncTest {
             .build();
 
         CompletableFuture<Either<TravelTimeError, TimeMapResponse>> response = sdk.sendAsync(request);
+        System.out.println(response.get());
         Assert.assertTrue(response.get().isRight());
     }
 

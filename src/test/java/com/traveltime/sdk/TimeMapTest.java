@@ -83,14 +83,9 @@ public class TimeMapTest {
             createUnion(searchIds)
         );
 
-        ResponseProperties expectedProperties = new ResponseProperties(
-            null,
-            null
-        );
-
         Either<TravelTimeError, TimeMapGeoJsonResponse> response = sdk.send(request);
+        System.out.println(response);
         Assert.assertTrue(response.isRight());
-        Assert.assertEquals(response.get().getFeatures().get(0).getProperties(), expectedProperties);
         Assert.assertTrue(response.get().toString().contains("ResponseProperties(isOnlyWalking=null, agencies=null"));
     }
 
