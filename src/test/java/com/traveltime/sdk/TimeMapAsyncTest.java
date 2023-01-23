@@ -40,26 +40,25 @@ public class TimeMapAsyncTest {
         Transportation transportation = PublicTransport.builder().build();
 
         TimeMapRequest request = TimeMapRequest
-                .builder()
-                .arrivalSearches(createArrivalSearch(coords, transportation))
-                .build();
+            .builder()
+            .arrivalSearches(createArrivalSearch(coords, transportation))
+            .build();
 
         CompletableFuture<Either<TravelTimeError, TimeMapResponse>> response = sdk.sendAsync(request);
-        System.out.println(response.get());
         Assert.assertTrue(response.get().isRight());
     }
 
     private List<ArrivalSearch> createArrivalSearch(Coordinates coords, Transportation transportation) {
         ArrivalSearch as = new ArrivalSearch(
-                "Test async arrival search",
-                coords,
-                transportation,
-                Instant.now(),
-                900,
-                new Range(true, 400),
-                new SimpleLevelOfDetail(Level.MEDIUM),
-                false,
-                false
+            "Test async arrival search",
+            coords,
+            transportation,
+            Instant.now(),
+            900,
+            new Range(true, 400),
+            new SimpleLevelOfDetail(Level.MEDIUM),
+            false,
+            false
         );
 
         return Collections.singletonList(as);

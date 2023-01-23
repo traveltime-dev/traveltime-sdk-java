@@ -84,7 +84,6 @@ public class TimeMapTest {
         );
 
         Either<TravelTimeError, TimeMapGeoJsonResponse> response = sdk.send(request);
-        System.out.println(response);
         Assert.assertTrue(response.isRight());
         Assert.assertTrue(response.get().toString().contains("ResponseProperties(isOnlyWalking=null, agencies=null"));
     }
