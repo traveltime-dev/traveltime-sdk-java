@@ -28,20 +28,21 @@ public class TimeMapAsyncTest {
     @Before
     public void init() {
         TravelTimeCredentials credentials = new TravelTimeCredentials(
-                "4da26ce0", "2b02f9b9e85a21abe9a1611733c2c53a"
+            System.getenv("APP_ID"),
+            System.getenv("API_KEY")
         );
         sdk = new TravelTimeSDK(credentials);
     }
 
     @Test
     public void shouldSendAsyncTimeMapRequest() throws ExecutionException, InterruptedException {
-        Coordinates coords = new Coordinates(51.507609,-0.128315);
+        Coordinates coords = new Coordinates(51.507609, -0.128315);
         Transportation transportation = PublicTransport.builder().build();
 
         TimeMapRequest request = TimeMapRequest
-            .builder()
-            .arrivalSearches(createArrivalSearch(coords, transportation))
-            .build();
+                .builder()
+                .arrivalSearches(createArrivalSearch(coords, transportation))
+                .build();
 
         CompletableFuture<Either<TravelTimeError, TimeMapResponse>> response = sdk.sendAsync(request);
         System.out.println(response.get());
@@ -50,15 +51,15 @@ public class TimeMapAsyncTest {
 
     private List<ArrivalSearch> createArrivalSearch(Coordinates coords, Transportation transportation) {
         ArrivalSearch as = new ArrivalSearch(
-            "Test async arrival search",
-            coords,
-            transportation,
-            Instant.now(),
-            900,
-            new Range(true, 400),
-            new SimpleLevelOfDetail(Level.MEDIUM),
-            false,
-            false
+                "Test async arrival search",
+                coords,
+                transportation,
+                Instant.now(),
+                900,
+                new Range(true, 400),
+                new SimpleLevelOfDetail(Level.MEDIUM),
+                false,
+                false
         );
 
         return Collections.singletonList(as);
