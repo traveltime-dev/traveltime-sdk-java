@@ -32,6 +32,7 @@ public abstract class TravelTimeRequest<T> {
         return new Request.Builder()
             .url(url)
             .headers(credentials.getHeaders())
+            .addHeader("User-Agent", "Travel Time Java SDK")
             .get()
             .build();
     }
@@ -46,6 +47,7 @@ public abstract class TravelTimeRequest<T> {
             .url(url)
             .headers(credentials.getHeaders())
             .addHeader("Accept", acceptType.getValue())
+            .addHeader("User-Agent", "Travel Time Java SDK")
             .post(RequestBody.create(jsonString, JSON))
             .build();
     }
