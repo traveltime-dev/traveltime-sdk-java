@@ -36,7 +36,7 @@ public class TimeMapAsyncTest {
 
     @Test
     public void shouldSendAsyncTimeMapRequest() throws ExecutionException, InterruptedException {
-        Coordinates coords = new Coordinates(51.507609,-0.128315);
+        Coordinates coords = new Coordinates(51.507609, -0.128315);
         Transportation transportation = PublicTransport.builder().build();
 
         TimeMapRequest request = TimeMapRequest
