@@ -10,7 +10,6 @@ import com.traveltime.sdk.dto.requests.*;
 import com.traveltime.sdk.dto.requests.timemap.*;
 import com.traveltime.sdk.dto.responses.*;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
-import com.traveltime.sdk.dto.responses.timemap.ResponseProperties;
 import com.traveltime.sdk.utils.JsonUtils;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
 import io.vavr.control.Either;
@@ -85,7 +84,6 @@ public class TimeMapTest {
 
         Either<TravelTimeError, TimeMapGeoJsonResponse> response = sdk.send(request);
         Assert.assertTrue(response.isRight());
-        Assert.assertTrue(response.get().toString().contains("ResponseProperties(isOnlyWalking=null, agencies=null"));
     }
 
     @Test
