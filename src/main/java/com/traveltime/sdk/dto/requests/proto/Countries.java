@@ -13,6 +13,7 @@ public enum Countries implements Country {
     FRANCE("fr"),
     IRELAND("ie"),
     LITHUANIA("lt"),
+    LATVIA("lv"),
     UNITED_KINGDOM("uk");
 
     private final String value;

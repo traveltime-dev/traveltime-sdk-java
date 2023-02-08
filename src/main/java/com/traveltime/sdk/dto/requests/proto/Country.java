@@ -12,6 +12,7 @@ public interface Country {
     Country FRANCE = Countries.FRANCE;
     Country IRELAND = Countries.IRELAND;
     Country LITHUANIA = Countries.LITHUANIA;
+    Country LATVIA = Countries.LATVIA;
     Country UNITED_KINGDOM = Countries.UNITED_KINGDOM;
 
     @Value
