@@ -11,8 +11,6 @@ import lombok.*;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 
-import java.util.List;
-
 @Value
 @Builder
 @AllArgsConstructor
@@ -20,17 +18,13 @@ import java.util.List;
 public class ReverseGeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
     @NonNull Coordinates coordinates;
 
-    @Singular
-    List<String> withinCountries;
-
     @Override
     public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
         val builder = baseUri.newBuilder().addPathSegments("geocoding/reverse");
         val uri = Utils.withQuery(
                 builder,
                 new QueryElement("lat", coordinates.getLat().toString()),
-                new QueryElement("lng", coordinates.getLng().toString()),
-                combineCountries(withinCountries)
+                new QueryElement("lng", coordinates.getLng().toString())
         ).build();
         return Either.right(createGetRequest(uri, credentials));
     }
