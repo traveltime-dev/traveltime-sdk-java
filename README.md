@@ -283,6 +283,102 @@ The responses are in the form of a list where each position denotes either a
 travel time (in seconds) of a journey, or if negative that the journey from the
 origin to the destination point is impossible.
 
+### [Routes](https://traveltime.com/docs/api/reference/routes)
+Returns routing information between source and destinations.
+
+Body attributes:
+* locations: Locations to use. Each location requires an id and lat/lng values
+* departure_searches: Searches based on departure times.
+  Leave departure location at no earlier than given time. You can define a maximum of 10 searches
+* arrival_searches: Searches based on arrival times.
+  Arrive at destination location at no later than given time. You can define a maximum of 10 searches
+  
+```java
+List<Location> locations = Arrays.asList(
+    new Location("London center", new Coordinates(51.508930,-0.131387)),
+    new Location("Hyde Park", new Coordinates(51.508824,-0.167093)),
+    new Location("ZSL London Zoo", new Coordinates(51.536067,-0.153596))
+);
+
+DepartureSearch departureSearch = DepartureSearch
+    .builder()
+    .id("Departure search example")
+    .departureLocationId("London center")
+    .arrivalLocationIds(Arrays.asList("Hyde Park", "ZSL London Zoo"))
+    .transportation(Driving.builder().build())
+    .departureTime(Instant.now())
+    .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE))
+    .build();
+    
+ArrivalSearch arrivalSearch = ArrivalSearch
+    .builder()
+    .id("Arrival search example")
+    .arrivalLocationId("London center")
+    .departureLocationIds(Arrays.asList("Hyde Park", "ZSL London Zoo"))
+    .transportation(PublicTransport.builder().build())
+    .arrivalTime(Instant.now())
+    .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES))
+    .range(FullRange.builder().enabled(true).maxResults(3).width(1800).build())
+    .build();
+
+RoutesRequest request = RoutesRequest
+    .builder()
+    .locations(locations)
+    .arrivalSearch(arrivalSearch)
+    .departureSearch(departureSearch)
+    .build();
+    
+Either<TravelTimeError, RoutesResponse> response = sdk.send(request);
+
+if(response.isRight()) {
+  System.out.println(response.get().getResults().size());
+} else {
+  System.out.println(response.getLeft().getMessage());
+}
+```
+
+### [Geocoding (Search)](https://traveltime.com/docs/api/reference/geocoding-search)
+Match a query string to geographic coordinates.
+
+Body attributes:
+* query: A query to geocode. Can be an address, a postcode or a venue.
+* within_country: Only return the results that are within the specified country.
+  If no results are found it will return the country itself. Format:ISO 3166-1 alpha-2 or alpha-3
+
+```java
+GeocodingRequest request = GeocodingRequest
+    .builder()
+    .query("Geneva")
+    .withinCountries(Arrays.asList("CH", "DE"))
+    .limit(1)
+    .build();
+
+Either<TravelTimeError, GeocodingResponse> response = sdk.send(request);
+    
+if(response.isRight()) {
+  System.out.println(response.get());
+} else {
+  System.out.println(response.getLeft().getMessage());
+}
+```
+### [Reverse Geocoding](https://docs.traveltime.com/api/reference/geocoding-reverse)
+Match a latitude, longitude pair to an address.
+
+```java
+ReverseGeocodingRequest request = ReverseGeocodingRequest
+    .builder()
+    .coordinates(new Coordinates(51.507281, -0.132120))
+    .build();
+
+Either < TravelTimeError, GeocodingResponse > response = sdk.send(request);
+
+if (response.isRight()) {
+  System.out.println(response.get().getFeatures());
+} else {
+  System.out.println(response.getLeft().getMessage());
+}
+```
+
 ### [Time Filter (Postcodes)](https://docs.traveltime.com/api/reference/postcode-search)
 Find reachable postcodes from origin (or to destination) and get statistics about such postcodes.
 
@@ -399,102 +495,6 @@ Either < TravelTimeError, TimeFilterSectorsResponse > response = sdk.send(reques
 
 if (response.isRight()) {
   System.out.println(response.get().getResults());
-} else {
-  System.out.println(response.getLeft().getMessage());
-}
-```
-
-### [Routes](https://traveltime.com/docs/api/reference/routes)
-Returns routing information between source and destinations.
-
-Body attributes:
-* locations: Locations to use. Each location requires an id and lat/lng values
-* departure_searches: Searches based on departure times.
-  Leave departure location at no earlier than given time. You can define a maximum of 10 searches
-* arrival_searches: Searches based on arrival times.
-  Arrive at destination location at no later than given time. You can define a maximum of 10 searches
-  
-```java
-List<Location> locations = Arrays.asList(
-    new Location("London center", new Coordinates(51.508930,-0.131387)),
-    new Location("Hyde Park", new Coordinates(51.508824,-0.167093)),
-    new Location("ZSL London Zoo", new Coordinates(51.536067,-0.153596))
-);
-
-DepartureSearch departureSearch = DepartureSearch
-    .builder()
-    .id("Departure search example")
-    .departureLocationId("London center")
-    .arrivalLocationIds(Arrays.asList("Hyde Park", "ZSL London Zoo"))
-    .transportation(Driving.builder().build())
-    .departureTime(Instant.now())
-    .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE))
-    .build();
-    
-ArrivalSearch arrivalSearch = ArrivalSearch
-    .builder()
-    .id("Arrival search example")
-    .arrivalLocationId("London center")
-    .departureLocationIds(Arrays.asList("Hyde Park", "ZSL London Zoo"))
-    .transportation(PublicTransport.builder().build())
-    .arrivalTime(Instant.now())
-    .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES))
-    .range(FullRange.builder().enabled(true).maxResults(3).width(1800).build())
-    .build();
-
-RoutesRequest request = RoutesRequest
-    .builder()
-    .locations(locations)
-    .arrivalSearch(arrivalSearch)
-    .departureSearch(departureSearch)
-    .build();
-    
-Either<TravelTimeError, RoutesResponse> response = sdk.send(request);
-
-if(response.isRight()) {
-  System.out.println(response.get().getResults().size());
-} else {
-  System.out.println(response.getLeft().getMessage());
-}
-```
-
-### [Geocoding (Search)](https://traveltime.com/docs/api/reference/geocoding-search)
-Match a query string to geographic coordinates.
-
-Body attributes:
-* query: A query to geocode. Can be an address, a postcode or a venue.
-* within_country: Only return the results that are within the specified country.
-  If no results are found it will return the country itself. Format:ISO 3166-1 alpha-2 or alpha-3
-
-```java
-GeocodingRequest request = GeocodingRequest
-    .builder()
-    .query("Geneva")
-    .withinCountries(Arrays.asList("CH", "DE"))
-    .limit(1)
-    .build();
-
-Either<TravelTimeError, GeocodingResponse> response = sdk.send(request);
-    
-if(response.isRight()) {
-  System.out.println(response.get());
-} else {
-  System.out.println(response.getLeft().getMessage());
-}
-```
-### [Reverse Geocoding](https://docs.traveltime.com/api/reference/geocoding-reverse)
-Match a latitude, longitude pair to an address.
-
-```java
-ReverseGeocodingRequest request = ReverseGeocodingRequest
-    .builder()
-    .coordinates(new Coordinates(51.507281, -0.132120))
-    .build();
-
-Either < TravelTimeError, GeocodingResponse > response = sdk.send(request);
-
-if (response.isRight()) {
-  System.out.println(response.get().getFeatures());
 } else {
   System.out.println(response.getLeft().getMessage());
 }
