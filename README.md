@@ -11,9 +11,9 @@ To use annotations, you need to use Maven dependency:
 
 ```xml
 <dependency>
-    <groupId>com.traveltime</groupId>
-    <artifactId>traveltime-sdk-java</artifactId>
-    <version>${traveltime-sdk-version}</version>
+  <groupId>com.traveltime</groupId>
+  <artifactId>traveltime-sdk-java</artifactId>
+  <version>${traveltime-sdk-version}</version>
 </dependency>
 ```
 
@@ -95,9 +95,9 @@ TimeMapRequest request = TimeMapRequest
 Either<TravelTimeError, TimeMapResponse> response = sdk.send(request);
 
 if(response.isRight()) {
-    System.out.println(response.get().getResults().size());
+  System.out.println(response.get().getResults().size());
 } else {
-    System.out.println(response.getLeft().getMessage());
+  System.out.println(response.getLeft().getMessage());
 }
 ```
 ### [Isochrones (Time Map) Fast](https://docs.traveltime.com/api/reference/isochrones-fast)
@@ -105,24 +105,24 @@ A very fast version of Isochrone API. However, the request parameters are much m
 
 ```java
 OneToMany oneToMany = OneToMany
-  .builder()
-  .id("public transport to Trafalgar Square")
-  .arrivalTimePeriod("weekday_morning")
-  .transportation(new PublicTransport())
-  .coords(new Coordinates(51.507609, -0.128315))
-  .travelTime(900)
-  .build();
+    .builder()
+    .id("public transport to Trafalgar Square")
+    .arrivalTimePeriod("weekday_morning")
+    .transportation(new PublicTransport())
+    .coords(new Coordinates(51.507609, -0.128315))
+    .travelTime(900)
+    .build();
 
 ArrivalSearches arrivalSearches = ArrivalSearches
-  .builder()
-  .oneToMany(Arrays.asList(oneToMany))
-  .manyToOne(Collections.emptyList())
-  .build();
+    .builder()
+    .oneToMany(Arrays.asList(oneToMany))
+    .manyToOne(Collections.emptyList())
+    .build();
 
 TimeMapFastRequest request = TimeMapFastRequest
-  .builder()
-  .arrivalSearches(arrivalSearches)
-  .build();
+    .builder()
+    .arrivalSearches(arrivalSearches)
+    .build();
 
 Either<TravelTimeError, TimeMapFastResponse> response = sdk.send(request);
 
@@ -185,11 +185,103 @@ TimeFilterRequest request = TimeFilterRequest
 Either<TravelTimeError, TimeFilterResponse> response = sdk.send(request);   
     
 if(response.isRight()) {
-    System.out.println(response.get().getResults().size());
+  System.out.println(response.get().getResults().size());
 } else {
-    System.out.println(response.getLeft().getMessage());
+  System.out.println(response.getLeft().getMessage());
 }
 ```
+
+### [Time Filter (Fast)](https://docs.traveltime.com/api/reference/time-filter-fast)
+A very fast version of `Time Filter`. However, the request parameters are much more limited. Currently only supports UK and Ireland.
+
+```java
+List < Location > locations = Arrays.asList(
+    new Location("London center", new Coordinates(51.508930, -0.131387)),
+    new Location("Hyde Park", new Coordinates(51.508824, -0.167093)),
+    new Location("ZSL London Zoo", new Coordinates(51.536067, -0.153596))
+);
+    
+ManyToOne manyToOne = new ManyToOne(
+    "arrive-at many-to-one search example",
+    "London center",
+    Arrays.asList("Hyde Park", "ZSL London Zoo"),
+    new PublicTransport(),
+    1900,
+    "weekday_morning",
+    Arrays.asList(Property.TRAVEL_TIME, Property.FARES)
+);
+    
+OneToMany oneToMany = new OneToMany(
+    "arrive-at one-to-many search example",
+    "London center",
+    Arrays.asList("Hyde Park", "ZSL London Zoo"),
+    new PublicTransport(),
+    1900,
+    "weekday_morning",
+    Arrays.asList(Property.TRAVEL_TIME, Property.FARES)
+);
+    
+ArrivalSearches arrivalSearches = new ArrivalSearches(
+    Arrays.asList(manyToOne),
+    Arrays.asList(oneToMany)
+);
+    
+TimeFilterFastRequest request = TimeFilterFastRequest
+    .builder()
+    .locations(locations)
+    .arrivalSearches(arrivalSearches)
+    .build();
+    
+Either < TravelTimeError, TimeFilterFastResponse > response = sdk.send(request);
+    
+if (response.isRight()) {
+  System.out.println(response.get().getResults().size());
+} else {
+  System.out.println(response.getLeft().getMessage());
+}
+```
+
+### [Time Filter Fast (Proto)](https://docs.traveltime.com/api/reference/travel-time-distance-matrix-proto)
+A fast version of time filter communicating using [protocol buffers](https://github.com/protocolbuffers/protobuf).
+
+The request parameters are much more limited and only travel time is returned. In addition, the results are only approximately correct (95% of the results are guaranteed to be within 5% of the routes returned by regular time filter).
+
+This inflexibility comes with a benefit of faster response times (Over 5x faster compared to regular time filter) and larger limits on the amount of destination points.
+
+Body attributes:
+* origin: Origin point.
+* destination: Destination points. Cannot be more than 200,000.
+* transportation: Transportation type.
+* travelTime: Time limit;
+* country: Return the results that are within the specified country
+
+```java
+OneToMany oneToMany = OneToMany
+    .builder()
+    .originCoordinate(new Coordinates(51.425709, -0.122061))
+    .destinationCoordinates(Collections.singletonList(new Coordinates(51.348605, -0.314783)))
+    .transportation(Transportation.DRIVING_FERRY)
+    .travelTime(7200)
+    .country(Country.NETHERLANDS)
+    .build();
+
+TimeFilterFastProtoRequest request = TimeFilterFastProtoRequest
+    .builder()
+    .oneToMany(oneToMany)
+    .build();
+
+Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
+
+if(response.isRight()) {
+  System.out.println(response.get().getTravelTimes());
+} else {
+  System.out.println(response.getLeft().getMessage());
+}
+```
+
+The responses are in the form of a list where each position denotes either a
+travel time (in seconds) of a journey, or if negative that the journey from the
+origin to the destination point is impossible.
 
 ### [Routes](https://traveltime.com/docs/api/reference/routes)
 Returns routing information between source and destinations.
@@ -239,219 +331,7 @@ RoutesRequest request = RoutesRequest
 Either<TravelTimeError, RoutesResponse> response = sdk.send(request);
 
 if(response.isRight()) {
-    System.out.println(response.get().getResults().size());
-} else {
-    System.out.println(response.getLeft().getMessage());
-}
-```
-### [Time Filter (Fast)](https://docs.traveltime.com/api/reference/time-filter-fast)
-A very fast version of `Time Filter`. However, the request parameters are much more limited. Currently only supports UK and Ireland.
-
-```java
-List < Location > locations = Arrays.asList(
-    new Location("London center", new Coordinates(51.508930, -0.131387)),
-    new Location("Hyde Park", new Coordinates(51.508824, -0.167093)),
-    new Location("ZSL London Zoo", new Coordinates(51.536067, -0.153596))
-);
-    
-ManyToOne manyToOne = new ManyToOne(
-    "arrive-at many-to-one search example",
-    "London center",
-    Arrays.asList("Hyde Park", "ZSL London Zoo"),
-    new PublicTransport(),
-    1900,
-    "weekday_morning",
-    Arrays.asList(Property.TRAVEL_TIME, Property.FARES)
-);
-    
-OneToMany oneToMany = new OneToMany(
-    "arrive-at one-to-many search example",
-    "London center",
-    Arrays.asList("Hyde Park", "ZSL London Zoo"),
-    new PublicTransport(),
-    1900,
-    "weekday_morning",
-    Arrays.asList(Property.TRAVEL_TIME, Property.FARES)
-);
-    
-ArrivalSearches arrivalSearches = new ArrivalSearches(
-    Arrays.asList(manyToOne),
-    Arrays.asList(oneToMany)
-);
-    
-TimeFilterFastRequest request = TimeFilterFastRequest
-    .builder()
-    .locations(locations)
-    .arrivalSearches(arrivalSearches)
-    .build();
-    
-Either < TravelTimeError, TimeFilterFastResponse > response = sdk.send(request);
-    
-if (response.isRight()) {
-    System.out.println(response.get().getResults().size());
-} else {
-    System.out.println(response.getLeft().getMessage());
-}
-```
-
-### [Time Filter Fast (Proto)](https://docs.traveltime.com/api/reference/travel-time-distance-matrix-proto)
-A fast version of time filter communicating using [protocol buffers](https://github.com/protocolbuffers/protobuf).
-
-The request parameters are much more limited and only travel time is returned. In addition, the results are only approximately correct (95% of the results are guaranteed to be within 5% of the routes returned by regular time filter).
-
-This inflexibility comes with a benefit of faster response times (Over 5x faster compared to regular time filter) and larger limits on the amount of destination points.
-
-Body attributes:
-* origin: Origin point.
-* destination: Destination points. Cannot be more than 200,000.
-* transportation: Transportation type.
-* travelTime: Time limit;
-* country: Return the results that are within the specified country
-
-```java
-OneToMany oneToMany = OneToMany
-    .builder()
-    .originCoordinate(new Coordinates(51.425709, -0.122061))
-    .destinationCoordinates(Collections.singletonList(new Coordinates(51.348605, -0.314783)))
-    .transportation(Transportation.DRIVING_FERRY)
-    .travelTime(7200)
-    .country(Country.NETHERLANDS)
-    .build();
-
-TimeFilterFastProtoRequest request = TimeFilterFastProtoRequest
-    .builder()
-    .oneToMany(oneToMany)
-    .build();
-
-Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
-
-if(response.isRight()) {
-    System.out.println(response.get().getTravelTimes());
-} else {
-    System.out.println(response.getLeft().getMessage());
-}
-```
-
-The responses are in the form of a list where each position denotes either a
-travel time (in seconds) of a journey, or if negative that the journey from the
-origin to the destination point is impossible.
-
-### [Time Filter (Postcode Districts)](https://docs.traveltime.com/api/reference/postcode-district-filter)
-Find reachable postcodes from origin (or to destination) and get statistics about such postcodes. Currently only supports United Kingdom.
-
-```java
-DepartureSearch departureSearch = DepartureSearch
-  .builder()
-  .id("public transport from Trafalgar Square")
-  .coords(new Coordinates(51.507609, -0.128315))
-  .departureTime(Instant.now())
-  .travelTime(1800)
-  .transportation(PublicTransport.builder().build())
-  .reachablePostcodesThreshold(0.1)
-  .properties(Arrays.asList(Property.COVERAGE, Property.TRAVEL_TIME_ALL, Property.TRAVEL_TIME_REACHABLE))
-  .build();
-
-ArrivalSearch arrivalSearch = ArrivalSearch
-  .builder()
-  .id("public transport to Trafalgar Square")
-  .coords(new Coordinates(51.507609, -0.128315))
-  .arrivalTime(Instant.now())
-  .travelTime(1800)
-  .transportation(PublicTransport.builder().build())
-  .reachablePostcodesThreshold(0.1)
-  .properties(Arrays.asList(Property.COVERAGE, Property.TRAVEL_TIME_ALL, Property.TRAVEL_TIME_REACHABLE))
-  .build();
-
-TimeFilterDistrictsRequest request = TimeFilterDistrictsRequest
-  .builder()
-  .arrivalSearches(Arrays.asList(arrivalSearch))
-  .departureSearches(Arrays.asList(departureSearch))
-  .build();
-
-Either < TravelTimeError, TimeFilterDistrictsResponse > response = sdk.send(request);
-
-if (response.isRight()) {
-  System.out.println(response.get().getResults());
-} else {
-  System.out.println(response.getLeft().getMessage());
-}
-```
-
-### [Time Filter (Postcode Sectors)](https://docs.traveltime.com/api/reference/postcode-sector-filter)
-Find sectors that have a certain coverage from origin (or to destination) and get statistics about postcodes within such sectors.
-
-```java
-DepartureSearch departureSearch = DepartureSearch
-  .builder()
-  .id("public transport from Trafalgar Square")
-  .coords(new Coordinates(51.507609, -0.128315))
-  .departureTime(Instant.now())
-  .travelTime(1800)
-  .transportation(PublicTransport.builder().build())
-  .reachablePostcodesThreshold(0.1)
-  .properties(Arrays.asList(Property.COVERAGE, Property.TRAVEL_TIME_ALL, Property.TRAVEL_TIME_REACHABLE))
-  .build();
-
-ArrivalSearch arrivalSearch = ArrivalSearch
-  .builder()
-  .id("public transport to Trafalgar Square")
-  .coords(new Coordinates(51.507609, -0.128315))
-  .arrivalTime(Instant.now())
-  .travelTime(1800)
-  .transportation(PublicTransport.builder().build())
-  .reachablePostcodesThreshold(0.1)
-  .properties(Arrays.asList(Property.COVERAGE, Property.TRAVEL_TIME_ALL, Property.TRAVEL_TIME_REACHABLE))
-  .build();
-
-TimeFilterSectorsRequest request = TimeFilterSectorsRequest
-  .builder()
-  .arrivalSearches(Arrays.asList(arrivalSearch))
-  .departureSearches(Arrays.asList(departureSearch))
-  .build();
-
-Either < TravelTimeError, TimeFilterSectorsResponse > response = sdk.send(request);
-
-if (response.isRight()) {
-  System.out.println(response.get().getResults());
-} else {
-  System.out.println(response.getLeft().getMessage());
-}
-```
-
-### [Time Filter (Postcodes)](https://docs.traveltime.com/api/reference/postcode-search)
-Find reachable postcodes from origin (or to destination) and get statistics about such postcodes.
-
-```java
-DepartureSearch departureSearch = DepartureSearch
-  .builder()
-  .id("public transport from Trafalgar Square")
-  .coords(new Coordinates(51.507609, -0.128315))
-  .departureTime(Instant.now())
-  .travelTime(1800)
-  .transportation(PublicTransport.builder().build())
-  .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE))
-  .build();
-
-ArrivalSearch arrivalSearch = ArrivalSearch
-  .builder()
-  .id("public transport to Trafalgar Square")
-  .coords(new Coordinates(51.507609, -0.128315))
-  .arrivalTime(Instant.now())
-  .travelTime(1800)
-  .transportation(PublicTransport.builder().build())
-  .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE))
-  .build();
-
-TimeFilterPostcodesRequest request = TimeFilterPostcodesRequest
-  .builder()
-  .arrivalSearches(Arrays.asList(arrivalSearch))
-  .departureSearches(Arrays.asList(departureSearch))
-  .build();
-
-Either < TravelTimeError, TimeFilterPostcodesResponse > response = sdk.send(request);
-
-if (response.isRight()) {
-  System.out.println(response.get().getResults());
+  System.out.println(response.get().getResults().size());
 } else {
   System.out.println(response.getLeft().getMessage());
 }
@@ -476,9 +356,9 @@ GeocodingRequest request = GeocodingRequest
 Either<TravelTimeError, GeocodingResponse> response = sdk.send(request);
     
 if(response.isRight()) {
-    System.out.println(response.get());
+  System.out.println(response.get());
 } else {
-    System.out.println(response.getLeft().getMessage());
+  System.out.println(response.getLeft().getMessage());
 }
 ```
 ### [Reverse Geocoding](https://docs.traveltime.com/api/reference/geocoding-reverse)
@@ -486,14 +366,135 @@ Match a latitude, longitude pair to an address.
 
 ```java
 ReverseGeocodingRequest request = ReverseGeocodingRequest
-  .builder()
-  .coordinates(new Coordinates(51.507281, -0.132120))
-  .build();
+    .builder()
+    .coordinates(new Coordinates(51.507281, -0.132120))
+    .build();
 
 Either < TravelTimeError, GeocodingResponse > response = sdk.send(request);
 
 if (response.isRight()) {
   System.out.println(response.get().getFeatures());
+} else {
+  System.out.println(response.getLeft().getMessage());
+}
+```
+
+### [Time Filter (Postcodes)](https://docs.traveltime.com/api/reference/postcode-search)
+Find reachable postcodes from origin (or to destination) and get statistics about such postcodes.
+
+```java
+DepartureSearch departureSearch = DepartureSearch
+    .builder()
+    .id("public transport from Trafalgar Square")
+    .coords(new Coordinates(51.507609, -0.128315))
+    .departureTime(Instant.now())
+    .travelTime(1800)
+    .transportation(PublicTransport.builder().build())
+    .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE))
+    .build();
+
+ArrivalSearch arrivalSearch = ArrivalSearch
+    .builder()
+    .id("public transport to Trafalgar Square")
+    .coords(new Coordinates(51.507609, -0.128315))
+    .arrivalTime(Instant.now())
+    .travelTime(1800)
+    .transportation(PublicTransport.builder().build())
+    .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE))
+    .build();
+
+TimeFilterPostcodesRequest request = TimeFilterPostcodesRequest
+    .builder()
+    .arrivalSearches(Arrays.asList(arrivalSearch))
+    .departureSearches(Arrays.asList(departureSearch))
+    .build();
+
+Either < TravelTimeError, TimeFilterPostcodesResponse > response = sdk.send(request);
+
+if (response.isRight()) {
+  System.out.println(response.get().getResults());
+} else {
+  System.out.println(response.getLeft().getMessage());
+}
+```
+
+### [Time Filter (Postcode Districts)](https://docs.traveltime.com/api/reference/postcode-district-filter)
+Find reachable postcodes from origin (or to destination) and get statistics about such postcodes. Currently only supports United Kingdom.
+
+```java
+DepartureSearch departureSearch = DepartureSearch
+    .builder()
+    .id("public transport from Trafalgar Square")
+    .coords(new Coordinates(51.507609, -0.128315))
+    .departureTime(Instant.now())
+    .travelTime(1800)
+    .transportation(PublicTransport.builder().build())
+    .reachablePostcodesThreshold(0.1)
+    .properties(Arrays.asList(Property.COVERAGE, Property.TRAVEL_TIME_ALL, Property.TRAVEL_TIME_REACHABLE))
+    .build();
+
+ArrivalSearch arrivalSearch = ArrivalSearch
+    .builder()
+    .id("public transport to Trafalgar Square")
+    .coords(new Coordinates(51.507609, -0.128315))
+    .arrivalTime(Instant.now())
+    .travelTime(1800)
+    .transportation(PublicTransport.builder().build())
+    .reachablePostcodesThreshold(0.1)
+    .properties(Arrays.asList(Property.COVERAGE, Property.TRAVEL_TIME_ALL, Property.TRAVEL_TIME_REACHABLE))
+    .build();
+
+TimeFilterDistrictsRequest request = TimeFilterDistrictsRequest
+    .builder()
+    .arrivalSearches(Arrays.asList(arrivalSearch))
+    .departureSearches(Arrays.asList(departureSearch))
+    .build();
+
+Either < TravelTimeError, TimeFilterDistrictsResponse > response = sdk.send(request);
+
+if (response.isRight()) {
+  System.out.println(response.get().getResults());
+} else {
+  System.out.println(response.getLeft().getMessage());
+}
+```
+
+### [Time Filter (Postcode Sectors)](https://docs.traveltime.com/api/reference/postcode-sector-filter)
+Find sectors that have a certain coverage from origin (or to destination) and get statistics about postcodes within such sectors.
+
+```java
+DepartureSearch departureSearch = DepartureSearch
+    .builder()
+    .id("public transport from Trafalgar Square")
+    .coords(new Coordinates(51.507609, -0.128315))
+    .departureTime(Instant.now())
+    .travelTime(1800)
+    .transportation(PublicTransport.builder().build())
+    .reachablePostcodesThreshold(0.1)
+    .properties(Arrays.asList(Property.COVERAGE, Property.TRAVEL_TIME_ALL, Property.TRAVEL_TIME_REACHABLE))
+    .build();
+
+ArrivalSearch arrivalSearch = ArrivalSearch
+    .builder()
+    .id("public transport to Trafalgar Square")
+    .coords(new Coordinates(51.507609, -0.128315))
+    .arrivalTime(Instant.now())
+    .travelTime(1800)
+    .transportation(PublicTransport.builder().build())
+    .reachablePostcodesThreshold(0.1)
+    .properties(Arrays.asList(Property.COVERAGE, Property.TRAVEL_TIME_ALL, Property.TRAVEL_TIME_REACHABLE))
+    .build();
+
+TimeFilterSectorsRequest request = TimeFilterSectorsRequest
+    .builder()
+    .arrivalSearches(Arrays.asList(arrivalSearch))
+    .departureSearches(Arrays.asList(departureSearch))
+    .build();
+
+Either < TravelTimeError, TimeFilterSectorsResponse > response = sdk.send(request);
+
+if (response.isRight()) {
+  System.out.println(response.get().getResults());
 } else {
   System.out.println(response.getLeft().getMessage());
 }
@@ -508,9 +509,9 @@ MapInfoRequest request = new MapInfoRequest();
 Either<TravelTimeError, MapInfoResponse> response = sdk.send(request);
 
 if(response.isRight()) {
-    System.out.println(response.get().getMaps().size());
+  System.out.println(response.get().getMaps().size());
 } else {
-    System.out.println(response.getLeft().getMessage());
+  System.out.println(response.getLeft().getMessage());
 }
 ```
 
@@ -526,9 +527,9 @@ List < Location > locations = Arrays.asList(
 );
 
 SupportedLocationsRequest request = SupportedLocationsRequest
-  .builder()
-  .locations(locations)
-  .build();
+    .builder()
+    .locations(locations)
+    .build();
 
 Either < TravelTimeError, SupportedLocationsResponse > response = sdk.send(request);
 
@@ -548,16 +549,16 @@ TravelTimeCredentials credentials = new TravelTimeCredentials("APP_ID", "API_KEY
 URI baseUri = "BASE_URI";
 
 OkHttpClient client = new OkHttpClient
-    .Builder()
-    .callTimeout(120, TimeUnit.SECONDS)  
-    .build();
+  .Builder()
+  .callTimeout(120, TimeUnit.SECONDS)  
+  .build();
 
 TravelTimeSDK sdk = TravelTimeSDK
-    .builder()
-    .baseUri(baseUri)
-    .credentials(credentials)
-    .client(client)
-    .build();
+  .builder()
+  .baseUri(baseUri)
+  .credentials(credentials)
+  .client(client)
+  .build();
 ```
 
 ## Support
