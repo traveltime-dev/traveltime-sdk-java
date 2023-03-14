@@ -13,6 +13,7 @@ public interface Country {
     Country IRELAND = Countries.IRELAND;
     Country LITHUANIA = Countries.LITHUANIA;
     Country UNITED_KINGDOM = Countries.UNITED_KINGDOM;
+    Country UNITED_STATES = Countries.UNITED_STATES;
 
     @Value
     class Custom implements Country {
