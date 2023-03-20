@@ -44,19 +44,19 @@
                 </executions>
             </plugin>
             <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-jar-plugin</artifactId>
-      <configuration>
-        <archive>
-          <manifest>
-            <mainClass>test.Version</mainClass>
-            <addDefaultImplementationEntries>
-              true
-            </addDefaultImplementationEntries>
-          </manifest>
-        </archive>
-      </configuration>
-    </plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>test.Version</mainClass>
+                            <addDefaultImplementationEntries>
+                                true
+                            </addDefaultImplementationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -79,7 +79,6 @@
             </plugin>
         </plugins>
     </build>
-
 
 
     <dependencies>
