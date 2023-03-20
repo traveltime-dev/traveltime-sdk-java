@@ -13,6 +13,8 @@ import okhttp3.RequestBody;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.traveltime.sdk.utils.Version;
+
 public abstract class TravelTimeRequest<T> {
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -32,7 +34,7 @@ public abstract class TravelTimeRequest<T> {
         return new Request.Builder()
             .url(url)
             .headers(credentials.getHeaders())
-            .addHeader("User-Agent", "Travel Time Java SDK")
+            .addHeader("User-Agent", "Travel Time Java SDK " + Version.getVersion())
             .get()
             .build();
     }
@@ -46,8 +48,7 @@ public abstract class TravelTimeRequest<T> {
         return new Request.Builder()
             .url(url)
             .headers(credentials.getHeaders())
-            .addHeader("Accept", acceptType.getValue())
-            .addHeader("User-Agent", "Travel Time Java SDK")
+            .addHeader("User-Agent", "Travel Time Java SDK " + Version.getVersion())
             .post(RequestBody.create(jsonString, JSON))
             .build();
     }
