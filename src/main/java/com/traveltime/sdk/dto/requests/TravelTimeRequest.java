@@ -4,6 +4,7 @@ import com.traveltime.sdk.utils.AcceptType;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import com.traveltime.sdk.utils.QueryElement;
+import com.traveltime.sdk.utils.Version;
 import io.vavr.control.Either;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
@@ -32,7 +33,7 @@ public abstract class TravelTimeRequest<T> {
         return new Request.Builder()
             .url(url)
             .headers(credentials.getHeaders())
-            .addHeader("User-Agent", "Travel Time Java SDK")
+            .addHeader("User-Agent", "Travel Time Java SDK " + Version.getVersion())
             .get()
             .build();
     }
@@ -47,7 +48,7 @@ public abstract class TravelTimeRequest<T> {
             .url(url)
             .headers(credentials.getHeaders())
             .addHeader("Accept", acceptType.getValue())
-            .addHeader("User-Agent", "Travel Time Java SDK")
+            .addHeader("User-Agent", "Travel Time Java SDK " + Version.getVersion())
             .post(RequestBody.create(jsonString, JSON))
             .build();
     }
