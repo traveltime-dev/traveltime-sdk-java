@@ -6,6 +6,7 @@ import com.traveltime.sdk.dto.responses.errors.IOError;
 import com.traveltime.sdk.utils.AcceptType;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import com.traveltime.sdk.utils.Version;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import okhttp3.HttpUrl;
@@ -43,7 +44,7 @@ public abstract class ProtoRequest<T> {
             .url(url)
             .headers(credentials.getBasicCredentialsHeaders())
             .addHeader("Content-Type", AcceptType.APPLICATION_OCTET_STREAM.getValue())
-            .addHeader("User-Agent", "Travel Time Java SDK")
+            .addHeader("User-Agent", "Travel Time Java SDK " + Version.getVersion())
             .post(RequestBody.create(requestBody))
             .build();
     }
