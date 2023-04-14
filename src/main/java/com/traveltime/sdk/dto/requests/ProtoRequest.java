@@ -28,6 +28,8 @@ public abstract class ProtoRequest<T> {
 
     public abstract Either<TravelTimeError, T> parseBytes(byte[] body);
 
+    public abstract String getCorrelationId();
+
     protected Either<TravelTimeError, TimeFilterFastResponseOuterClass.TimeFilterFastResponse> getProtoResponse(byte[] body) {
         return Try
             .of(() -> TimeFilterFastResponseOuterClass.TimeFilterFastResponse.parseFrom(body))
@@ -45,6 +47,7 @@ public abstract class ProtoRequest<T> {
             .headers(credentials.getBasicCredentialsHeaders())
             .addHeader("Content-Type", AcceptType.APPLICATION_OCTET_STREAM.getValue())
             .addHeader("User-Agent", "Travel Time Java SDK " + Version.getVersion())
+            .addHeader("X-Correlation-ID", getCorrelationId())
             .post(RequestBody.create(requestBody))
             .build();
     }

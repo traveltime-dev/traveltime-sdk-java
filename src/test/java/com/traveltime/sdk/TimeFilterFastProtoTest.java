@@ -161,6 +161,6 @@ public class TimeFilterFastProtoTest {
             Country.UNITED_KINGDOM
         );
 
-        return new TimeFilterFastProtoRequest(oneToMany);
+        return new TimeFilterFastProtoRequest(oneToMany, null);
     }
 }
