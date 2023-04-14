@@ -28,6 +28,8 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
     @NonNull
     OneToMany oneToMany;
 
+    String correlationId;
+
     private byte[] createByteArray() {
         Coordinates origin = oneToMany.getOriginCoordinate();
 
@@ -123,6 +125,15 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
             return Either.left(new ProtoError(response.getError().toString()));
         else
             return Either.right(new TimeFilterFastProtoResponse(response.getProperties().getTravelTimesList()));
+    }
+
+    @Override
+    public String getCorrelationId() {
+        if (correlationId == null) {
+            return "no-x-correlation-id";
+        } else {
+            return correlationId;
+        }
     }
 
     @Override

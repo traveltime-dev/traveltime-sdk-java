@@ -39,6 +39,8 @@ public class TimeFilterFastProtoDistanceRequest extends ProtoRequest<TimeFilterF
     @NonNull
     Integer travelTime;
 
+    String correlationId;
+
     private byte[] createByteArray() {
 
         RequestsCommon.Coords departure = RequestsCommon
@@ -145,6 +147,15 @@ public class TimeFilterFastProtoDistanceRequest extends ProtoRequest<TimeFilterF
         return new TimeFilterFastProtoDistanceResponse(times, distances);
     }
 
+    @Override
+    public String getCorrelationId() {
+        if (correlationId == null) {
+            return "no-x-correlation-id";
+        } else {
+            return correlationId;
+        }
+    }
+
     /**
      * @param originCoordinate       The coordinates of location we should start the search from.
      * @param destinationCoordinates The coordinates of locations we run the search to. If the class implementing this list
@@ -167,5 +178,26 @@ public class TimeFilterFastProtoDistanceRequest extends ProtoRequest<TimeFilterF
         this.travelTime = travelTime;
         this.transportation = transportation;
         this.country = country;
+        this.correlationId = null;
+    }
+
+    public TimeFilterFastProtoDistanceRequest(
+        @NonNull Coordinates originCoordinate,
+        @NonNull List<Coordinates> destinationCoordinates,
+        @NonNull Integer travelTime,
+        @NonNull Transportation transportation,
+        @NonNull Country country,
+        @NonNull String correlationId
+    ) {
+        this.originCoordinate = originCoordinate;
+        if (destinationCoordinates instanceof RandomAccess) {
+            this.destinationCoordinates = destinationCoordinates;
+        } else {
+            this.destinationCoordinates = new ArrayList<>(destinationCoordinates);
+        }
+        this.travelTime = travelTime;
+        this.transportation = transportation;
+        this.country = country;
+        this.correlationId = correlationId;
     }
 }
