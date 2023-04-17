@@ -11,7 +11,7 @@ import lombok.*;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 
-@Value
+@Data
 @Builder
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
