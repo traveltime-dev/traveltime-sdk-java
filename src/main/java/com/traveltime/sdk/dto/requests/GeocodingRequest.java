@@ -13,7 +13,7 @@ import okhttp3.Request;
 
 import java.util.List;
 
-@Value
+@Data
 @Builder
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -69,4 +69,3 @@ public class GeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
         return GeocodingResponse.class;
     }
 }
-

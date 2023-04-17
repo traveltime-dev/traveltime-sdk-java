@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.RandomAccess;
 import java.util.stream.Collectors;
 
-@Value
+@Data
 @Builder
 @AllArgsConstructor
 @With

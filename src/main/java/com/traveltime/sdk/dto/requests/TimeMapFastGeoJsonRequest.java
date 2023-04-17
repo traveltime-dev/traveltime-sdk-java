@@ -13,7 +13,7 @@ import lombok.extern.jackson.Jacksonized;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 
-@Value
+@Data
 @Builder
 @Jacksonized
 @AllArgsConstructor
