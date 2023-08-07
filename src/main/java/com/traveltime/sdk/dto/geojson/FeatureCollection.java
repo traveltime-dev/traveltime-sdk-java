@@ -18,5 +18,7 @@ public class FeatureCollection<G extends GeoJsonObject, P> {
     @NonNull
     String type;
 
+    String attribution;
+
     List<Feature<G, P>> features;
 }
