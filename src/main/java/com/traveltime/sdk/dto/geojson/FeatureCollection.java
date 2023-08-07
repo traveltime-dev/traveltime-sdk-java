@@ -1,5 +1,6 @@
 package com.traveltime.sdk.dto.geojson;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.NonFinal;
 import lombok.experimental.SuperBuilder;
@@ -13,6 +14,7 @@ import java.util.List;
 @NonFinal
 @SuperBuilder
 @Jacksonized
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FeatureCollection<G extends GeoJsonObject, P> {
 
     @NonNull
