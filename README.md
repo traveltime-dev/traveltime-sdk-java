@@ -249,25 +249,23 @@ The request parameters are much more limited and only travel time is returned. I
 This inflexibility comes with a benefit of faster response times (Over 5x faster compared to regular time filter) and larger limits on the amount of destination points.
 
 Body attributes:
-* origin: Origin point.
-* destination: Destination points. Cannot be more than 200,000.
-* transportation: Transportation type.
+* origin: Origin point;
+* destination: Destination points. Cannot be more than 200,000;
+* transportation: Transportation type;
 * travelTime: Time limit;
-* country: Return the results that are within the specified country
+* country: Return the results that are within the specified country;
+* requestType: MANY_TO_ONE or ONE_TO_MANY.
 
 ```java
-OneToMany oneToMany = OneToMany
+
+TimeFilterFastProtoRequest request = TimeFilterFastProtoRequest
     .builder()
     .originCoordinate(new Coordinates(51.425709, -0.122061))
     .destinationCoordinates(Collections.singletonList(new Coordinates(51.348605, -0.314783)))
     .transportation(Transportation.DRIVING_FERRY)
     .travelTime(7200)
     .country(Country.NETHERLANDS)
-    .build();
-
-TimeFilterFastProtoRequest request = TimeFilterFastProtoRequest
-    .builder()
-    .oneToMany(oneToMany)
+    .requestType(RequestType.ONE_TO_MANY)    
     .build();
 
 Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);

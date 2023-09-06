@@ -42,6 +42,15 @@ public class TimeFilterFastProtoTest {
     }
 
     @Test
+    public void shouldSendManyToOneProtoRequest() {
+        Coordinates origin = new Coordinates(51.425709, -0.122061);
+        List<Coordinates> destinations = Collections.singletonList(new Coordinates(51.348605, -0.314783));
+        TimeFilterFastProtoRequest request = manyToOne(origin, destinations);
+        Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
+        Assert.assertTrue(response.isRight());
+    }
+
+    @Test
     public void shouldSplitProtoRequestsTest() {
         TimeFilterFastProtoRequest request = oneToMany(
                 new Coordinates(51.425709, -0.122061),
@@ -148,6 +157,21 @@ public class TimeFilterFastProtoTest {
 
         Assert.assertTrue(result);
     }
+
+    public TimeFilterFastProtoRequest manyToOne(
+            Coordinates origin,
+            List<Coordinates> destinations
+    ) {
+        return new TimeFilterFastProtoRequest(
+                origin,
+                destinations,
+                Transportation.PUBLIC_TRANSPORT,
+                7200,
+                Country.UNITED_KINGDOM,
+                RequestType.MANY_TO_ONE
+        );
+    }
+
 
     public TimeFilterFastProtoRequest oneToMany(
             Coordinates origin,
