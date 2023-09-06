@@ -5,7 +5,7 @@ import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.ProtoRequest;
 import com.traveltime.sdk.dto.requests.TimeFilterFastProtoRequest;
 import com.traveltime.sdk.dto.requests.proto.Country;
-import com.traveltime.sdk.dto.requests.proto.OneToMany;
+import com.traveltime.sdk.dto.requests.proto.RequestType;
 import com.traveltime.sdk.dto.requests.proto.Transportation;
 import com.traveltime.sdk.dto.responses.TimeFilterFastProtoResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
@@ -26,8 +26,8 @@ public class TimeFilterFastProtoTest {
     @Before
     public void init() {
         TravelTimeCredentials credentials = new TravelTimeCredentials(
-            System.getenv("PROTO_USERNAME"),
-            System.getenv("PROTO_PASSWORD")
+                System.getenv("PROTO_USERNAME"),
+                System.getenv("PROTO_PASSWORD")
         );
         sdk = new TravelTimeSDK(credentials);
     }
@@ -42,10 +42,19 @@ public class TimeFilterFastProtoTest {
     }
 
     @Test
+    public void shouldSendManyToOneProtoRequest() {
+        Coordinates origin = new Coordinates(51.425709, -0.122061);
+        List<Coordinates> destinations = Collections.singletonList(new Coordinates(51.348605, -0.314783));
+        TimeFilterFastProtoRequest request = manyToOne(origin, destinations);
+        Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
+        Assert.assertTrue(response.isRight());
+    }
+
+    @Test
     public void shouldSplitProtoRequestsTest() {
         TimeFilterFastProtoRequest request = oneToMany(
-            new Coordinates(51.425709, -0.122061),
-            Common.generateCoordinates(12)
+                new Coordinates(51.425709, -0.122061),
+                Common.generateCoordinates(12)
         );
 
         List<ProtoRequest<TimeFilterFastProtoResponse>> requests = request.split(3);
@@ -58,8 +67,8 @@ public class TimeFilterFastProtoTest {
     @Test
     public void shouldSplitProtoRequestsEvenlyTest() {
         TimeFilterFastProtoRequest request = oneToMany(
-            new Coordinates(51.425709, -0.122061),
-            Common.generateCoordinates(1001)
+                new Coordinates(51.425709, -0.122061),
+                Common.generateCoordinates(1001)
         );
 
         List<ProtoRequest<TimeFilterFastProtoResponse>> requests = request.split(100);
@@ -80,16 +89,16 @@ public class TimeFilterFastProtoTest {
     public void shouldSendBatchTimeFilterProtoRequest() {
         Coordinates origin = new Coordinates(51.425709, -0.122061);
         List<Coordinates> destinations = Arrays.asList(
-            new Coordinates(51.348605, -0.314783),
-            new Coordinates(51.348705, -0.314783),
-            new Coordinates(51.348805, -0.314783),
-            new Coordinates(51.348905, -0.314783),
-            new Coordinates(51.348605, -0.314883),
-            new Coordinates(51.348705, -0.314883),
-            new Coordinates(51.348805, -0.314883),
-            new Coordinates(51.348905, -0.314883),
-            new Coordinates(51.348605, -0.314983),
-            new Coordinates(51.348705, -0.314983)
+                new Coordinates(51.348605, -0.314783),
+                new Coordinates(51.348705, -0.314783),
+                new Coordinates(51.348805, -0.314783),
+                new Coordinates(51.348905, -0.314783),
+                new Coordinates(51.348605, -0.314883),
+                new Coordinates(51.348705, -0.314883),
+                new Coordinates(51.348805, -0.314883),
+                new Coordinates(51.348905, -0.314883),
+                new Coordinates(51.348605, -0.314983),
+                new Coordinates(51.348705, -0.314983)
         );
         TimeFilterFastProtoRequest request = oneToMany(origin, destinations);
         Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProtoBatched(request, 3);
@@ -101,16 +110,16 @@ public class TimeFilterFastProtoTest {
     public void shouldSendBatchAsyncTimeFilterProtoRequest() {
         Coordinates origin = new Coordinates(51.425709, -0.122061);
         List<Coordinates> destinations = Arrays.asList(
-            new Coordinates(51.348605, -0.314783),
-            new Coordinates(51.348705, -0.314783),
-            new Coordinates(51.348805, -0.314783),
-            new Coordinates(51.348905, -0.314783),
-            new Coordinates(51.348605, -0.314883),
-            new Coordinates(51.348705, -0.314883),
-            new Coordinates(51.348805, -0.314883),
-            new Coordinates(51.348905, -0.314883),
-            new Coordinates(51.348605, -0.314983),
-            new Coordinates(51.348705, -0.314983)
+                new Coordinates(51.348605, -0.314783),
+                new Coordinates(51.348705, -0.314783),
+                new Coordinates(51.348805, -0.314783),
+                new Coordinates(51.348905, -0.314783),
+                new Coordinates(51.348605, -0.314883),
+                new Coordinates(51.348705, -0.314883),
+                new Coordinates(51.348805, -0.314883),
+                new Coordinates(51.348905, -0.314883),
+                new Coordinates(51.348605, -0.314983),
+                new Coordinates(51.348705, -0.314983)
         );
         TimeFilterFastProtoRequest request = oneToMany(origin, destinations);
         val response = sdk.sendProtoAsyncBatched(request, 3).join();
@@ -121,46 +130,60 @@ public class TimeFilterFastProtoTest {
     @Test
     public void shouldSendMultipleAsyncTimeFilterProtoRequests() {
         List<Coordinates> coordinates = Arrays.asList(
-            new Coordinates(51.348605, -0.314783),
-            new Coordinates(51.344323, -0.324812),
-            new Coordinates(51.334235, -0.321233),
-            new Coordinates(51.323141, -0.324324),
-            new Coordinates(51.323432, -0.324123),
-            new Coordinates(51.312331, -0.324322),
-            new Coordinates(51.323124, -0.312343)
+                new Coordinates(51.348605, -0.314783),
+                new Coordinates(51.344323, -0.324812),
+                new Coordinates(51.334235, -0.321233),
+                new Coordinates(51.323141, -0.324324),
+                new Coordinates(51.323432, -0.324123),
+                new Coordinates(51.312331, -0.324322),
+                new Coordinates(51.323124, -0.312343)
 
         );
-        CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>>[] futures = new CompletableFuture[] {
-            sdk.sendProtoAsync(oneToMany(coordinates.get(0), coordinates)),
-            sdk.sendProtoAsync(oneToMany(coordinates.get(1), coordinates)),
-            sdk.sendProtoAsync(oneToMany(coordinates.get(2), coordinates)),
-            sdk.sendProtoAsync(oneToMany(coordinates.get(3), coordinates)),
-            sdk.sendProtoAsync(oneToMany(coordinates.get(4), coordinates)),
-            sdk.sendProtoAsync(oneToMany(coordinates.get(5), coordinates)),
-            sdk.sendProtoAsync(oneToMany(coordinates.get(6), coordinates)),
+        CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>>[] futures = new CompletableFuture[]{
+                sdk.sendProtoAsync(oneToMany(coordinates.get(0), coordinates)),
+                sdk.sendProtoAsync(oneToMany(coordinates.get(1), coordinates)),
+                sdk.sendProtoAsync(oneToMany(coordinates.get(2), coordinates)),
+                sdk.sendProtoAsync(oneToMany(coordinates.get(3), coordinates)),
+                sdk.sendProtoAsync(oneToMany(coordinates.get(4), coordinates)),
+                sdk.sendProtoAsync(oneToMany(coordinates.get(5), coordinates)),
+                sdk.sendProtoAsync(oneToMany(coordinates.get(6), coordinates)),
 
         };
 
         boolean result = Stream
-            .of(futures)
-            .map(CompletableFuture::join)
-            .allMatch(Either::isRight);
+                .of(futures)
+                .map(CompletableFuture::join)
+                .allMatch(Either::isRight);
 
         Assert.assertTrue(result);
     }
 
-    public TimeFilterFastProtoRequest oneToMany(
-        Coordinates origin,
-        List<Coordinates> destinations
+    public TimeFilterFastProtoRequest manyToOne(
+            Coordinates origin,
+            List<Coordinates> destinations
     ) {
-        OneToMany oneToMany = new OneToMany(
-            origin,
-            destinations,
-            Transportation.PUBLIC_TRANSPORT,
-            7200,
-            Country.UNITED_KINGDOM
+        return new TimeFilterFastProtoRequest(
+                origin,
+                destinations,
+                Transportation.PUBLIC_TRANSPORT,
+                7200,
+                Country.UNITED_KINGDOM,
+                RequestType.MANY_TO_ONE
         );
+    }
 
-        return new TimeFilterFastProtoRequest(oneToMany, null);
+
+    public TimeFilterFastProtoRequest oneToMany(
+            Coordinates origin,
+            List<Coordinates> destinations
+    ) {
+        return new TimeFilterFastProtoRequest(
+                origin,
+                destinations,
+                Transportation.PUBLIC_TRANSPORT,
+                7200,
+                Country.UNITED_KINGDOM,
+                RequestType.ONE_TO_MANY
+        );
     }
 }

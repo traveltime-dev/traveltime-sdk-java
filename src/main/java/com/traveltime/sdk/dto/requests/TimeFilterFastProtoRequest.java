@@ -5,7 +5,9 @@ import com.igeolise.traveltime.rabbitmq.requests.TimeFilterFastRequestOuterClass
 import com.igeolise.traveltime.rabbitmq.responses.TimeFilterFastResponseOuterClass;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
-import com.traveltime.sdk.dto.requests.proto.OneToMany;
+import com.traveltime.sdk.dto.requests.proto.Country;
+import com.traveltime.sdk.dto.requests.proto.RequestType;
+import com.traveltime.sdk.dto.requests.proto.Transportation;
 import com.traveltime.sdk.dto.responses.TimeFilterFastProtoResponse;
 import com.traveltime.sdk.dto.responses.errors.ProtoError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
@@ -17,6 +19,7 @@ import okhttp3.Request;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.RandomAccess;
 import java.util.stream.Collectors;
 
 @Data
@@ -26,50 +29,113 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode(callSuper = true)
 public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProtoResponse> {
     @NonNull
-    OneToMany oneToMany;
+    Coordinates originCoordinate;
+    @NonNull
+    @Singular
+    List<Coordinates> destinationCoordinates;
+    @NonNull
+    Transportation transportation;
+    @NonNull
+    Integer travelTime;
+    @NonNull
+    Country country;
+    @NonNull
+    RequestType requestType;
+
+    /**
+     * @param originCoordinate       The coordinates of location we should start the search from.
+     * @param destinationCoordinates The coordinates of locations we run the search to. If the class implementing this list
+     *                               does not implement the {@code RandomAccess} interface it will be internally converted into an {@code ArrayList}.
+     * @param transportation         Transportation mode.
+     * @param travelTime             Travel time limit.
+     * @param country                The country to run the search in.
+     */
+    public TimeFilterFastProtoRequest(
+            @NonNull Coordinates originCoordinate,
+            @NonNull List<Coordinates> destinationCoordinates,
+            @NonNull Transportation transportation,
+            @NonNull Integer travelTime,
+            @NonNull Country country,
+            @NonNull RequestType requestType
+    ) {
+
+        this.originCoordinate = originCoordinate;
+        if (destinationCoordinates instanceof RandomAccess) {
+            this.destinationCoordinates = destinationCoordinates;
+        } else {
+            this.destinationCoordinates = new ArrayList<>(destinationCoordinates);
+        }
+        this.transportation = transportation;
+        this.travelTime = travelTime;
+        this.country = country;
+        this.requestType = requestType;
+    }
+
 
     String correlationId;
 
     private byte[] createByteArray() {
-        Coordinates origin = oneToMany.getOriginCoordinate();
+        Coordinates origin = this.getOriginCoordinate();
 
-        RequestsCommon.Coords departure = RequestsCommon
-            .Coords
-            .newBuilder()
-            .setLat(origin.getLat().floatValue())
-            .setLng(origin.getLng().floatValue())
-            .build();
+        RequestsCommon.Coords source = RequestsCommon
+                .Coords
+                .newBuilder()
+                .setLat(this.originCoordinate.getLat().floatValue())
+                .setLng(this.originCoordinate.getLng().floatValue())
+                .build();
 
         RequestsCommon.Transportation transportation = RequestsCommon
-            .Transportation
-            .newBuilder()
-            .setTypeValue(oneToMany.getTransportation().getCode())
-            .build();
+                .Transportation
+                .newBuilder()
+                .setTypeValue(this.transportation.getCode())
+                .build();
 
-        TimeFilterFastRequest.OneToMany.Builder oneToManyBuilder = TimeFilterFastRequest
-            .OneToMany
-            .newBuilder()
-            .setDepartureLocation(departure)
-            .setArrivalTimePeriod(RequestsCommon.TimePeriod.WEEKDAY_MORNING)
-            .setTransportation(transportation)
-            .setTravelTime(oneToMany.getTravelTime());
+        if (requestType == RequestType.ONE_TO_MANY) {
+            TimeFilterFastRequest.OneToMany.Builder oneToManyBuilder = TimeFilterFastRequest
+                    .OneToMany
+                    .newBuilder()
+                    .setDepartureLocation(source)
+                    .setArrivalTimePeriod(RequestsCommon.TimePeriod.WEEKDAY_MORNING)
+                    .setTransportation(transportation)
+                    .setTravelTime(this.travelTime);
 
-        double mult = Math.pow(10, 5);
-        for(Coordinates dest : oneToMany.getDestinationCoordinates()) {
-            oneToManyBuilder.addLocationDeltas((int)Math.round((dest.getLat() - origin.getLat()) * mult));
-            oneToManyBuilder.addLocationDeltas((int)Math.round((dest.getLng() - origin.getLng()) * mult));
+            double mult = Math.pow(10, 5);
+            for (Coordinates dest : this.destinationCoordinates) {
+                oneToManyBuilder.addLocationDeltas((int) Math.round((dest.getLat() - origin.getLat()) * mult));
+                oneToManyBuilder.addLocationDeltas((int) Math.round((dest.getLng() - origin.getLng()) * mult));
+            }
+
+            return TimeFilterFastRequest
+                    .newBuilder()
+                    .setOneToManyRequest(oneToManyBuilder.build())
+                    .build()
+                    .toByteArray();
+        } else {
+            TimeFilterFastRequest.ManyToOne.Builder manyToOneBuilder = TimeFilterFastRequest
+                    .ManyToOne
+                    .newBuilder()
+                    .setArrivalLocation(source)
+                    .setArrivalTimePeriod(RequestsCommon.TimePeriod.WEEKDAY_MORNING)
+                    .setTransportation(transportation)
+                    .setTravelTime(this.travelTime);
+
+            double mult = Math.pow(10, 5);
+            for (Coordinates dest : this.destinationCoordinates) {
+                manyToOneBuilder.addLocationDeltas((int) Math.round((dest.getLat() - origin.getLat()) * mult));
+                manyToOneBuilder.addLocationDeltas((int) Math.round((dest.getLng() - origin.getLng()) * mult));
+            }
+
+            return TimeFilterFastRequest
+                    .newBuilder()
+                    .setManyToOneRequest(manyToOneBuilder.build())
+                    .build()
+                    .toByteArray();
         }
-
-        return TimeFilterFastRequest
-            .newBuilder()
-            .setOneToManyRequest(oneToManyBuilder.build())
-            .build()
-            .toByteArray();
     }
 
     @Override
     public List<Coordinates> getDestinationCoordinates() {
-        return oneToMany.getDestinationCoordinates();
+        return this.destinationCoordinates;
     }
 
     @Override
@@ -79,26 +145,21 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
          */
 
         float loadFactor = 0.1f;
-        List<Coordinates> originalDestinations = oneToMany.getDestinationCoordinates();
-        if (originalDestinations.size() <= batchSizeHint * (loadFactor + 1)) {
+        if (this.destinationCoordinates.size() <= batchSizeHint * (loadFactor + 1)) {
             return Collections.singletonList(this);
         } else {
-            int batchCount = originalDestinations.size() / batchSizeHint;
-            if (originalDestinations.size() % batchSizeHint > 0 &&
-                originalDestinations.size() % batchSizeHint < loadFactor * batchSizeHint) {
+            int batchCount = this.destinationCoordinates.size() / batchSizeHint;
+            if (this.destinationCoordinates.size() % batchSizeHint > 0 &&
+                    this.destinationCoordinates.size() % batchSizeHint < loadFactor * batchSizeHint) {
                 batchCount -= 1;
             }
-            int batchSize = (int) Math.ceil((float) originalDestinations.size() / batchCount);
+            int batchSize = (int) Math.ceil((float) this.destinationCoordinates.size() / batchCount);
 
             ArrayList<ProtoRequest<TimeFilterFastProtoResponse>> batchedDestinations = new ArrayList<>(batchCount);
 
-            for (int offset = 0; offset < originalDestinations.size(); offset += batchSize) {
-                List<Coordinates> batch = originalDestinations.subList(offset, Math.min(offset + batchSize, originalDestinations.size()));
-                batchedDestinations.add(
-                    this.withOneToMany(
-                        oneToMany.withDestinationCoordinates(batch)
-                    )
-                );
+            for (int offset = 0; offset < this.destinationCoordinates.size(); offset += batchSize) {
+                List<Coordinates> batch = this.destinationCoordinates.subList(offset, Math.min(offset + batchSize, this.destinationCoordinates.size()));
+                batchedDestinations.add(this.withDestinationCoordinates(batch));
             }
             return batchedDestinations;
         }
@@ -107,9 +168,9 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
     @Override
     public TimeFilterFastProtoResponse merge(List<TimeFilterFastProtoResponse> responses) {
         List<Integer> times = responses
-            .stream()
-            .flatMap(resp -> resp.getTravelTimes().stream())
-            .collect(Collectors.toList());
+                .stream()
+                .flatMap(resp -> resp.getTravelTimes().stream())
+                .collect(Collectors.toList());
         return new TimeFilterFastProtoResponse(times);
     }
 
@@ -119,9 +180,9 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
     }
 
     private Either<TravelTimeError, TimeFilterFastProtoResponse> parseResponse(
-        TimeFilterFastResponseOuterClass.TimeFilterFastResponse response
+            TimeFilterFastResponseOuterClass.TimeFilterFastResponse response
     ) {
-        if(response.hasError())
+        if (response.hasError())
             return Either.left(new ProtoError(response.getError().toString()));
         else
             return Either.right(new TimeFilterFastProtoResponse(response.getProperties().getTravelTimesList()));
@@ -138,8 +199,8 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
 
     @Override
     public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
-        String countryCode = oneToMany.getCountry().getValue();
-        String transportation = oneToMany.getTransportation().getValue();
+        String countryCode = this.country.getValue();
+        String transportation = this.transportation.getValue();
         val uri = baseUri.newBuilder()
                 .addPathSegments(countryCode)
                 .addPathSegments("time-filter/fast")
