@@ -254,7 +254,7 @@ Body attributes:
 * transportation: Transportation type;
 * travelTime: Time limit;
 * country: Return the results that are within the specified country;
-* requestType: MANY_TO_ONE or ONE_TO_MANY.
+* requestType: MANY_TO_ONE(single departure location and multiple arrival locations) or ONE_TO_MANY (single arrival location and multiple departure locations).
 
 ```java
 
