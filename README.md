@@ -548,6 +548,8 @@ URI baseUri = "BASE_URI";
 
 OkHttpClient client = new OkHttpClient
   .Builder()
+  .readTimeout(90, TimeUnit.SECONDS)  
+  .writeTimeout(90, TimeUnit.SECONDS)  
   .callTimeout(120, TimeUnit.SECONDS)  
   .build();
 
