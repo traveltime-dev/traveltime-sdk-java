@@ -33,4 +33,5 @@ public class ArrivalSearch {
     LevelOfDetail levelOfDetail;
     Boolean singleShape;
     Boolean noHoles;
+    Boolean snapPenalty;
 }

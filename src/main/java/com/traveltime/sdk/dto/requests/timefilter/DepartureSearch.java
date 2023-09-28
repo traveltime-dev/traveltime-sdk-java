@@ -37,4 +37,5 @@ public class DepartureSearch {
     List<Property> properties;
     @Valid
     FullRange range;
+    Boolean snapPenalty;
 }

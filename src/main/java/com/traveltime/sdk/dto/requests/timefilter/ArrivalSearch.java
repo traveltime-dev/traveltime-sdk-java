@@ -36,4 +36,5 @@ public class ArrivalSearch {
     List<Property> properties;
     @Valid
     FullRange range;
+    Boolean snapPenalty;
 }
