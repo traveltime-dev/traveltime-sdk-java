@@ -148,7 +148,8 @@ public class TimeMapTest {
             new Range(true, 400),
             new SimpleLevelOfDetail(Level.MEDIUM),
             false,
-            false
+            false,
+            null
         );
 
         return Collections.singletonList(as);
@@ -164,7 +165,8 @@ public class TimeMapTest {
             new Range(true, 400),
             new SimpleLevelOfDetail(Level.MEDIUM),
             false,
-            false
+            false,
+            null
         );
         return Collections.singletonList(ds);
     }

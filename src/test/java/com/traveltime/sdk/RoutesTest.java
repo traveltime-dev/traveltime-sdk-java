@@ -64,7 +64,8 @@ public class RoutesTest {
             transportation,
             Instant.now(),
             Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE),
-            new FullRange(true, 1, 300)
+            new FullRange(true, 1, 300),
+            null
         );
         return Collections.singletonList(ds);
     }
@@ -81,7 +82,8 @@ public class RoutesTest {
             transportation,
             Instant.now(),
             Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES),
-            new FullRange(true, 1, 300)
+            new FullRange(true, 1, 300),
+            null
         );
         return Collections.singletonList(as);
     }
