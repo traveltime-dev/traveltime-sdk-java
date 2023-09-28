@@ -3,6 +3,7 @@ package com.traveltime.sdk.dto.requests.timemap;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.SnapPenalty;
 import com.traveltime.sdk.dto.common.levelofdetail.LevelOfDetail;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import jakarta.validation.Valid;
@@ -35,5 +36,5 @@ public class DepartureSearch {
     LevelOfDetail levelOfDetail;
     Boolean singleShape;
     Boolean noHoles;
-    Boolean snapPenalty;
+    SnapPenalty snapPenalty;
 }
