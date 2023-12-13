@@ -559,6 +559,25 @@ TravelTimeSDK sdk = TravelTimeSDK
   .build();
 ```
 
+## Development
+
+We use Maven as a build automation tool in this project.
+
+To run unit tests you can execute:
+
+```shell
+mvn test
+```
+
+Please note that you will need to export some valid credentials as environment variables in your shell to make tests work:
+
+```shell
+export APP_ID="..."
+export API_KEY="..."
+export PROTO_USERNAME="..."
+export PROTO_PASSWORD="..."
+```
+
 ## Support
 
 If you have problems, please write an issue or contact us by writing to support@traveltime.com
