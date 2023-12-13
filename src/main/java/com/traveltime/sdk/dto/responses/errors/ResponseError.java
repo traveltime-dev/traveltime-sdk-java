@@ -1,6 +1,7 @@
 package com.traveltime.sdk.dto.responses.errors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.vavr.control.Option;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
@@ -24,6 +25,10 @@ public class ResponseError implements TravelTimeError {
     String documentationLink;
     @NonNull
     Map<String, List<String>> additionalInfo;
+
+    @Override
+    @JsonIgnore
+    public Option<Throwable> retrieveCause() { return Option.none(); }
 
     @Override
     @JsonIgnore
