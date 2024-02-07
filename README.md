@@ -544,7 +544,7 @@ In order to pass custom parameters, you will have to create TravelTimeSDK builde
 ```java
 TravelTimeCredentials credentials = new TravelTimeCredentials("APP_ID", "API_KEY");
 
-URI baseUri = "BASE_URI";
+URI baseUri = URI.create("BASE_URI");
 
 OkHttpClient client = new OkHttpClient
   .Builder()
