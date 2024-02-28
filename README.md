@@ -194,7 +194,7 @@ if(response.isRight()) {
 ```
 
 ### [Time Filter (Fast)](https://docs.traveltime.com/api/reference/time-filter-fast)
-A very fast version of `Time Filter`. However, the request parameters are much more limited. Currently only supports UK and Ireland.
+A very fast version of `Time Filter`. However, the request parameters are much more limited.
 
 ```java
 List < Location > locations = Arrays.asList(
