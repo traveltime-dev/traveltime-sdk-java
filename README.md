@@ -4,7 +4,7 @@
 
 <div data-for-docs="intro-1"></div>
 
-This open-source library allows you to access [TravelTime API](http://docs.traveltime.com/overview/introduction) endpoints. TravelTime SDK is published for Java 8.
+This open-source library allows you to access [TravelTime API](https://docs.traveltime.com/overview/introduction) endpoints. TravelTime SDK is published for Java 8.
 
 ## Maven, Java package
 
