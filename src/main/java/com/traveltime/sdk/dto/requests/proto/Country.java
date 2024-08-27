@@ -21,6 +21,7 @@ public interface Country {
     Country ITALY = Countries.ITALY;
     Country JAPAN = Countries.JAPAN;
     Country LATVIA = Countries.LATVIA;
+    Country LICHENSTEIN = Countries.SWITZERLAND;
     Country LITHUANIA = Countries.LITHUANIA;
     Country NETHERLANDS = Countries.NETHERLANDS;
     Country NEW_ZEALAND = Countries.NEW_ZEALAND;
