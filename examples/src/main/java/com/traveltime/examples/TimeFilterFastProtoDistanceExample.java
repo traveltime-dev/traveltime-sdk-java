@@ -4,7 +4,7 @@ import com.traveltime.sdk.TravelTimeSDK;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.TimeFilterFastProtoDistanceRequest;
-import com.traveltime.sdk.dto.requests.protodistance.Country;
+import com.traveltime.sdk.dto.requests.proto.Country;
 import com.traveltime.sdk.dto.requests.protodistance.Transportation;
 import lombok.val;
 

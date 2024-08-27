@@ -5,7 +5,7 @@ import com.igeolise.traveltime.rabbitmq.requests.TimeFilterFastRequestOuterClass
 import com.igeolise.traveltime.rabbitmq.responses.TimeFilterFastResponseOuterClass;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
-import com.traveltime.sdk.dto.requests.protodistance.Country;
+import com.traveltime.sdk.dto.requests.proto.Country;
 import com.traveltime.sdk.dto.requests.protodistance.Transportation;
 import com.traveltime.sdk.dto.responses.TimeFilterFastProtoDistanceResponse;
 import com.traveltime.sdk.dto.responses.errors.ProtoError;
