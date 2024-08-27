@@ -29,6 +29,7 @@ public interface Country {
     Country POLAND = Countries.POLAND;
     Country PORTUGAL = Countries.PORTUGAL;
     Country ROMANIA = Countries.ROMANIA;
+    Country SERBIA = Countries.SERBIA;
     Country SINGAPORE = Countries.SINGAPORE;
     Country SOUTH_AFRICA = Countries.SOUTH_AFRICA;
     Country SPAIN = Countries.SPAIN;

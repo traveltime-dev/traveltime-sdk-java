@@ -30,6 +30,7 @@ public enum Countries implements Country {
     POLAND("pl"),
     PORTUGAL("pt"),
     ROMANIA("ro"),
+    SERBIA("rs"),
     SINGAPORE("sg"),
     SOUTH_AFRICA("za"),
     SPAIN("es"),
