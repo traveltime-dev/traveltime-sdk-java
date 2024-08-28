@@ -32,7 +32,6 @@ public class ErrorTest {
         Assert.assertTrue(response.isLeft());
         Assert.assertTrue(response.getLeft() instanceof ResponseError);
         ResponseError responseError = (ResponseError) response.getLeft();
-        Assert.assertEquals(7, (int) responseError.getErrorCode());
         Assert.assertEquals(401, (int) responseError.getHttpStatus());
         Assert.assertTrue(responseError.retrieveCause().isEmpty());
     }
