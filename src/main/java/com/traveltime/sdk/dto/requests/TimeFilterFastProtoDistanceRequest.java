@@ -5,6 +5,7 @@ import com.igeolise.traveltime.rabbitmq.requests.TimeFilterFastRequestOuterClass
 import com.igeolise.traveltime.rabbitmq.responses.TimeFilterFastResponseOuterClass;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.requests.proto.RequestType;
 import com.traveltime.sdk.dto.requests.proto.Country;
 import com.traveltime.sdk.dto.requests.protodistance.Transportation;
 import com.traveltime.sdk.dto.responses.TimeFilterFastProtoDistanceResponse;
@@ -38,6 +39,8 @@ public class TimeFilterFastProtoDistanceRequest extends ProtoRequest<TimeFilterF
     Transportation transportation;
     @NonNull
     Integer travelTime;
+    @NonNull
+    RequestType requestType;
 
     String correlationId;
 
@@ -56,26 +59,49 @@ public class TimeFilterFastProtoDistanceRequest extends ProtoRequest<TimeFilterF
                 .setTypeValue(transportation.getCode())
                 .build();
 
-        TimeFilterFastRequestOuterClass.TimeFilterFastRequest.OneToMany.Builder oneToManyBuilder = TimeFilterFastRequestOuterClass.TimeFilterFastRequest
-                .OneToMany
-                .newBuilder()
-                .setDepartureLocation(departure)
-                .setArrivalTimePeriod(RequestsCommon.TimePeriod.WEEKDAY_MORNING)
-                .addProperties(TimeFilterFastRequestOuterClass.TimeFilterFastRequest.Property.DISTANCES)
-                .setTransportation(transportationType)
-                .setTravelTime(travelTime);
+        if (requestType == RequestType.ONE_TO_MANY) {
+            TimeFilterFastRequestOuterClass.TimeFilterFastRequest.OneToMany.Builder oneToManyBuilder = TimeFilterFastRequestOuterClass.TimeFilterFastRequest
+                    .OneToMany
+                    .newBuilder()
+                    .setDepartureLocation(departure)
+                    .setArrivalTimePeriod(RequestsCommon.TimePeriod.WEEKDAY_MORNING)
+                    .addProperties(TimeFilterFastRequestOuterClass.TimeFilterFastRequest.Property.DISTANCES)
+                    .setTransportation(transportationType)
+                    .setTravelTime(travelTime);
 
-        double mult = Math.pow(10, 5);
-        for(Coordinates dest : destinationCoordinates) {
-            oneToManyBuilder.addLocationDeltas((int)Math.round((dest.getLat() - originCoordinate.getLat()) * mult));
-            oneToManyBuilder.addLocationDeltas((int)Math.round((dest.getLng() - originCoordinate.getLng()) * mult));
+            double mult = Math.pow(10, 5);
+            for(Coordinates dest : destinationCoordinates) {
+                oneToManyBuilder.addLocationDeltas((int)Math.round((dest.getLat() - originCoordinate.getLat()) * mult));
+                oneToManyBuilder.addLocationDeltas((int)Math.round((dest.getLng() - originCoordinate.getLng()) * mult));
+            }
+
+            return TimeFilterFastRequestOuterClass.TimeFilterFastRequest
+                    .newBuilder()
+                    .setOneToManyRequest(oneToManyBuilder.build())
+                    .build()
+                    .toByteArray();
+        } else {
+            TimeFilterFastRequestOuterClass.TimeFilterFastRequest.ManyToOne.Builder manyToOneBuilder = TimeFilterFastRequestOuterClass.TimeFilterFastRequest
+                    .ManyToOne
+                    .newBuilder()
+                    .setArrivalLocation(departure)
+                    .setArrivalTimePeriod(RequestsCommon.TimePeriod.WEEKDAY_MORNING)
+                    .addProperties(TimeFilterFastRequestOuterClass.TimeFilterFastRequest.Property.DISTANCES)
+                    .setTransportation(transportationType)
+                    .setTravelTime(travelTime);
+
+            double mult = Math.pow(10, 5);
+            for(Coordinates dest : destinationCoordinates) {
+                manyToOneBuilder.addLocationDeltas((int)Math.round((dest.getLat() - originCoordinate.getLat()) * mult));
+                manyToOneBuilder.addLocationDeltas((int)Math.round((dest.getLng() - originCoordinate.getLng()) * mult));
+            }
+
+            return TimeFilterFastRequestOuterClass.TimeFilterFastRequest
+                    .newBuilder()
+                    .setManyToOneRequest(manyToOneBuilder.build())
+                    .build()
+                    .toByteArray();
         }
-
-        return TimeFilterFastRequestOuterClass.TimeFilterFastRequest
-                .newBuilder()
-                .setOneToManyRequest(oneToManyBuilder.build())
-                .build()
-                .toByteArray();
     }
 
     @Override
@@ -169,6 +195,28 @@ public class TimeFilterFastProtoDistanceRequest extends ProtoRequest<TimeFilterF
         @NonNull Transportation transportation,
         @NonNull Country country
     ) {
+        this(originCoordinate, destinationCoordinates, travelTime, transportation, country, RequestType.ONE_TO_MANY);
+    }
+
+    public TimeFilterFastProtoDistanceRequest(
+        @NonNull Coordinates originCoordinate,
+        @NonNull List<Coordinates> destinationCoordinates,
+        @NonNull Integer travelTime,
+        @NonNull Transportation transportation,
+        @NonNull Country country,
+        @NonNull String correlationId
+    ) {
+        this(originCoordinate, destinationCoordinates, travelTime, transportation, country, RequestType.ONE_TO_MANY, correlationId);
+    }
+
+    public TimeFilterFastProtoDistanceRequest(
+        @NonNull Coordinates originCoordinate,
+        @NonNull List<Coordinates> destinationCoordinates,
+        @NonNull Integer travelTime,
+        @NonNull Transportation transportation,
+        @NonNull Country country,
+        @NonNull RequestType requestType
+    ) {
         this.originCoordinate = originCoordinate;
         if (destinationCoordinates instanceof RandomAccess) {
             this.destinationCoordinates = destinationCoordinates;
@@ -178,6 +226,7 @@ public class TimeFilterFastProtoDistanceRequest extends ProtoRequest<TimeFilterF
         this.travelTime = travelTime;
         this.transportation = transportation;
         this.country = country;
+        this.requestType = requestType;
         this.correlationId = null;
     }
 
@@ -187,6 +236,7 @@ public class TimeFilterFastProtoDistanceRequest extends ProtoRequest<TimeFilterF
         @NonNull Integer travelTime,
         @NonNull Transportation transportation,
         @NonNull Country country,
+        @NonNull RequestType requestType,
         @NonNull String correlationId
     ) {
         this.originCoordinate = originCoordinate;
@@ -198,6 +248,7 @@ public class TimeFilterFastProtoDistanceRequest extends ProtoRequest<TimeFilterF
         this.travelTime = travelTime;
         this.transportation = transportation;
         this.country = country;
+        this.requestType = requestType;
         this.correlationId = correlationId;
     }
 }
