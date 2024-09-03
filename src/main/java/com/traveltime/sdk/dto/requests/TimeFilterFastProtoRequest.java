@@ -107,7 +107,6 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
                 oneToManyBuilder.addProperties(TimeFilterFastRequest.Property.DISTANCES);
             }
 
-
             double mult = Math.pow(10, 5);
             for (Coordinates dest : this.destinationCoordinates) {
                 oneToManyBuilder.addLocationDeltas((int) Math.round((dest.getLat() - origin.getLat()) * mult));
@@ -137,8 +136,6 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
                 manyToOneBuilder.addLocationDeltas((int) Math.round((dest.getLat() - origin.getLat()) * mult));
                 manyToOneBuilder.addLocationDeltas((int) Math.round((dest.getLng() - origin.getLng()) * mult));
             }
-
-
 
             return TimeFilterFastRequest
                     .newBuilder()
