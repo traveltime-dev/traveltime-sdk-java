@@ -191,7 +191,7 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
                 .stream()
                 .flatMap(resp -> resp.getDistances().stream())
                 .collect(Collectors.toList());
-        // toDo: check for nulls
+
         return new TimeFilterFastProtoResponse(times, distances);
     }
 
