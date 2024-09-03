@@ -257,9 +257,9 @@ Body attributes:
 * travelTime: Time limit;
 * country: Return the results that are within the specified country;
 * requestType: MANY_TO_ONE(single arrival location and multiple departure locations) or ONE_TO_MANY (single departure location and multiple arrival locations).
+* withDistance: Specifies if distance also should be returned.
 
 ```java
-
 TimeFilterFastProtoRequest request = TimeFilterFastProtoRequest
     .builder()
     .originCoordinate(new Coordinates(51.425709, -0.122061))
@@ -267,7 +267,8 @@ TimeFilterFastProtoRequest request = TimeFilterFastProtoRequest
     .transportation(Transportation.DRIVING_FERRY)
     .travelTime(7200)
     .country(Country.NETHERLANDS)
-    .requestType(RequestType.ONE_TO_MANY)    
+    .requestType(RequestType.ONE_TO_MANY)
+    .withDistance(false)    
     .build();
 
 Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
