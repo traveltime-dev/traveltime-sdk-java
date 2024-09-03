@@ -203,7 +203,12 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
         if (response.hasError())
             return Either.left(new ProtoError(response.getError().toString()));
         else
-            return Either.right(new TimeFilterFastProtoResponse(response.getProperties().getTravelTimesList(), response.getProperties().getDistancesList()));
+            return Either.right(
+                new TimeFilterFastProtoResponse(
+                    response.getProperties().getTravelTimesList(),
+                    response.getProperties().getDistancesList()
+                )
+            );
     }
 
     @Override
