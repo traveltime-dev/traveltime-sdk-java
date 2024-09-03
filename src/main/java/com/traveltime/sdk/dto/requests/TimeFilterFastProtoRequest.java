@@ -41,6 +41,7 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
     Country country;
     @NonNull
     RequestType requestType;
+    boolean withDistance;
 
     /**
      * @param originCoordinate       The coordinates of location we should start the search from.
@@ -49,6 +50,7 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
      * @param transportation         Transportation mode.
      * @param travelTime             Travel time limit.
      * @param country                The country to run the search in.
+     * @param withDistance           Specifies if distance also should be returned.
      */
     public TimeFilterFastProtoRequest(
             @NonNull Coordinates originCoordinate,
@@ -56,7 +58,8 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
             @NonNull Transportation transportation,
             @NonNull Integer travelTime,
             @NonNull Country country,
-            @NonNull RequestType requestType
+            @NonNull RequestType requestType,
+            boolean withDistance
     ) {
 
         this.originCoordinate = originCoordinate;
@@ -69,6 +72,7 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
         this.travelTime = travelTime;
         this.country = country;
         this.requestType = requestType;
+        this.withDistance = withDistance;
     }
 
 
@@ -99,6 +103,11 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
                     .setTransportation(transportation)
                     .setTravelTime(this.travelTime);
 
+            if (this.withDistance) {
+                oneToManyBuilder.addProperties(TimeFilterFastRequest.Property.DISTANCES);
+            }
+
+
             double mult = Math.pow(10, 5);
             for (Coordinates dest : this.destinationCoordinates) {
                 oneToManyBuilder.addLocationDeltas((int) Math.round((dest.getLat() - origin.getLat()) * mult));
@@ -119,11 +128,17 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
                     .setTransportation(transportation)
                     .setTravelTime(this.travelTime);
 
+            if (this.withDistance) {
+                manyToOneBuilder.addProperties(TimeFilterFastRequest.Property.DISTANCES);
+            }
+
             double mult = Math.pow(10, 5);
             for (Coordinates dest : this.destinationCoordinates) {
                 manyToOneBuilder.addLocationDeltas((int) Math.round((dest.getLat() - origin.getLat()) * mult));
                 manyToOneBuilder.addLocationDeltas((int) Math.round((dest.getLng() - origin.getLng()) * mult));
             }
+
+
 
             return TimeFilterFastRequest
                     .newBuilder()
@@ -171,7 +186,13 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
                 .stream()
                 .flatMap(resp -> resp.getTravelTimes().stream())
                 .collect(Collectors.toList());
-        return new TimeFilterFastProtoResponse(times);
+
+        List<Integer> distances = responses
+                .stream()
+                .flatMap(resp -> resp.getDistances().stream())
+                .collect(Collectors.toList());
+        // toDo: check for nulls
+        return new TimeFilterFastProtoResponse(times, distances);
     }
 
     @Override
@@ -185,7 +206,7 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
         if (response.hasError())
             return Either.left(new ProtoError(response.getError().toString()));
         else
-            return Either.right(new TimeFilterFastProtoResponse(response.getProperties().getTravelTimesList()));
+            return Either.right(new TimeFilterFastProtoResponse(response.getProperties().getTravelTimesList(), response.getProperties().getDistancesList()));
     }
 
     @Override

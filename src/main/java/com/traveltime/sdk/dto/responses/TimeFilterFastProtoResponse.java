@@ -11,4 +11,5 @@ import java.util.List;
 public class TimeFilterFastProtoResponse {
     @NonNull
     List<Integer> travelTimes;
+    List<Integer> distances;
 }
