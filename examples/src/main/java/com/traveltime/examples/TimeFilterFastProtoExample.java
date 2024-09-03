@@ -56,7 +56,8 @@ public class TimeFilterFastProtoExample {
             Transportation.Mode.DRIVING,
             7200,
             Countries.NETHERLANDS,
-            false
+            false,
+            null
         );
 
         return new TimeFilterFastProtoRequest(oneToMany);

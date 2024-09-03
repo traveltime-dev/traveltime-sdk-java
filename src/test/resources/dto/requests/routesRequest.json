@@ -26,7 +26,11 @@
       "type" : "driving"
     },
     "departure_time" : "2021-11-08T08:00:00Z",
-    "properties" : [ "travel_time", "distance", "route" ]
+    "properties" : [ "travel_time", "distance", "route" ],
+    "snapping" : {
+      "penalty" : "disabled",
+      "accept_roads" : "any_drivable"
+    }
   } ],
   "arrival_searches" : [ {
     "id" : "arrival search example",

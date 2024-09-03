@@ -5,6 +5,7 @@ import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.FullRange;
 import com.traveltime.sdk.dto.common.Location;
 import com.traveltime.sdk.dto.common.Property;
+import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
 import com.traveltime.sdk.dto.common.transportationfast.DrivingAndPublicTransport;
 import com.traveltime.sdk.dto.requests.TimeFilterFastRequest;
@@ -83,7 +84,11 @@ public class TimeFilterTest {
             DrivingAndPublicTransport.builder().build(),
             900,
             "weekday_morning",
-            Arrays.asList(Property.TRAVEL_TIME, Property.FARES)
+            Arrays.asList(Property.TRAVEL_TIME, Property.FARES),
+            Snapping.builder()
+                .acceptRoads(Snapping.AcceptRoads.BOTH_DRIVABLE_AND_WALKABLE)
+                .penalty(Snapping.SnapPenalty.ENABLED)
+                .build()
         );
 
         return Collections.singletonList(manyToOne);
@@ -100,7 +105,11 @@ public class TimeFilterTest {
             DrivingAndPublicTransport.builder().build(),
             900,
             "weekday_morning",
-            Arrays.asList(Property.TRAVEL_TIME, Property.FARES)
+            Arrays.asList(Property.TRAVEL_TIME, Property.FARES),
+            Snapping.builder()
+                .acceptRoads(Snapping.AcceptRoads.ANY_DRIVABLE)
+                .penalty(Snapping.SnapPenalty.DISABLED)
+                .build()
         );
 
         return Collections.singletonList(oneToMany);

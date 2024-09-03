@@ -75,7 +75,8 @@ public class TimeMapExample {
             null,
             null,
             false,
-            false
+            false,
+            null
         );
 
         return new TimeMapWktRequest(

@@ -39,7 +39,10 @@
       },
       "travel_time" : 1900,
       "arrival_time_period" : "weekday_morning",
-      "properties" : [ "travel_time", "fares" ]
+      "properties" : [ "travel_time", "fares" ],
+      "snapping" : {
+        "penalty" : "enabled"
+      }
     } ]
   }
 }

@@ -53,7 +53,8 @@ public class TimeFilterPostcodesTest {
             Instant.now(),
             900,
             Collections.singletonList(Property.TRAVEL_TIME),
-            new FullRange(true, 1, 300)
+            new FullRange(true, 1, 300),
+            null
         );
         return Collections.singletonList(ds);
     }
@@ -66,7 +67,8 @@ public class TimeFilterPostcodesTest {
             Instant.now(),
             900,
             Collections.singletonList(Property.TRAVEL_TIME),
-            new FullRange(true, 1, 300)
+            new FullRange(true, 1, 300),
+            null
         );
         return Collections.singletonList(as);
     }

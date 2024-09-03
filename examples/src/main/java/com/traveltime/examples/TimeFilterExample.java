@@ -68,7 +68,8 @@ public class TimeFilterExample {
             new Driving(),
             7200,
             "weekday_morning",
-            Collections.singletonList(Property.TRAVEL_TIME)
+            Collections.singletonList(Property.TRAVEL_TIME),
+            null
         );
 
         val arrivalSearches = new ArrivalSearches(Collections.emptyList(), Collections.singletonList(oneToMany));

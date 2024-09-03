@@ -29,6 +29,7 @@ message TimeFilterFastRequest {
     TimePeriod arrivalTimePeriod = 4;
     sint32 travelTime = 5;
     repeated Property properties = 6;
+    Snapping snapping = 7;
   }
 
   message ManyToOne {
@@ -51,6 +52,7 @@ message TimeFilterFastRequest {
     TimePeriod arrivalTimePeriod = 4;
     sint32 travelTime = 5;
     repeated Property properties = 6;
+    Snapping snapping = 7;
   }
 
   OneToMany oneToManyRequest = 1;
