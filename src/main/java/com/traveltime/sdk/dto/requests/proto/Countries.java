@@ -23,6 +23,7 @@ public enum Countries implements Country {
     JAPAN("jp"),
     LATVIA("lv"),
     LITHUANIA("lt"),
+    LICHTENSTEIN("ch"),
     NETHERLANDS("nl"),
     NEW_ZEALAND("nz"),
     NORWAY("no"),

@@ -7,14 +7,6 @@ public interface Transportation {
     String getValue();
     Integer getCode();
 
-    Transportation PUBLIC_TRANSPORT = Modes.PUBLIC_TRANSPORT;
-    Transportation WALKING_FERRY = Modes.WALKING_FERRY;
-    Transportation CYCLING_FERRY = Modes.CYCLING_FERRY;
-    Transportation DRIVING_FERRY = Modes.DRIVING_FERRY;
-    Transportation WALKING = Modes.WALKING;
-    Transportation CYCLING = Modes.CYCLING;
-    Transportation DRIVING = Modes.DRIVING;
-
     @Getter
     @AllArgsConstructor
     enum Modes implements Transportation {

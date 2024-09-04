@@ -4,7 +4,7 @@ import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.ProtoRequest;
 import com.traveltime.sdk.dto.requests.TimeFilterFastProtoRequest;
-import com.traveltime.sdk.dto.requests.proto.Country;
+import com.traveltime.sdk.dto.requests.proto.Countries;
 import com.traveltime.sdk.dto.requests.proto.RequestType;
 import com.traveltime.sdk.dto.requests.proto.Transportation;
 import com.traveltime.sdk.dto.responses.TimeFilterFastProtoResponse;
@@ -57,9 +57,9 @@ public class TimeFilterFastProtoTest {
         TimeFilterFastProtoRequest request = new TimeFilterFastProtoRequest(
              origin,
              destinations,
-             Transportation.DRIVING_FERRY,
+             Transportation.Modes.DRIVING_FERRY,
              7200,
-             Country.UNITED_KINGDOM,
+             Countries.UNITED_KINGDOM,
              RequestType.ONE_TO_MANY,
              true
         );
@@ -183,9 +183,9 @@ public class TimeFilterFastProtoTest {
         return new TimeFilterFastProtoRequest(
                 origin,
                 destinations,
-                Transportation.PUBLIC_TRANSPORT,
+                Transportation.Modes.PUBLIC_TRANSPORT,
                 7200,
-                Country.UNITED_KINGDOM,
+                Countries.UNITED_KINGDOM,
                 RequestType.MANY_TO_ONE,
                 false
         );
@@ -199,9 +199,9 @@ public class TimeFilterFastProtoTest {
         return new TimeFilterFastProtoRequest(
                 origin,
                 destinations,
-                Transportation.PUBLIC_TRANSPORT,
+                Transportation.Modes.PUBLIC_TRANSPORT,
                 7200,
-                Country.UNITED_KINGDOM,
+                Countries.UNITED_KINGDOM,
                 RequestType.ONE_TO_MANY,
                 false
         );
