@@ -51,6 +51,25 @@ public class TimeFilterFastProtoTest {
     }
 
     @Test
+    public void shouldReturnDistanceWhenFlagIsSpecified() {
+        Coordinates origin = new Coordinates(51.425709, -0.122061);
+        List<Coordinates> destinations = Collections.singletonList(new Coordinates(51.348605, -0.314783));
+        TimeFilterFastProtoRequest request = new TimeFilterFastProtoRequest(
+             origin,
+             destinations,
+             Transportation.DRIVING_FERRY,
+             7200,
+             Country.UNITED_KINGDOM,
+             RequestType.ONE_TO_MANY,
+             true
+        );
+        Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
+
+        Assert.assertEquals(1, response.get().getDistances().size());
+        Assert.assertEquals(1, response.get().getTravelTimes().size());
+    }
+
+    @Test
     public void shouldSplitProtoRequestsTest() {
         TimeFilterFastProtoRequest request = oneToMany(
                 new Coordinates(51.425709, -0.122061),
@@ -137,7 +156,6 @@ public class TimeFilterFastProtoTest {
                 new Coordinates(51.323432, -0.324123),
                 new Coordinates(51.312331, -0.324322),
                 new Coordinates(51.323124, -0.312343)
-
         );
         CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>>[] futures = new CompletableFuture[]{
                 sdk.sendProtoAsync(oneToMany(coordinates.get(0), coordinates)),
@@ -168,7 +186,8 @@ public class TimeFilterFastProtoTest {
                 Transportation.PUBLIC_TRANSPORT,
                 7200,
                 Country.UNITED_KINGDOM,
-                RequestType.MANY_TO_ONE
+                RequestType.MANY_TO_ONE,
+                false
         );
     }
 
@@ -183,7 +202,8 @@ public class TimeFilterFastProtoTest {
                 Transportation.PUBLIC_TRANSPORT,
                 7200,
                 Country.UNITED_KINGDOM,
-                RequestType.ONE_TO_MANY
+                RequestType.ONE_TO_MANY,
+                false
         );
     }
 }
