@@ -53,9 +53,9 @@ public class TimeFilterFastProtoExample {
         val oneToMany = new OneToMany(
             origin,
             destinations,
-            Transportation.DRIVING,
+            Transportation.Mode.DRIVING,
             7200,
-            Country.NETHERLANDS
+            Countries.NETHERLANDS
         );
 
         return new TimeFilterFastProtoRequest(oneToMany);
