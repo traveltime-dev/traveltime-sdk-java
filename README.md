@@ -210,7 +210,8 @@ ManyToOne manyToOne = new ManyToOne(
     new PublicTransport(),
     1900,
     "weekday_morning",
-    Arrays.asList(Property.TRAVEL_TIME, Property.FARES)
+    Arrays.asList(Property.TRAVEL_TIME, Property.FARES),
+    null
 );
     
 OneToMany oneToMany = new OneToMany(
@@ -220,7 +221,8 @@ OneToMany oneToMany = new OneToMany(
     new PublicTransport(),
     1900,
     "weekday_morning",
-    Arrays.asList(Property.TRAVEL_TIME, Property.FARES)
+    Arrays.asList(Property.TRAVEL_TIME, Property.FARES),
+    null
 );
     
 ArrivalSearches arrivalSearches = new ArrivalSearches(
@@ -258,6 +260,7 @@ Body attributes:
 * country: Return the results that are within the specified country;
 * requestType: MANY_TO_ONE(single arrival location and multiple departure locations) or ONE_TO_MANY (single departure location and multiple arrival locations).
 * withDistance: Specifies if distance also should be returned.
+* snapping: Specifies snapping parameters. (optional)
 
 ```java
 TimeFilterFastProtoRequest request = TimeFilterFastProtoRequest
@@ -268,7 +271,13 @@ TimeFilterFastProtoRequest request = TimeFilterFastProtoRequest
     .travelTime(7200)
     .country(Countries.NETHERLANDS)
     .requestType(RequestType.ONE_TO_MANY)
-    .withDistance(false)    
+    .withDistance(false)
+    .snapping(Snapping
+        .builder()
+        .penalty(Snapping.SnapPenalty.ENABLED)
+        .acceptRoads(Snapping.AcceptRoads.ANY_DRIVABLE)
+        .build()
+    )
     .build();
 
 Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
