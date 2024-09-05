@@ -3,7 +3,7 @@ package com.traveltime.sdk.dto.requests.timefilter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.dto.common.FullRange;
 import com.traveltime.sdk.dto.common.Property;
-import com.traveltime.sdk.dto.common.SnapPenalty;
+import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
@@ -37,5 +37,5 @@ public class ArrivalSearch {
     List<Property> properties;
     @Valid
     FullRange range;
-    SnapPenalty snapPenalty;
+    Snapping snapping;
 }

@@ -1,6 +1,7 @@
 package com.traveltime.sdk.dto.requests.timemapfast;
 
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.common.transportationfast.Transportation;
 import com.traveltime.sdk.dto.common.levelofdetail.LevelOfDetail;
 import lombok.AllArgsConstructor;
@@ -25,4 +26,5 @@ public class ManyToOne {
     @NonNull
     Transportation transportation;
     LevelOfDetail levelOfDetail;
+    Snapping snapping;
 }

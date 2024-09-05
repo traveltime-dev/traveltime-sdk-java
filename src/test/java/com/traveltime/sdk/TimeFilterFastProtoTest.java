@@ -18,7 +18,6 @@ import org.junit.Test;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Stream;
 
 public class TimeFilterFastProtoTest {
     TravelTimeSDK sdk;
@@ -61,7 +60,8 @@ public class TimeFilterFastProtoTest {
              7200,
              Countries.UNITED_KINGDOM,
              RequestType.ONE_TO_MANY,
-             true
+             true,
+             null
         );
         Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
 
@@ -157,19 +157,18 @@ public class TimeFilterFastProtoTest {
                 new Coordinates(51.312331, -0.324322),
                 new Coordinates(51.323124, -0.312343)
         );
-        CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>>[] futures = new CompletableFuture[]{
+        List<CompletableFuture<Either<TravelTimeError, TimeFilterFastProtoResponse>>> futures = Arrays.asList(
                 sdk.sendProtoAsync(oneToMany(coordinates.get(0), coordinates)),
                 sdk.sendProtoAsync(oneToMany(coordinates.get(1), coordinates)),
                 sdk.sendProtoAsync(oneToMany(coordinates.get(2), coordinates)),
                 sdk.sendProtoAsync(oneToMany(coordinates.get(3), coordinates)),
                 sdk.sendProtoAsync(oneToMany(coordinates.get(4), coordinates)),
                 sdk.sendProtoAsync(oneToMany(coordinates.get(5), coordinates)),
-                sdk.sendProtoAsync(oneToMany(coordinates.get(6), coordinates)),
+                sdk.sendProtoAsync(oneToMany(coordinates.get(6), coordinates))
+        );
 
-        };
-
-        boolean result = Stream
-                .of(futures)
+        boolean result = futures
+                .stream()
                 .map(CompletableFuture::join)
                 .allMatch(Either::isRight);
 
@@ -187,7 +186,8 @@ public class TimeFilterFastProtoTest {
                 7200,
                 Countries.UNITED_KINGDOM,
                 RequestType.MANY_TO_ONE,
-                false
+                false,
+                null
         );
     }
 
@@ -203,7 +203,8 @@ public class TimeFilterFastProtoTest {
                 7200,
                 Countries.UNITED_KINGDOM,
                 RequestType.ONE_TO_MANY,
-                false
+                false,
+                null
         );
     }
 }
