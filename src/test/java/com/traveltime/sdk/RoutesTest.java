@@ -43,7 +43,7 @@ public class RoutesTest {
             new Location("location3", new Coordinates(51.536067,-0.153596))
         );
 
-        List<Transportation> transportationModes = List.of(
+        List<Transportation> transportationModes =  Arrays.<Transportation>asList(
                 PublicTransport.builder().build(),
                 Driving.builder().trafficModel(DrivingTrafficModel.OPTIMISTIC).build()
         );
