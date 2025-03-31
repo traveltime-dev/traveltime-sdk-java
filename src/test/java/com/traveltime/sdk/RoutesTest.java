@@ -5,7 +5,9 @@ import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.FullRange;
 import com.traveltime.sdk.dto.common.Location;
 import com.traveltime.sdk.dto.common.Property;
+import com.traveltime.sdk.dto.common.DrivingTrafficModel;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
+import com.traveltime.sdk.dto.common.transportation.Driving;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.RoutesRequest;
 import com.traveltime.sdk.dto.requests.routes.*;
@@ -34,22 +36,29 @@ public class RoutesTest {
     }
 
     @Test
-    public void shouldSendRoutesRequest() {
+    public void shouldSendRoutesRequests() {
         List<Location> locations = Arrays.asList(
             new Location("location1", new Coordinates(51.508930,-0.131387)),
             new Location("location2", new Coordinates(51.508824,-0.167093)),
             new Location("location3", new Coordinates(51.536067,-0.153596))
         );
-        Transportation transport = PublicTransport.builder().build();
 
-        RoutesRequest request = new RoutesRequest(
-            locations,
-            createDepartureSearch("location1", Arrays.asList("location2", "location3"), transport),
-            createArrivalSearch(Arrays.asList("location2", "location3"), "location1", transport)
+        List<Transportation> transportationModes =  Arrays.<Transportation>asList(
+                PublicTransport.builder().build(),
+                Driving.builder().trafficModel(DrivingTrafficModel.OPTIMISTIC).build()
         );
 
-        Either<TravelTimeError, RoutesResponse> response = sdk.send(request);
-        Assert.assertTrue(response.isRight());
+        transportationModes.forEach(transportation -> {
+            RoutesRequest request = new RoutesRequest(
+                    locations,
+                    createDepartureSearch("location1", Arrays.asList("location2", "location3"), transportation),
+                    createArrivalSearch(Arrays.asList("location2", "location3"), "location1", transportation)
+            );
+            Either<TravelTimeError, RoutesResponse> response = sdk.send(request);
+            Assert.assertTrue(response.isRight());
+        });
+
+
     }
 
     private List<DepartureSearch> createDepartureSearch(
