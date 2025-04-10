@@ -249,7 +249,7 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
         // If `hasError == true`, it means you are hitting an old version of the service.
         // TODO: remove this `if` statement when all services use HTTP error codes
         if (response.hasError())
-            return Either.left(new ProtoError("Unknown code", response.getError().toString(), "No details"));
+            return Either.left(new ProtoError("Unknown code", response.getError().toString(), "No details", 200));
         else
             return Either.right(
                 new TimeFilterFastProtoResponse(

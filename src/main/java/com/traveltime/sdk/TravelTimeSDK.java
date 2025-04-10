@@ -78,12 +78,13 @@ public class TravelTimeSDK {
 
     private <T> Either<TravelTimeError, T> deserializeProtoResponse(ProtoRequest<T> request, Response response) {
         String url = response.request().url().toString();
-        if (response.code() == 404) {
+        int responseCode = response.code();
+        if (responseCode == 404) {
             RequestError error = new RequestError("Network response is 404 (Not found). Make sure URL " +
                     url + " is correct.");
             return Either.left(error);
         }
-        else if (response.code() == 200) {
+        else if (responseCode == 200) {
             Either<TravelTimeError, T> protoResponse = Try
                     .of(() -> Objects.requireNonNull(response.body()).bytes())
                     .toEither()
@@ -104,7 +105,7 @@ public class TravelTimeSDK {
                     response.header("X-ERROR-DETAILS", "No details provided")
             );
 
-            return Either.left(new ProtoError(errorCode, errorMessage, errorDetails));
+            return Either.left(new ProtoError(errorCode, errorMessage, errorDetails, responseCode));
         }
     }
 

@@ -14,6 +14,7 @@ public class ProtoError implements TravelTimeError {
     String errorMsg;
     @NonNull
     String errorDetails;
+    int httpStatusCode;
 
     @Override
     public Option<Throwable> retrieveCause() { return Option.none(); }
@@ -29,5 +30,9 @@ public class ProtoError implements TravelTimeError {
 
     public String getDetails() {
         return errorDetails;
+    }
+
+    public int getStatusCode() {
+        return httpStatusCode;
     }
 }
