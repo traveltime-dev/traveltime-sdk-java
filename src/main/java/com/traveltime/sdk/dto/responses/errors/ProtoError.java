@@ -9,7 +9,11 @@ import lombok.ToString;
 @ToString
 public class ProtoError implements TravelTimeError {
     @NonNull
+    String errorCode;
+    @NonNull
     String errorMsg;
+    @NonNull
+    String errorDetails;
 
     @Override
     public Option<Throwable> retrieveCause() { return Option.none(); }
@@ -17,5 +21,13 @@ public class ProtoError implements TravelTimeError {
     @Override
     public String getMessage() {
         return errorMsg;
+    }
+
+    public String getCode() {
+        return errorCode;
+    }
+
+    public String getDetails() {
+        return errorDetails;
     }
 }

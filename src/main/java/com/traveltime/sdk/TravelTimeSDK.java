@@ -83,14 +83,29 @@ public class TravelTimeSDK {
                     url + " is correct.");
             return Either.left(error);
         }
-        Either<TravelTimeError, T> protoResponse = Try
-                .of(() -> Objects.requireNonNull(response.body()).bytes())
-                .toEither()
-                .<TravelTimeError>mapLeft(cause -> new IOError(cause, IO_CONNECTION_ERROR + cause.getMessage()))
-                .flatMap(request::parseBytes);
+        else if (response.code() == 200) {
+            Either<TravelTimeError, T> protoResponse = Try
+                    .of(() -> Objects.requireNonNull(response.body()).bytes())
+                    .toEither()
+                    .<TravelTimeError>mapLeft(cause -> new IOError(cause, IO_CONNECTION_ERROR + cause.getMessage()))
+                    .flatMap(request::parseBytes);
 
-        response.close();
-        return protoResponse;
+            response.close();
+            return protoResponse;
+        }
+        else {
+            String errorCode = Objects.requireNonNull(
+                    response.header("X-ERROR-CODE", "Unknown")
+            );
+            String errorMessage = Objects.requireNonNull(
+                    response.header("X-ERROR-MESSAGE", "No message provided")
+            );
+            String errorDetails = Objects.requireNonNull(
+                    response.header("X-ERROR-DETAILS", "No details provided")
+            );
+
+            return Either.left(new ProtoError(errorCode, errorMessage, errorDetails));
+        }
     }
 
     private <T> Either<TravelTimeError, T> getParsedResponse(TravelTimeRequest<T> request, Response response) {
