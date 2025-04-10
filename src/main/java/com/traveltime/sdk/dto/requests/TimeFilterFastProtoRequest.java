@@ -246,8 +246,8 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
     private Either<TravelTimeError, TimeFilterFastProtoResponse> parseResponse(
             TimeFilterFastResponseOuterClass.TimeFilterFastResponse response
     ) {
-        // If `hasError == true`, means we're hitting a lib with old error codes
-        // TODO: remove this `if` statement when all libs use HTTP error codes
+        // If `hasError == true`, it means you are hitting an old version of the service.
+        // TODO: remove this `if` statement when all services use HTTP error codes
         if (response.hasError())
             return Either.left(new ProtoError("Unknown code", response.getError().toString(), "No details"));
         else
