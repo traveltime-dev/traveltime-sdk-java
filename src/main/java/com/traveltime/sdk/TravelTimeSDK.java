@@ -15,8 +15,10 @@ import okhttp3.*;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -78,19 +80,39 @@ public class TravelTimeSDK {
 
     private <T> Either<TravelTimeError, T> deserializeProtoResponse(ProtoRequest<T> request, Response response) {
         String url = response.request().url().toString();
-        if (response.code() == 404) {
+        int responseCode = response.code();
+        if (response.isSuccessful()) {
+            Either<TravelTimeError, T> protoResponse = Try
+                    .of(() -> Objects.requireNonNull(response.body()).bytes())
+                    .toEither()
+                    .<TravelTimeError>mapLeft(cause -> new IOError(cause, IO_CONNECTION_ERROR + cause.getMessage()))
+                    .flatMap(request::parseBytes);
+
+            response.close();
+            return protoResponse;
+        }
+        else if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
             RequestError error = new RequestError("Network response is 404 (Not found). Make sure URL " +
                     url + " is correct.");
             return Either.left(error);
         }
-        Either<TravelTimeError, T> protoResponse = Try
-                .of(() -> Objects.requireNonNull(response.body()).bytes())
-                .toEither()
-                .<TravelTimeError>mapLeft(cause -> new IOError(cause, IO_CONNECTION_ERROR + cause.getMessage()))
-                .flatMap(request::parseBytes);
+        else {
+            int errorCode = Optional.ofNullable(response.header("X-ERROR-CODE", null))
+                    .map(codeStr -> {
+                        try {
+                            return Integer.parseInt(codeStr);
+                        } catch (NumberFormatException e) {
+                            return -1;
+                        }
+                    })
+                    .orElse(-1);
+            String errorMessage = Objects.requireNonNull(
+                    response.header("X-ERROR-MESSAGE", "No message provided")
+            );
+            String errorDetails = response.header("X-ERROR-DETAILS", null);
 
-        response.close();
-        return protoResponse;
+            return Either.left(new ProtoError(errorCode, errorMessage, errorDetails, responseCode));
+        }
     }
 
     private <T> Either<TravelTimeError, T> getParsedResponse(TravelTimeRequest<T> request, Response response) {
