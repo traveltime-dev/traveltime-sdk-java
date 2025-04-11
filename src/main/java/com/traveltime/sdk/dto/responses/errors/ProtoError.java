@@ -5,15 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.ToString;
 
+import java.util.Optional;
+
 @AllArgsConstructor
 @ToString
 public class ProtoError implements TravelTimeError {
-    @NonNull
-    String errorCode;
+    int errorCode;
+
     @NonNull
     String errorMsg;
-    @NonNull
+
     String errorDetails;
+
     int httpStatusCode;
 
     @Override
@@ -24,12 +27,12 @@ public class ProtoError implements TravelTimeError {
         return errorMsg;
     }
 
-    public String getCode() {
+    public int getCode() {
         return errorCode;
     }
 
-    public String getDetails() {
-        return errorDetails;
+    public Optional<String> getDetails() {
+        return Optional.ofNullable(errorDetails);
     }
 
     public int getStatusCode() {

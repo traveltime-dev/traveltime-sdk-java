@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -95,15 +96,19 @@ public class TravelTimeSDK {
             return protoResponse;
         }
         else {
-            String errorCode = Objects.requireNonNull(
-                    response.header("X-ERROR-CODE", "Unknown")
-            );
+            int errorCode = Optional.ofNullable(response.header("X-ERROR-CODE", null))
+                    .map(codeStr -> {
+                        try {
+                            return Integer.parseInt(codeStr);
+                        } catch (NumberFormatException e) {
+                            return -1;
+                        }
+                    })
+                    .orElse(-1);
             String errorMessage = Objects.requireNonNull(
                     response.header("X-ERROR-MESSAGE", "No message provided")
             );
-            String errorDetails = Objects.requireNonNull(
-                    response.header("X-ERROR-DETAILS", "No details provided")
-            );
+            String errorDetails = response.header("X-ERROR-DETAILS", null);
 
             return Either.left(new ProtoError(errorCode, errorMessage, errorDetails, responseCode));
         }
