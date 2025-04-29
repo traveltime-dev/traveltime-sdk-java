@@ -586,8 +586,6 @@ Please note that you will need to export some valid credentials as environment v
 ```shell
 export APP_ID="..."
 export API_KEY="..."
-export PROTO_USERNAME="..."
-export PROTO_PASSWORD="..."
 ```
 
 ## Support

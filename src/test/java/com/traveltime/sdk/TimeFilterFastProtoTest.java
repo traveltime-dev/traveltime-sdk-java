@@ -25,8 +25,8 @@ public class TimeFilterFastProtoTest {
     @Before
     public void init() {
         TravelTimeCredentials credentials = new TravelTimeCredentials(
-                System.getenv("PROTO_USERNAME"),
-                System.getenv("PROTO_PASSWORD")
+                System.getenv("APP_ID"),
+                System.getenv("API_KEY")
         );
         sdk = new TravelTimeSDK(credentials);
     }
