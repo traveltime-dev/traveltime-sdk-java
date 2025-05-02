@@ -59,23 +59,3 @@ enum TransportationType {
 enum TimePeriod {
   WEEKDAY_MORNING = 0;
 }
-
-message Snapping {
-
-  enum AcceptRoads {
-    // journey can only start or end on roads that are accessible by both: cars and pedestrians.
-    // This effectively means journeys can not start / end on motorways.
-    BOTH_DRIVABLE_AND_WALKABLE = 0;
-
-    // journey can start or end on any road accessible by a car (including motorways).
-    ANY_DRIVABLE = 1;
-  }
-
-  // true - walking time and distance from the departure location to the nearest road and from the nearest road to
-  // the arrival location are added to the total travel time and distance of a journey.
-  // false - these walking times and distances are not added to the total reported values (i.e the journey
-  // effectively starts and ends at the nearest points on the road network).
-  bool penalty = 1;
-
-  AcceptRoads accept_roads = 2;
-}
