@@ -83,8 +83,6 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
     private byte[] createByteArray() {
         Coordinates origin = this.getOriginCoordinate();
 
-        Optional<RequestsCommon.Snapping> snapping = snappingToProto();
-
         RequestsCommon.Coords source = RequestsCommon
                 .Coords
                 .newBuilder()
@@ -106,8 +104,6 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
                     .setArrivalTimePeriod(RequestsCommon.TimePeriod.WEEKDAY_MORNING)
                     .setTransportation(transportation)
                     .setTravelTime(this.travelTime);
-
-            snapping.ifPresent(oneToManyBuilder::setSnapping);
 
             if (this.withDistance) {
                 oneToManyBuilder.addProperties(TimeFilterFastRequest.Property.DISTANCES);
@@ -133,8 +129,6 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
                     .setTransportation(transportation)
                     .setTravelTime(this.travelTime);
 
-            snapping.ifPresent(manyToOneBuilder::setSnapping);
-
             if (this.withDistance) {
                 manyToOneBuilder.addProperties(TimeFilterFastRequest.Property.DISTANCES);
             }
@@ -151,44 +145,6 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
                     .build()
                     .toByteArray();
         }
-    }
-
-    private Optional<RequestsCommon.Snapping> snappingToProto() {
-
-        if (this.snapping == null) {
-            return Optional.empty();
-        }
-
-        RequestsCommon.Snapping.Builder builder = RequestsCommon.Snapping.newBuilder();
-
-        Optional.ofNullable(this.snapping.getAcceptRoads()).ifPresent(a -> {
-            RequestsCommon.Snapping.AcceptRoads acceptRoads = RequestsCommon.Snapping.AcceptRoads.UNRECOGNIZED;
-            switch (a) {
-                case ANY_DRIVABLE:
-                    acceptRoads = RequestsCommon.Snapping.AcceptRoads.ANY_DRIVABLE;
-                    break;
-                case BOTH_DRIVABLE_AND_WALKABLE:
-                    acceptRoads = RequestsCommon.Snapping.AcceptRoads.BOTH_DRIVABLE_AND_WALKABLE;
-                    break;
-            }
-            builder.setAcceptRoads(acceptRoads);
-        });
-
-
-        Optional.ofNullable(this.snapping.getPenalty()).ifPresent(a -> {
-            boolean snapPenalty = true;
-            switch (a) {
-                case ENABLED:
-                    snapPenalty = true;
-                    break;
-                case DISABLED:
-                    snapPenalty = false;
-                    break;
-            }
-            builder.setPenalty(snapPenalty);
-        });
-
-        return Optional.of(builder.build());
     }
 
     @Override
