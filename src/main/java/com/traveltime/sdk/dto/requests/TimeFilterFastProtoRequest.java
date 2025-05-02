@@ -5,7 +5,6 @@ import com.igeolise.traveltime.rabbitmq.requests.TimeFilterFastRequestOuterClass
 import com.igeolise.traveltime.rabbitmq.responses.TimeFilterFastResponseOuterClass;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
-import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.requests.proto.Country;
 import com.traveltime.sdk.dto.requests.proto.RequestType;
 import com.traveltime.sdk.dto.requests.proto.Transportation;
@@ -40,7 +39,6 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
     @NonNull
     RequestType requestType;
     boolean withDistance;
-    Snapping snapping;
 
     /**
      * @param originCoordinate       The coordinates of location we should start the search from.
@@ -50,7 +48,6 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
      * @param travelTime             Travel time limit.
      * @param country                The country to run the search in.
      * @param withDistance           Specifies if distance also should be returned.
-     * @param snapping               Snapping parameters of the search.
      */
     public TimeFilterFastProtoRequest(
             @NonNull Coordinates originCoordinate,
@@ -59,8 +56,7 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
             @NonNull Integer travelTime,
             @NonNull Country country,
             @NonNull RequestType requestType,
-            boolean withDistance,
-            Snapping snapping
+            boolean withDistance
     ) {
 
         this.originCoordinate = originCoordinate;
@@ -74,7 +70,6 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
         this.country = country;
         this.requestType = requestType;
         this.withDistance = withDistance;
-        this.snapping = snapping;
     }
 
 

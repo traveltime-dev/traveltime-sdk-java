@@ -60,8 +60,7 @@ public class TimeFilterFastProtoTest {
              7200,
              Countries.UNITED_KINGDOM,
              RequestType.ONE_TO_MANY,
-             true,
-             null
+             true
         );
         Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
 
@@ -186,8 +185,7 @@ public class TimeFilterFastProtoTest {
                 7200,
                 Countries.UNITED_KINGDOM,
                 RequestType.MANY_TO_ONE,
-                false,
-                null
+                false
         );
     }
 
@@ -203,8 +201,7 @@ public class TimeFilterFastProtoTest {
                 7200,
                 Countries.UNITED_KINGDOM,
                 RequestType.ONE_TO_MANY,
-                false,
-                null
+                false
         );
     }
 }
