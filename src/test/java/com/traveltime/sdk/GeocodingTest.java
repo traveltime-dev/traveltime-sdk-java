@@ -41,14 +41,14 @@ public class GeocodingTest {
                 .limit(1)
                 .build();
         Either<TravelTimeError, GeocodingResponse> response = sdk.send(request);
-        Assert.assertTrue(response.isRight());
+        Common.assertResponseIsRight(response);
     }
 
     @Test
     public void shouldSendReverseGeocodingRequest() {
         ReverseGeocodingRequest request = new ReverseGeocodingRequest(new Coordinates(51.507281, -0.132120));
         Either<TravelTimeError, GeocodingResponse> response = sdk.send(request);
-        Assert.assertTrue(response.isRight());
+        Common.assertResponseIsRight(response);
     }
 
     @Test

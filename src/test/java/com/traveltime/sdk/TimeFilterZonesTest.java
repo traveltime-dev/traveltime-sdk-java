@@ -42,7 +42,7 @@ public class TimeFilterZonesTest {
         );
 
         Either<TravelTimeError, TimeFilterDistrictsResponse> response = sdk.send(request);
-        Assert.assertTrue(response.isRight());
+        Common.assertResponseIsRight(response);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class TimeFilterZonesTest {
         );
 
         Either<TravelTimeError, TimeFilterSectorsResponse> response = sdk.send(request);
-        Assert.assertTrue(response.isRight());
+        Common.assertResponseIsRight(response);
     }
 
     private List<DepartureSearch> createDepartureSearch(Coordinates coordinates, Transportation transportation) {

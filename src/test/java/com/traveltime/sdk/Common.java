@@ -1,6 +1,9 @@
 package com.traveltime.sdk;
 
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import io.vavr.control.Either;
+import org.junit.Assert;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,5 +26,16 @@ public class Common {
         List<Coordinates> list = new ArrayList<>();
         for (int i = 0; i < size; i++) list.add(new Coordinates(r.nextDouble(), r.nextDouble()));
         return list;
+    }
+
+    public static <T> void assertResponseIsRight(Either<TravelTimeError, T> response) {
+        response
+                .peekLeft(error -> {
+                    System.out.println("Error: " + error.getMessage());
+                    if (error.retrieveCause().isDefined()) {
+                        System.out.println("Cause: " + error.retrieveCause().get().getMessage());
+                    }
+                });
+        Assert.assertTrue(response.isRight());
     }
 }

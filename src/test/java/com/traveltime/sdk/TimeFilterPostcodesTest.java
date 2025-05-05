@@ -42,7 +42,7 @@ public class TimeFilterPostcodesTest {
         );
 
         Either<TravelTimeError, TimeFilterPostcodesResponse> response = sdk.send(request);
-        Assert.assertTrue(response.isRight());
+        Common.assertResponseIsRight(response);
     }
 
     private List<DepartureSearch> createDepartureSearch(Coordinates coordinates, Transportation transportation) {

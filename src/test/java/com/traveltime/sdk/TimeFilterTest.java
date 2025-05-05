@@ -52,7 +52,7 @@ public class TimeFilterTest {
         );
 
         Either<TravelTimeError, TimeFilterResponse> response = sdk.send(request);
-        Assert.assertTrue(response.isRight());
+        Common.assertResponseIsRight(response);
     }
 
     @Test
@@ -70,7 +70,7 @@ public class TimeFilterTest {
         TimeFilterFastRequest request = new TimeFilterFastRequest(locations, arrivalSearches);
 
         Either<TravelTimeError, TimeFilterFastResponse> response = sdk.send(request);
-        Assert.assertTrue(response.isRight());
+        Common.assertResponseIsRight(response);
     }
 
     private List<ManyToOne> createManyToOne(
