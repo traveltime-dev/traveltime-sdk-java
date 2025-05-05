@@ -7,7 +7,6 @@ import com.traveltime.sdk.dto.requests.TimeFilterFastProtoRequest;
 import com.traveltime.sdk.dto.requests.proto.Countries;
 import com.traveltime.sdk.dto.requests.proto.RequestType;
 import com.traveltime.sdk.dto.requests.proto.Transportation;
-import com.traveltime.sdk.dto.requests.proto.Transportation.TransportationDetails.DrivingAndPublicTransportDetails;
 import com.traveltime.sdk.dto.responses.TimeFilterFastProtoResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
@@ -179,23 +178,27 @@ public class TimeFilterFastProtoTest {
     public void shouldSendRequestWithCustomTransportationDetails() {
         Coordinates origin = new Coordinates(51.425709, -0.122061);
         List<Coordinates> destinations = Collections.singletonList(new Coordinates(51.348605, -0.314783));
+        Transportation.DrivingAndPublicTransport transportation = Transportation.DrivingAndPublicTransport
+            .builder()
+            .walkingTimeToStation(100)
+            .drivingTimeToStation(100)
+            .parkingTime(100)
+            .build();
+
         TimeFilterFastProtoRequest request = new TimeFilterFastProtoRequest(
                 origin,
                 destinations,
-                Transportation.DrivingAndPublicTransport
-                    .builder()
-                    .details(new DrivingAndPublicTransportDetails(
-                        100,
-                        100,
-                        100
-                    ))
-                    .build(),
+                transportation,
                 7200,
                 Countries.UNITED_KINGDOM,
                 RequestType.ONE_TO_MANY,
                 true
         );
         Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
+
+        Assert.assertTrue(transportation.getWalkingTimeToStation() == 100);
+        Assert.assertTrue(transportation.getDrivingTimeToStation() == 100);
+        Assert.assertTrue(transportation.getParkingTime() == 100);
         Assert.assertTrue(response.isRight());
     }
 
