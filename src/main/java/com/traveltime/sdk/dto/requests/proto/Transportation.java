@@ -10,19 +10,21 @@ public interface Transportation {
 
     RequestsCommon.Transportation getProtoMessage();
 
-    Transportation PUBLIC_TRANSPORT = PublicTransport.builder().build();
-    Transportation DRIVING_AND_PUBLIC_TRANSPORT = DrivingAndPublicTransport.builder().build();
-    Transportation WALKING_FERRY = new WalkingFerry();
-    Transportation CYCLING_FERRY = new CyclingFerry();
-    Transportation DRIVING_FERRY = new DrivingFerry();
-    Transportation WALKING = new Walking();
-    Transportation CYCLING = new Cycling();
-    Transportation DRIVING = new Driving();
+    class Modes {
+        public final static Transportation PUBLIC_TRANSPORT = PublicTransport.builder().build();
+        public final static Transportation DRIVING_AND_PUBLIC_TRANSPORT = DrivingAndPublicTransport.builder().build();
+        public final static Transportation WALKING_FERRY = new WalkingFerry();
+        public final static Transportation CYCLING_FERRY = new CyclingFerry();
+        public final static Transportation DRIVING_FERRY = new DrivingFerry();
+        public final static Transportation WALKING = new Walking();
+        public final static Transportation CYCLING = new Cycling();
+        public final static Transportation DRIVING = new Driving();
+    }
 
     @Builder
     @Getter
     class PublicTransport implements Transportation {
-        public final TransportationType type = TransportationType.Modes.PUBLIC_TRANSPORT;
+        public final TransportationType type = TransportationType.Types.PUBLIC_TRANSPORT;
 
         @Builder.Default
         public TransportationDetails.PublicTransportDetails details =
@@ -45,7 +47,7 @@ public interface Transportation {
     @Builder
     @Getter
     class DrivingAndPublicTransport implements Transportation {
-        public final TransportationType type = TransportationType.Modes.DRIVING_AND_PUBLIC_TRANSPORT;
+        public final TransportationType type = TransportationType.Types.DRIVING_AND_PUBLIC_TRANSPORT;
 
         @Builder.Default
         public final TransportationDetails.DrivingAndPublicTransportDetails details = new TransportationDetails.DrivingAndPublicTransportDetails(
@@ -70,7 +72,7 @@ public interface Transportation {
 
     @Getter
     class WalkingFerry implements Transportation {
-        public final TransportationType type = TransportationType.Modes.WALKING_FERRY;
+        public final TransportationType type = TransportationType.Types.WALKING_FERRY;
 
         @Override
         public RequestsCommon.Transportation getProtoMessage() {
@@ -80,7 +82,7 @@ public interface Transportation {
 
     @Getter
     class CyclingFerry implements Transportation {
-        public final TransportationType type = TransportationType.Modes.CYCLING_FERRY;
+        public final TransportationType type = TransportationType.Types.CYCLING_FERRY;
 
         @Override
         public RequestsCommon.Transportation getProtoMessage() {
@@ -90,7 +92,7 @@ public interface Transportation {
 
     @Getter
     class DrivingFerry implements Transportation {
-        public final TransportationType type = TransportationType.Modes.DRIVING_FERRY;
+        public final TransportationType type = TransportationType.Types.DRIVING_FERRY;
 
         @Override
         public RequestsCommon.Transportation getProtoMessage() {
@@ -100,7 +102,7 @@ public interface Transportation {
 
     @Getter
     class Walking implements Transportation {
-        public final TransportationType type = TransportationType.Modes.WALKING;
+        public final TransportationType type = TransportationType.Types.WALKING;
 
         @Override
         public RequestsCommon.Transportation getProtoMessage() {
@@ -110,7 +112,7 @@ public interface Transportation {
 
     @Getter
     class Cycling implements Transportation {
-        public final TransportationType type = TransportationType.Modes.CYCLING;
+        public final TransportationType type = TransportationType.Types.CYCLING;
 
         @Override
         public RequestsCommon.Transportation getProtoMessage() {
@@ -120,7 +122,7 @@ public interface Transportation {
 
     @Getter
     class Driving implements Transportation {
-        public final TransportationType type = TransportationType.Modes.DRIVING;
+        public final TransportationType type = TransportationType.Types.DRIVING;
 
         @Override
         public RequestsCommon.Transportation getProtoMessage() {
@@ -135,7 +137,7 @@ public interface Transportation {
 
         @Getter
         @AllArgsConstructor
-        enum Modes implements TransportationType {
+        enum Types implements TransportationType {
             PUBLIC_TRANSPORT("pt", 0),
             DRIVING_AND_PUBLIC_TRANSPORT("pt", 2),
             WALKING_FERRY("walking+ferry", 7),
