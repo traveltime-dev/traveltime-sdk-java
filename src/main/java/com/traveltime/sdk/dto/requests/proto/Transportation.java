@@ -5,9 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+
 public interface Transportation {
     TransportationType getType();
     RequestsCommon.Transportation getProtoMessage();
+
+    Transportation PUBLIC_TRANSPORT = PublicTransport.builder().build();
+    Transportation DRIVING_AND_PUBLIC_TRANSPORT = DrivingAndPublicTransport.builder().build();
+    Transportation WALKING_FERRY = WalkingFerry.builder().build();
+    Transportation CYCLING_FERRY = CyclingFerry.builder().build();
+    Transportation DRIVING_FERRY = DrivingFerry.builder().build();
+    Transportation WALKING = Walking.builder().build();
+    Transportation CYCLING = Cycling.builder().build();
+    Transportation DRIVING = Driving.builder().build();
 
     @Builder
     @Getter
@@ -186,8 +196,5 @@ public interface Transportation {
              */
             private final Integer parkingTime;
         }
-
-        class NoDetails implements TransportationDetails { }
-        TransportationDetails NoDetails = new NoDetails();
     }
 }
