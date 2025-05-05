@@ -4,6 +4,7 @@ import com.igeolise.traveltime.rabbitmq.requests.RequestsCommon;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Value;
 
 public interface Transportation {
     TransportationType getType();
@@ -13,12 +14,12 @@ public interface Transportation {
     class Modes {
         public final static Transportation PUBLIC_TRANSPORT = PublicTransport.builder().build();
         public final static Transportation DRIVING_AND_PUBLIC_TRANSPORT = DrivingAndPublicTransport.builder().build();
-        public final static Transportation WALKING_FERRY = new WalkingFerry();
-        public final static Transportation CYCLING_FERRY = new CyclingFerry();
-        public final static Transportation DRIVING_FERRY = new DrivingFerry();
-        public final static Transportation WALKING = new Walking();
-        public final static Transportation CYCLING = new Cycling();
-        public final static Transportation DRIVING = new Driving();
+        public final static Transportation WALKING_FERRY = new TransportationWithoutDetails(TransportationType.Types.WALKING_FERRY);
+        public final static Transportation CYCLING_FERRY = new TransportationWithoutDetails(TransportationType.Types.CYCLING_FERRY);
+        public final static Transportation DRIVING_FERRY = new TransportationWithoutDetails(TransportationType.Types.DRIVING_FERRY);;
+        public final static Transportation WALKING = new TransportationWithoutDetails(TransportationType.Types.WALKING);
+        public final static Transportation CYCLING = new TransportationWithoutDetails(TransportationType.Types.CYCLING);
+        public final static Transportation DRIVING = new TransportationWithoutDetails(TransportationType.Types.DRIVING);;
     }
 
     @Builder
@@ -70,59 +71,9 @@ public interface Transportation {
         }
     }
 
-    @Getter
-    class WalkingFerry implements Transportation {
-        public final TransportationType type = TransportationType.Types.WALKING_FERRY;
-
-        @Override
-        public RequestsCommon.Transportation getProtoMessage() {
-            return RequestsCommon.Transportation.newBuilder().setTypeValue(this.type.getCode()).build();
-        }
-    }
-
-    @Getter
-    class CyclingFerry implements Transportation {
-        public final TransportationType type = TransportationType.Types.CYCLING_FERRY;
-
-        @Override
-        public RequestsCommon.Transportation getProtoMessage() {
-            return RequestsCommon.Transportation.newBuilder().setTypeValue(this.type.getCode()).build();
-        }
-    }
-
-    @Getter
-    class DrivingFerry implements Transportation {
-        public final TransportationType type = TransportationType.Types.DRIVING_FERRY;
-
-        @Override
-        public RequestsCommon.Transportation getProtoMessage() {
-            return RequestsCommon.Transportation.newBuilder().setTypeValue(this.type.getCode()).build();
-        }
-    }
-
-    @Getter
-    class Walking implements Transportation {
-        public final TransportationType type = TransportationType.Types.WALKING;
-
-        @Override
-        public RequestsCommon.Transportation getProtoMessage() {
-            return RequestsCommon.Transportation.newBuilder().setTypeValue(this.type.getCode()).build();
-        }
-    }
-
-    @Getter
-    class Cycling implements Transportation {
-        public final TransportationType type = TransportationType.Types.CYCLING;
-
-        @Override
-        public RequestsCommon.Transportation getProtoMessage() {
-            return RequestsCommon.Transportation.newBuilder().setTypeValue(this.type.getCode()).build();
-        }
-    }
-
-    @Getter
-    class Driving implements Transportation {
-        public final TransportationType type = TransportationType.Types.DRIVING;
+    @Value
+    class TransportationWithoutDetails implements Transportation {
+        TransportationType type;
 
         @Override
         public RequestsCommon.Transportation getProtoMessage() {
