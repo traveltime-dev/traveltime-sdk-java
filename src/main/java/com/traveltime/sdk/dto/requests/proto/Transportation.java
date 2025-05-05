@@ -5,19 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
-
 public interface Transportation {
     TransportationType getType();
+
     RequestsCommon.Transportation getProtoMessage();
 
     Transportation PUBLIC_TRANSPORT = PublicTransport.builder().build();
     Transportation DRIVING_AND_PUBLIC_TRANSPORT = DrivingAndPublicTransport.builder().build();
-    Transportation WALKING_FERRY = WalkingFerry.builder().build();
-    Transportation CYCLING_FERRY = CyclingFerry.builder().build();
-    Transportation DRIVING_FERRY = DrivingFerry.builder().build();
-    Transportation WALKING = Walking.builder().build();
-    Transportation CYCLING = Cycling.builder().build();
-    Transportation DRIVING = Driving.builder().build();
+    Transportation WALKING_FERRY = new WalkingFerry();
+    Transportation CYCLING_FERRY = new CyclingFerry();
+    Transportation DRIVING_FERRY = new DrivingFerry();
+    Transportation WALKING = new Walking();
+    Transportation CYCLING = new Cycling();
+    Transportation DRIVING = new Driving();
 
     @Builder
     @Getter
@@ -55,20 +55,19 @@ public interface Transportation {
         @Override
         public RequestsCommon.Transportation getProtoMessage() {
             return RequestsCommon.Transportation
-                    .newBuilder()
-                    .setDrivingAndPublicTransport(
-                            RequestsCommon.DrivingAndPublicTransportDetails
-                                    .newBuilder()
-                                    .setWalkingTimeToStation(this.details.walkingTimeToStation)
-                                    .setDrivingTimeToStation(this.details.drivingTimeToStation)
-                                    .setParkingTime(this.details.parkingTime)
-                    )
-                    .setTypeValue(this.type.getCode())
-                    .build();
+                .newBuilder()
+                .setDrivingAndPublicTransport(
+                    RequestsCommon.DrivingAndPublicTransportDetails
+                        .newBuilder()
+                        .setWalkingTimeToStation(this.details.walkingTimeToStation)
+                        .setDrivingTimeToStation(this.details.drivingTimeToStation)
+                        .setParkingTime(this.details.parkingTime)
+                )
+                .setTypeValue(this.type.getCode())
+                .build();
         }
     }
 
-    @Builder
     @Getter
     class WalkingFerry implements Transportation {
         public final TransportationType type = TransportationType.Modes.WALKING_FERRY;
@@ -79,7 +78,6 @@ public interface Transportation {
         }
     }
 
-    @Builder
     @Getter
     class CyclingFerry implements Transportation {
         public final TransportationType type = TransportationType.Modes.CYCLING_FERRY;
@@ -90,7 +88,6 @@ public interface Transportation {
         }
     }
 
-    @Builder
     @Getter
     class DrivingFerry implements Transportation {
         public final TransportationType type = TransportationType.Modes.DRIVING_FERRY;
@@ -101,7 +98,6 @@ public interface Transportation {
         }
     }
 
-    @Builder
     @Getter
     class Walking implements Transportation {
         public final TransportationType type = TransportationType.Modes.WALKING;
@@ -112,7 +108,6 @@ public interface Transportation {
         }
     }
 
-    @Builder
     @Getter
     class Cycling implements Transportation {
         public final TransportationType type = TransportationType.Modes.CYCLING;
@@ -123,7 +118,6 @@ public interface Transportation {
         }
     }
 
-    @Builder
     @Getter
     class Driving implements Transportation {
         public final TransportationType type = TransportationType.Modes.DRIVING;
@@ -136,6 +130,7 @@ public interface Transportation {
 
     interface TransportationType {
         String getValue();
+
         Integer getCode();
 
         @Getter
