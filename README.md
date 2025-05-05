@@ -255,7 +255,7 @@ This inflexibility comes with a benefit of faster response times (Over 5x faster
 Body attributes:
 * origin: Origin point;
 * destination: Destination points. Cannot be more than 200,000;
-* transportation: Transportation type;
+* transportation: Transportation type and transportation details;
 * travelTime: Time limit;
 * country: Return the results that are within the specified country;
 * requestType: MANY_TO_ONE(single arrival location and multiple departure locations) or ONE_TO_MANY (single departure location and multiple arrival locations).
@@ -267,7 +267,7 @@ TimeFilterFastProtoRequest request = TimeFilterFastProtoRequest
     .builder()
     .originCoordinate(new Coordinates(51.425709, -0.122061))
     .destinationCoordinates(Collections.singletonList(new Coordinates(51.348605, -0.314783)))
-    .transportation(Transportation.Modes.DRIVING_FERRY)
+    .transportation(Transportation.Defaults.DRIVING_FERRY)
     .travelTime(7200)
     .country(Countries.NETHERLANDS)
     .requestType(RequestType.ONE_TO_MANY)
