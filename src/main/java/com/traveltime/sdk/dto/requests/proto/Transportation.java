@@ -56,7 +56,7 @@ public interface Transportation {
         public final TransportationType type = TransportationType.Modes.DRIVING_AND_PUBLIC_TRANSPORT;
 
         @Builder.Default
-        public final TransportationDetails details = new TransportationDetails.DrivingAndPublicTransportDetails(
+        public final TransportationDetails.DrivingAndPublicTransportDetails details = new TransportationDetails.DrivingAndPublicTransportDetails(
             1800, 1800, 300
         );
     }
