@@ -19,8 +19,6 @@ import okhttp3.Request;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.traveltime.sdk.dto.requests.proto.Transportation.TransportationDetails.*;
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -87,32 +85,7 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
                 .setLng(this.originCoordinate.getLng().floatValue())
                 .build();
 
-        RequestsCommon.Transportation.Builder transportationBuilder = RequestsCommon
-                .Transportation
-                .newBuilder()
-                .setTypeValue(this.transportation.getType().getCode());
-
-        if (this.transportation.getDetails() instanceof PublicTransportDetails) {
-            PublicTransportDetails details = (PublicTransportDetails) this.transportation.getDetails();
-
-            transportationBuilder.setPublicTransport(
-                RequestsCommon.PublicTransportDetails
-                    .newBuilder()
-                    .setWalkingTimeToStation(details.getWalkingTimeToStation())
-            );
-        } else if (this.transportation.getDetails() instanceof DrivingAndPublicTransportDetails) {
-            DrivingAndPublicTransportDetails details = (DrivingAndPublicTransportDetails) this.transportation.getDetails();
-
-            transportationBuilder.setDrivingAndPublicTransport(
-                RequestsCommon.DrivingAndPublicTransportDetails
-                    .newBuilder()
-                    .setWalkingTimeToStation(details.getWalkingTimeToStation())
-                    .setDrivingTimeToStation(details.getDrivingTimeToStation())
-                    .setParkingTime(details.getParkingTime())
-            );
-        }
-
-        RequestsCommon.Transportation transportation = transportationBuilder.build();
+        RequestsCommon.Transportation transportation = this.transportation.getProtoMessage();
 
         if (requestType == RequestType.ONE_TO_MANY) {
             TimeFilterFastRequest.OneToMany.Builder oneToManyBuilder = TimeFilterFastRequest

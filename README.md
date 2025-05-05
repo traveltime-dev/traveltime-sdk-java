@@ -267,7 +267,7 @@ TimeFilterFastProtoRequest request = TimeFilterFastProtoRequest
     .builder()
     .originCoordinate(new Coordinates(51.425709, -0.122061))
     .destinationCoordinates(Collections.singletonList(new Coordinates(51.348605, -0.314783)))
-    .transportation(Transportation.Defaults.DRIVING_FERRY)
+    .transportation(Transportation.DrivingFerry.builder().build())
     .travelTime(7200)
     .country(Countries.NETHERLANDS)
     .requestType(RequestType.ONE_TO_MANY)

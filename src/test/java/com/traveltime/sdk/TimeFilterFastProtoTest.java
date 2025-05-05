@@ -57,7 +57,7 @@ public class TimeFilterFastProtoTest {
         TimeFilterFastProtoRequest request = new TimeFilterFastProtoRequest(
              origin,
              destinations,
-             Transportation.Defaults.DRIVING_FERRY,
+             Transportation.DrivingFerry.builder().build(),
              7200,
              Countries.UNITED_KINGDOM,
              RequestType.ONE_TO_MANY,
@@ -206,7 +206,7 @@ public class TimeFilterFastProtoTest {
         return new TimeFilterFastProtoRequest(
                 origin,
                 destinations,
-                Transportation.Defaults.PUBLIC_TRANSPORT,
+                Transportation.PublicTransport.builder().build(),
                 7200,
                 Countries.UNITED_KINGDOM,
                 RequestType.MANY_TO_ONE,
@@ -222,7 +222,7 @@ public class TimeFilterFastProtoTest {
         return new TimeFilterFastProtoRequest(
                 origin,
                 destinations,
-                Transportation.Defaults.PUBLIC_TRANSPORT,
+                Transportation.PublicTransport.builder().build(),
                 7200,
                 Countries.UNITED_KINGDOM,
                 RequestType.ONE_TO_MANY,
