@@ -26,6 +26,6 @@ public class MapInfoTest {
     public void shouldSendGeocodingRequest() {
         MapInfoRequest request = new MapInfoRequest();
         Either<TravelTimeError, MapInfoResponse> response = sdk.send(request);
-        Assert.assertTrue(response.isRight());
+        Common.assertResponseIsRight(response);
     }
 }

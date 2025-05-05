@@ -36,6 +36,6 @@ public class SupportedLocationsTest {
         SupportedLocationsRequest request = new SupportedLocationsRequest(locations);
 
         Either<TravelTimeError, SupportedLocationsResponse> response = sdk.send(request);
-        Assert.assertTrue(response.isRight());
+        Common.assertResponseIsRight(response);
     }
 }

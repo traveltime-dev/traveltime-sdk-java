@@ -45,7 +45,7 @@ public class TimeMapFastTest {
         );
 
         Either<TravelTimeError, TimeMapFastResponse> response = sdk.send(request);
-        Assert.assertTrue(response.isRight());
+        Common.assertResponseIsRight(response);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class TimeMapFastTest {
 
         Either<TravelTimeError, String> response = sdk.getJsonResponse(request);
         Assert.assertTrue(JsonUtils.isJsonValid(response.get()));
-        Assert.assertTrue(response.isRight());
+        Common.assertResponseIsRight(response);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class TimeMapFastTest {
         );
 
         Either<TravelTimeError, TimeMapFastGeoJsonResponse> response = sdk.send(request);
-        Assert.assertTrue(response.isRight());
+        Common.assertResponseIsRight(response);
     }
 
     @Test
@@ -85,7 +85,7 @@ public class TimeMapFastTest {
         );
 
         Either<TravelTimeError, TimeMapFastBoxesResponse> response = sdk.send(request);
-        Assert.assertTrue(response.isRight());
+        Common.assertResponseIsRight(response);
     }
 
     @Test
@@ -98,7 +98,7 @@ public class TimeMapFastTest {
         );
 
         Either<TravelTimeError, TimeMapFastWktResponse> response = sdk.send(request);
-        Assert.assertTrue(response.isRight());
+        Common.assertResponseIsRight(response);
     }
 
     private ArrivalSearches createArrivalSearches(Coordinates coords, Transportation transportation) {

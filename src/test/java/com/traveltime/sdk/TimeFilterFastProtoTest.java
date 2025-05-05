@@ -37,7 +37,7 @@ public class TimeFilterFastProtoTest {
         List<Coordinates> destinations = Collections.singletonList(new Coordinates(51.348605, -0.314783));
         TimeFilterFastProtoRequest request = oneToMany(origin, destinations);
         Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
-        Assert.assertTrue(response.isRight());
+        Common.assertResponseIsRight(response);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class TimeFilterFastProtoTest {
         List<Coordinates> destinations = Collections.singletonList(new Coordinates(51.348605, -0.314783));
         TimeFilterFastProtoRequest request = manyToOne(origin, destinations);
         Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
-        Assert.assertTrue(response.isRight());
+        Common.assertResponseIsRight(response);
     }
 
     @Test
@@ -120,7 +120,7 @@ public class TimeFilterFastProtoTest {
         );
         TimeFilterFastProtoRequest request = oneToMany(origin, destinations);
         Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProtoBatched(request, 3);
-        Assert.assertTrue(response.isRight());
+        Common.assertResponseIsRight(response);
         Assert.assertEquals(10, response.get().getTravelTimes().size());
     }
 
@@ -141,7 +141,7 @@ public class TimeFilterFastProtoTest {
         );
         TimeFilterFastProtoRequest request = oneToMany(origin, destinations);
         val response = sdk.sendProtoAsyncBatched(request, 3).join();
-        Assert.assertTrue(response.isRight());
+        Common.assertResponseIsRight(response);
         Assert.assertEquals(10, response.get().getTravelTimes().size());
     }
 

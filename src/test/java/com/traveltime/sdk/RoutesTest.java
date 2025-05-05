@@ -55,7 +55,7 @@ public class RoutesTest {
                     createArrivalSearch(Arrays.asList("location2", "location3"), "location1", transportation)
             );
             Either<TravelTimeError, RoutesResponse> response = sdk.send(request);
-            Assert.assertTrue(response.isRight());
+            Common.assertResponseIsRight(response);
         });
 
 
