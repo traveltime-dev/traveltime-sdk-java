@@ -202,6 +202,28 @@ public class TimeFilterFastProtoTest {
         Assert.assertTrue(response.isRight());
     }
 
+    @Test
+    public void shouldSendRequestWhenCustomTransportationDetailsIsSetUsingWith() {
+        Coordinates origin = new Coordinates(51.425709, -0.122061);
+        List<Coordinates> destinations = Collections.singletonList(new Coordinates(51.348605, -0.314783));
+        Transportation.PublicTransport transportation =
+            Transportation.Modes.PUBLIC_TRANSPORT.withWalkingTimeToStation(100);
+
+        TimeFilterFastProtoRequest request = new TimeFilterFastProtoRequest(
+            origin,
+            destinations,
+            transportation,
+            7200,
+            Countries.UNITED_KINGDOM,
+            RequestType.ONE_TO_MANY,
+            true
+        );
+        Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
+
+        Assert.assertTrue(transportation.getWalkingTimeToStation() == 100);
+        Assert.assertTrue(response.isRight());
+    }
+
     public TimeFilterFastProtoRequest manyToOne(
             Coordinates origin,
             List<Coordinates> destinations

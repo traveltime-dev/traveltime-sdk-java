@@ -1,18 +1,15 @@
 package com.traveltime.sdk.dto.requests.proto;
 
 import com.igeolise.traveltime.rabbitmq.requests.RequestsCommon;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Value;
+import lombok.*;
 
 public interface Transportation {
     TransportationType getType();
     RequestsCommon.Transportation getProtoMessage();
 
     class Modes {
-        public final static Transportation PUBLIC_TRANSPORT = PublicTransport.builder().build();
-        public final static Transportation DRIVING_AND_PUBLIC_TRANSPORT = DrivingAndPublicTransport.builder().build();
+        public final static PublicTransport PUBLIC_TRANSPORT = PublicTransport.builder().build();
+        public final static DrivingAndPublicTransport DRIVING_AND_PUBLIC_TRANSPORT = DrivingAndPublicTransport.builder().build();
         public final static Transportation WALKING_FERRY = new TransportationWithoutDetails(TransportationType.Types.WALKING_FERRY);
         public final static Transportation CYCLING_FERRY = new TransportationWithoutDetails(TransportationType.Types.CYCLING_FERRY);
         public final static Transportation DRIVING_FERRY = new TransportationWithoutDetails(TransportationType.Types.DRIVING_FERRY);
@@ -31,6 +28,7 @@ public interface Transportation {
          * walkingTimeToStation limit is of low precedence and will not override the global travel time limit
          */
         @Builder.Default
+        @With
         private Integer walkingTimeToStation = 1800;
 
         @Override
@@ -57,6 +55,7 @@ public interface Transportation {
          * walkingTimeToStation limit is of low precedence and will not override the global travel time limit
          */
         @Builder.Default
+        @With
         private Integer walkingTimeToStation = 1800;
 
         /**
@@ -64,6 +63,7 @@ public interface Transportation {
          * drivingTimeToStation limit is of low precedence and will not override the global travel time limit
          */
         @Builder.Default
+        @With
         private Integer drivingTimeToStation = 1800;
 
         /**
@@ -72,6 +72,7 @@ public interface Transportation {
          * parkingTime penalty cannot be greater than the global travel time limit
          */
         @Builder.Default
+        @With
         private Integer parkingTime = 300;
 
         @Override
@@ -108,14 +109,14 @@ public interface Transportation {
         @Getter
         @AllArgsConstructor
         enum Types implements TransportationType {
-            PUBLIC_TRANSPORT("pt", 0),
-            DRIVING_AND_PUBLIC_TRANSPORT("pt", 2),
-            WALKING_FERRY("walking+ferry", 7),
-            CYCLING_FERRY("cycling+ferry", 6),
-            DRIVING_FERRY("driving+ferry", 3),
-            WALKING("walking", 4),
-            CYCLING("cycling", 5),
-            DRIVING("driving", 1);
+            PUBLIC_TRANSPORT("pt", RequestsCommon.TransportationType.PUBLIC_TRANSPORT_VALUE),
+            DRIVING_AND_PUBLIC_TRANSPORT("pt", RequestsCommon.TransportationType.DRIVING_AND_PUBLIC_TRANSPORT_VALUE),
+            WALKING_FERRY("walking+ferry", RequestsCommon.TransportationType.WALKING_AND_FERRY_VALUE),
+            CYCLING_FERRY("cycling+ferry", RequestsCommon.TransportationType.CYCLING_AND_FERRY_VALUE),
+            DRIVING_FERRY("driving+ferry", RequestsCommon.TransportationType.DRIVING_AND_FERRY_VALUE),
+            WALKING("walking", RequestsCommon.TransportationType.WALKING_VALUE),
+            CYCLING("cycling", RequestsCommon.TransportationType.CYCLING_VALUE),
+            DRIVING("driving", RequestsCommon.TransportationType.DRIVING_VALUE);
 
             private final String value;
             private final Integer code;
