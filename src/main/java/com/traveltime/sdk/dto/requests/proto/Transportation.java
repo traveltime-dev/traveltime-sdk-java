@@ -92,6 +92,7 @@ public interface Transportation {
     }
 
     @Value
+    @AllArgsConstructor(access = AccessLevel.PROTECTED)
     class TransportationWithoutDetails implements Transportation {
         TransportationType type;
 
@@ -103,7 +104,6 @@ public interface Transportation {
 
     interface TransportationType {
         String getValue();
-
         Integer getCode();
 
         @Getter
@@ -118,13 +118,6 @@ public interface Transportation {
             CYCLING("cycling", RequestsCommon.TransportationType.CYCLING_VALUE),
             DRIVING("driving", RequestsCommon.TransportationType.DRIVING_VALUE);
 
-            private final String value;
-            private final Integer code;
-        }
-
-        @Getter
-        @AllArgsConstructor
-        class Custom implements TransportationType {
             private final String value;
             private final Integer code;
         }
