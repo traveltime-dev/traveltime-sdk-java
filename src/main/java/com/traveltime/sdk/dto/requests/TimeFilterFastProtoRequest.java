@@ -85,11 +85,7 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
                 .setLng(this.originCoordinate.getLng().floatValue())
                 .build();
 
-        RequestsCommon.Transportation transportation = RequestsCommon
-                .Transportation
-                .newBuilder()
-                .setTypeValue(this.transportation.getCode())
-                .build();
+        RequestsCommon.Transportation transportation = this.transportation.getProtoMessage();
 
         if (requestType == RequestType.ONE_TO_MANY) {
             TimeFilterFastRequest.OneToMany.Builder oneToManyBuilder = TimeFilterFastRequest
@@ -222,11 +218,11 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
     @Override
     public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
         String countryCode = this.country.getValue();
-        String transportation = this.transportation.getValue();
+        String transportationType = this.transportation.getType().getValue();
         val uri = baseUri.newBuilder()
                 .addPathSegments(countryCode)
                 .addPathSegments("time-filter/fast")
-                .addPathSegments(transportation)
+                .addPathSegments(transportationType)
                 .build();
 
         return Either.right(createProtobufRequest(credentials, uri, createByteArray()));
