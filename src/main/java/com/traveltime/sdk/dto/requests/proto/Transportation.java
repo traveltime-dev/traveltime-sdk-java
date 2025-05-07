@@ -26,10 +26,12 @@ public interface Transportation {
         /**
          * limits the possible duration of walking paths must be > 0 and <= 1800
          * walkingTimeToStation limit is of low precedence and will not override the global travel time limit
+         * If not set, server side decides what `walkingTimeToStation` value should be
+         * which is a reasonable value within the [1, 1800] (inclusive)
          */
         @Builder.Default
         @With
-        private Integer walkingTimeToStation = 1800;
+        private Integer walkingTimeToStation = null;
 
         @Override
         public RequestsCommon.Transportation getProtoMessage() {
@@ -38,7 +40,7 @@ public interface Transportation {
                 .setPublicTransport(
                     RequestsCommon.PublicTransportDetails
                         .newBuilder()
-                        .setWalkingTimeToStation(this.walkingTimeToStation)
+                        .setWalkingTimeToStation(this.walkingTimeToStation == null ? 0 : this.walkingTimeToStation)
                 )
                 .setTypeValue(this.type.getCode())
                 .build();
@@ -53,27 +55,32 @@ public interface Transportation {
         /**
          * limits the possible duration of walking paths must be > 0 and <= 1800
          * walkingTimeToStation limit is of low precedence and will not override the global travel time limit
+         * If not set, server side decides what `walkingTimeToStation` value should be
+         * which is a reasonable value within the [1, 1800] (inclusive)
          */
         @Builder.Default
         @With
-        private Integer walkingTimeToStation = 1800;
+        private Integer walkingTimeToStation = null;
 
         /**
          * limits the possible duration of driving paths must be > 0 and <= 1800
          * drivingTimeToStation limit is of low precedence and will not override the global travel time limit
+         * If not set, server side decides what `drivingTimeToStation` value should be
+         * which is a reasonable value within the [1, 1800] (inclusive)
          */
         @Builder.Default
         @With
-        private Integer drivingTimeToStation = 1800;
+        private Integer drivingTimeToStation = null;
 
         /**
          * constant penalty to apply to simulate the difficulty of finding a parking spot.
          * If parkingTime >= 0: apply the parking penalty when searching for possible paths.
          * parkingTime penalty cannot be greater than the global travel time limit
+         * If not set, server side decides what `parkingTime` value should be
          */
         @Builder.Default
         @With
-        private Integer parkingTime = 300;
+        private Integer parkingTime = null;
 
         @Override
         public RequestsCommon.Transportation getProtoMessage() {
@@ -82,9 +89,9 @@ public interface Transportation {
                 .setDrivingAndPublicTransport(
                     RequestsCommon.DrivingAndPublicTransportDetails
                         .newBuilder()
-                        .setWalkingTimeToStation(this.walkingTimeToStation)
-                        .setDrivingTimeToStation(this.drivingTimeToStation)
-                        .setParkingTime(this.parkingTime)
+                        .setWalkingTimeToStation(this.walkingTimeToStation == null ? 0 : this.walkingTimeToStation)
+                        .setDrivingTimeToStation(this.drivingTimeToStation == null ? 0 : this.drivingTimeToStation)
+                        .setParkingTime(this.parkingTime == null ? -1 : this.parkingTime)
                 )
                 .setTypeValue(this.type.getCode())
                 .build();
