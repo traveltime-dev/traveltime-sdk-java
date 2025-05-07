@@ -26,10 +26,11 @@ public interface Transportation {
         /**
          * limits the possible duration of walking paths must be > 0 and <= 1800
          * walkingTimeToStation limit is of low precedence and will not override the global travel time limit
+         * By default, server side decides what `walkingTimeToStation` value should be
          */
         @Builder.Default
         @With
-        private Integer walkingTimeToStation = 1800;
+        private Integer walkingTimeToStation = 0;
 
         @Override
         public RequestsCommon.Transportation getProtoMessage() {
@@ -53,27 +54,30 @@ public interface Transportation {
         /**
          * limits the possible duration of walking paths must be > 0 and <= 1800
          * walkingTimeToStation limit is of low precedence and will not override the global travel time limit
+         * By default, server side decides what `walkingTimeToStation` value should be
          */
         @Builder.Default
         @With
-        private Integer walkingTimeToStation = 1800;
+        private Integer walkingTimeToStation = 0;
 
         /**
          * limits the possible duration of driving paths must be > 0 and <= 1800
          * drivingTimeToStation limit is of low precedence and will not override the global travel time limit
+         * By default, server side decides what `drivingTimeToStation` value should be
          */
         @Builder.Default
         @With
-        private Integer drivingTimeToStation = 1800;
+        private Integer drivingTimeToStation = 0;
 
         /**
          * constant penalty to apply to simulate the difficulty of finding a parking spot.
          * If parkingTime >= 0: apply the parking penalty when searching for possible paths.
          * parkingTime penalty cannot be greater than the global travel time limit
+         * By default, server side decides what `parkingTime` value should be
          */
         @Builder.Default
         @With
-        private Integer parkingTime = 300;
+        private Integer parkingTime = -1;
 
         @Override
         public RequestsCommon.Transportation getProtoMessage() {
