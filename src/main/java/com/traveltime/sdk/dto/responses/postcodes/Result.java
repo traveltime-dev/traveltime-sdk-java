@@ -1,19 +1,15 @@
 package com.traveltime.sdk.dto.responses.postcodes;
 
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
-
-import java.util.List;
 
 @Value
 @Builder
 @Jacksonized
 @AllArgsConstructor
 public class Result {
-    @NonNull
-    String searchId;
-    @Valid
-    @NonNull
-    List<Postcode> postcodes;
+  @NonNull String searchId;
+  @Valid @NonNull List<Postcode> postcodes;
 }

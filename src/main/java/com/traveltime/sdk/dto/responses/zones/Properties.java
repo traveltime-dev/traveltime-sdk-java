@@ -12,7 +12,7 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Properties {
-    TravelTime travelTimeReachable;
-    TravelTime travelTimeAll;
-    Double coverage;
+  TravelTime travelTimeReachable;
+  TravelTime travelTimeAll;
+  Double coverage;
 }

@@ -7,17 +7,17 @@ import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
-
 @Value
 @Builder
 @Jacksonized
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Bus implements Transportation {
-    @Positive(message = "ptChangeDelay must be greater than 0")
-    Integer ptChangeDelay;
-    @Positive(message = "walkingTime must be greater than 0")
-    Integer walkingTime;
-    @Valid
-    MaxChanges maxChanges;
+  @Positive(message = "ptChangeDelay must be greater than 0")
+  Integer ptChangeDelay;
+
+  @Positive(message = "walkingTime must be greater than 0")
+  Integer walkingTime;
+
+  @Valid MaxChanges maxChanges;
 }

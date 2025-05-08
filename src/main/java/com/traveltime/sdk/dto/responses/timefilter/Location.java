@@ -1,15 +1,14 @@
 package com.traveltime.sdk.dto.responses.timefilter;
 
+import java.util.List;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
-
-import java.util.List;
 
 @Value
 @Builder
 @Jacksonized
 @AllArgsConstructor
 public class Location {
-    String id;
-    List<Property> properties;
+  String id;
+  List<Property> properties;
 }

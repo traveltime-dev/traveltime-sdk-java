@@ -9,7 +9,7 @@ import org.locationtech.jts.geom.Geometry;
 @Jacksonized
 @AllArgsConstructor
 public class WktResult {
-    String searchId;
-    Geometry shape;
-    ResponseProperties properties;
+  String searchId;
+  Geometry shape;
+  ResponseProperties properties;
 }

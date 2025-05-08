@@ -10,7 +10,6 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Properties {
-    @NonNull
-    Integer travelTime;
-    Fares fares;
+  @NonNull Integer travelTime;
+  Fares fares;
 }

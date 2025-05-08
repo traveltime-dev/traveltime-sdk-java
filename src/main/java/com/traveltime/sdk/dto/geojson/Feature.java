@@ -12,11 +12,9 @@ import org.geojson.GeoJsonObject;
 @Jacksonized
 @AllArgsConstructor
 public class Feature<G extends GeoJsonObject, P> {
-    @NonNull
-    String type;
+  @NonNull String type;
 
-    @NonNull
-    G geometry;
+  @NonNull G geometry;
 
-    P properties;
+  P properties;
 }

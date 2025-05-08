@@ -8,14 +8,15 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class ValidationError implements TravelTimeError {
-    @NonNull
-    String errorMsg;
+  @NonNull String errorMsg;
 
-    @Override
-    public Option<Throwable> retrieveCause() { return Option.none(); }
+  @Override
+  public Option<Throwable> retrieveCause() {
+    return Option.none();
+  }
 
-    @Override
-    public String getMessage() {
-        return errorMsg;
-    }
+  @Override
+  public String getMessage() {
+    return errorMsg;
+  }
 }

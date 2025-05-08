@@ -14,20 +14,20 @@ import lombok.extern.jackson.Jacksonized;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Snapping {
 
-    public enum AcceptRoads {
-        @JsonProperty("both_drivable_and_walkable")
-        BOTH_DRIVABLE_AND_WALKABLE,
-        @JsonProperty("any_drivable")
-        ANY_DRIVABLE
-    }
+  public enum AcceptRoads {
+    @JsonProperty("both_drivable_and_walkable")
+    BOTH_DRIVABLE_AND_WALKABLE,
+    @JsonProperty("any_drivable")
+    ANY_DRIVABLE
+  }
 
-    public enum SnapPenalty {
-        @JsonProperty("enabled")
-        ENABLED,
-        @JsonProperty("disabled")
-        DISABLED
-    }
+  public enum SnapPenalty {
+    @JsonProperty("enabled")
+    ENABLED,
+    @JsonProperty("disabled")
+    DISABLED
+  }
 
-    SnapPenalty penalty;
-    AcceptRoads acceptRoads;
+  SnapPenalty penalty;
+  AcceptRoads acceptRoads;
 }

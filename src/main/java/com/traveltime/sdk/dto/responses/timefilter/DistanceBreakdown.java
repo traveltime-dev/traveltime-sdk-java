@@ -8,6 +8,6 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class DistanceBreakdown {
-    String mode;
-    Integer distance;
+  String mode;
+  Integer distance;
 }

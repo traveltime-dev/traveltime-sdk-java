@@ -8,8 +8,6 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Supported {
-    @NonNull
-    String searchType;
-    @NonNull
-    String transportationMode;
+  @NonNull String searchType;
+  @NonNull String transportationMode;
 }

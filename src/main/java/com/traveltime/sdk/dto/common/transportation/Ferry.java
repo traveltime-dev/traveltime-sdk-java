@@ -11,6 +11,6 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Ferry implements Transportation {
-    @Positive(message = "boardingTime must be greater than 0")
-    Integer boardingTime;
+  @Positive(message = "boardingTime must be greater than 0")
+  Integer boardingTime;
 }

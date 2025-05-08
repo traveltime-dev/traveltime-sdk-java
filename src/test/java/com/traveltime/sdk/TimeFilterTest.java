@@ -17,67 +17,61 @@ import com.traveltime.sdk.dto.requests.timefilterfast.OneToMany;
 import com.traveltime.sdk.dto.responses.*;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.junit.Before;
+import org.junit.Test;
 
 public class TimeFilterTest {
-    TravelTimeSDK sdk;
+  TravelTimeSDK sdk;
 
-    @Before
-    public void init() {
-        TravelTimeCredentials credentials = new TravelTimeCredentials(
-            System.getenv("APP_ID"),
-            System.getenv("API_KEY")
-        );
-        sdk = new TravelTimeSDK(credentials);
-    }
+  @Before
+  public void init() {
+    TravelTimeCredentials credentials =
+        new TravelTimeCredentials(System.getenv("APP_ID"), System.getenv("API_KEY"));
+    sdk = new TravelTimeSDK(credentials);
+  }
 
-    @Test
-    public void shouldSendTimeFilterRequest() {
-        List<Location> locations = Arrays.asList(
-            new Location("location1", new Coordinates(51.508930,-0.131387)),
-            new Location("location2", new Coordinates(51.508824,-0.167093)),
-            new Location("location3", new Coordinates(51.536067,-0.153596))
-        );
-        TimeFilterRequest request = new TimeFilterRequest(
+  @Test
+  public void shouldSendTimeFilterRequest() {
+    List<Location> locations =
+        Arrays.asList(
+            new Location("location1", new Coordinates(51.508930, -0.131387)),
+            new Location("location2", new Coordinates(51.508824, -0.167093)),
+            new Location("location3", new Coordinates(51.536067, -0.153596)));
+    TimeFilterRequest request =
+        new TimeFilterRequest(
             locations,
             createDepartureSearch("location1", Arrays.asList("location2", "location3")),
-            createArrivalSearch(Arrays.asList("location2", "location3"), "location1")
-        );
+            createArrivalSearch(Arrays.asList("location2", "location3"), "location1"));
 
-        Either<TravelTimeError, TimeFilterResponse> response = sdk.send(request);
-        Common.assertResponseIsRight(response);
-    }
+    Either<TravelTimeError, TimeFilterResponse> response = sdk.send(request);
+    Common.assertResponseIsRight(response);
+  }
 
-    @Test
-    public void shouldSendTimeFilterFastRequest() {
-        List<Location> locations = Arrays.asList(
-            new Location("location1", new Coordinates(51.508930,-0.131387)),
-            new Location("location2", new Coordinates(51.508824,-0.167093)),
-            new Location("location3", new Coordinates(51.536067,-0.153596))
-        );
-        ArrivalSearches arrivalSearches = new ArrivalSearches(
+  @Test
+  public void shouldSendTimeFilterFastRequest() {
+    List<Location> locations =
+        Arrays.asList(
+            new Location("location1", new Coordinates(51.508930, -0.131387)),
+            new Location("location2", new Coordinates(51.508824, -0.167093)),
+            new Location("location3", new Coordinates(51.536067, -0.153596)));
+    ArrivalSearches arrivalSearches =
+        new ArrivalSearches(
             createManyToOne("location1", Arrays.asList("location2", "location3")),
-            createOneToMany("location1", Arrays.asList("location2", "location3"))
-        );
+            createOneToMany("location1", Arrays.asList("location2", "location3")));
 
-        TimeFilterFastRequest request = new TimeFilterFastRequest(locations, arrivalSearches);
+    TimeFilterFastRequest request = new TimeFilterFastRequest(locations, arrivalSearches);
 
-        Either<TravelTimeError, TimeFilterFastResponse> response = sdk.send(request);
-        Common.assertResponseIsRight(response);
-    }
+    Either<TravelTimeError, TimeFilterFastResponse> response = sdk.send(request);
+    Common.assertResponseIsRight(response);
+  }
 
-    private List<ManyToOne> createManyToOne(
-        String arrivalLocation,
-        List<String> departureLocations
-    ) {
-        ManyToOne manyToOne = new ManyToOne(
+  private List<ManyToOne> createManyToOne(String arrivalLocation, List<String> departureLocations) {
+    ManyToOne manyToOne =
+        new ManyToOne(
             "test many to one",
             arrivalLocation,
             departureLocations,
@@ -88,17 +82,14 @@ public class TimeFilterTest {
             Snapping.builder()
                 .acceptRoads(Snapping.AcceptRoads.BOTH_DRIVABLE_AND_WALKABLE)
                 .penalty(Snapping.SnapPenalty.ENABLED)
-                .build()
-        );
+                .build());
 
-        return Collections.singletonList(manyToOne);
-    }
+    return Collections.singletonList(manyToOne);
+  }
 
-    private List<OneToMany> createOneToMany(
-        String departureLocation,
-        List<String> arrivalLocations
-    ) {
-        OneToMany oneToMany = new OneToMany(
+  private List<OneToMany> createOneToMany(String departureLocation, List<String> arrivalLocations) {
+    OneToMany oneToMany =
+        new OneToMany(
             "test one to many",
             departureLocation,
             arrivalLocations,
@@ -109,17 +100,15 @@ public class TimeFilterTest {
             Snapping.builder()
                 .acceptRoads(Snapping.AcceptRoads.ANY_DRIVABLE)
                 .penalty(Snapping.SnapPenalty.DISABLED)
-                .build()
-        );
+                .build());
 
-        return Collections.singletonList(oneToMany);
-    }
+    return Collections.singletonList(oneToMany);
+  }
 
-    private List<DepartureSearch> createDepartureSearch(
-        String departureLocation,
-        List<String> arrivalLocations
-    ) {
-        DepartureSearch ds = new DepartureSearch(
+  private List<DepartureSearch> createDepartureSearch(
+      String departureLocation, List<String> arrivalLocations) {
+    DepartureSearch ds =
+        new DepartureSearch(
             "Test departure search",
             departureLocation,
             arrivalLocations,
@@ -128,17 +117,15 @@ public class TimeFilterTest {
             900,
             Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE),
             new FullRange(true, 2, 300),
-            null
-        );
-        return Collections.singletonList(ds);
-    }
+            null);
+    return Collections.singletonList(ds);
+  }
 
-    private List<ArrivalSearch> createArrivalSearch(
-        List<String> departureLocations,
-        String arrivalLocation
-    ) {
-        ArrivalSearch as = new ArrivalSearch(
-        "Test arrival search",
+  private List<ArrivalSearch> createArrivalSearch(
+      List<String> departureLocations, String arrivalLocation) {
+    ArrivalSearch as =
+        new ArrivalSearch(
+            "Test arrival search",
             departureLocations,
             arrivalLocation,
             PublicTransport.builder().build(),
@@ -146,8 +133,7 @@ public class TimeFilterTest {
             900,
             Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES),
             new FullRange(true, 1, 300),
-            null
-        );
-        return Collections.singletonList(as);
-    }
+            null);
+    return Collections.singletonList(as);
+  }
 }

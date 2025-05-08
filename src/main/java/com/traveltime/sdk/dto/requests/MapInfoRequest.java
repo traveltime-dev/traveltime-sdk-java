@@ -1,6 +1,5 @@
 package com.traveltime.sdk.dto.requests;
 
-
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.responses.MapInfoResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
@@ -14,13 +13,15 @@ import okhttp3.Request;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class MapInfoRequest extends TravelTimeRequest<MapInfoResponse> {
-    @Override
-    public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
-        return Either.right(createGetRequest(baseUri.newBuilder().addPathSegments("map-info").build(), credentials));
-    }
+  @Override
+  public Either<TravelTimeError, Request> createRequest(
+      HttpUrl baseUri, TravelTimeCredentials credentials) {
+    return Either.right(
+        createGetRequest(baseUri.newBuilder().addPathSegments("map-info").build(), credentials));
+  }
 
-    @Override
-    public Class<MapInfoResponse> responseType() {
-        return MapInfoResponse.class;
-    }
+  @Override
+  public Class<MapInfoResponse> responseType() {
+    return MapInfoResponse.class;
+  }
 }

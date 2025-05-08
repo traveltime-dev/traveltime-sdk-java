@@ -8,10 +8,7 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Ticket {
-    @NonNull
-    String type;
-    @NonNull
-    Double price;
-    @NonNull
-    String currency;
+  @NonNull String type;
+  @NonNull Double price;
+  @NonNull String currency;
 }

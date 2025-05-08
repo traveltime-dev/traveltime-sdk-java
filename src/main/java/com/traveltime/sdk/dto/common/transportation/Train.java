@@ -13,10 +13,11 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Train implements Transportation {
-    @Positive(message = "ptChangeDelay must be greater than 0")
-    Integer ptChangeDelay;
-    @Positive(message = "walkingTime must be greater than 0")
-    Integer walkingTime;
-    @Valid
-    MaxChanges maxChanges;
+  @Positive(message = "ptChangeDelay must be greater than 0")
+  Integer ptChangeDelay;
+
+  @Positive(message = "walkingTime must be greater than 0")
+  Integer walkingTime;
+
+  @Valid MaxChanges maxChanges;
 }
