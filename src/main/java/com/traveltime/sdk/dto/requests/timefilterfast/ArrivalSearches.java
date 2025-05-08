@@ -9,6 +9,9 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class ArrivalSearches {
-  @NonNull List<ManyToOne> manyToOne;
-  @NonNull List<OneToMany> oneToMany;
+    @NonNull
+    List<ManyToOne> manyToOne;
+
+    @NonNull
+    List<OneToMany> oneToMany;
 }

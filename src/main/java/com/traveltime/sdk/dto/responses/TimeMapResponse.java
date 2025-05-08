@@ -10,5 +10,6 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class TimeMapResponse {
-  @NonNull List<Result> results;
+    @NonNull
+    List<Result> results;
 }

@@ -10,7 +10,13 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Result {
-  @NonNull String searchId;
-  @Valid @NonNull List<Location> locations;
-  @NonNull List<String> unreachable;
+    @NonNull
+    String searchId;
+
+    @Valid
+    @NonNull
+    List<Location> locations;
+
+    @NonNull
+    List<String> unreachable;
 }

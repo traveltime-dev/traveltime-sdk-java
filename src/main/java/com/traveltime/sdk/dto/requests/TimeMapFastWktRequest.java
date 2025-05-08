@@ -20,23 +20,24 @@ import okhttp3.Request;
 @EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimeMapFastWktRequest extends TravelTimeRequest<TimeMapFastWktResponse> {
-  @NonNull ArrivalSearches arrivalSearches;
-  @Builder.Default boolean withHoles = true;
+    @NonNull
+    ArrivalSearches arrivalSearches;
 
-  private AcceptType acceptType() {
-    return withHoles ? AcceptType.APPLICATION_WKT_JSON : AcceptType.APPLICATION_WKT_NO_HOLES_JSON;
-  }
+    @Builder.Default
+    boolean withHoles = true;
 
-  @Override
-  public Either<TravelTimeError, Request> createRequest(
-      HttpUrl baseUri, TravelTimeCredentials credentials) {
-    val uri = baseUri.newBuilder().addPathSegments("time-map/fast").build();
-    return JsonUtils.toJson(this)
-        .map(json -> createPostRequest(credentials, uri, json, acceptType()));
-  }
+    private AcceptType acceptType() {
+        return withHoles ? AcceptType.APPLICATION_WKT_JSON : AcceptType.APPLICATION_WKT_NO_HOLES_JSON;
+    }
 
-  @Override
-  public Class<TimeMapFastWktResponse> responseType() {
-    return TimeMapFastWktResponse.class;
-  }
+    @Override
+    public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
+        val uri = baseUri.newBuilder().addPathSegments("time-map/fast").build();
+        return JsonUtils.toJson(this).map(json -> createPostRequest(credentials, uri, json, acceptType()));
+    }
+
+    @Override
+    public Class<TimeMapFastWktResponse> responseType() {
+        return TimeMapFastWktResponse.class;
+    }
 }

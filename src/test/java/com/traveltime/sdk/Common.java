@@ -14,27 +14,26 @@ import java.util.stream.Stream;
 import org.junit.Assert;
 
 public class Common {
-  public static String readFile(String fileName) throws IOException {
-    try (Stream<String> stream = Files.lines(Paths.get("src/test/resources/" + fileName))) {
-      return stream.collect(Collectors.joining("\n"));
+    public static String readFile(String fileName) throws IOException {
+        try (Stream<String> stream = Files.lines(Paths.get("src/test/resources/" + fileName))) {
+            return stream.collect(Collectors.joining("\n"));
+        }
     }
-  }
 
-  public static List<Coordinates> generateCoordinates(int size) {
-    Random r = new Random();
-    List<Coordinates> list = new ArrayList<>();
-    for (int i = 0; i < size; i++) list.add(new Coordinates(r.nextDouble(), r.nextDouble()));
-    return list;
-  }
+    public static List<Coordinates> generateCoordinates(int size) {
+        Random r = new Random();
+        List<Coordinates> list = new ArrayList<>();
+        for (int i = 0; i < size; i++) list.add(new Coordinates(r.nextDouble(), r.nextDouble()));
+        return list;
+    }
 
-  public static <T> void assertResponseIsRight(Either<TravelTimeError, T> response) {
-    response.peekLeft(
-        error -> {
-          System.out.println("Error: " + error.getMessage());
-          if (error.retrieveCause().isDefined()) {
-            System.out.println("Cause: " + error.retrieveCause().get().getMessage());
-          }
+    public static <T> void assertResponseIsRight(Either<TravelTimeError, T> response) {
+        response.peekLeft(error -> {
+            System.out.println("Error: " + error.getMessage());
+            if (error.retrieveCause().isDefined()) {
+                System.out.println("Cause: " + error.retrieveCause().get().getMessage());
+            }
         });
-    Assert.assertTrue(response.isRight());
-  }
+        Assert.assertTrue(response.isRight());
+    }
 }

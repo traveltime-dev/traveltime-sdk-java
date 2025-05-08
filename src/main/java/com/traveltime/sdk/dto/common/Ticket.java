@@ -9,11 +9,13 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Ticket {
-  @NonNull String type;
+    @NonNull
+    String type;
 
-  @NonNull
-  @Positive(message = "price must be greater than 0")
-  Double price;
+    @NonNull
+    @Positive(message = "price must be greater than 0")
+    Double price;
 
-  @NonNull String currency;
+    @NonNull
+    String currency;
 }

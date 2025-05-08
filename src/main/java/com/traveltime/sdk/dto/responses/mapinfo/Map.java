@@ -8,6 +8,9 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Map {
-  @NonNull String name;
-  @NonNull Feature features;
+    @NonNull
+    String name;
+
+    @NonNull
+    Feature features;
 }

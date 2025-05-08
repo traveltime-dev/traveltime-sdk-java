@@ -13,11 +13,12 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Coach implements Transportation {
-  @Positive(message = "ptChangeDelay must be greater than 0")
-  Integer ptChangeDelay;
+    @Positive(message = "ptChangeDelay must be greater than 0")
+    Integer ptChangeDelay;
 
-  @Positive(message = "walkingTime must be greater than 0")
-  Integer walkingTime;
+    @Positive(message = "walkingTime must be greater than 0")
+    Integer walkingTime;
 
-  @Valid MaxChanges maxChanges;
+    @Valid
+    MaxChanges maxChanges;
 }

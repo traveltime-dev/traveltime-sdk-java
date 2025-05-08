@@ -19,18 +19,19 @@ import okhttp3.Request;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class SupportedLocationsRequest extends TravelTimeRequest<SupportedLocationsResponse> {
-  @NonNull @Singular List<Location> locations;
+    @NonNull
+    @Singular
+    List<Location> locations;
 
-  @Override
-  public Either<TravelTimeError, Request> createRequest(
-      HttpUrl baseUri, TravelTimeCredentials credentials) {
-    val uri = baseUri.newBuilder().addPathSegments("supported-locations").build();
-    return JsonUtils.toJson(this)
-        .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_JSON));
-  }
+    @Override
+    public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
+        val uri = baseUri.newBuilder().addPathSegments("supported-locations").build();
+        return JsonUtils.toJson(this)
+                .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_JSON));
+    }
 
-  @Override
-  public Class<SupportedLocationsResponse> responseType() {
-    return SupportedLocationsResponse.class;
-  }
+    @Override
+    public Class<SupportedLocationsResponse> responseType() {
+        return SupportedLocationsResponse.class;
+    }
 }

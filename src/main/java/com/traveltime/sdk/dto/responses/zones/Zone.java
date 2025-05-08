@@ -8,6 +8,9 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Zone {
-  @NonNull String code;
-  @NonNull Properties properties;
+    @NonNull
+    String code;
+
+    @NonNull
+    Properties properties;
 }

@@ -9,6 +9,10 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Intersection {
-  @NonNull String id;
-  @NonNull @Singular List<String> searchIds;
+    @NonNull
+    String id;
+
+    @NonNull
+    @Singular
+    List<String> searchIds;
 }

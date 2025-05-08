@@ -9,9 +9,10 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class MaxChanges {
-  @NonNull Boolean enabled;
+    @NonNull
+    Boolean enabled;
 
-  @NonNull
-  @Positive(message = "limit must be greater than 0")
-  Integer limit;
+    @NonNull
+    @Positive(message = "limit must be greater than 0")
+    Integer limit;
 }

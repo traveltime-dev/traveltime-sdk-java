@@ -10,6 +10,9 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Jacksonized
 public class BoundingBox {
-  @NonNull Rectangle envelope;
-  @NonNull List<Rectangle> boxes;
+    @NonNull
+    Rectangle envelope;
+
+    @NonNull
+    List<Rectangle> boxes;
 }

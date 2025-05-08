@@ -17,18 +17,28 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DepartureSearch {
-  @NonNull String id;
-  @NonNull Coordinates coords;
-  @Valid @NonNull Transportation transportation;
-  @NonNull Instant departureTime;
+    @NonNull
+    String id;
 
-  @NonNull
-  @Positive(message = "travelTime should be positive")
-  Integer travelTime;
+    @NonNull
+    Coordinates coords;
 
-  @Valid Range range;
-  LevelOfDetail levelOfDetail;
-  Boolean singleShape;
-  Boolean noHoles;
-  Snapping snapPenalty;
+    @Valid
+    @NonNull
+    Transportation transportation;
+
+    @NonNull
+    Instant departureTime;
+
+    @NonNull
+    @Positive(message = "travelTime should be positive")
+    Integer travelTime;
+
+    @Valid
+    Range range;
+
+    LevelOfDetail levelOfDetail;
+    Boolean singleShape;
+    Boolean noHoles;
+    Snapping snapPenalty;
 }

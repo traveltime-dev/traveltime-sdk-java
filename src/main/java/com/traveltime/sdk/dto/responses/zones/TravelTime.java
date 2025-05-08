@@ -8,8 +8,15 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class TravelTime {
-  @NonNull Integer min;
-  @NonNull Integer max;
-  @NonNull Integer mean;
-  @NonNull Integer median;
+    @NonNull
+    Integer min;
+
+    @NonNull
+    Integer max;
+
+    @NonNull
+    Integer mean;
+
+    @NonNull
+    Integer median;
 }

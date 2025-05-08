@@ -10,15 +10,16 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class XmlError implements TravelTimeError {
-  @NonNull Throwable cause;
+    @NonNull
+    Throwable cause;
 
-  @Override
-  public Option<Throwable> retrieveCause() {
-    return Option.of(cause);
-  }
+    @Override
+    public Option<Throwable> retrieveCause() {
+        return Option.of(cause);
+    }
 
-  @Override
-  public String getMessage() {
-    return cause.getMessage();
-  }
+    @Override
+    public String getMessage() {
+        return cause.getMessage();
+    }
 }

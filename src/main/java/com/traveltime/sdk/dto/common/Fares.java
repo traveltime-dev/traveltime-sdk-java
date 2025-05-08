@@ -10,6 +10,11 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Fares {
-  @Valid @NonNull List<FareBreakdown> breakdown;
-  @Valid @NonNull List<Ticket> ticketsTotal;
+    @Valid
+    @NonNull
+    List<FareBreakdown> breakdown;
+
+    @Valid
+    @NonNull
+    List<Ticket> ticketsTotal;
 }

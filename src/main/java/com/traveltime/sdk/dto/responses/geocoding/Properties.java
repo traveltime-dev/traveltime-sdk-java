@@ -17,28 +17,30 @@ import lombok.extern.jackson.Jacksonized;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Properties {
 
-  @NonNull String name;
+    @NonNull
+    String name;
 
-  @NonNull String label;
+    @NonNull
+    String label;
 
-  Double score;
-  String category;
-  String type;
-  String houseNumber;
-  String street;
-  String region;
-  String regionCode;
-  String neighbourhood;
-  String county;
-  String macroregion;
-  String city;
-  String town;
-  String district;
-  String country;
-  String countryCode;
-  String localAdmin;
-  String continent;
-  String postcode;
+    Double score;
+    String category;
+    String type;
+    String houseNumber;
+    String street;
+    String region;
+    String regionCode;
+    String neighbourhood;
+    String county;
+    String macroregion;
+    String city;
+    String town;
+    String district;
+    String country;
+    String countryCode;
+    String localAdmin;
+    String continent;
+    String postcode;
 
-  Feature features;
+    Feature features;
 }

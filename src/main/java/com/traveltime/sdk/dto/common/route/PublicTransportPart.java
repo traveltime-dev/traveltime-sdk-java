@@ -12,23 +12,41 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class PublicTransportPart implements Part {
-  @NonNull Integer id;
-  @NonNull String mode;
-  @NonNull String directions;
+    @NonNull
+    Integer id;
 
-  @NonNull
-  @Positive(message = "distance must be greater than 0")
-  Integer distance;
+    @NonNull
+    String mode;
 
-  @NonNull
-  @Positive(message = "travelTime must be greater than 0")
-  Integer travelTime;
+    @NonNull
+    String directions;
 
-  @NonNull List<Coordinates> coords;
-  @NonNull String line;
-  @NonNull String departureStation;
-  @NonNull String arrivalStation;
-  @NonNull LocalTime departsAt;
-  @NonNull LocalTime arrivesAt;
-  @NonNull Integer numStops;
+    @NonNull
+    @Positive(message = "distance must be greater than 0")
+    Integer distance;
+
+    @NonNull
+    @Positive(message = "travelTime must be greater than 0")
+    Integer travelTime;
+
+    @NonNull
+    List<Coordinates> coords;
+
+    @NonNull
+    String line;
+
+    @NonNull
+    String departureStation;
+
+    @NonNull
+    String arrivalStation;
+
+    @NonNull
+    LocalTime departsAt;
+
+    @NonNull
+    LocalTime arrivesAt;
+
+    @NonNull
+    Integer numStops;
 }

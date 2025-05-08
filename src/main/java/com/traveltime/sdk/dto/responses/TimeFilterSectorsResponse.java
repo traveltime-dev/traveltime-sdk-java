@@ -10,5 +10,6 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class TimeFilterSectorsResponse {
-  @NonNull List<SectorsResult> results;
+    @NonNull
+    List<SectorsResult> results;
 }

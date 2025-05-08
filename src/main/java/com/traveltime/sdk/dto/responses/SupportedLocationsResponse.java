@@ -10,6 +10,9 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class SupportedLocationsResponse {
-  @NonNull List<Location> locations;
-  @NonNull List<String> unsupportedLocations;
+    @NonNull
+    List<Location> locations;
+
+    @NonNull
+    List<String> unsupportedLocations;
 }

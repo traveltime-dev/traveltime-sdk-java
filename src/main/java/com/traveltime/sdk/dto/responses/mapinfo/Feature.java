@@ -11,9 +11,11 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Feature {
-  @NonNull List<String> crossCountryModes;
-  PublicTransport publicTransport;
-  TimeFilterFast timeFilterFast;
-  Boolean fares;
-  Boolean postcodes;
+    @NonNull
+    List<String> crossCountryModes;
+
+    PublicTransport publicTransport;
+    TimeFilterFast timeFilterFast;
+    Boolean fares;
+    Boolean postcodes;
 }

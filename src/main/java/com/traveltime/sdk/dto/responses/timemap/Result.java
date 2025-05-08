@@ -10,7 +10,7 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Result {
-  String searchId;
-  List<Shape> shapes;
-  ResponseProperties properties;
+    String searchId;
+    List<Shape> shapes;
+    ResponseProperties properties;
 }

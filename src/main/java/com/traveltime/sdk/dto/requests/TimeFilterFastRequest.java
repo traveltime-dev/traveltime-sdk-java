@@ -20,19 +20,22 @@ import okhttp3.Request;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class TimeFilterFastRequest extends TravelTimeRequest<TimeFilterFastResponse> {
-  @NonNull @Singular List<Location> locations;
-  @NonNull ArrivalSearches arrivalSearches;
+    @NonNull
+    @Singular
+    List<Location> locations;
 
-  @Override
-  public Either<TravelTimeError, Request> createRequest(
-      HttpUrl baseUri, TravelTimeCredentials credentials) {
-    val uri = baseUri.newBuilder().addPathSegments("time-filter/fast").build();
-    return JsonUtils.toJson(this)
-        .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_JSON));
-  }
+    @NonNull
+    ArrivalSearches arrivalSearches;
 
-  @Override
-  public Class<TimeFilterFastResponse> responseType() {
-    return TimeFilterFastResponse.class;
-  }
+    @Override
+    public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
+        val uri = baseUri.newBuilder().addPathSegments("time-filter/fast").build();
+        return JsonUtils.toJson(this)
+                .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_JSON));
+    }
+
+    @Override
+    public Class<TimeFilterFastResponse> responseType() {
+        return TimeFilterFastResponse.class;
+    }
 }

@@ -11,5 +11,6 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class GeoJsonProperties {
-  @NonNull String searchId;
+    @NonNull
+    String searchId;
 }

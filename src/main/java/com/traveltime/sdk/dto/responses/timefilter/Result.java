@@ -9,7 +9,7 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Result {
-  String searchId;
-  List<Location> locations;
-  List<String> unreachable;
+    String searchId;
+    List<Location> locations;
+    List<String> unreachable;
 }

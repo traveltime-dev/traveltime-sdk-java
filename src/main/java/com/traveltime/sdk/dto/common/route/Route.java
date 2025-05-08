@@ -10,7 +10,12 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Route {
-  @NonNull OffsetDateTime departureTime;
-  @NonNull OffsetDateTime arrivalTime;
-  @NonNull List<Part> parts;
+    @NonNull
+    OffsetDateTime departureTime;
+
+    @NonNull
+    OffsetDateTime arrivalTime;
+
+    @NonNull
+    List<Part> parts;
 }

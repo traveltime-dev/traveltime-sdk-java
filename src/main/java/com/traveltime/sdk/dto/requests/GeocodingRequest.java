@@ -17,65 +17,57 @@ import okhttp3.Request;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class GeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
-  @NonNull String query;
+    @NonNull
+    String query;
 
-  @Singular List<String> withinCountries;
+    @Singular
+    List<String> withinCountries;
 
-  Integer limit;
+    Integer limit;
 
-  Boolean formatName;
+    Boolean formatName;
 
-  Boolean formatExcludeCountry;
+    Boolean formatExcludeCountry;
 
-  Rectangle bounds;
+    Rectangle bounds;
 
-  private QueryElement getLimit() {
-    return new QueryElement("limit", limit == null ? "" : limit.toString());
-  }
+    private QueryElement getLimit() {
+        return new QueryElement("limit", limit == null ? "" : limit.toString());
+    }
 
-  private QueryElement getBounds() {
-    String value =
-        bounds == null
-            ? ""
-            : bounds.getMinLat()
-                + ","
-                + bounds.getMinLng()
-                + ","
-                + bounds.getMaxLat()
-                + ","
-                + bounds.getMaxLng();
-    return new QueryElement("bounds", value);
-  }
+    private QueryElement getBounds() {
+        String value = bounds == null
+                ? ""
+                : bounds.getMinLat() + "," + bounds.getMinLng() + "," + bounds.getMaxLat() + "," + bounds.getMaxLng();
+        return new QueryElement("bounds", value);
+    }
 
-  private QueryElement getFormatName() {
-    return new QueryElement("format.name", formatName == null ? "" : formatName.toString());
-  }
+    private QueryElement getFormatName() {
+        return new QueryElement("format.name", formatName == null ? "" : formatName.toString());
+    }
 
-  private QueryElement getFormatExcludeCountry() {
-    return new QueryElement(
-        "format.exclude.country",
-        formatExcludeCountry == null ? "" : formatExcludeCountry.toString());
-  }
+    private QueryElement getFormatExcludeCountry() {
+        return new QueryElement(
+                "format.exclude.country", formatExcludeCountry == null ? "" : formatExcludeCountry.toString());
+    }
 
-  @Override
-  public Either<TravelTimeError, Request> createRequest(
-      HttpUrl baseUri, TravelTimeCredentials credentials) {
-    val builder = baseUri.newBuilder().addPathSegments("geocoding/search");
-    val uri =
-        Utils.withQuery(
-                builder,
-                new QueryElement("query", query),
-                combineCountries(withinCountries),
-                getLimit(),
-                getFormatName(),
-                getFormatExcludeCountry(),
-                getBounds())
-            .build();
-    return Either.right(createGetRequest(uri, credentials));
-  }
+    @Override
+    public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
+        val builder = baseUri.newBuilder().addPathSegments("geocoding/search");
+        val uri = Utils.withQuery(
+                        builder,
+                        new QueryElement("query", query),
+                        combineCountries(withinCountries),
+                        getLimit(),
+                        getFormatName(),
+                        getFormatExcludeCountry(),
+                        getBounds())
+                .build();
+        return Either.right(createGetRequest(uri, credentials));
+    }
 
-  @Override
-  public Class<GeocodingResponse> responseType() {
-    return GeocodingResponse.class;
-  }
+    @Override
+    public Class<GeocodingResponse> responseType() {
+        return GeocodingResponse.class;
+    }
 }

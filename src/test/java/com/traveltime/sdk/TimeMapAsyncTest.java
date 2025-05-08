@@ -22,44 +22,41 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TimeMapAsyncTest {
-  TravelTimeSDK sdk;
+    TravelTimeSDK sdk;
 
-  @Before
-  public void init() {
-    TravelTimeCredentials credentials =
-        new TravelTimeCredentials(System.getenv("APP_ID"), System.getenv("API_KEY"));
-    sdk = new TravelTimeSDK(credentials);
-  }
+    @Before
+    public void init() {
+        TravelTimeCredentials credentials =
+                new TravelTimeCredentials(System.getenv("APP_ID"), System.getenv("API_KEY"));
+        sdk = new TravelTimeSDK(credentials);
+    }
 
-  @Test
-  public void shouldSendAsyncTimeMapRequest() throws ExecutionException, InterruptedException {
-    Coordinates coords = new Coordinates(51.507609, -0.128315);
-    Transportation transportation = PublicTransport.builder().build();
+    @Test
+    public void shouldSendAsyncTimeMapRequest() throws ExecutionException, InterruptedException {
+        Coordinates coords = new Coordinates(51.507609, -0.128315);
+        Transportation transportation = PublicTransport.builder().build();
 
-    TimeMapRequest request =
-        TimeMapRequest.builder()
-            .arrivalSearches(createArrivalSearch(coords, transportation))
-            .build();
+        TimeMapRequest request = TimeMapRequest.builder()
+                .arrivalSearches(createArrivalSearch(coords, transportation))
+                .build();
 
-    CompletableFuture<Either<TravelTimeError, TimeMapResponse>> response = sdk.sendAsync(request);
-    Assert.assertTrue(response.get().isRight());
-  }
+        CompletableFuture<Either<TravelTimeError, TimeMapResponse>> response = sdk.sendAsync(request);
+        Assert.assertTrue(response.get().isRight());
+    }
 
-  private List<ArrivalSearch> createArrivalSearch(
-      Coordinates coords, Transportation transportation) {
-    ArrivalSearch as =
-        new ArrivalSearch(
-            "Test async arrival search",
-            coords,
-            transportation,
-            Instant.now(),
-            900,
-            new Range(true, 400),
-            new SimpleLevelOfDetail(Level.MEDIUM),
-            false,
-            false,
-            null);
+    private List<ArrivalSearch> createArrivalSearch(Coordinates coords, Transportation transportation) {
+        ArrivalSearch as = new ArrivalSearch(
+                "Test async arrival search",
+                coords,
+                transportation,
+                Instant.now(),
+                900,
+                new Range(true, 400),
+                new SimpleLevelOfDetail(Level.MEDIUM),
+                false,
+                false,
+                null);
 
-    return Collections.singletonList(as);
-  }
+        return Collections.singletonList(as);
+    }
 }

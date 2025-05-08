@@ -13,6 +13,9 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BoxesResult {
-  @NonNull String searchId;
-  @NonNull List<BoundingBox> boundingBoxes;
+    @NonNull
+    String searchId;
+
+    @NonNull
+    List<BoundingBox> boundingBoxes;
 }

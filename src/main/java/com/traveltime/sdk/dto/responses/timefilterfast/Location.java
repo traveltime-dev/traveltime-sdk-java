@@ -8,6 +8,9 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Location {
-  @NonNull String id;
-  @NonNull Properties properties;
+    @NonNull
+    String id;
+
+    @NonNull
+    Properties properties;
 }

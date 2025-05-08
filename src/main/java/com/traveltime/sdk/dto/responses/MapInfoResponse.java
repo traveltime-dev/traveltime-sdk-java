@@ -12,5 +12,5 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class MapInfoResponse {
-  List<Map> maps;
+    List<Map> maps;
 }

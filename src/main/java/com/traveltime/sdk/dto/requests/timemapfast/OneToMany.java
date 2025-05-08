@@ -15,11 +15,21 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class OneToMany {
-  @NonNull String id;
-  @NonNull Coordinates coords;
-  @NonNull String arrivalTimePeriod;
-  @NonNull Integer travelTime;
-  @NonNull Transportation transportation;
-  LevelOfDetail levelOfDetail;
-  Snapping snapping;
+    @NonNull
+    String id;
+
+    @NonNull
+    Coordinates coords;
+
+    @NonNull
+    String arrivalTimePeriod;
+
+    @NonNull
+    Integer travelTime;
+
+    @NonNull
+    Transportation transportation;
+
+    LevelOfDetail levelOfDetail;
+    Snapping snapping;
 }

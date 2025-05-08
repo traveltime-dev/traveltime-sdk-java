@@ -10,5 +10,6 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class TimeFilterDistrictsResponse {
-  @NonNull List<DistrictsResult> results;
+    @NonNull
+    List<DistrictsResult> results;
 }

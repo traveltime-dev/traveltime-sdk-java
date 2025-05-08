@@ -18,56 +18,50 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TimeFilterPostcodesTest {
-  TravelTimeSDK sdk;
+    TravelTimeSDK sdk;
 
-  @Before
-  public void init() {
-    TravelTimeCredentials credentials =
-        new TravelTimeCredentials(System.getenv("APP_ID"), System.getenv("API_KEY"));
-    sdk = new TravelTimeSDK(credentials);
-  }
+    @Before
+    public void init() {
+        TravelTimeCredentials credentials =
+                new TravelTimeCredentials(System.getenv("APP_ID"), System.getenv("API_KEY"));
+        sdk = new TravelTimeSDK(credentials);
+    }
 
-  @Test
-  public void shouldSendTimeFilterPostcodesRequest() {
-    Coordinates coordinates = new Coordinates(51.508930, -0.131387);
-    Transportation transport = PublicTransport.builder().build();
+    @Test
+    public void shouldSendTimeFilterPostcodesRequest() {
+        Coordinates coordinates = new Coordinates(51.508930, -0.131387);
+        Transportation transport = PublicTransport.builder().build();
 
-    TimeFilterPostcodesRequest request =
-        new TimeFilterPostcodesRequest(
-            createDepartureSearch(coordinates, transport),
-            createArrivalSearch(coordinates, transport));
+        TimeFilterPostcodesRequest request = new TimeFilterPostcodesRequest(
+                createDepartureSearch(coordinates, transport), createArrivalSearch(coordinates, transport));
 
-    Either<TravelTimeError, TimeFilterPostcodesResponse> response = sdk.send(request);
-    Common.assertResponseIsRight(response);
-  }
+        Either<TravelTimeError, TimeFilterPostcodesResponse> response = sdk.send(request);
+        Common.assertResponseIsRight(response);
+    }
 
-  private List<DepartureSearch> createDepartureSearch(
-      Coordinates coordinates, Transportation transportation) {
-    DepartureSearch ds =
-        new DepartureSearch(
-            "Test departure search",
-            coordinates,
-            transportation,
-            Instant.now(),
-            900,
-            Collections.singletonList(Property.TRAVEL_TIME),
-            new FullRange(true, 1, 300),
-            null);
-    return Collections.singletonList(ds);
-  }
+    private List<DepartureSearch> createDepartureSearch(Coordinates coordinates, Transportation transportation) {
+        DepartureSearch ds = new DepartureSearch(
+                "Test departure search",
+                coordinates,
+                transportation,
+                Instant.now(),
+                900,
+                Collections.singletonList(Property.TRAVEL_TIME),
+                new FullRange(true, 1, 300),
+                null);
+        return Collections.singletonList(ds);
+    }
 
-  private List<ArrivalSearch> createArrivalSearch(
-      Coordinates coordinates, Transportation transportation) {
-    ArrivalSearch as =
-        new ArrivalSearch(
-            "Test arrival search",
-            coordinates,
-            transportation,
-            Instant.now(),
-            900,
-            Collections.singletonList(Property.TRAVEL_TIME),
-            new FullRange(true, 1, 300),
-            null);
-    return Collections.singletonList(as);
-  }
+    private List<ArrivalSearch> createArrivalSearch(Coordinates coordinates, Transportation transportation) {
+        ArrivalSearch as = new ArrivalSearch(
+                "Test arrival search",
+                coordinates,
+                transportation,
+                Instant.now(),
+                900,
+                Collections.singletonList(Property.TRAVEL_TIME),
+                new FullRange(true, 1, 300),
+                null);
+        return Collections.singletonList(as);
+    }
 }

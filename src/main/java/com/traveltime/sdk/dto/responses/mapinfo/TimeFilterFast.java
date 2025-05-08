@@ -9,5 +9,6 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class TimeFilterFast {
-  @NonNull List<Period> periods;
+    @NonNull
+    List<Period> periods;
 }

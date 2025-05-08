@@ -9,22 +9,24 @@ import lombok.NonNull;
 @Getter
 @AllArgsConstructor
 public class IOError implements TravelTimeError {
-  @NonNull Throwable cause;
+    @NonNull
+    Throwable cause;
 
-  @NonNull String errorMessage;
+    @NonNull
+    String errorMessage;
 
-  @Override
-  public Option<Throwable> retrieveCause() {
-    return Option.of(cause);
-  }
+    @Override
+    public Option<Throwable> retrieveCause() {
+        return Option.of(cause);
+    }
 
-  @Override
-  public String getMessage() {
-    return errorMessage;
-  }
+    @Override
+    public String getMessage() {
+        return errorMessage;
+    }
 
-  @Override
-  public String toString() {
-    return "IOError( " + getMessage() + ")\n" + Utils.printableStackTrace(getCause());
-  }
+    @Override
+    public String toString() {
+        return "IOError( " + getMessage() + ")\n" + Utils.printableStackTrace(getCause());
+    }
 }

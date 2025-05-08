@@ -13,6 +13,6 @@ import org.locationtech.jts.geom.Geometry;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WktResult {
-  String searchId;
-  Geometry shape;
+    String searchId;
+    Geometry shape;
 }

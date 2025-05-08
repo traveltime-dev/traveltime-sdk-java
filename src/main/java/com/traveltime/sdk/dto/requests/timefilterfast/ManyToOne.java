@@ -14,12 +14,28 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ManyToOne {
-  @NonNull String id;
-  @NonNull String arrivalLocationId;
-  @NonNull @Singular List<String> departureLocationIds;
-  @NonNull Transportation transportation;
-  @NonNull Integer travelTime;
-  @NonNull String arrivalTimePeriod;
-  @NonNull @Singular List<Property> properties;
-  Snapping snapping;
+    @NonNull
+    String id;
+
+    @NonNull
+    String arrivalLocationId;
+
+    @NonNull
+    @Singular
+    List<String> departureLocationIds;
+
+    @NonNull
+    Transportation transportation;
+
+    @NonNull
+    Integer travelTime;
+
+    @NonNull
+    String arrivalTimePeriod;
+
+    @NonNull
+    @Singular
+    List<Property> properties;
+
+    Snapping snapping;
 }

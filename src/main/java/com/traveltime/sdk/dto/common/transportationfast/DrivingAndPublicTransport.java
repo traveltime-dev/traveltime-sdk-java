@@ -13,6 +13,6 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DrivingAndPublicTransport implements Transportation {
-  @Positive(message = "parkingTime must be greater than 0")
-  Integer parkingTime;
+    @Positive(message = "parkingTime must be greater than 0")
+    Integer parkingTime;
 }

@@ -17,16 +17,29 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ArrivalSearch {
-  @NonNull String id;
-  @NonNull Coordinates coords;
-  @NonNull Transportation transportation;
-  @NonNull Instant arrivalTime;
+    @NonNull
+    String id;
 
-  @NonNull
-  @Positive(message = "travelTime must be greater than 0")
-  Integer travelTime;
+    @NonNull
+    Coordinates coords;
 
-  @NonNull Double reachablePostcodesThreshold;
-  @NonNull @Singular List<Property> properties;
-  @Valid FullRange range;
+    @NonNull
+    Transportation transportation;
+
+    @NonNull
+    Instant arrivalTime;
+
+    @NonNull
+    @Positive(message = "travelTime must be greater than 0")
+    Integer travelTime;
+
+    @NonNull
+    Double reachablePostcodesThreshold;
+
+    @NonNull
+    @Singular
+    List<Property> properties;
+
+    @Valid
+    FullRange range;
 }

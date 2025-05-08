@@ -14,6 +14,6 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Result {
-  String searchId;
-  List<Shape> shapes;
+    String searchId;
+    List<Shape> shapes;
 }

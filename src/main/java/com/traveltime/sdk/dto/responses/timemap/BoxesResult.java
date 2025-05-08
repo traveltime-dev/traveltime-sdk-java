@@ -10,7 +10,12 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Jacksonized
 public class BoxesResult {
-  @NonNull String searchId;
-  @NonNull List<BoundingBox> boundingBoxes;
-  @NonNull ResponseProperties properties;
+    @NonNull
+    String searchId;
+
+    @NonNull
+    List<BoundingBox> boundingBoxes;
+
+    @NonNull
+    ResponseProperties properties;
 }

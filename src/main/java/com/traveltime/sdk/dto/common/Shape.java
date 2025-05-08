@@ -11,6 +11,6 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Shape {
-  List<Coordinates> shell;
-  List<List<Coordinates>> holes;
+    List<Coordinates> shell;
+    List<List<Coordinates>> holes;
 }

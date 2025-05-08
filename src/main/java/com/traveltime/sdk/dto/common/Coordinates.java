@@ -8,6 +8,9 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Coordinates {
-  @NonNull Double lat;
-  @NonNull Double lng;
+    @NonNull
+    Double lat;
+
+    @NonNull
+    Double lng;
 }

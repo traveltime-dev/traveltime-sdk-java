@@ -13,9 +13,9 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Property {
-  Integer travelTime;
-  Integer distance;
-  List<DistanceBreakdown> distanceBreakdown;
-  Fares fares;
-  Route route;
+    Integer travelTime;
+    Integer distance;
+    List<DistanceBreakdown> distanceBreakdown;
+    Fares fares;
+    Route route;
 }

@@ -11,7 +11,11 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Location {
-  @NonNull String id;
-  @NonNull String mapName;
-  List<String> additionalMapNames;
+    @NonNull
+    String id;
+
+    @NonNull
+    String mapName;
+
+    List<String> additionalMapNames;
 }

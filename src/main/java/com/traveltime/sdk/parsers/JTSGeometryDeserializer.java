@@ -10,24 +10,23 @@ import org.locationtech.jts.io.WKTReader;
 
 public class JTSGeometryDeserializer extends StdDeserializer<Geometry> {
 
-  private static WKTReader reader = new WKTReader();
+    private static WKTReader reader = new WKTReader();
 
-  public JTSGeometryDeserializer() {
-    this(null);
-  }
-
-  public JTSGeometryDeserializer(Class<?> vc) {
-    super(vc);
-  }
-
-  @Override
-  public Geometry deserialize(JsonParser jsonParser, DeserializationContext context)
-      throws IOException {
-    String result = jsonParser.getValueAsString();
-    try {
-      return reader.read(result);
-    } catch (ParseException e) {
-      throw new IOException(e.getMessage());
+    public JTSGeometryDeserializer() {
+        this(null);
     }
-  }
+
+    public JTSGeometryDeserializer(Class<?> vc) {
+        super(vc);
+    }
+
+    @Override
+    public Geometry deserialize(JsonParser jsonParser, DeserializationContext context) throws IOException {
+        String result = jsonParser.getValueAsString();
+        try {
+            return reader.read(result);
+        } catch (ParseException e) {
+            throw new IOException(e.getMessage());
+        }
+    }
 }

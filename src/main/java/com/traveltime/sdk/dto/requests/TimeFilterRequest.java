@@ -24,20 +24,27 @@ import okhttp3.Request;
 @EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimeFilterRequest extends TravelTimeRequest<TimeFilterResponse> {
-  @NonNull @Singular List<Location> locations;
-  @Valid @Singular List<DepartureSearch> departureSearches;
-  @Valid @Singular List<ArrivalSearch> arrivalSearches;
+    @NonNull
+    @Singular
+    List<Location> locations;
 
-  @Override
-  public Either<TravelTimeError, Request> createRequest(
-      HttpUrl baseUri, TravelTimeCredentials credentials) {
-    val uri = baseUri.newBuilder().addPathSegments("time-filter").build();
-    return JsonUtils.toJson(this)
-        .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_JSON));
-  }
+    @Valid
+    @Singular
+    List<DepartureSearch> departureSearches;
 
-  @Override
-  public Class<TimeFilterResponse> responseType() {
-    return TimeFilterResponse.class;
-  }
+    @Valid
+    @Singular
+    List<ArrivalSearch> arrivalSearches;
+
+    @Override
+    public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
+        val uri = baseUri.newBuilder().addPathSegments("time-filter").build();
+        return JsonUtils.toJson(this)
+                .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_JSON));
+    }
+
+    @Override
+    public Class<TimeFilterResponse> responseType() {
+        return TimeFilterResponse.class;
+    }
 }

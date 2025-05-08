@@ -9,5 +9,6 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Fares {
-  @NonNull List<Ticket> ticketsTotal;
+    @NonNull
+    List<Ticket> ticketsTotal;
 }

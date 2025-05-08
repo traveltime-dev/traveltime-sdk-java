@@ -9,6 +9,9 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Period {
-  @NonNull String timePeriod;
-  @NonNull List<Supported> supported;
+    @NonNull
+    String timePeriod;
+
+    @NonNull
+    List<Supported> supported;
 }

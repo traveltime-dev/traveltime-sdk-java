@@ -13,5 +13,6 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class TimeMapFastWktResponse {
-  @NonNull List<WktResult> results;
+    @NonNull
+    List<WktResult> results;
 }

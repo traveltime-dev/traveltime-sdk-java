@@ -11,14 +11,17 @@ import okhttp3.Headers;
 @Builder
 @AllArgsConstructor
 public class TravelTimeCredentials {
-  @NonNull String appId;
-  @NonNull String apiKey;
+    @NonNull
+    String appId;
 
-  public Headers getHeaders() {
-    return Headers.of("X-Application-Id", appId, "X-Api-Key", apiKey);
-  }
+    @NonNull
+    String apiKey;
 
-  public Headers getBasicCredentialsHeaders() {
-    return Headers.of("Authorization", Credentials.basic(appId, apiKey));
-  }
+    public Headers getHeaders() {
+        return Headers.of("X-Application-Id", appId, "X-Api-Key", apiKey);
+    }
+
+    public Headers getBasicCredentialsHeaders() {
+        return Headers.of("Authorization", Credentials.basic(appId, apiKey));
+    }
 }

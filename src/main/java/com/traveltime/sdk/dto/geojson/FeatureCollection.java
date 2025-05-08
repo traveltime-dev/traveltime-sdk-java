@@ -15,9 +15,10 @@ import org.geojson.GeoJsonObject;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FeatureCollection<G extends GeoJsonObject, P> {
 
-  @NonNull String type;
+    @NonNull
+    String type;
 
-  String attribution;
+    String attribution;
 
-  List<Feature<G, P>> features;
+    List<Feature<G, P>> features;
 }

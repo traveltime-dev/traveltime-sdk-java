@@ -10,7 +10,13 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class FareBreakdown {
-  @NonNull List<String> modes;
-  @NonNull List<Integer> routePartIds;
-  @Valid @NonNull List<Ticket> tickets;
+    @NonNull
+    List<String> modes;
+
+    @NonNull
+    List<Integer> routePartIds;
+
+    @Valid
+    @NonNull
+    List<Ticket> tickets;
 }

@@ -25,23 +25,29 @@ import okhttp3.Request;
 @EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimeMapRequest extends TravelTimeRequest<TimeMapResponse> {
-  @Valid @Singular List<DepartureSearch> departureSearches;
-  @Valid @Singular List<ArrivalSearch> arrivalSearches;
+    @Valid
+    @Singular
+    List<DepartureSearch> departureSearches;
 
-  @Singular List<Intersection> intersections;
+    @Valid
+    @Singular
+    List<ArrivalSearch> arrivalSearches;
 
-  @Singular List<Union> unions;
+    @Singular
+    List<Intersection> intersections;
 
-  @Override
-  public Either<TravelTimeError, Request> createRequest(
-      HttpUrl baseUri, TravelTimeCredentials credentials) {
-    val uri = baseUri.newBuilder().addPathSegments("time-map").build();
-    return JsonUtils.toJson(this)
-        .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_JSON));
-  }
+    @Singular
+    List<Union> unions;
 
-  @Override
-  public Class<TimeMapResponse> responseType() {
-    return TimeMapResponse.class;
-  }
+    @Override
+    public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
+        val uri = baseUri.newBuilder().addPathSegments("time-map").build();
+        return JsonUtils.toJson(this)
+                .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_JSON));
+    }
+
+    @Override
+    public Class<TimeMapResponse> responseType() {
+        return TimeMapResponse.class;
+    }
 }

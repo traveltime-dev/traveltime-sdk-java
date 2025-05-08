@@ -10,6 +10,9 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Jacksonized
 public class Agency {
-  @NonNull String name;
-  @NonNull List<String> modes;
+    @NonNull
+    String name;
+
+    @NonNull
+    List<String> modes;
 }

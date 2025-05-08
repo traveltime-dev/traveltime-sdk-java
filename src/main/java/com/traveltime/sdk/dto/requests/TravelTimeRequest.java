@@ -14,35 +14,34 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 
 public abstract class TravelTimeRequest<T> {
-  private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-  public abstract Either<TravelTimeError, Request> createRequest(
-      HttpUrl baseUri, TravelTimeCredentials credentials);
+    public abstract Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials);
 
-  public abstract Class<T> responseType();
+    public abstract Class<T> responseType();
 
-  protected QueryElement combineCountries(List<String> withinCountries) {
-    if (withinCountries == null) withinCountries = new ArrayList<>();
-    return new QueryElement("within.country", String.join(",", withinCountries));
-  }
+    protected QueryElement combineCountries(List<String> withinCountries) {
+        if (withinCountries == null) withinCountries = new ArrayList<>();
+        return new QueryElement("within.country", String.join(",", withinCountries));
+    }
 
-  protected Request createGetRequest(HttpUrl url, TravelTimeCredentials credentials) {
-    return new Request.Builder()
-        .url(url)
-        .headers(credentials.getHeaders())
-        .addHeader("User-Agent", "Travel Time Java SDK " + Version.getVersion())
-        .get()
-        .build();
-  }
+    protected Request createGetRequest(HttpUrl url, TravelTimeCredentials credentials) {
+        return new Request.Builder()
+                .url(url)
+                .headers(credentials.getHeaders())
+                .addHeader("User-Agent", "Travel Time Java SDK " + Version.getVersion())
+                .get()
+                .build();
+    }
 
-  protected Request createPostRequest(
-      TravelTimeCredentials credentials, HttpUrl url, String jsonString, AcceptType acceptType) {
-    return new Request.Builder()
-        .url(url)
-        .headers(credentials.getHeaders())
-        .addHeader("Accept", acceptType.getValue())
-        .addHeader("User-Agent", "Travel Time Java SDK " + Version.getVersion())
-        .post(RequestBody.create(jsonString, JSON))
-        .build();
-  }
+    protected Request createPostRequest(
+            TravelTimeCredentials credentials, HttpUrl url, String jsonString, AcceptType acceptType) {
+        return new Request.Builder()
+                .url(url)
+                .headers(credentials.getHeaders())
+                .addHeader("Accept", acceptType.getValue())
+                .addHeader("User-Agent", "Travel Time Java SDK " + Version.getVersion())
+                .post(RequestBody.create(jsonString, JSON))
+                .build();
+    }
 }

@@ -9,6 +9,6 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Location {
-  String id;
-  List<Property> properties;
+    String id;
+    List<Property> properties;
 }

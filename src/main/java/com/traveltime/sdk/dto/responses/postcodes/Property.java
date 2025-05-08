@@ -13,9 +13,9 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Property {
-  @Positive(message = "travelTime should be positive")
-  Integer travelTime;
+    @Positive(message = "travelTime should be positive")
+    Integer travelTime;
 
-  @Positive(message = "distance should be positive")
-  Integer distance;
+    @Positive(message = "distance should be positive")
+    Integer distance;
 }

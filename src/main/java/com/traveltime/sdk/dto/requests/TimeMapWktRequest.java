@@ -25,29 +25,35 @@ import okhttp3.Request;
 @EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimeMapWktRequest extends TravelTimeRequest<TimeMapWktResponse> {
-  @Valid @Singular List<DepartureSearch> departureSearches;
-  @Valid @Singular List<ArrivalSearch> arrivalSearches;
+    @Valid
+    @Singular
+    List<DepartureSearch> departureSearches;
 
-  @Singular List<Intersection> intersections;
+    @Valid
+    @Singular
+    List<ArrivalSearch> arrivalSearches;
 
-  @Singular List<Union> unions;
+    @Singular
+    List<Intersection> intersections;
 
-  @Builder.Default boolean withHoles = true;
+    @Singular
+    List<Union> unions;
 
-  public AcceptType acceptType() {
-    return withHoles ? AcceptType.APPLICATION_WKT_JSON : AcceptType.APPLICATION_WKT_NO_HOLES_JSON;
-  }
+    @Builder.Default
+    boolean withHoles = true;
 
-  @Override
-  public Either<TravelTimeError, Request> createRequest(
-      HttpUrl baseUri, TravelTimeCredentials credentials) {
-    val uri = baseUri.newBuilder().addPathSegments("time-map").build();
-    return JsonUtils.toJson(this)
-        .map(json -> createPostRequest(credentials, uri, json, acceptType()));
-  }
+    public AcceptType acceptType() {
+        return withHoles ? AcceptType.APPLICATION_WKT_JSON : AcceptType.APPLICATION_WKT_NO_HOLES_JSON;
+    }
 
-  @Override
-  public Class<TimeMapWktResponse> responseType() {
-    return TimeMapWktResponse.class;
-  }
+    @Override
+    public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
+        val uri = baseUri.newBuilder().addPathSegments("time-map").build();
+        return JsonUtils.toJson(this).map(json -> createPostRequest(credentials, uri, json, acceptType()));
+    }
+
+    @Override
+    public Class<TimeMapWktResponse> responseType() {
+        return TimeMapWktResponse.class;
+    }
 }

@@ -16,23 +16,22 @@ import okhttp3.Request;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ReverseGeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
-  @NonNull Coordinates coordinates;
+    @NonNull
+    Coordinates coordinates;
 
-  @Override
-  public Either<TravelTimeError, Request> createRequest(
-      HttpUrl baseUri, TravelTimeCredentials credentials) {
-    val builder = baseUri.newBuilder().addPathSegments("geocoding/reverse");
-    val uri =
-        Utils.withQuery(
-                builder,
-                new QueryElement("lat", coordinates.getLat().toString()),
-                new QueryElement("lng", coordinates.getLng().toString()))
-            .build();
-    return Either.right(createGetRequest(uri, credentials));
-  }
+    @Override
+    public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
+        val builder = baseUri.newBuilder().addPathSegments("geocoding/reverse");
+        val uri = Utils.withQuery(
+                        builder,
+                        new QueryElement("lat", coordinates.getLat().toString()),
+                        new QueryElement("lng", coordinates.getLng().toString()))
+                .build();
+        return Either.right(createGetRequest(uri, credentials));
+    }
 
-  @Override
-  public Class<GeocodingResponse> responseType() {
-    return GeocodingResponse.class;
-  }
+    @Override
+    public Class<GeocodingResponse> responseType() {
+        return GeocodingResponse.class;
+    }
 }

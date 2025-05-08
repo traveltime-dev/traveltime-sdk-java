@@ -10,6 +10,10 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Result {
-  @NonNull String searchId;
-  @Valid @NonNull List<Postcode> postcodes;
+    @NonNull
+    String searchId;
+
+    @Valid
+    @NonNull
+    List<Postcode> postcodes;
 }

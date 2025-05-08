@@ -11,5 +11,7 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class RoutesResponse {
-  @Valid @NonNull List<Result> results;
+    @Valid
+    @NonNull
+    List<Result> results;
 }

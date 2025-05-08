@@ -9,9 +9,10 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Range {
-  @NonNull Boolean enabled;
+    @NonNull
+    Boolean enabled;
 
-  @NonNull
-  @Positive(message = "width must be greater than 0")
-  Integer width;
+    @NonNull
+    @Positive(message = "width must be greater than 0")
+    Integer width;
 }

@@ -9,6 +9,9 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class PublicTransport {
-  @NonNull OffsetDateTime dateStart;
-  @NonNull OffsetDateTime dateEnd;
+    @NonNull
+    OffsetDateTime dateStart;
+
+    @NonNull
+    OffsetDateTime dateEnd;
 }

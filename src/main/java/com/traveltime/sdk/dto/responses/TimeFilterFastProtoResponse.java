@@ -8,6 +8,8 @@ import lombok.Value;
 @Value
 @AllArgsConstructor
 public class TimeFilterFastProtoResponse {
-  @NonNull List<Integer> travelTimes;
-  List<Integer> distances;
+    @NonNull
+    List<Integer> travelTimes;
+
+    List<Integer> distances;
 }

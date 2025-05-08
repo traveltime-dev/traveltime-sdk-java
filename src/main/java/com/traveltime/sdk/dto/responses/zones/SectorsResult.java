@@ -9,6 +9,9 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class SectorsResult {
-  @NonNull String searchId;
-  @NonNull List<Zone> sectors;
+    @NonNull
+    String searchId;
+
+    @NonNull
+    List<Zone> sectors;
 }

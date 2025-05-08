@@ -10,6 +10,10 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 public class Postcode {
-  @NonNull String code;
-  @Valid @NonNull List<Property> properties;
+    @NonNull
+    String code;
+
+    @Valid
+    @NonNull
+    List<Property> properties;
 }

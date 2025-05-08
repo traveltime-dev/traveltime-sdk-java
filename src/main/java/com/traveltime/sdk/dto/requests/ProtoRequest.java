@@ -15,37 +15,35 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 
 public abstract class ProtoRequest<T> {
-  private static final String IO_PROTO_ERROR = "Something went wrong when parsing proto response: ";
+    private static final String IO_PROTO_ERROR = "Something went wrong when parsing proto response: ";
 
-  public abstract Either<TravelTimeError, Request> createRequest(
-      HttpUrl baseUri, TravelTimeCredentials credentials);
+    public abstract Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials);
 
-  public abstract List<Coordinates> getDestinationCoordinates();
+    public abstract List<Coordinates> getDestinationCoordinates();
 
-  public abstract List<ProtoRequest<T>> split(int batchSizeHint);
+    public abstract List<ProtoRequest<T>> split(int batchSizeHint);
 
-  public abstract T merge(List<T> responses);
+    public abstract T merge(List<T> responses);
 
-  public abstract Either<TravelTimeError, T> parseBytes(byte[] body);
+    public abstract Either<TravelTimeError, T> parseBytes(byte[] body);
 
-  public abstract String getCorrelationId();
+    public abstract String getCorrelationId();
 
-  protected Either<TravelTimeError, TimeFilterFastResponseOuterClass.TimeFilterFastResponse>
-      getProtoResponse(byte[] body) {
-    return Try.of(() -> TimeFilterFastResponseOuterClass.TimeFilterFastResponse.parseFrom(body))
-        .toEither()
-        .mapLeft(cause -> new IOError(cause, IO_PROTO_ERROR + cause.getMessage()));
-  }
+    protected Either<TravelTimeError, TimeFilterFastResponseOuterClass.TimeFilterFastResponse> getProtoResponse(
+            byte[] body) {
+        return Try.of(() -> TimeFilterFastResponseOuterClass.TimeFilterFastResponse.parseFrom(body))
+                .toEither()
+                .mapLeft(cause -> new IOError(cause, IO_PROTO_ERROR + cause.getMessage()));
+    }
 
-  protected Request createProtobufRequest(
-      TravelTimeCredentials credentials, HttpUrl url, byte[] requestBody) {
-    return new Request.Builder()
-        .url(url)
-        .headers(credentials.getBasicCredentialsHeaders())
-        .addHeader("Content-Type", AcceptType.APPLICATION_OCTET_STREAM.getValue())
-        .addHeader("User-Agent", "Travel Time Java SDK " + Version.getVersion())
-        .addHeader("X-Correlation-ID", getCorrelationId())
-        .post(RequestBody.create(requestBody))
-        .build();
-  }
+    protected Request createProtobufRequest(TravelTimeCredentials credentials, HttpUrl url, byte[] requestBody) {
+        return new Request.Builder()
+                .url(url)
+                .headers(credentials.getBasicCredentialsHeaders())
+                .addHeader("Content-Type", AcceptType.APPLICATION_OCTET_STREAM.getValue())
+                .addHeader("User-Agent", "Travel Time Java SDK " + Version.getVersion())
+                .addHeader("X-Correlation-ID", getCorrelationId())
+                .post(RequestBody.create(requestBody))
+                .build();
+    }
 }
