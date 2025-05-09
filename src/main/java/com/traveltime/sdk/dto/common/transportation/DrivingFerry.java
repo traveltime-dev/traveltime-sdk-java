@@ -21,6 +21,16 @@ public class DrivingFerry implements Transportation {
     @Positive(message = "boardingTime must be greater than 0")
     Integer boardingTime;
 
-    // TODO: Fix lack of documentation
+    /**
+     * Determines the traffic model to be used for driving-based routing calculations.
+     * Specifies the assumptions about traffic conditions during the journey.
+     * <p>
+     * Available options:
+     * <li>OPTIMISTIC: Assumes lighter traffic, resulting in shorter travel time estimates. </li>
+     * <li>BALANCED: Assumes average traffic conditions for moderate time estimates. </li>
+     * <li>PESSIMISTIC: Assumes heavier traffic, resulting in longer travel time estimates. </li>
+     *
+     * If null, a BALANCED model will be picked by default.
+     */
     DrivingTrafficModel trafficModel;
 }
