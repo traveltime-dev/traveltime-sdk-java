@@ -13,6 +13,10 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CyclingFerry implements Transportation {
+    /**
+     * Time in seconds required to board a ferry.
+     * If null, `boardingTime` is 0.
+     */
     @Positive(message = "boardingTime must be greater than 0")
     Integer boardingTime;
 }

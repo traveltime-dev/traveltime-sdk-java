@@ -15,9 +15,11 @@ public class CoarseGridLevelOfDetail implements LevelOfDetail {
     /**
      * Specifies the grid cell size (in metres) used to construct the shape.
      * This parameter controls the level of detail in the resulting shape.
-     *
+     * <p>
+     * A smaller value creates a finer grid with more detail but requires more processing power.
+     * A larger value creates a coarser grid with less detail and improved performance.
+     * <p>
      * Small value (higher detail):    Large value (lower detail):
-     *
      * +--+--+--+--+--+--+            +--------+--------+
      * |  |  |  |  |  |  |            |        |        |
      * +--+--+--+--+--+--+            |        |        |
@@ -26,10 +28,6 @@ public class CoarseGridLevelOfDetail implements LevelOfDetail {
      * |  |  |  |  |  |  |            |        |        |
      * +--+--+--+--+--+--+            +--------+--------+
      *
-     * A smaller value creates a finer grid with more detail but requires more processing power.
-     * A larger value creates a coarser grid with less detail and improved performance.
-     *
-     * @param squareSize the size of each grid cell in metres
      */
     @NonNull
     @Min(value = 600, message = "squareSize should be more than 600")
