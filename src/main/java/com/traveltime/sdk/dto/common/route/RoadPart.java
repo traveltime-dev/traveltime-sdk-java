@@ -12,11 +12,13 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
+// TODO: Lack of documentation
 public class RoadPart implements Part {
     @NonNull
     Integer id;
 
     @NonNull
+    // TODO: Convert to Enum
     String mode;
 
     @NonNull
