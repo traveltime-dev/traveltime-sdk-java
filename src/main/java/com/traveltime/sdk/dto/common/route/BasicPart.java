@@ -10,11 +10,14 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Jacksonized
 @AllArgsConstructor
+
+// TODO: Lack of documentation
 public class BasicPart implements Part {
     @NonNull
     Integer id;
 
     @NonNull
+    // TODO: Convert to Enum
     String mode;
 
     @NonNull
