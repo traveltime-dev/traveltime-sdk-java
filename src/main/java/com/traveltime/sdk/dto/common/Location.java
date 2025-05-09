@@ -10,6 +10,7 @@ import lombok.extern.jackson.Jacksonized;
 public class Location {
     @NonNull
     String id;
+
     @NonNull
     Coordinates coords;
 }

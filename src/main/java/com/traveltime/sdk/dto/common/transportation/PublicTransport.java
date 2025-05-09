@@ -15,8 +15,10 @@ import lombok.extern.jackson.Jacksonized;
 public class PublicTransport implements Transportation {
     @Positive(message = "ptChangeDelay must be greater than 0")
     Integer ptChangeDelay;
+
     @Positive(message = "walkingTime must be greater than 0")
     Integer walkingTime;
+
     @Valid
     MaxChanges maxChanges;
 }

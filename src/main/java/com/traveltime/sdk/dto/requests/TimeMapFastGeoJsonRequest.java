@@ -26,8 +26,7 @@ public class TimeMapFastGeoJsonRequest extends TravelTimeRequest<TimeMapFastGeoJ
     @Override
     public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
         val uri = baseUri.newBuilder().addPathSegments("time-map/fast").build();
-        return JsonUtils
-                .toJson(this)
+        return JsonUtils.toJson(this)
                 .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_GEO_JSON));
     }
 

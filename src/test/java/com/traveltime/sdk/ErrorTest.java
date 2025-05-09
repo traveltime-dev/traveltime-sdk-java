@@ -12,16 +12,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-
 public class ErrorTest {
     TravelTimeSDK sdk;
 
     @Before
     public void init() {
-        TravelTimeCredentials credentials = new TravelTimeCredentials(
-            "wrong-api-id-does-not-exist-123456789",
-            "wrong-api-key-12345678"
-        );
+        TravelTimeCredentials credentials =
+                new TravelTimeCredentials("wrong-api-id-does-not-exist-123456789", "wrong-api-key-12345678");
         sdk = new TravelTimeSDK(credentials);
     }
 

@@ -3,7 +3,6 @@ package com.traveltime.sdk.geojson;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NonNull;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
@@ -12,5 +11,4 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EmptyProperties {
-}
+public class EmptyProperties {}

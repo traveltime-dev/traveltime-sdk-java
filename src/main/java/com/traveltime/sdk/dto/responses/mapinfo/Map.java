@@ -10,6 +10,7 @@ import lombok.extern.jackson.Jacksonized;
 public class Map {
     @NonNull
     String name;
+
     @NonNull
     Feature features;
 }

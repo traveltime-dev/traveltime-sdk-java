@@ -10,5 +10,4 @@ import org.geojson.MultiPolygon;
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @Jacksonized
-public class TimeMapFastGeoJsonResponse extends FeatureCollection<MultiPolygon, GeoJsonProperties> {
-}
+public class TimeMapFastGeoJsonResponse extends FeatureCollection<MultiPolygon, GeoJsonProperties> {}

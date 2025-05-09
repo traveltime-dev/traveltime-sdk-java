@@ -14,7 +14,9 @@ public class XmlError implements TravelTimeError {
     Throwable cause;
 
     @Override
-    public Option<Throwable> retrieveCause() { return Option.of(cause); }
+    public Option<Throwable> retrieveCause() {
+        return Option.of(cause);
+    }
 
     @Override
     public String getMessage() {

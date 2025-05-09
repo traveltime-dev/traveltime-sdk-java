@@ -5,20 +5,16 @@ import com.traveltime.sdk.dto.requests.MapInfoRequest;
 import com.traveltime.sdk.dto.responses.MapInfoResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 
 public class MapInfoTest {
     TravelTimeSDK sdk;
 
     @Before
     public void init() {
-        TravelTimeCredentials credentials = new TravelTimeCredentials(
-            System.getenv("APP_ID"),
-            System.getenv("API_KEY")
-        );
+        TravelTimeCredentials credentials =
+                new TravelTimeCredentials(System.getenv("APP_ID"), System.getenv("API_KEY"));
         sdk = new TravelTimeSDK(credentials);
     }
 

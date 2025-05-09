@@ -1,9 +1,8 @@
 package com.traveltime.sdk.dto.responses.mapinfo;
 
+import java.time.OffsetDateTime;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
-
-import java.time.OffsetDateTime;
 
 @Value
 @Builder
@@ -12,6 +11,7 @@ import java.time.OffsetDateTime;
 public class PublicTransport {
     @NonNull
     OffsetDateTime dateStart;
+
     @NonNull
     OffsetDateTime dateEnd;
 }

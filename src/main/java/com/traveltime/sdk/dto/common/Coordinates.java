@@ -10,6 +10,7 @@ import lombok.extern.jackson.Jacksonized;
 public class Coordinates {
     @NonNull
     Double lat;
+
     @NonNull
     Double lng;
 }

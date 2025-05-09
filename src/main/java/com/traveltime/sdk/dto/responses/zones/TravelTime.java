@@ -10,10 +10,13 @@ import lombok.extern.jackson.Jacksonized;
 public class TravelTime {
     @NonNull
     Integer min;
+
     @NonNull
     Integer max;
+
     @NonNull
     Integer mean;
+
     @NonNull
     Integer median;
 }

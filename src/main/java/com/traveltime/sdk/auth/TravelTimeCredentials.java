@@ -13,6 +13,7 @@ import okhttp3.Headers;
 public class TravelTimeCredentials {
     @NonNull
     String appId;
+
     @NonNull
     String apiKey;
 

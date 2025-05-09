@@ -10,10 +10,13 @@ import lombok.extern.jackson.Jacksonized;
 public class Rectangle {
     @NonNull
     Double minLat;
+
     @NonNull
     Double maxLat;
+
     @NonNull
     Double minLng;
+
     @NonNull
     Double maxLng;
 }

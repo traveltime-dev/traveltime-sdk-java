@@ -3,8 +3,6 @@ package com.traveltime.sdk;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import io.vavr.control.Either;
-import org.junit.Assert;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,10 +11,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.junit.Assert;
 
 public class Common {
     public static String readFile(String fileName) throws IOException {
-        try(Stream<String> stream = Files.lines(Paths.get("src/test/resources/" + fileName))) {
+        try (Stream<String> stream = Files.lines(Paths.get("src/test/resources/" + fileName))) {
             return stream.collect(Collectors.joining("\n"));
         }
     }
@@ -29,13 +28,12 @@ public class Common {
     }
 
     public static <T> void assertResponseIsRight(Either<TravelTimeError, T> response) {
-        response
-                .peekLeft(error -> {
-                    System.out.println("Error: " + error.getMessage());
-                    if (error.retrieveCause().isDefined()) {
-                        System.out.println("Cause: " + error.retrieveCause().get().getMessage());
-                    }
-                });
+        response.peekLeft(error -> {
+            System.out.println("Error: " + error.getMessage());
+            if (error.retrieveCause().isDefined()) {
+                System.out.println("Cause: " + error.retrieveCause().get().getMessage());
+            }
+        });
         Assert.assertTrue(response.isRight());
     }
 }

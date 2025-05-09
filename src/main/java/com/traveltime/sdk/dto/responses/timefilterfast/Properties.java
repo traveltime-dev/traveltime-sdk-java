@@ -12,5 +12,6 @@ import lombok.extern.jackson.Jacksonized;
 public class Properties {
     @NonNull
     Integer travelTime;
+
     Fares fares;
 }

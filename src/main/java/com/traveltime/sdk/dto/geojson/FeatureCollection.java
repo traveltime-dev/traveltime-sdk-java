@@ -1,14 +1,12 @@
 package com.traveltime.sdk.dto.geojson;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import java.util.List;
 import lombok.*;
 import lombok.experimental.NonFinal;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
 import org.geojson.GeoJsonObject;
-
-import java.util.List;
-
 
 @Value
 @NonFinal

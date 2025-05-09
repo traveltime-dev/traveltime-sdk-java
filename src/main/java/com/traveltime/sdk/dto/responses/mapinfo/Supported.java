@@ -10,6 +10,7 @@ import lombok.extern.jackson.Jacksonized;
 public class Supported {
     @NonNull
     String searchType;
+
     @NonNull
     String transportationMode;
 }

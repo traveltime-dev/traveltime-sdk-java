@@ -12,12 +12,11 @@ import com.traveltime.sdk.utils.AcceptType;
 import com.traveltime.sdk.utils.JsonUtils;
 import io.vavr.control.Either;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
-
-import java.util.List;
 
 @Data
 @Builder
@@ -29,6 +28,7 @@ public class TimeMapGeoJsonRequest extends TravelTimeRequest<TimeMapGeoJsonRespo
     @Valid
     @Singular
     List<DepartureSearch> departureSearches;
+
     @Valid
     @Singular
     List<ArrivalSearch> arrivalSearches;
@@ -42,9 +42,8 @@ public class TimeMapGeoJsonRequest extends TravelTimeRequest<TimeMapGeoJsonRespo
     @Override
     public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
         val uri = baseUri.newBuilder().addPathSegments("time-map").build();
-        return JsonUtils
-            .toJson(this)
-            .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_GEO_JSON));
+        return JsonUtils.toJson(this)
+                .map(json -> createPostRequest(credentials, uri, json, AcceptType.APPLICATION_GEO_JSON));
     }
 
     @Override

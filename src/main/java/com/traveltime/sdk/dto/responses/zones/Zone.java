@@ -10,6 +10,7 @@ import lombok.extern.jackson.Jacksonized;
 public class Zone {
     @NonNull
     String code;
+
     @NonNull
     Properties properties;
 }

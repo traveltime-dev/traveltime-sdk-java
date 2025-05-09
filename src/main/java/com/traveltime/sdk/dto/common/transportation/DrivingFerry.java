@@ -16,5 +16,6 @@ import lombok.extern.jackson.Jacksonized;
 public class DrivingFerry implements Transportation {
     @Positive(message = "boardingTime must be greater than 0")
     Integer boardingTime;
+
     DrivingTrafficModel trafficModel;
 }

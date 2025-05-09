@@ -6,7 +6,6 @@ import lombok.NonNull;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
-
 @Value
 @Builder
 @Jacksonized

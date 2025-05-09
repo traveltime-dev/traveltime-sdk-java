@@ -1,11 +1,10 @@
 package com.traveltime.sdk.dto.responses.errors;
 
 import io.vavr.control.Option;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.ToString;
-
-import java.util.Optional;
 
 @AllArgsConstructor
 @ToString
@@ -20,7 +19,9 @@ public class ProtoError implements TravelTimeError {
     int httpStatusCode;
 
     @Override
-    public Option<Throwable> retrieveCause() { return Option.none(); }
+    public Option<Throwable> retrieveCause() {
+        return Option.none();
+    }
 
     @Override
     public String getMessage() {

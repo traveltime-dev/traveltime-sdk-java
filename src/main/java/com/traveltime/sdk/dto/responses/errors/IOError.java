@@ -1,11 +1,10 @@
 package com.traveltime.sdk.dto.responses.errors;
 
 import com.traveltime.sdk.utils.Utils;
+import io.vavr.control.Option;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
-
-import io.vavr.control.Option;
 
 @Getter
 @AllArgsConstructor
@@ -17,7 +16,9 @@ public class IOError implements TravelTimeError {
     String errorMessage;
 
     @Override
-    public Option<Throwable> retrieveCause() { return Option.of(cause); }
+    public Option<Throwable> retrieveCause() {
+        return Option.of(cause);
+    }
 
     @Override
     public String getMessage() {
@@ -26,7 +27,6 @@ public class IOError implements TravelTimeError {
 
     @Override
     public String toString() {
-        return "IOError( " + getMessage() + ")\n" +
-                Utils.printableStackTrace(getCause());
+        return "IOError( " + getMessage() + ")\n" + Utils.printableStackTrace(getCause());
     }
 }

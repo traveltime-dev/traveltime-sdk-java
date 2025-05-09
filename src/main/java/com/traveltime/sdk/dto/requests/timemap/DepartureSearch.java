@@ -7,10 +7,9 @@ import com.traveltime.sdk.dto.common.levelofdetail.LevelOfDetail;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
+import java.time.Instant;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
-
-import java.time.Instant;
 
 @Value
 @Builder
@@ -20,18 +19,24 @@ import java.time.Instant;
 public class DepartureSearch {
     @NonNull
     String id;
+
     @NonNull
     Coordinates coords;
+
     @Valid
     @NonNull
     Transportation transportation;
+
     @NonNull
     Instant departureTime;
+
     @NonNull
     @Positive(message = "travelTime should be positive")
     Integer travelTime;
+
     @Valid
     Range range;
+
     LevelOfDetail levelOfDetail;
     Boolean singleShape;
     Boolean noHoles;

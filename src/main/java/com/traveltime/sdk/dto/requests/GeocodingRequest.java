@@ -7,11 +7,10 @@ import com.traveltime.sdk.dto.responses.timemap.Rectangle;
 import com.traveltime.sdk.utils.QueryElement;
 import com.traveltime.sdk.utils.Utils;
 import io.vavr.control.Either;
+import java.util.List;
 import lombok.*;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
-
-import java.util.List;
 
 @Data
 @Builder
@@ -37,7 +36,9 @@ public class GeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
     }
 
     private QueryElement getBounds() {
-        String value = bounds == null ? "" : bounds.getMinLat() + "," + bounds.getMinLng() + "," + bounds.getMaxLat() + "," + bounds.getMaxLng();
+        String value = bounds == null
+                ? ""
+                : bounds.getMinLat() + "," + bounds.getMinLng() + "," + bounds.getMaxLat() + "," + bounds.getMaxLng();
         return new QueryElement("bounds", value);
     }
 
@@ -46,21 +47,22 @@ public class GeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
     }
 
     private QueryElement getFormatExcludeCountry() {
-        return new QueryElement("format.exclude.country", formatExcludeCountry == null ? "" : formatExcludeCountry.toString());
+        return new QueryElement(
+                "format.exclude.country", formatExcludeCountry == null ? "" : formatExcludeCountry.toString());
     }
 
     @Override
     public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
         val builder = baseUri.newBuilder().addPathSegments("geocoding/search");
         val uri = Utils.withQuery(
-                builder,
-                new QueryElement("query", query),
-                combineCountries(withinCountries),
-                getLimit(),
-                getFormatName(),
-                getFormatExcludeCountry(),
-                getBounds()
-        ).build();
+                        builder,
+                        new QueryElement("query", query),
+                        combineCountries(withinCountries),
+                        getLimit(),
+                        getFormatName(),
+                        getFormatExcludeCountry(),
+                        getBounds())
+                .build();
         return Either.right(createGetRequest(uri, credentials));
     }
 

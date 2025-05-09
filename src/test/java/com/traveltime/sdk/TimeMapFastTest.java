@@ -17,21 +17,18 @@ import com.traveltime.sdk.dto.responses.TimeMapFastWktResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import com.traveltime.sdk.utils.JsonUtils;
 import io.vavr.control.Either;
+import java.util.Collections;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Collections;
 
 public class TimeMapFastTest {
     TravelTimeSDK sdk;
 
     @Before
     public void init() {
-        TravelTimeCredentials credentials = new TravelTimeCredentials(
-                System.getenv("APP_ID"),
-                System.getenv("API_KEY")
-        );
+        TravelTimeCredentials credentials =
+                new TravelTimeCredentials(System.getenv("APP_ID"), System.getenv("API_KEY"));
         sdk = new TravelTimeSDK(credentials);
     }
 
@@ -40,9 +37,7 @@ public class TimeMapFastTest {
         Coordinates coords = new Coordinates(51.507609, -0.128315);
         Transportation transportation = new PublicTransport();
 
-        TimeMapFastRequest request = new TimeMapFastRequest(
-                createArrivalSearches(coords, transportation)
-        );
+        TimeMapFastRequest request = new TimeMapFastRequest(createArrivalSearches(coords, transportation));
 
         Either<TravelTimeError, TimeMapFastResponse> response = sdk.send(request);
         Common.assertResponseIsRight(response);
@@ -53,9 +48,7 @@ public class TimeMapFastTest {
         Coordinates coords = new Coordinates(51.507609, -0.128315);
         Transportation transportation = new PublicTransport();
 
-        TimeMapFastRequest request = new TimeMapFastRequest(
-                createArrivalSearches(coords, transportation)
-        );
+        TimeMapFastRequest request = new TimeMapFastRequest(createArrivalSearches(coords, transportation));
 
         Either<TravelTimeError, String> response = sdk.getJsonResponse(request);
         Assert.assertTrue(JsonUtils.isJsonValid(response.get()));
@@ -67,9 +60,8 @@ public class TimeMapFastTest {
         Coordinates coords = new Coordinates(51.507609, -0.128315);
         Transportation transportation = new PublicTransport();
 
-        TimeMapFastGeoJsonRequest request = new TimeMapFastGeoJsonRequest(
-                createArrivalSearches(coords, transportation)
-        );
+        TimeMapFastGeoJsonRequest request =
+                new TimeMapFastGeoJsonRequest(createArrivalSearches(coords, transportation));
 
         Either<TravelTimeError, TimeMapFastGeoJsonResponse> response = sdk.send(request);
         Common.assertResponseIsRight(response);
@@ -80,9 +72,7 @@ public class TimeMapFastTest {
         Coordinates coords = new Coordinates(51.507609, -0.128315);
         Transportation transportation = new PublicTransport();
 
-        TimeMapFastBoxesRequest request = new TimeMapFastBoxesRequest(
-                createArrivalSearches(coords, transportation)
-        );
+        TimeMapFastBoxesRequest request = new TimeMapFastBoxesRequest(createArrivalSearches(coords, transportation));
 
         Either<TravelTimeError, TimeMapFastBoxesResponse> response = sdk.send(request);
         Common.assertResponseIsRight(response);
@@ -93,17 +83,14 @@ public class TimeMapFastTest {
         Coordinates coords = new Coordinates(51.507609, -0.128315);
         Transportation transportation = new PublicTransport();
 
-        TimeMapFastWktRequest request = new TimeMapFastWktRequest(
-                createArrivalSearches(coords, transportation), true
-        );
+        TimeMapFastWktRequest request = new TimeMapFastWktRequest(createArrivalSearches(coords, transportation), true);
 
         Either<TravelTimeError, TimeMapFastWktResponse> response = sdk.send(request);
         Common.assertResponseIsRight(response);
     }
 
     private ArrivalSearches createArrivalSearches(Coordinates coords, Transportation transportation) {
-        OneToMany oneToMany = OneToMany
-                .builder()
+        OneToMany oneToMany = OneToMany.builder()
                 .id("Test arrival search fast")
                 .arrivalTimePeriod("weekday_morning")
                 .transportation(transportation)
@@ -111,8 +98,7 @@ public class TimeMapFastTest {
                 .travelTime(900)
                 .build();
 
-        return ArrivalSearches
-                .builder()
+        return ArrivalSearches.builder()
                 .oneToMany(Collections.singletonList(oneToMany))
                 .manyToOne(Collections.emptyList())
                 .build();

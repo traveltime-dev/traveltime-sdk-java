@@ -15,6 +15,7 @@ import lombok.extern.jackson.Jacksonized;
 public class Property {
     @Positive(message = "travelTime should be positive")
     Integer travelTime;
+
     @Positive(message = "distance should be positive")
     Integer distance;
 }

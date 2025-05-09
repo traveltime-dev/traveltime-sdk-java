@@ -10,8 +10,10 @@ import lombok.extern.jackson.Jacksonized;
 public class Ticket {
     @NonNull
     String type;
+
     @NonNull
     Double price;
+
     @NonNull
     String currency;
 }

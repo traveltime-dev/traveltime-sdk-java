@@ -1,9 +1,8 @@
 package com.traveltime.sdk.dto.requests.timefilterfast;
 
+import java.util.List;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
-
-import java.util.List;
 
 @Value
 @Builder
@@ -12,6 +11,7 @@ import java.util.List;
 public class ArrivalSearches {
     @NonNull
     List<ManyToOne> manyToOne;
+
     @NonNull
     List<OneToMany> oneToMany;
 }

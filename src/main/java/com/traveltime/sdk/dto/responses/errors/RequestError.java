@@ -12,7 +12,9 @@ public class RequestError implements TravelTimeError {
     String errorMsg;
 
     @Override
-    public Option<Throwable> retrieveCause() { return Option.none(); }
+    public Option<Throwable> retrieveCause() {
+        return Option.none();
+    }
 
     @Override
     public String getMessage() {

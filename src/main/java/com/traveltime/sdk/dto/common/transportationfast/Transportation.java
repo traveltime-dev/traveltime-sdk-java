@@ -3,10 +3,7 @@ package com.traveltime.sdk.dto.common.transportationfast;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-@JsonTypeInfo(
-    use = JsonTypeInfo.Id.NAME,
-    property = "type"
-)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
     @JsonSubTypes.Type(value = PublicTransport.class, name = "public_transport"),
     @JsonSubTypes.Type(value = Driving.class, name = "driving"),
@@ -17,4 +14,4 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @JsonSubTypes.Type(value = DrivingAndFerry.class, name = "driving+ferry"),
     @JsonSubTypes.Type(value = DrivingAndPublicTransport.class, name = "driving+public_transport"),
 })
-public interface Transportation { }
+public interface Transportation {}

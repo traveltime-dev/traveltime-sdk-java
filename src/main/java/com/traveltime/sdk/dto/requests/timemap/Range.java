@@ -11,6 +11,7 @@ import lombok.extern.jackson.Jacksonized;
 public class Range {
     @NonNull
     Boolean enabled;
+
     @NonNull
     @Positive(message = "width must be greater than 0")
     Integer width;

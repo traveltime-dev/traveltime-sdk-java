@@ -1,10 +1,9 @@
 package com.traveltime.sdk.utils;
 
-import okhttp3.HttpUrl;
-
 import java.io.CharArrayWriter;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import okhttp3.HttpUrl;
 
 public class Utils {
     private Utils() {
@@ -23,5 +22,4 @@ public class Utils {
                 .forEach(q -> builder.addQueryParameter(q.getKey(), q.getValue()));
         return builder;
     }
-
 }
