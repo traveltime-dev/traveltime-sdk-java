@@ -40,9 +40,19 @@ public interface Transportation {
 
         @Override
         public RequestsCommon.Transportation getProtoMessage() {
+            RequestsCommon.PublicTransportDetails.Builder detailsBuilder =
+                    RequestsCommon.PublicTransportDetails.newBuilder();
+
+            if (this.walkingTimeToStation != null) {
+                RequestsCommon.OptionalPositiveUInt32 walkingTime =
+                        RequestsCommon.OptionalPositiveUInt32.newBuilder()
+                                .setValue(this.walkingTimeToStation)
+                                .build();
+                detailsBuilder.setWalkingTimeToStation(walkingTime);
+            }
+
             return RequestsCommon.Transportation.newBuilder()
-                    .setPublicTransport(RequestsCommon.PublicTransportDetails.newBuilder()
-                            .setWalkingTimeToStation(this.walkingTimeToStation == null ? 0 : this.walkingTimeToStation))
+                    .setPublicTransport(detailsBuilder.build())
                     .setTypeValue(this.type.getCode())
                     .build();
         }
@@ -82,11 +92,35 @@ public interface Transportation {
 
         @Override
         public RequestsCommon.Transportation getProtoMessage() {
+            RequestsCommon.DrivingAndPublicTransportDetails.Builder detailsBuilder =
+                    RequestsCommon.DrivingAndPublicTransportDetails.newBuilder();
+
+            if (this.walkingTimeToStation != null) {
+                RequestsCommon.OptionalPositiveUInt32 walkingTime =
+                        RequestsCommon.OptionalPositiveUInt32.newBuilder()
+                                .setValue(this.walkingTimeToStation)
+                                .build();
+                detailsBuilder.setWalkingTimeToStation(walkingTime);
+            }
+
+            if (this.drivingTimeToStation != null) {
+                RequestsCommon.OptionalPositiveUInt32 drivingTime =
+                        RequestsCommon.OptionalPositiveUInt32.newBuilder()
+                                .setValue(this.drivingTimeToStation)
+                                .build();
+                detailsBuilder.setDrivingTimeToStation(drivingTime);
+            }
+
+            if (this.parkingTime != null) {
+                RequestsCommon.OptionalNonNegativeUInt32 parkingTime =
+                        RequestsCommon.OptionalNonNegativeUInt32.newBuilder()
+                                .setValue(this.parkingTime)
+                                .build();
+                detailsBuilder.setParkingTime(parkingTime);
+            }
+
             return RequestsCommon.Transportation.newBuilder()
-                    .setDrivingAndPublicTransport(RequestsCommon.DrivingAndPublicTransportDetails.newBuilder()
-                            .setWalkingTimeToStation(this.walkingTimeToStation == null ? 0 : this.walkingTimeToStation)
-                            .setDrivingTimeToStation(this.drivingTimeToStation == null ? 0 : this.drivingTimeToStation)
-                            .setParkingTime(this.parkingTime == null ? -1 : this.parkingTime))
+                    .setDrivingAndPublicTransport(detailsBuilder.build())
                     .setTypeValue(this.type.getCode())
                     .build();
         }
