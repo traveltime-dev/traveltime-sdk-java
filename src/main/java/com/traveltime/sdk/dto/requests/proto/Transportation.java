@@ -24,6 +24,18 @@ public interface Transportation {
         public static final Transportation DRIVING = new TransportationWithoutDetails(TransportationType.Types.DRIVING);
     }
 
+    static RequestsCommon.OptionalPositiveUInt32 optionalPositiveUInt32(int value) {
+        return RequestsCommon.OptionalPositiveUInt32.newBuilder()
+                .setValue(value)
+                .build();
+    }
+
+    static RequestsCommon.OptionalNonNegativeUInt32 optionalNonNegativeUInt32(int value) {
+        return RequestsCommon.OptionalNonNegativeUInt32.newBuilder()
+                .setValue(value)
+                .build();
+    }
+
     @Builder
     @Getter
     class PublicTransport implements Transportation {
@@ -40,9 +52,14 @@ public interface Transportation {
 
         @Override
         public RequestsCommon.Transportation getProtoMessage() {
+            RequestsCommon.PublicTransportDetails.Builder detailsBuilder =
+                    RequestsCommon.PublicTransportDetails.newBuilder();
+
+            if (this.walkingTimeToStation != null)
+                detailsBuilder.setWalkingTimeToStation(optionalPositiveUInt32(this.walkingTimeToStation));
+
             return RequestsCommon.Transportation.newBuilder()
-                    .setPublicTransport(RequestsCommon.PublicTransportDetails.newBuilder()
-                            .setWalkingTimeToStation(this.walkingTimeToStation == null ? 0 : this.walkingTimeToStation))
+                    .setPublicTransport(detailsBuilder.build())
                     .setTypeValue(this.type.getCode())
                     .build();
         }
@@ -82,11 +99,17 @@ public interface Transportation {
 
         @Override
         public RequestsCommon.Transportation getProtoMessage() {
+            RequestsCommon.DrivingAndPublicTransportDetails.Builder detailsBuilder =
+                    RequestsCommon.DrivingAndPublicTransportDetails.newBuilder();
+
+            if (this.walkingTimeToStation != null)
+                detailsBuilder.setWalkingTimeToStation(optionalPositiveUInt32(this.walkingTimeToStation));
+            if (this.drivingTimeToStation != null)
+                detailsBuilder.setDrivingTimeToStation(optionalPositiveUInt32(this.drivingTimeToStation));
+            if (this.parkingTime != null) detailsBuilder.setParkingTime(optionalNonNegativeUInt32(this.parkingTime));
+
             return RequestsCommon.Transportation.newBuilder()
-                    .setDrivingAndPublicTransport(RequestsCommon.DrivingAndPublicTransportDetails.newBuilder()
-                            .setWalkingTimeToStation(this.walkingTimeToStation == null ? 0 : this.walkingTimeToStation)
-                            .setDrivingTimeToStation(this.drivingTimeToStation == null ? 0 : this.drivingTimeToStation)
-                            .setParkingTime(this.parkingTime == null ? -1 : this.parkingTime))
+                    .setDrivingAndPublicTransport(detailsBuilder.build())
                     .setTypeValue(this.type.getCode())
                     .build();
         }
