@@ -44,10 +44,9 @@ public interface Transportation {
                     RequestsCommon.PublicTransportDetails.newBuilder();
 
             if (this.walkingTimeToStation != null) {
-                RequestsCommon.OptionalPositiveUInt32 walkingTime =
-                        RequestsCommon.OptionalPositiveUInt32.newBuilder()
-                                .setValue(this.walkingTimeToStation)
-                                .build();
+                RequestsCommon.OptionalPositiveUInt32 walkingTime = RequestsCommon.OptionalPositiveUInt32.newBuilder()
+                        .setValue(this.walkingTimeToStation)
+                        .build();
                 detailsBuilder.setWalkingTimeToStation(walkingTime);
             }
 
@@ -96,18 +95,16 @@ public interface Transportation {
                     RequestsCommon.DrivingAndPublicTransportDetails.newBuilder();
 
             if (this.walkingTimeToStation != null) {
-                RequestsCommon.OptionalPositiveUInt32 walkingTime =
-                        RequestsCommon.OptionalPositiveUInt32.newBuilder()
-                                .setValue(this.walkingTimeToStation)
-                                .build();
+                RequestsCommon.OptionalPositiveUInt32 walkingTime = RequestsCommon.OptionalPositiveUInt32.newBuilder()
+                        .setValue(this.walkingTimeToStation)
+                        .build();
                 detailsBuilder.setWalkingTimeToStation(walkingTime);
             }
 
             if (this.drivingTimeToStation != null) {
-                RequestsCommon.OptionalPositiveUInt32 drivingTime =
-                        RequestsCommon.OptionalPositiveUInt32.newBuilder()
-                                .setValue(this.drivingTimeToStation)
-                                .build();
+                RequestsCommon.OptionalPositiveUInt32 drivingTime = RequestsCommon.OptionalPositiveUInt32.newBuilder()
+                        .setValue(this.drivingTimeToStation)
+                        .build();
                 detailsBuilder.setDrivingTimeToStation(drivingTime);
             }
 
