@@ -38,7 +38,14 @@ public class DepartureSearch {
     Range range;
 
     LevelOfDetail levelOfDetail;
+
+    //TODO: Replace to https://docs.traveltime.com/api/reference/isochrones#departure_searches-polygons_filter-limit
     Boolean singleShape;
+
+    /**
+     * Enable to remove holes from returned polygons.
+     * Note that this will likely result in loss in accuracy.
+     */
     Boolean noHoles;
     Snapping snapPenalty;
 }
