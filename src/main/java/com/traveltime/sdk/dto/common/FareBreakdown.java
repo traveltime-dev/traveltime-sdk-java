@@ -18,7 +18,7 @@ public class FareBreakdown {
     List<String> modes;
 
     /**
-     * Id's of route parts that are covered by these tickets.
+     * IDs of route parts that are covered by these tickets.
      */
     @NonNull
     List<Integer> routePartIds;

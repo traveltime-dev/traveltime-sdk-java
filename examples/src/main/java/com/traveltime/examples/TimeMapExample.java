@@ -20,7 +20,7 @@ import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 
 /**
- * Example showing how to find cafés within driving distance using TravelTime API.
+ * Example showing how to find cafés within travel time using TravelTime API.
  * Creates an isochrone map and filters café locations based on reachability.
  */
 public class TimeMapExample {
@@ -39,24 +39,24 @@ public class TimeMapExample {
         // Generate sample cafe locations
         List<Map.Entry<String, Coordinates>> cafes = Utils.generateLocations("cafe", origin, 0.5, 100);
 
-        // Find cafés within driving distance
-        List<String> reachableCafes = findCafesWithinDrivingDistance(sdk, origin, cafes, TRAVEL_TIME_SECONDS);
+        // Find cafés within travel time
+        List<String> reachableCafes = findCafesWithinTravelTime(sdk, origin, cafes, TRAVEL_TIME_SECONDS);
 
         // Format and display results
         String result = reachableCafes.isEmpty()
-                ? "No cafes found within driving distance"
-                : "Cafes within driving distance: " + String.join(", ", reachableCafes);
+                ? "No cafes found within travel time"
+                : "Cafes within travel time: " + String.join(", ", reachableCafes);
 
         System.out.println(result);
     }
 
     /**
-     * Finds cafés within driving distance from the origin point.
+     * Finds cafés within travel time from the origin point.
      * Returns an empty list if the API call fails or no cafés are found.
      *
-     * @return List of café names within driving distance
+     * @return List of café names within travel time
      */
-    public static List<String> findCafesWithinDrivingDistance(
+    public static List<String> findCafesWithinTravelTime(
             TravelTimeSDK sdk,
             Coordinates origin,
             List<Map.Entry<String, Coordinates>> cafes,

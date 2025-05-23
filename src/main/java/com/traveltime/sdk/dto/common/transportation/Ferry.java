@@ -5,6 +5,9 @@ import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
+/**
+ * Represents a multi-modal journey combining walking and taking a ferry.
+ */
 @Value
 @Builder
 @Jacksonized
