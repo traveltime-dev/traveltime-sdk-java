@@ -34,3 +34,9 @@ jobs:
           APP_ID: ${{ secrets.APP_ID }}
           API_KEY: ${{ secrets.API_KEY }}
         run: mvn -B clean verify
+
+      - name: Maven Verify Examples
+        env:
+          APP_ID: ${{ secrets.APP_ID }}
+          API_KEY: ${{ secrets.API_KEY }}
+        run: mvn -f examples/pom.xml -B clean verify
