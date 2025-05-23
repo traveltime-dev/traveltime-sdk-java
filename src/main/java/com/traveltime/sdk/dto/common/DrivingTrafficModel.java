@@ -2,7 +2,6 @@ package com.traveltime.sdk.dto.common;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 /**
  * Specifies how the routing algorithm should consider traffic conditions for driving modes.
  */

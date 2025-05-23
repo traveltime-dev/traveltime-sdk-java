@@ -12,7 +12,7 @@ public class Ticket {
     /**
      * Type of the ticket representing ticket duration
      */
-    //TODO: Convert to Enum
+    // TODO: Convert to Enum
     @NonNull
     String type;
 

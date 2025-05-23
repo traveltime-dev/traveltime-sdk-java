@@ -13,7 +13,7 @@ public class FareBreakdown {
     /**
      * Transportation modes covered by the ticket, for example, car, parking, boarding...
      */
-    //TODO: Convert to Enum
+    // TODO: Convert to Enum
     @NonNull
     List<String> modes;
 

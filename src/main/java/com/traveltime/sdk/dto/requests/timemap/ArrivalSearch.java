@@ -37,7 +37,7 @@ public class ArrivalSearch {
     Range range;
     LevelOfDetail levelOfDetail;
 
-    //TODO: Replace to https://docs.traveltime.com/api/reference/isochrones#departure_searches-polygons_filter-limit
+    // TODO: Replace to https://docs.traveltime.com/api/reference/isochrones#departure_searches-polygons_filter-limit
     Boolean singleShape;
 
     /**
@@ -45,5 +45,6 @@ public class ArrivalSearch {
      * Note that this will likely result in loss in accuracy.
      */
     Boolean noHoles;
+
     Snapping snapping;
 }
