@@ -1,6 +1,6 @@
 package com.traveltime.examples;
 
-import static com.traveltime.examples.TimeMapExample.findCafesWithinDrivingDistance;
+import static com.traveltime.examples.TimeMapExample.findCafesWithinTravelTime;
 
 import com.traveltime.sdk.TravelTimeSDK;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
