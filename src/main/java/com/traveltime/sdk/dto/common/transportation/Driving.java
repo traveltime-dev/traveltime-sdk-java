@@ -13,7 +13,7 @@ import lombok.extern.jackson.Jacksonized;
 public class Driving implements Transportation {
     /**
      * If set to true, the crossing of country borders is disabled.
-     * If null, crossing of country borders is allowed.
+     * `null` defaults to `false`.
      */
     Boolean disableBorderCrossing;
 
