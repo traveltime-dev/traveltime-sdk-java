@@ -24,9 +24,11 @@ public class Range {
     /**
      * Controls whether the time range functionality is active.
      * <p>
-     * When true, the routing algorithm will consider departures within a window
-     * starting at the specified departure time and extending forward by the width value.
-     * When false, only the exact departure time will be considered, and the width parameter will be ignored.
+     * When true, the routing algorithm will consider departures or arrivals within a window.
+     *
+     * For departure searches this means starting between the specified departure time and <tt>width</tt> seconds in the future from that departure time.
+     * For arrival searches this means finishing  between the specified arrival time and <tt>width</tt> seconds in the past from that arrival time.
+     * When false, only the exact departure or arrival time will be considered, and the width parameter will be ignored.
      */
     @NonNull
     Boolean enabled;
