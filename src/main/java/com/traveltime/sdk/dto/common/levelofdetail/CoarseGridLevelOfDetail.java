@@ -19,6 +19,7 @@ public class CoarseGridLevelOfDetail implements LevelOfDetail {
      * A smaller value creates a finer grid with more detail but requires more processing power.
      * A larger value creates a coarser grid with less detail and improved performance.
      * <p>
+     * <pre>
      * Small value (higher detail):    Large value (lower detail):
      * +--+--+--+--+--+--+            +--------+--------+
      * |  |  |  |  |  |  |            |        |        |
@@ -27,6 +28,7 @@ public class CoarseGridLevelOfDetail implements LevelOfDetail {
      * +--+--+--+--+--+--+            |        |        |
      * |  |  |  |  |  |  |            |        |        |
      * +--+--+--+--+--+--+            +--------+--------+
+     * </pre>
      *
      */
     @NonNull
