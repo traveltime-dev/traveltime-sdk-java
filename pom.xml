@@ -86,7 +86,7 @@
                         <palantirJavaFormat>
                             <version>2.64.0</version>
                             <style>PALANTIR</style>
-                            <formatJavadoc>true</formatJavadoc>
+                            <formatJavadoc>false</formatJavadoc>
                         </palantirJavaFormat>
                     </java>
                 </configuration>

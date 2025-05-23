@@ -11,9 +11,17 @@ import okhttp3.Headers;
 @Builder
 @AllArgsConstructor
 public class TravelTimeCredentials {
+    /**
+     * App ID for accessing TravelTime services. You can find your App ID at <a
+     * href="https://account.traveltime.com/">account.traveltime.com</a>
+     */
     @NonNull
     String appId;
 
+    /**
+     * Api key for accessing TravelTime services. You can find your Api key at <a
+     * href="https://account.traveltime.com/">account.traveltime.com</a>
+     */
     @NonNull
     String apiKey;
 

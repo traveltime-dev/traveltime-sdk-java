@@ -23,7 +23,7 @@ To use annotations, you need to use Maven dependency:
 
 All requests return TravelTime response body.
 On invalid request functions will return API error response.
-Check indvidual function documentation or API documention for information on how to construct it.
+Check individual function documentation or API documentation for information on how to construct it.
 
 ### Authentication
 In order to authenticate with Travel Time API, you will have to supply the Credentials.
