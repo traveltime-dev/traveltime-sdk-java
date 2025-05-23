@@ -21,7 +21,7 @@ public class TimeMapExampleTest {
 
         List<Map.Entry<String, Coordinates>> cafes = Utils.generateLocations("cafe", origin, 0.5, 100);
 
-        List<String> reachableCafes = findCafesWithinDrivingDistance(sdk, origin, cafes, 1800);
+        List<String> reachableCafes = findCafesWithinTravelTime(sdk, origin, cafes, 1800);
 
         Assert.assertFalse(reachableCafes.isEmpty());
     }
