@@ -34,14 +34,19 @@ public class Range {
     Boolean enabled;
 
     /**
-     * Specifies the duration of the departure time window in seconds.
+     * Specifies the duration of the time window in seconds.
      * <p>
-     * The window always starts at the specified departure time and extends forward
+     * For departure searches: The window starts at the specified departure time and extends forward
      * by this amount. For example, with a departure time of 09:00 and a width of
      * 3600 (1 hour), all journeys departing between 09:00 and 10:00 will be included
      * in the results.
      * <p>
-     * Must be a positive value. Maximum allowed value is 43200 (12 hours).
+     * For arrival searches: The window ends at the specified arrival time and extends backward
+     * by this amount. For example, with an arrival time of 17:00 and a width of
+     * 3600 (1 hour), all journeys arriving between 16:00 and 17:00 will be included
+     * in the results.
+     * <p>
+     * Must be a positive value. The maximum allowed value is 43200 (12 hours).
      */
     @NonNull
     @Positive(message = "width must be greater than 0")
