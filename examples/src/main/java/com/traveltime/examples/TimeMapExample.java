@@ -6,85 +6,119 @@ import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.transportation.Driving;
 import com.traveltime.sdk.dto.requests.TimeMapWktRequest;
 import com.traveltime.sdk.dto.requests.timemap.DepartureSearch;
+import com.traveltime.sdk.dto.responses.TimeMapWktResponse;
+import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import com.traveltime.sdk.dto.responses.timemap.WktResult;
-import javafx.util.Pair;
-import lombok.val;
+import io.vavr.control.Either;
+import java.time.Instant;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 
-import java.time.Instant;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static io.vavr.API.*;
-import static io.vavr.Patterns.$Left;
-import static io.vavr.Patterns.$Right;
-
 /**
- * Example showing how to get all existing cafes by travelTime within driving distance.
- * The list of cafe coordinates is generated randomly.
- * Here we are using driving transportation mode, but you can use different ways of
- * transportation, for example: public transport or walking.
+ * Example showing how to find cafés within travel time using TravelTime API.
+ * Creates an isochrone map and filters café locations based on reachability.
  */
 public class TimeMapExample {
 
+    private static final int TRAVEL_TIME_SECONDS = 600; // 10 minutes
+    private static final GeometryFactory GEOMETRY_FACTORY = new GeometryFactory();
+
     public static void main(String[] args) {
-        val origin = new Coordinates(51.41070, -0.15540);
-        val request = createRequest(origin);
+        // TODO: Replace with your actual API credentials
+        TravelTimeCredentials credentials = new TravelTimeCredentials("appId", "apiKey");
+        TravelTimeSDK sdk = new TravelTimeSDK(credentials);
 
-        val locations = Utils.generateLocations("cafe", origin, 0.5, 1000);
+        // Set origin point (London coordinates in this example)
+        Coordinates origin = new Coordinates(51.41070, -0.15540);
 
-        val sdk = new TravelTimeSDK(new TravelTimeCredentials("appId", "apiKey")); // Substitute your credentials here
-        val response = sdk.send(request);
+        // Generate sample cafe locations
+        List<Map.Entry<String, Coordinates>> cafes = Utils.generateLocations("cafe", origin, 0.5, 100);
 
-        val res = Match(response).of(
-            Case($Right($()), v ->
-                "All cafes in area: " + String.join(", ", locationsInArea(locations, v.getResults().get(0)))
-            ),
-            Case($Left($()), v -> "Failed with error: " + v.getMessage())
-        );
+        // Find cafés within travel time
+        List<String> reachableCafes = findCafesWithinTravelTime(sdk, origin, cafes, TRAVEL_TIME_SECONDS);
 
-        System.out.println(res);
+        // Format and display results
+        String result = reachableCafes.isEmpty()
+                ? "No cafes found within travel time"
+                : "Cafes within travel time: " + String.join(", ", reachableCafes);
+
+        System.out.println(result);
     }
 
-    private static List<String> locationsInArea(List<Pair<String, Coordinates>> locations, WktResult result) {
-        return locations
-            .stream()
-            .filter(location -> result.getShape().contains(getPoint(location) ))
-            .map(Pair::getKey)
-            .collect(Collectors.toList());
+    /**
+     * Finds cafés within travel time from the origin point.
+     * Returns an empty list if the API call fails or no cafés are found.
+     *
+     * @return List of café names within travel time
+     */
+    public static List<String> findCafesWithinTravelTime(
+            TravelTimeSDK sdk,
+            Coordinates origin,
+            List<Map.Entry<String, Coordinates>> cafes,
+            Integer travelTimeSeconds) {
+        // Create a time map request for 10-minute driving isochrone
+        TimeMapWktRequest request = createRequest(origin, travelTimeSeconds);
+        Either<TravelTimeError, TimeMapWktResponse> response = sdk.send(request);
+
+        return response.fold(
+                error -> Collections.emptyList(), // Left case: return an empty list on error
+                timeMapResponse -> extractReachableCafes(cafes, timeMapResponse) // Right case: process success
+                );
     }
 
-    private static Point getPoint(Pair<String, Coordinates> pair) {
-        val gf = new GeometryFactory();
-        val coordinate = pair.getValue();
-        return gf.createPoint(new Coordinate(coordinate.getLng(), coordinate.getLat()));
+    private static List<String> extractReachableCafes(
+            List<Map.Entry<String, Coordinates>> cafes, TimeMapWktResponse response) {
+        // Check if API returned any reachable area
+        if (response.getResults().isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        // Filter cafés that fall within the driving isochrone
+        return findCafesInArea(cafes, response.getResults().get(0));
     }
 
-    private static TimeMapWktRequest createRequest(
-        Coordinates origin
-    ) {
-        val ds = new DepartureSearch(
-            "Walking area",
-            origin,
-            Driving.builder().build(),
-            Instant.now(),
-            600,
-            null,
-            null,
-            false,
-            false,
-            null
-        );
+    private static List<String> findCafesInArea(List<Map.Entry<String, Coordinates>> cafes, WktResult areaResult) {
+        // Stream through all café locations and filter those within the isochrone shape
+        return cafes.stream()
+                .filter(cafe -> isLocationInArea(cafe.getValue(), areaResult))
+                .map(Map.Entry::getKey) // Extract cafe names
+                .collect(Collectors.toList());
+    }
 
+    private static boolean isLocationInArea(Coordinates coordinates, WktResult areaResult) {
+        // Convert TravelTime coordinates to JTS Point for geometric operations
+        Point point = GEOMETRY_FACTORY.createPoint(new Coordinate(coordinates.getLng(), coordinates.getLat()));
+        // Check if the point is contained within the isochrone polygon
+        return areaResult.getShape().contains(point);
+    }
+
+    private static TimeMapWktRequest createRequest(Coordinates origin, Integer travelTime) {
+        // Configure departure search with driving transportation
+        DepartureSearch search = new DepartureSearch(
+                "driving_area", // Search ID for identification
+                origin, // Starting point coordinates
+                Driving.builder().build(), // Transportation mode (driving)
+                Instant.now(), // Departure time (now)
+                travelTime, // Maximum travel time
+                null,
+                null,
+                false,
+                false,
+                null // Optional parameters (disabled)
+                );
+
+        // Build time map request with the departure search
         return new TimeMapWktRequest(
-            Collections.singletonList(ds),
-            Collections.emptyList(),
-            Collections.emptyList(),
-            Collections.emptyList(),
-            false
-        );
+                Collections.singletonList(search), // Departure searches
+                Collections.emptyList(), // Arrival searches (none)
+                Collections.emptyList(), // Unions (none)
+                Collections.emptyList(), // Intersections (none)
+                false // Snapping disabled
+                );
     }
 }
