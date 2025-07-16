@@ -43,7 +43,7 @@ public class TravelTimeSDK {
     private URI baseUri = URI.create("https://api.traveltimeapp.com/v4/");
 
     @Builder.Default
-    private URI baseProtoUri = URI.create("https://proto.api.traveltimeapp.com/api/v2/");
+    private URI baseProtoUri = URI.create("https://proto.api.traveltimeapp.com/api/v3/");
 
     private <T> Option<ValidationError> validate(TravelTimeRequest<T> request) {
         Set<ConstraintViolation<TravelTimeRequest<T>>> violations = validator.validate(request);
