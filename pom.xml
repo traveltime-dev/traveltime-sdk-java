@@ -9,14 +9,32 @@
     <!--This is not real version. We set it in .github/workflows/publish-artifact.yml -->
     <version>1.1.17</version>
 
-    <distributionManagement>
-        <repository>
-            <id>sonatype</id>
-            <name>Central Repository</name>
-            <url>https://s01.oss.sonatype.org/content/repositories/releases</url>
-        </repository>
-    </distributionManagement>
+    <name>TravelTime SDK Java</name>
+    <description>TravelTime SDK for Java programming language</description>
+    <url>https://github.com/traveltime-dev/traveltime-sdk-java</url>
 
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>traveltime-dev</id>
+            <name>TravelTime</name>
+            <email>support@traveltime.com</email>
+            <organization>TravelTime</organization>
+            <organizationUrl>https://traveltime.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/traveltime-dev/traveltime-sdk-java.git</connection>
+        <developerConnection>scm:git:ssh://github.com:traveltime-dev/traveltime-sdk-java.git</developerConnection>
+        <url>https://github.com/traveltime-dev/traveltime-sdk-java/tree/master</url>
+    </scm>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -25,6 +43,75 @@
 
     <build>
         <plugins>
+            <!-- Central Publishing Maven Plugin  -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.8.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
+                    <waitUntil>published</waitUntil>
+                </configuration>
+            </plugin>
+
+            <!-- Source plugin - required for Maven Central -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Javadoc plugin - required for Maven Central -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- Avoid failing on strict HTML checking -->
+                    <additionalJOption>-Xdoclint:none</additionalJOption>
+                </configuration>
+            </plugin>
+
+            <!-- GPG plugin for signing - required for Maven Central -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.2.7</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- Prevent gpg from using pinentry programs in CI -->
+                    <gpgArguments>
+                        <arg>--pinentry-mode</arg>
+                        <arg>loopback</arg>
+                    </gpgArguments>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>com.github.os72</groupId>
                 <artifactId>protoc-jar-maven-plugin</artifactId>
