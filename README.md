@@ -248,9 +248,6 @@ if (response.isRight()) {
 ### [Time Filter Fast (Proto)](https://docs.traveltime.com/api/reference/travel-time-distance-matrix-proto)
 A fast version of time filter communicating using [protocol buffers](https://github.com/protocolbuffers/protobuf).
 
-The request parameters are much more limited.
-This inflexibility comes with a benefit of faster response times (Over 5x faster compared to regular time filter) and larger limits on the amount of destination points.
-
 Body attributes:
 * origin: Origin point;
 * destination: Destination points. Cannot be more than 200,000;
