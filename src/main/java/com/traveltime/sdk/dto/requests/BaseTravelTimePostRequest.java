@@ -1,5 +1,6 @@
 package com.traveltime.sdk.dto.requests;
 
+import com.traveltime.sdk.TravelTimeSDK;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import com.traveltime.sdk.utils.*;
@@ -28,7 +29,7 @@ public abstract class BaseTravelTimePostRequest<T> extends TravelTimeRequest<T> 
                 .url(url)
                 .headers(credentials.getHeaders())
                 .addHeader("Accept", acceptType().getValue())
-                .addHeader("User-Agent", "Travel Time Java SDK " + Version.getVersion())
+                .addHeader("User-Agent", TravelTimeSDK.fullName())
                 .post(RequestBody.create(jsonString, JSON))
                 .build();
     }

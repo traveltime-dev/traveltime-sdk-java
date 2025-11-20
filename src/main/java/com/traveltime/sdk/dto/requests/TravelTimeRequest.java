@@ -1,17 +1,16 @@
 package com.traveltime.sdk.dto.requests;
 
+import com.traveltime.sdk.TravelTimeSDK;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import com.traveltime.sdk.utils.QueryElement;
-import com.traveltime.sdk.utils.Version;
 import io.vavr.control.Either;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import okhttp3.HttpUrl;
-import okhttp3.MediaType;
-import okhttp3.Request;
+import okhttp3.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuperBuilder
 @NoArgsConstructor
@@ -31,7 +30,7 @@ public abstract class TravelTimeRequest<T> {
         return new Request.Builder()
                 .url(url)
                 .headers(credentials.getHeaders())
-                .addHeader("User-Agent", "Travel Time Java SDK " + Version.getVersion())
+                .addHeader("User-Agent", TravelTimeSDK.fullName())
                 .get()
                 .build();
     }
