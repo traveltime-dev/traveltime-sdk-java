@@ -5,6 +5,7 @@ import com.traveltime.sdk.dto.requests.ProtoRequest;
 import com.traveltime.sdk.dto.requests.TravelTimeRequest;
 import com.traveltime.sdk.dto.responses.errors.*;
 import com.traveltime.sdk.utils.JsonUtils;
+import com.traveltime.sdk.utils.Version;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
@@ -33,6 +34,10 @@ public class TravelTimeSDK {
     private static final int DEFAULT_BATCH_COUNT = 4;
     private static final int MINIMUM_SPLIT_SIZE = 10_000;
 
+    public static String fullName() {
+        return "Travel Time Java SDK " + Version.getVersion();
+    }
+
     @Builder.Default
     private OkHttpClient client = new OkHttpClient();
 
@@ -58,6 +63,8 @@ public class TravelTimeSDK {
     }
 
     private <T> Either<TravelTimeError, T> parseJsonBody(TravelTimeRequest<T> request, int responseCode, String body) {
+        System.out.println("Status code: " + responseCode);
+        System.out.println("Body: " + body);
         if (responseCode == 200) {
             if (request.responseType() == Kml.class) {
                 return Try.of(() -> (T) Kml.unmarshal(body)).toEither().mapLeft(XmlError::new);

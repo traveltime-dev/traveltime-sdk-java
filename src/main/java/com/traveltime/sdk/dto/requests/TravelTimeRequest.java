@@ -1,10 +1,10 @@
 package com.traveltime.sdk.dto.requests;
 
+import com.traveltime.sdk.TravelTimeSDK;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import com.traveltime.sdk.utils.AcceptType;
 import com.traveltime.sdk.utils.QueryElement;
-import com.traveltime.sdk.utils.Version;
 import io.vavr.control.Either;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public abstract class TravelTimeRequest<T> {
         return new Request.Builder()
                 .url(url)
                 .headers(credentials.getHeaders())
-                .addHeader("User-Agent", "Travel Time Java SDK " + Version.getVersion())
+                .addHeader("User-Agent", TravelTimeSDK.fullName())
                 .get()
                 .build();
     }
@@ -40,7 +40,7 @@ public abstract class TravelTimeRequest<T> {
                 .url(url)
                 .headers(credentials.getHeaders())
                 .addHeader("Accept", acceptType.getValue())
-                .addHeader("User-Agent", "Travel Time Java SDK " + Version.getVersion())
+                .addHeader("User-Agent", TravelTimeSDK.fullName())
                 .post(RequestBody.create(jsonString, JSON))
                 .build();
     }

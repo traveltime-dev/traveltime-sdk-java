@@ -3,8 +3,7 @@ package com.traveltime.sdk.utils;
 import static com.fasterxml.jackson.databind.PropertyNamingStrategies.SNAKE_CASE;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.traveltime.sdk.dto.responses.errors.IOError;
@@ -33,6 +32,7 @@ public class JsonUtils {
             .registerModule(module)
             .registerModule(timeModule)
             .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+            .configure(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE, false)
             .setPropertyNamingStrategy(SNAKE_CASE);
 
     public static <T> Either<TravelTimeError, T> fromJson(final String content, final Class<T> clazz) {
