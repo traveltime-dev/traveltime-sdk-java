@@ -45,17 +45,17 @@ public class TimeMapAsyncTest {
     }
 
     private List<ArrivalSearch> createArrivalSearch(Coordinates coords, Transportation transportation) {
-        ArrivalSearch as = new ArrivalSearch(
-                "Test async arrival search",
-                coords,
-                transportation,
-                Instant.now(),
-                900,
-                new Range(true, 400),
-                new SimpleLevelOfDetail(Level.MEDIUM),
-                false,
-                false,
-                null);
+        ArrivalSearch as = ArrivalSearch.builder()
+                .id("Test async arrival search")
+                .coords(coords)
+                .transportation(transportation)
+                .arrivalTime(Instant.now())
+                .travelTime(900)
+                .range(new Range(true, 400))
+                .levelOfDetail(new SimpleLevelOfDetail(Level.MEDIUM))
+                .singleShape(false)
+                .noHoles(false)
+                .build();
 
         return Collections.singletonList(as);
     }

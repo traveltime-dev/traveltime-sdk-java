@@ -1,6 +1,7 @@
 package com.traveltime.sdk.dto.requests.timemapfast;
 
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.RenderMode;
 import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.common.levelofdetail.LevelOfDetail;
 import com.traveltime.sdk.dto.common.transportationfast.Transportation;
@@ -31,5 +32,10 @@ public class ManyToOne {
     Transportation transportation;
 
     LevelOfDetail levelOfDetail;
+
     Snapping snapping;
+
+    RenderMode renderMode;
+
+    Integer bufferDistance;
 }
