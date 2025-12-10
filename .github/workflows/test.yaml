@@ -33,10 +33,10 @@ jobs:
         env:
           APP_ID: ${{ secrets.APP_ID }}
           API_KEY: ${{ secrets.API_KEY }}
-        run: mvn -B clean verify
+        run: mvn -B clean verify -Dgpg.skip=true
 
       - name: Maven Verify Examples
         env:
           APP_ID: ${{ secrets.APP_ID }}
           API_KEY: ${{ secrets.API_KEY }}
-        run: mvn -f examples/pom.xml -B clean verify
+        run: mvn -f examples/pom.xml -B clean verify -Dgpg.skip=true
