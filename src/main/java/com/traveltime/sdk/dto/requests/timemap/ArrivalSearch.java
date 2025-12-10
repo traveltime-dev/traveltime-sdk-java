@@ -2,6 +2,7 @@ package com.traveltime.sdk.dto.requests.timemap;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.RenderMode;
 import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.common.levelofdetail.LevelOfDetail;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
@@ -47,4 +48,8 @@ public class ArrivalSearch {
     Boolean noHoles;
 
     Snapping snapping;
+
+    RenderMode renderMode;
+
+    Integer bufferDistance;
 }
