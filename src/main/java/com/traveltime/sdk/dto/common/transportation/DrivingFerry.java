@@ -3,9 +3,8 @@ package com.traveltime.sdk.dto.common.transportation;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.dto.common.DrivingTrafficModel;
 import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Value;
+import java.util.List;
+import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
 @Value
@@ -33,4 +32,9 @@ public class DrivingFerry implements Transportation {
      * If null, a BALANCED model will be picked by default.
      */
     DrivingTrafficModel trafficModel;
+
+    /**
+     * Additional road types to include when executing search.
+     */
+    List<RestrictedRoadType> includeRoads;
 }

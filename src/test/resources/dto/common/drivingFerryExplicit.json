@@ -1,0 +1,5 @@
+{
+  "type" : "driving",
+  "traffic_model" : "balanced",
+  "include_roads" : [ "restricted", "track" ]
+}

@@ -2,6 +2,7 @@ package com.traveltime.sdk.dto.common.transportation;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.dto.common.DrivingTrafficModel;
+import java.util.List;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
@@ -29,4 +30,9 @@ public class Driving implements Transportation {
      * If null, a BALANCED model will be picked by default.
      */
     DrivingTrafficModel trafficModel;
+
+    /**
+     * Additional road types to include when executing search.
+     */
+    List<RestrictedRoadType> includeRoads;
 }
