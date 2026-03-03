@@ -10,9 +10,13 @@ import com.traveltime.sdk.dto.responses.errors.XmlError;
 import io.vavr.control.Either;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 public class ErrorTest {
+    @Rule
+    public RetryRule retryRule = new RetryRule(5);
+
     TravelTimeSDK sdk;
 
     @Before
