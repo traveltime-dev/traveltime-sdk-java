@@ -1,6 +1,6 @@
 # TravelTime JAVA SDK
 [![Artifact publish](https://github.com/traveltime-dev/traveltime-sdk-java/actions/workflows/publish-artifact.yaml/badge.svg?branch=master)](https://github.com/traveltime-dev/traveltime-sdk-java/actions/workflows/publish-artifact.yaml)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.traveltime/traveltime-sdk-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.traveltime/traveltime-sdk-java)
+[![MvnRepository](https://badges.mvnrepository.com/badge/com.traveltime/traveltime-sdk/badge.svg?label=MvnRepository&color=green)](https://mvnrepository.com/artifact/com.traveltime/traveltime-sdk)
 
 <div data-for-docs="intro-1"></div>
 
