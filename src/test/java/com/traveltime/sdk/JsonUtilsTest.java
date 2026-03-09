@@ -46,6 +46,8 @@ public class JsonUtilsTest {
                 new ImmutablePair(Transportation.class, "dto/common/bus.json"),
                 new ImmutablePair(Transportation.class, "dto/common/drivingDefaults.json"),
                 new ImmutablePair(Transportation.class, "dto/common/drivingExplicit.json"),
+                new ImmutablePair(Transportation.class, "dto/common/drivingFerryDefaults.json"),
+                new ImmutablePair(Transportation.class, "dto/common/drivingFerryExplicit.json"),
                 new ImmutablePair(Transportation.class, "dto/common/ferry.json"),
                 new ImmutablePair(Transportation.class, "dto/common/walking.json"),
                 new ImmutablePair(Transportation.class, "dto/common/coach.json"),
