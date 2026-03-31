@@ -289,6 +289,41 @@ The responses are in the form of a list where each position denotes either a
 travel time (in seconds) of a journey, or if negative that the journey from the
 origin to the destination point is impossible.
 
+### Geohash Fast (Proto)
+A fast version of geohash-based travel time search communicating using [protocol buffers](https://github.com/protocolbuffers/protobuf).
+Returns geohash cell IDs reachable within specified travel time along with min, max, and mean travel times for each cell.
+
+Body attributes:
+* originCoordinate: Origin point;
+* transportation: Transportation type;
+* travelTime: Time limit;
+* resolution: Geohash resolution (precision level);
+* country: Return the results that are within the specified country;
+* requestType: MANY_TO_ONE or ONE_TO_MANY.
+
+```java
+GeohashFastProtoRequest request = GeohashFastProtoRequest
+    .builder()
+    .originCoordinate(new Coordinates(51.425709, -0.122061))
+    .transportation(Transportation.Modes.DRIVING_FERRY)
+    .travelTime(1800)
+    .resolution(6)
+    .country(Countries.UNITED_KINGDOM)
+    .requestType(RequestType.ONE_TO_MANY)
+    .build();
+
+Either<TravelTimeError, GeohashFastProtoResponse> response = sdk.sendProto(request);
+
+if(response.isRight()) {
+  System.out.println(response.get().getIds());
+  System.out.println(response.get().getMinTravelTimes());
+  System.out.println(response.get().getMaxTravelTimes());
+  System.out.println(response.get().getMeanTravelTimes());
+} else {
+  System.out.println(response.getLeft().getMessage());
+}
+```
+
 ### [Routes](https://traveltime.com/docs/api/reference/routes)
 Returns routing information between source and destinations.
 
