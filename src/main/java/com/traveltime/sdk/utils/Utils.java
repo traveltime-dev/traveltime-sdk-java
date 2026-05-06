@@ -1,7 +1,5 @@
 package com.traveltime.sdk.utils;
 
-import java.io.CharArrayWriter;
-import java.io.PrintWriter;
 import java.util.Arrays;
 import okhttp3.HttpUrl;
 
@@ -11,9 +9,20 @@ public class Utils {
     }
 
     public static String printableStackTrace(Throwable cause) {
-        CharArrayWriter caw = new CharArrayWriter();
-        cause.printStackTrace(new PrintWriter(caw));
-        return caw.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append(cause.toString());
+        for (StackTraceElement element : cause.getStackTrace()) {
+            sb.append("\n\tat ").append(element.toString());
+        }
+        Throwable causedBy = cause.getCause();
+        while (causedBy != null) {
+            sb.append("\nCaused by: ").append(causedBy.toString());
+            for (StackTraceElement element : causedBy.getStackTrace()) {
+                sb.append("\n\tat ").append(element.toString());
+            }
+            causedBy = causedBy.getCause();
+        }
+        return sb.toString();
     }
 
     public static HttpUrl.Builder withQuery(HttpUrl.Builder builder, QueryElement... elems) {
