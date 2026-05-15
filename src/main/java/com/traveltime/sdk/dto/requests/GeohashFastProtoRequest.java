@@ -46,6 +46,13 @@ public class GeohashFastProtoRequest extends ProtoRequest<GeohashFastProtoRespon
 
     String correlationId;
 
+    /**
+     * When true (the API default), the returned cells will not cover large nearby water bodies.
+     * Set to false to allow cells over water bodies like large lakes, wide rivers, and seas.
+     */
+    @Builder.Default
+    Boolean removeWaterBodies = true;
+
     private byte[] createByteArray() {
         RequestsCommon.Coords source = RequestsCommon.Coords.newBuilder()
                 .setLat(this.originCoordinate.getLat().floatValue())
@@ -61,6 +68,7 @@ public class GeohashFastProtoRequest extends ProtoRequest<GeohashFastProtoRespon
                     .setTransportation(transportation)
                     .setTravelTime(this.travelTime)
                     .setResolution(this.resolution)
+                    .setRemoveWaterBodies(this.removeWaterBodies == null || this.removeWaterBodies)
                     .addProperties(RequestsCommon.CellPropertyType.MIN)
                     .addProperties(RequestsCommon.CellPropertyType.MAX)
                     .addProperties(RequestsCommon.CellPropertyType.MEAN)
@@ -77,6 +85,7 @@ public class GeohashFastProtoRequest extends ProtoRequest<GeohashFastProtoRespon
                     .setTransportation(transportation)
                     .setTravelTime(this.travelTime)
                     .setResolution(this.resolution)
+                    .setRemoveWaterBodies(this.removeWaterBodies == null || this.removeWaterBodies)
                     .addProperties(RequestsCommon.CellPropertyType.MIN)
                     .addProperties(RequestsCommon.CellPropertyType.MAX)
                     .addProperties(RequestsCommon.CellPropertyType.MEAN)

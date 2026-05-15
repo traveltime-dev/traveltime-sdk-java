@@ -140,6 +140,7 @@ public class TimeMapTest {
                 .levelOfDetail(new SimpleLevelOfDetail(Level.MEDIUM))
                 .singleShape(false)
                 .noHoles(false)
+                .removeWaterBodies(false)
                 .build();
 
         return Collections.singletonList(as);
@@ -156,6 +157,7 @@ public class TimeMapTest {
                 .levelOfDetail(new SimpleLevelOfDetail(Level.MEDIUM))
                 .singleShape(false)
                 .noHoles(false)
+                .removeWaterBodies(true)
                 .build();
         return Collections.singletonList(ds);
     }

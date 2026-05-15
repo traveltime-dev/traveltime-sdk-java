@@ -38,4 +38,10 @@ public class ManyToOne {
     RenderMode renderMode;
 
     Integer bufferDistance;
+
+    /**
+     * When true (API default), the returned shape will not cover large nearby water bodies.
+     * Set to false to allow the shape to cover water bodies like large lakes, wide rivers, and seas.
+     */
+    Boolean removeWaterBodies;
 }

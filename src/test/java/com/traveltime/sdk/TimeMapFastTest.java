@@ -96,6 +96,7 @@ public class TimeMapFastTest {
                 .transportation(transportation)
                 .coords(coords)
                 .travelTime(900)
+                .removeWaterBodies(true)
                 .build();
 
         return ArrivalSearches.builder()
