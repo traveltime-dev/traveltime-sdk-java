@@ -165,6 +165,7 @@ public class GeohashFastProtoTest {
                 .resolution(6)
                 .country(Countries.UNITED_KINGDOM)
                 .requestType(requestType)
+                .removeWaterBodies(false)
                 .build();
     }
 }
