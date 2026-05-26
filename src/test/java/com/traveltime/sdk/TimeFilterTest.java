@@ -66,64 +66,66 @@ public class TimeFilterTest {
     }
 
     private List<ManyToOne> createManyToOne(String arrivalLocation, List<String> departureLocations) {
-        ManyToOne manyToOne = new ManyToOne(
-                "test many to one",
-                arrivalLocation,
-                departureLocations,
-                DrivingAndPublicTransport.builder().build(),
-                900,
-                "weekday_morning",
-                Arrays.asList(Property.TRAVEL_TIME, Property.FARES),
-                Snapping.builder()
+        ManyToOne manyToOne = ManyToOne.builder()
+                .id("test many to one")
+                .arrivalLocationId(arrivalLocation)
+                .departureLocationIds(departureLocations)
+                .transportation(DrivingAndPublicTransport.builder().build())
+                .travelTime(900)
+                .arrivalTimePeriod("weekday_morning")
+                .properties(Arrays.asList(Property.TRAVEL_TIME, Property.FARES))
+                .snapping(Snapping.builder()
                         .acceptRoads(Snapping.AcceptRoads.BOTH_DRIVABLE_AND_WALKABLE)
                         .penalty(Snapping.SnapPenalty.ENABLED)
-                        .build());
+                        .build())
+                .build();
 
         return Collections.singletonList(manyToOne);
     }
 
     private List<OneToMany> createOneToMany(String departureLocation, List<String> arrivalLocations) {
-        OneToMany oneToMany = new OneToMany(
-                "test one to many",
-                departureLocation,
-                arrivalLocations,
-                DrivingAndPublicTransport.builder().build(),
-                900,
-                "weekday_morning",
-                Arrays.asList(Property.TRAVEL_TIME, Property.FARES),
-                Snapping.builder()
+        OneToMany oneToMany = OneToMany.builder()
+                .id("test one to many")
+                .departureLocationId(departureLocation)
+                .arrivalLocationIds(arrivalLocations)
+                .transportation(DrivingAndPublicTransport.builder().build())
+                .travelTime(900)
+                .arrivalTimePeriod("weekday_morning")
+                .properties(Arrays.asList(Property.TRAVEL_TIME, Property.FARES))
+                .snapping(Snapping.builder()
                         .acceptRoads(Snapping.AcceptRoads.ANY_DRIVABLE)
                         .penalty(Snapping.SnapPenalty.DISABLED)
-                        .build());
+                        .build())
+                .build();
 
         return Collections.singletonList(oneToMany);
     }
 
     private List<DepartureSearch> createDepartureSearch(String departureLocation, List<String> arrivalLocations) {
-        DepartureSearch ds = new DepartureSearch(
-                "Test departure search",
-                departureLocation,
-                arrivalLocations,
-                PublicTransport.builder().build(),
-                Instant.now(),
-                900,
-                Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE),
-                new FullRange(true, 2, 300),
-                null);
+        DepartureSearch ds = DepartureSearch.builder()
+                .id("Test departure search")
+                .departureLocationId(departureLocation)
+                .arrivalLocationIds(arrivalLocations)
+                .transportation(PublicTransport.builder().build())
+                .departureTime(Instant.now())
+                .travelTime(900)
+                .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE))
+                .range(new FullRange(true, 2, 300))
+                .build();
         return Collections.singletonList(ds);
     }
 
     private List<ArrivalSearch> createArrivalSearch(List<String> departureLocations, String arrivalLocation) {
-        ArrivalSearch as = new ArrivalSearch(
-                "Test arrival search",
-                departureLocations,
-                arrivalLocation,
-                PublicTransport.builder().build(),
-                Instant.now(),
-                900,
-                Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES),
-                new FullRange(true, 1, 300),
-                null);
+        ArrivalSearch as = ArrivalSearch.builder()
+                .id("Test arrival search")
+                .departureLocationIds(departureLocations)
+                .arrivalLocationId(arrivalLocation)
+                .transportation(PublicTransport.builder().build())
+                .arrivalTime(Instant.now())
+                .travelTime(900)
+                .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES))
+                .range(new FullRange(true, 1, 300))
+                .build();
         return Collections.singletonList(as);
     }
 }

@@ -40,28 +40,28 @@ public class TimeFilterPostcodesTest {
     }
 
     private List<DepartureSearch> createDepartureSearch(Coordinates coordinates, Transportation transportation) {
-        DepartureSearch ds = new DepartureSearch(
-                "Test departure search",
-                coordinates,
-                transportation,
-                Instant.now(),
-                900,
-                Collections.singletonList(Property.TRAVEL_TIME),
-                new FullRange(true, 1, 300),
-                null);
+        DepartureSearch ds = DepartureSearch.builder()
+                .id("Test departure search")
+                .coords(coordinates)
+                .transportation(transportation)
+                .departureTime(Instant.now())
+                .travelTime(900)
+                .properties(Collections.singletonList(Property.TRAVEL_TIME))
+                .range(new FullRange(true, 1, 300))
+                .build();
         return Collections.singletonList(ds);
     }
 
     private List<ArrivalSearch> createArrivalSearch(Coordinates coordinates, Transportation transportation) {
-        ArrivalSearch as = new ArrivalSearch(
-                "Test arrival search",
-                coordinates,
-                transportation,
-                Instant.now(),
-                900,
-                Collections.singletonList(Property.TRAVEL_TIME),
-                new FullRange(true, 1, 300),
-                null);
+        ArrivalSearch as = ArrivalSearch.builder()
+                .id("Test arrival search")
+                .coords(coordinates)
+                .transportation(transportation)
+                .arrivalTime(Instant.now())
+                .travelTime(900)
+                .properties(Collections.singletonList(Property.TRAVEL_TIME))
+                .range(new FullRange(true, 1, 300))
+                .build();
         return Collections.singletonList(as);
     }
 }

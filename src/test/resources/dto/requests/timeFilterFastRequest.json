@@ -21,19 +21,17 @@
   "arrival_searches" : {
     "many_to_one" : [ {
       "id" : "arrive-at many-to-one search example",
-      "arrival_location_id" : "London center",
-      "departure_location_ids" : [ "Hyde Park", "ZSL London Zoo" ],
       "transportation" : {
         "type" : "public_transport"
       },
       "travel_time" : 1900,
       "arrival_time_period" : "weekday_morning",
-      "properties" : [ "travel_time", "fares" ]
+      "properties" : [ "travel_time", "fares" ],
+      "arrival_location_id" : "London center",
+      "departure_location_ids" : [ "Hyde Park", "ZSL London Zoo" ]
     } ],
     "one_to_many" : [ {
       "id" : "arrive-at one-to-many search example",
-      "departure_location_id" : "London center",
-      "arrival_location_ids" : [ "Hyde Park", "ZSL London Zoo" ],
       "transportation" : {
         "type" : "public_transport"
       },
@@ -42,7 +40,9 @@
       "properties" : [ "travel_time", "fares" ],
       "snapping" : {
         "penalty" : "enabled"
-      }
+      },
+      "departure_location_id" : "London center",
+      "arrival_location_ids" : [ "Hyde Park", "ZSL London Zoo" ]
     } ]
   }
 }
