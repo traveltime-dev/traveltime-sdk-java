@@ -19,7 +19,7 @@ public abstract class BaseTravelTimePostRequest<T> extends TravelTimeRequest<T> 
     protected abstract AcceptType acceptType();
 
     @Override
-    public final Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
+    public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
         val uri = baseUri.newBuilder().addPathSegments(endpoint()).build();
         return JsonUtils.toJson(this).map(json -> createPostRequest(credentials, uri, json));
     }

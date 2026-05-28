@@ -129,8 +129,7 @@ public class SupportedLocationsTest extends CommonErrorTests {
             r -> {
                 val loc = r.getLocations().getFirst();
                 val map1 = loc.getMapName();
-                val map2 = loc.getMapName();
-//                val map2 = loc.getAdditionalMapNames().getFirst();
+                val map2 = loc.getAdditionalMapNames().getFirst();
                 return Arrays.asList(map1, map2);
             }
         );
