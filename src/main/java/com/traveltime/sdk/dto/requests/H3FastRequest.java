@@ -12,6 +12,8 @@ import com.traveltime.sdk.utils.AcceptType;
 import com.traveltime.sdk.utils.JsonUtils;
 import io.vavr.control.Either;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import java.util.List;
 import lombok.*;
@@ -27,12 +29,13 @@ import okhttp3.Request;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class H3FastRequest extends TravelTimeRequest<H3Response> {
     /**
-     * H3 cell resolution. Supported values are 4 to 12, and the resolution caps the travel time a
-     * search may use.
+     * H3 cell resolution. Caps the travel time a search may use.
      *
      * @see <a href="https://docs.traveltime.com/api/reference/h3-fast#limits-of-resolution-and-traveltime">Limits of resolution and travel time</a>
      */
     @NonNull
+    @Min(value = 4, message = "resolution should be between 4 and 12")
+    @Max(value = 12, message = "resolution should be between 4 and 12")
     Integer resolution;
 
     @NotEmpty(message = "at least one property must be requested")
