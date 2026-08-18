@@ -297,7 +297,7 @@ Body attributes:
 * originCoordinate: Origin point;
 * transportation: Transportation type;
 * travelTime: Time limit;
-* resolution: Geohash resolution (precision level);
+* resolution: Geohash resolution, 4 to 7;
 * country: Return the results that are within the specified country;
 * requestType: MANY_TO_ONE or ONE_TO_MANY;
 * properties: Travel time statistics to return. All three are returned when left unset;

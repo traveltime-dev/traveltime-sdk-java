@@ -10,6 +10,7 @@ import com.traveltime.sdk.dto.requests.proto.RequestType;
 import com.traveltime.sdk.dto.requests.proto.Transportation;
 import com.traveltime.sdk.dto.responses.GeohashFastProtoResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import com.traveltime.sdk.dto.responses.errors.ValidationError;
 import io.vavr.control.Either;
 import java.util.Arrays;
 import java.util.Collections;
@@ -80,6 +81,19 @@ public class GeohashFastProtoTest {
         Assert.assertFalse(result.getMinTravelTimes().isEmpty());
         Assert.assertTrue(result.getMaxTravelTimes().isEmpty());
         Assert.assertTrue(result.getMeanTravelTimes().isEmpty());
+    }
+
+    /** The fast endpoint stops at 7, below the 9 the regular geohash endpoint allows. */
+    @Test
+    public void shouldRejectResolutionOutsideRange() {
+        Either<TravelTimeError, GeohashFastProtoResponse> response =
+                sdk.sendProto(oneToMany().withResolution(9));
+        Assert.assertTrue("must not reach the API", response.isLeft());
+        Assert.assertTrue(
+                "must fail validation: " + response.getLeft().getClass().getSimpleName(),
+                response.getLeft() instanceof ValidationError);
+        Assert.assertEquals(
+                "resolution should be between 4 and 7", response.getLeft().getMessage());
     }
 
     @Test

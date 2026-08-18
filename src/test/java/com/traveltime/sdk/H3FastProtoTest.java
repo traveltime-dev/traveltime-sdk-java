@@ -10,6 +10,7 @@ import com.traveltime.sdk.dto.requests.proto.RequestType;
 import com.traveltime.sdk.dto.requests.proto.Transportation;
 import com.traveltime.sdk.dto.responses.H3FastProtoResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import com.traveltime.sdk.dto.responses.errors.ValidationError;
 import io.vavr.control.Either;
 import java.util.Collections;
 import java.util.List;
@@ -104,6 +105,21 @@ public class H3FastProtoTest {
         Assert.assertTrue(result.getMinTravelTimes().isEmpty());
         Assert.assertTrue(result.getMaxTravelTimes().isEmpty());
         Assert.assertTrue(result.getMeanTravelTimes().isEmpty());
+    }
+
+    /** sendProto skips bean validation, so the range is enforced when the request is built. */
+    @Test
+    public void shouldRejectResolutionOutsideRange() {
+        for (int resolution : new int[] {3, 13}) {
+            Either<TravelTimeError, H3FastProtoResponse> response =
+                    sdk.sendProto(oneToMany().withResolution(resolution));
+            Assert.assertTrue("must not reach the API", response.isLeft());
+            Assert.assertTrue(
+                    "must fail validation: " + response.getLeft().getClass().getSimpleName(),
+                    response.getLeft() instanceof ValidationError);
+            Assert.assertEquals(
+                    "resolution should be between 4 and 12", response.getLeft().getMessage());
+        }
     }
 
     @Test

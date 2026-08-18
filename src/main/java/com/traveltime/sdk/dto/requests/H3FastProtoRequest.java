@@ -12,6 +12,7 @@ import com.traveltime.sdk.dto.requests.proto.Transportation;
 import com.traveltime.sdk.dto.responses.H3FastProtoResponse;
 import com.traveltime.sdk.dto.responses.errors.IOError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import com.traveltime.sdk.dto.responses.errors.ValidationError;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import java.util.*;
@@ -149,6 +150,9 @@ public class H3FastProtoRequest extends ProtoRequest<H3FastProtoResponse> {
 
     @Override
     public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
+        if (resolution < 4 || resolution > 12) {
+            return Either.left(new ValidationError("resolution should be between 4 and 12"));
+        }
         String countryCode = this.country.getValue();
         String transportationType = this.transportation.getType().getValue();
         val uri = baseUri.newBuilder()
