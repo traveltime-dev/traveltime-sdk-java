@@ -27,6 +27,10 @@ public class JsonUtilsTest {
                 new ImmutablePair(TimeFilterSectorsRequest.class, "dto/requests/timeFilterSectorsRequest.json"),
                 new ImmutablePair(TimeFilterDistrictsRequest.class, "dto/requests/timeFilterDistrictsRequest.json"),
                 new ImmutablePair(TimeFilterPostcodesRequest.class, "dto/requests/timeFilterPostcodesRequest.json"),
+                new ImmutablePair(H3Request.class, "dto/requests/h3Request.json"),
+                new ImmutablePair(H3FastRequest.class, "dto/requests/h3FastRequest.json"),
+                new ImmutablePair(GeohashRequest.class, "dto/requests/geohashRequest.json"),
+                new ImmutablePair(GeohashFastRequest.class, "dto/requests/geohashFastRequest.json"),
 
                 // responses
                 new ImmutablePair(TimeMapResponse.class, "dto/responses/timeMapResponse.json"),
@@ -40,6 +44,8 @@ public class JsonUtilsTest {
                 new ImmutablePair(TimeFilterSectorsResponse.class, "dto/responses/timeFilterSectorsResponse.json"),
                 new ImmutablePair(TimeFilterPostcodesResponse.class, "dto/responses/timeFilterPostcodesResponse.json"),
                 new ImmutablePair(MapInfoResponse.class, "dto/responses/mapInfoResponse.json"),
+                new ImmutablePair(H3Response.class, "dto/responses/h3Response.json"),
+                new ImmutablePair(GeohashResponse.class, "dto/responses/geohashResponse.json"),
                 new ImmutablePair(ResponseError.class, "dto/responses/errorResponse.json"),
 
                 // transportations

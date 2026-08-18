@@ -1,0 +1,15 @@
+{
+  "results" : [ {
+    "search_id" : "public transport from Trafalgar Square",
+    "cells" : [ {
+      "id" : "gcpuv5",
+      "properties" : {
+        "min" : 214,
+        "max" : 890,
+        "mean" : 590
+      }
+    }, {
+      "id" : "gcpuv7"
+    } ]
+  } ]
+}
