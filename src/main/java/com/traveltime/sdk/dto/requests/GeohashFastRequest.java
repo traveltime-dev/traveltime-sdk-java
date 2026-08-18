@@ -27,7 +27,7 @@ import okhttp3.Request;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class GeohashFastRequest extends TravelTimeRequest<GeohashResponse> {
     /**
-     * Geohash cell resolution. Supported values are 4 to 9, and the resolution caps the travel time a
+     * Geohash cell resolution. Supported values are 4 to 7, and the resolution caps the travel time a
      * search may use.
      *
      * @see <a href="https://docs.traveltime.com/api/reference/geohash-fast#limits-of-resolution-and-traveltime">Limits of resolution and travel time</a>

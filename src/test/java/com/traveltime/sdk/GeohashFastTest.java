@@ -96,6 +96,25 @@ public class GeohashFastTest {
                 JsonUtils.fromJson(response.get(), GeohashResponse.class).isRight());
     }
 
+    /**
+     * The fast endpoint's ceiling is lower than /v4/geohash's.
+     */
+    @Test
+    public void shouldAcceptHighestSupportedResolution() {
+        GeohashFastRequest request = GeohashFastRequest.builder()
+                .resolution(7)
+                .property(Property.MIN)
+                .arrivalSearches(ArrivalSearches.builder()
+                        .oneToMany(Collections.singletonList(fastSearch("one to many", TRAFALGAR_SQUARE)))
+                        .manyToOne(Collections.emptyList())
+                        .build())
+                .build();
+
+        Either<TravelTimeError, GeohashResponse> response = sdk.send(request);
+        Common.assertResponseIsRight(response);
+        Assert.assertFalse(response.get().getResults().get(0).getCells().isEmpty());
+    }
+
     @Test
     public void shouldSendUnionAndIntersection() {
         GeohashFastRequest request = GeohashFastRequest.builder()

@@ -245,6 +245,8 @@ if(response.isRight()) {
 ### [Geohash Fast](https://docs.traveltime.com/api/reference/geohash-fast)
 A very fast version of the Geohash endpoint. However, the request parameters are much more limited.
 
+Supported resolutions are 4 to 7 — a narrower range than the `/v4/geohash` endpoint.
+
 ```java
 FastSearch fastSearch = FastSearch
     .builder()
