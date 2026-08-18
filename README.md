@@ -299,7 +299,9 @@ Body attributes:
 * travelTime: Time limit;
 * resolution: Geohash resolution (precision level);
 * country: Return the results that are within the specified country;
-* requestType: MANY_TO_ONE or ONE_TO_MANY.
+* requestType: MANY_TO_ONE or ONE_TO_MANY;
+* properties: Travel time statistics to return. All three are returned when left unset;
+* removeWaterBodies: When false, returned cells may cover large lakes, wide rivers and seas. Defaults to true.
 
 ```java
 GeohashFastProtoRequest request = GeohashFastProtoRequest
@@ -313,6 +315,44 @@ GeohashFastProtoRequest request = GeohashFastProtoRequest
     .build();
 
 Either<TravelTimeError, GeohashFastProtoResponse> response = sdk.sendProto(request);
+
+if(response.isRight()) {
+  System.out.println(response.get().getIds());
+  System.out.println(response.get().getMinTravelTimes());
+  System.out.println(response.get().getMaxTravelTimes());
+  System.out.println(response.get().getMeanTravelTimes());
+} else {
+  System.out.println(response.getLeft().getMessage());
+}
+```
+
+### H3 Fast (Proto)
+A fast version of H3-based travel time search communicating using [protocol buffers](https://github.com/protocolbuffers/protobuf).
+Returns H3 cell IDs reachable within specified travel time along with min, max, and mean travel times for each cell.
+Cell IDs come back in the same hex form the `/v4/h3` endpoint returns, for example `87194ad14ffffff`.
+
+Body attributes:
+* originCoordinate: Origin point;
+* transportation: Transportation type;
+* travelTime: Time limit;
+* resolution: H3 resolution, 4 to 12;
+* country: Return the results that are within the specified country;
+* requestType: MANY_TO_ONE or ONE_TO_MANY;
+* properties: Travel time statistics to return. All three are returned when left unset;
+* removeWaterBodies: When false, returned cells may cover large lakes, wide rivers and seas. Defaults to true.
+
+```java
+H3FastProtoRequest request = H3FastProtoRequest
+    .builder()
+    .originCoordinate(new Coordinates(51.425709, -0.122061))
+    .transportation(Transportation.Modes.DRIVING_FERRY)
+    .travelTime(1800)
+    .resolution(7)
+    .country(Countries.UNITED_KINGDOM)
+    .requestType(RequestType.ONE_TO_MANY)
+    .build();
+
+Either<TravelTimeError, H3FastProtoResponse> response = sdk.sendProto(request);
 
 if(response.isRight()) {
   System.out.println(response.get().getIds());
