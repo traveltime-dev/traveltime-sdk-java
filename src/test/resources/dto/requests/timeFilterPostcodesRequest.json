@@ -12,9 +12,9 @@
         "limit" : 3
       }
     },
-    "departure_time" : "2021-11-10T08:00:00Z",
     "travel_time" : 1800,
-    "properties" : [ "travel_time", "distance" ]
+    "properties" : [ "travel_time", "distance" ],
+    "departure_time" : "2021-11-10T08:00:00Z"
   } ],
   "arrival_searches" : [ {
     "id" : "public transport to Trafalgar Square",
@@ -25,8 +25,8 @@
     "transportation" : {
       "type" : "public_transport"
     },
-    "arrival_time" : "2021-11-10T08:00:00Z",
     "travel_time" : 1800,
-    "properties" : [ "travel_time", "distance" ]
+    "properties" : [ "travel_time", "distance" ],
+    "arrival_time" : "2021-11-10T08:00:00Z"
   } ]
 }

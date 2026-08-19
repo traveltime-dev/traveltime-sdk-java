@@ -52,28 +52,30 @@ public class TimeFilterZonesTest {
     }
 
     private List<DepartureSearch> createDepartureSearch(Coordinates coordinates, Transportation transportation) {
-        DepartureSearch ds = new DepartureSearch(
-                "Test departure search",
-                coordinates,
-                transportation,
-                Instant.now(),
-                900,
-                0.1,
-                Collections.singletonList(Property.COVERAGE),
-                new FullRange(true, 1, 300));
+        DepartureSearch ds = DepartureSearch.builder()
+                .id("Test departure search")
+                .coords(coordinates)
+                .transportation(transportation)
+                .departureTime(Instant.now())
+                .travelTime(900)
+                .reachablePostcodesThreshold(0.1)
+                .property(Property.COVERAGE)
+                .range(new FullRange(true, 1, 300))
+                .build();
         return Collections.singletonList(ds);
     }
 
     private List<ArrivalSearch> createArrivalSearch(Coordinates coordinates, Transportation transportation) {
-        ArrivalSearch as = new ArrivalSearch(
-                "Test arrival search",
-                coordinates,
-                transportation,
-                Instant.now(),
-                900,
-                0.1,
-                Collections.singletonList(Property.COVERAGE),
-                new FullRange(true, 1, 300));
+        ArrivalSearch as = ArrivalSearch.builder()
+                .id("Test arrival search")
+                .coords(coordinates)
+                .transportation(transportation)
+                .arrivalTime(Instant.now())
+                .travelTime(900)
+                .reachablePostcodesThreshold(0.1)
+                .property(Property.COVERAGE)
+                .range(new FullRange(true, 1, 300))
+                .build();
         return Collections.singletonList(as);
     }
 }

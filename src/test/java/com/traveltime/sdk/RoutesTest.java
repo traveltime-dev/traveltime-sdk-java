@@ -54,29 +54,29 @@ public class RoutesTest {
 
     private List<DepartureSearch> createDepartureSearch(
             String departureLocation, List<String> arrivalLocations, Transportation transportation) {
-        DepartureSearch ds = new DepartureSearch(
-                "Test departure search",
-                departureLocation,
-                arrivalLocations,
-                transportation,
-                Instant.now(),
-                Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE),
-                new FullRange(true, 1, 300),
-                null);
+        DepartureSearch ds = DepartureSearch.builder()
+                .id("Test departure search")
+                .departureLocationId(departureLocation)
+                .arrivalLocationIds(arrivalLocations)
+                .transportation(transportation)
+                .departureTime(Instant.now())
+                .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE))
+                .range(new FullRange(true, 1, 300))
+                .build();
         return Collections.singletonList(ds);
     }
 
     private List<ArrivalSearch> createArrivalSearch(
             List<String> departureLocations, String arrivalLocation, Transportation transportation) {
-        ArrivalSearch as = new ArrivalSearch(
-                "Test arrival search",
-                departureLocations,
-                arrivalLocation,
-                transportation,
-                Instant.now(),
-                Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES),
-                new FullRange(true, 1, 300),
-                null);
+        ArrivalSearch as = ArrivalSearch.builder()
+                .id("Test arrival search")
+                .departureLocationIds(departureLocations)
+                .arrivalLocationId(arrivalLocation)
+                .transportation(transportation)
+                .arrivalTime(Instant.now())
+                .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES))
+                .range(new FullRange(true, 1, 300))
+                .build();
         return Collections.singletonList(as);
     }
 }

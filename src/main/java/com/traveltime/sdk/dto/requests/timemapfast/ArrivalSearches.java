@@ -13,8 +13,8 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 public class ArrivalSearches {
     @NonNull
-    List<ManyToOne> manyToOne;
+    List<Search> manyToOne;
 
     @NonNull
-    List<OneToMany> oneToMany;
+    List<Search> oneToMany;
 }

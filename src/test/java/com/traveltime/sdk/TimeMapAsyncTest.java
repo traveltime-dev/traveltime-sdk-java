@@ -5,7 +5,6 @@ import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.levelofdetail.Level;
 import com.traveltime.sdk.dto.common.levelofdetail.SimpleLevelOfDetail;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
-import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.TimeMapRequest;
 import com.traveltime.sdk.dto.requests.timemap.ArrivalSearch;
 import com.traveltime.sdk.dto.requests.timemap.Range;
@@ -33,22 +32,18 @@ public class TimeMapAsyncTest {
 
     @Test
     public void shouldSendAsyncTimeMapRequest() throws ExecutionException, InterruptedException {
-        Coordinates coords = new Coordinates(51.507609, -0.128315);
-        Transportation transportation = PublicTransport.builder().build();
-
-        TimeMapRequest request = TimeMapRequest.builder()
-                .arrivalSearches(createArrivalSearch(coords, transportation))
-                .build();
+        TimeMapRequest request =
+                TimeMapRequest.builder().arrivalSearches(createArrivalSearch()).build();
 
         CompletableFuture<Either<TravelTimeError, TimeMapResponse>> response = sdk.sendAsync(request);
         Assert.assertTrue(response.get().isRight());
     }
 
-    private List<ArrivalSearch> createArrivalSearch(Coordinates coords, Transportation transportation) {
+    private List<ArrivalSearch> createArrivalSearch() {
         ArrivalSearch as = ArrivalSearch.builder()
                 .id("Test async arrival search")
-                .coords(coords)
-                .transportation(transportation)
+                .coords(new Coordinates(51.507609, -0.128315))
+                .transportation(PublicTransport.builder().build())
                 .arrivalTime(Instant.now())
                 .travelTime(900)
                 .range(new Range(true, 400))

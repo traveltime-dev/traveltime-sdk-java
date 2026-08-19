@@ -20,22 +20,20 @@
   } ],
   "departure_searches" : [ {
     "id" : "departure search example",
-    "departure_location_id" : "London center",
-    "arrival_location_ids" : [ "Hyde Park", "ZSL London Zoo" ],
     "transportation" : {
       "type" : "driving"
     },
-    "departure_time" : "2021-11-08T08:00:00Z",
     "properties" : [ "travel_time", "distance", "route" ],
     "snapping" : {
       "penalty" : "disabled",
       "accept_roads" : "any_drivable"
-    }
+    },
+    "departure_location_id" : "London center",
+    "arrival_location_ids" : [ "Hyde Park", "ZSL London Zoo" ],
+    "departure_time" : "2021-11-08T08:00:00Z"
   } ],
   "arrival_searches" : [ {
     "id" : "arrival search example",
-    "departure_location_ids" : [ "Hyde Park", "ZSL London Zoo" ],
-    "arrival_location_id" : "London center",
     "transportation" : {
       "type" : "public_transport",
       "max_changes" : {
@@ -43,12 +41,14 @@
         "limit" : 3
       }
     },
-    "arrival_time" : "2021-11-08T09:00:00Z",
     "properties" : [ "travel_time", "distance", "route", "fares" ],
     "range" : {
       "enabled" : true,
       "max_results" : 1,
       "width" : 1800
-    }
+    },
+    "departure_location_ids" : [ "Hyde Park", "ZSL London Zoo" ],
+    "arrival_location_id" : "London center",
+    "arrival_time" : "2021-11-08T09:00:00Z"
   } ]
 }

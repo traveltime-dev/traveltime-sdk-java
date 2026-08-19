@@ -1,63 +1,17 @@
 package com.traveltime.sdk.dto.requests.timemap;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.traveltime.sdk.dto.common.Coordinates;
-import com.traveltime.sdk.dto.common.RenderMode;
-import com.traveltime.sdk.dto.common.Snapping;
-import com.traveltime.sdk.dto.common.levelofdetail.LevelOfDetail;
-import com.traveltime.sdk.dto.common.transportation.Transportation;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Positive;
 import java.time.Instant;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
 
-@Value
-@Builder
+@SuperBuilder
+@Getter
 @Jacksonized
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DepartureSearch {
-    @NonNull
-    String id;
-
-    @NonNull
-    Coordinates coords;
-
-    @Valid
-    @NonNull
-    Transportation transportation;
-
+public class DepartureSearch extends BaseSearch {
     @NonNull
     Instant departureTime;
-
-    @NonNull
-    @Positive(message = "travelTime should be positive")
-    Integer travelTime;
-
-    @Valid
-    Range range;
-
-    LevelOfDetail levelOfDetail;
-
-    // TODO: Replace to https://docs.traveltime.com/api/reference/isochrones#departure_searches-polygons_filter-limit
-    Boolean singleShape;
-
-    /**
-     * Enable to remove holes from returned polygons.
-     * Note that this will likely result in loss in accuracy.
-     */
-    Boolean noHoles;
-
-    Snapping snapPenalty;
-
-    RenderMode renderMode;
-
-    Integer bufferDistance;
-
-    /**
-     * When true (API default), the returned shape will not cover large nearby water bodies.
-     * Set to false to allow the shape to cover water bodies like large lakes, wide rivers, and seas.
-     */
-    Boolean removeWaterBodies;
 }

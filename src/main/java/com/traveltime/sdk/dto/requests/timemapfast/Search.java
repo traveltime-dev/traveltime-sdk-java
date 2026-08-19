@@ -1,21 +1,16 @@
 package com.traveltime.sdk.dto.requests.timemapfast;
 
-import com.traveltime.sdk.dto.common.Coordinates;
-import com.traveltime.sdk.dto.common.RenderMode;
-import com.traveltime.sdk.dto.common.Snapping;
+import com.traveltime.sdk.dto.common.*;
 import com.traveltime.sdk.dto.common.levelofdetail.LevelOfDetail;
 import com.traveltime.sdk.dto.common.transportationfast.Transportation;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.Value;
+import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
 @Value
 @Builder
 @Jacksonized
 @AllArgsConstructor
-public class ManyToOne {
+public class Search {
     @NonNull
     String id;
 

@@ -8,9 +8,9 @@
     "transportation" : {
       "type" : "public_transport"
     },
-    "departure_time" : "2021-10-12T08:30:00Z",
     "travel_time" : 900,
-    "remove_water_bodies" : true
+    "remove_water_bodies" : true,
+    "departure_time" : "2021-10-12T08:30:00Z"
   } ],
   "arrival_searches" : [ {
     "id" : "public transport to Trafalgar Square",
@@ -21,13 +21,13 @@
     "transportation" : {
       "type" : "public_transport"
     },
-    "arrival_time" : "2021-10-12T08:00:00Z",
     "travel_time" : 900,
     "range" : {
       "enabled" : true,
       "width" : 3600
     },
-    "remove_water_bodies" : false
+    "remove_water_bodies" : false,
+    "arrival_time" : "2021-10-12T08:00:00Z"
   } ],
   "intersections" : [ ],
   "unions" : [ ]

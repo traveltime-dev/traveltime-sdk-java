@@ -1,11 +1,9 @@
 package com.traveltime.sdk.dto.requests.timefilterfast;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.traveltime.sdk.dto.common.Property;
-import com.traveltime.sdk.dto.common.Snapping;
-import com.traveltime.sdk.dto.common.transportationfast.Transportation;
 import java.util.List;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
 
 /**
@@ -14,14 +12,12 @@ import lombok.extern.jackson.Jacksonized;
  * This class is useful for scenarios such as finding optimal routes from one starting point to multiple destinations
  * (e.g., delivery routes from a warehouse to customer locations).
  */
-@Value
-@Builder
+@SuperBuilder
 @Jacksonized
-@AllArgsConstructor
+@Getter
+@EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class OneToMany {
-    @NonNull
-    String id;
+public class OneToMany extends BaseSearch {
 
     @NonNull
     String departureLocationId;
@@ -29,19 +25,4 @@ public class OneToMany {
     @NonNull
     @Singular
     List<String> arrivalLocationIds;
-
-    @NonNull
-    Transportation transportation;
-
-    @NonNull
-    Integer travelTime;
-
-    @NonNull
-    String arrivalTimePeriod;
-
-    @NonNull
-    @Singular
-    List<Property> properties;
-
-    Snapping snapping;
 }

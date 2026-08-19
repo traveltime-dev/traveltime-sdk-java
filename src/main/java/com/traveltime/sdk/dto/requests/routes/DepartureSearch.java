@@ -1,25 +1,18 @@
 package com.traveltime.sdk.dto.requests.routes;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.traveltime.sdk.dto.common.FullRange;
-import com.traveltime.sdk.dto.common.Property;
-import com.traveltime.sdk.dto.common.Snapping;
-import com.traveltime.sdk.dto.common.transportation.Transportation;
-import jakarta.validation.Valid;
 import java.time.Instant;
 import java.util.List;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
 
-@Value
-@Builder
+@SuperBuilder
+@Getter
 @Jacksonized
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DepartureSearch {
-    @NonNull
-    String id;
-
+public class DepartureSearch extends BaseSearch {
     @NonNull
     String departureLocationId;
 
@@ -28,17 +21,5 @@ public class DepartureSearch {
     List<String> arrivalLocationIds;
 
     @NonNull
-    Transportation transportation;
-
-    @NonNull
     Instant departureTime;
-
-    @NonNull
-    @Singular
-    List<Property> properties;
-
-    @Valid
-    FullRange range;
-
-    Snapping snapping;
 }
