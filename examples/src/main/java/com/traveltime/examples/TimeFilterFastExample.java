@@ -130,12 +130,15 @@ public class TimeFilterFastExample {
                 .properties(Collections.singletonList(Property.TRAVEL_TIME)) // Only return travel time data
                 .build();
 
-        ArrivalSearches arrivalSearches = new ArrivalSearches(
-                Collections.emptyList(), // No many-to-one searches
-                Collections.singletonList(oneToMany) // Single one-to-many search
-                );
+        ArrivalSearches arrivalSearches = ArrivalSearches.builder()
+                .manyToOne(Collections.emptyList())
+                .oneToMany(Collections.singletonList(oneToMany))
+                .build();
 
-        return new TimeFilterFastRequest(allLocations, arrivalSearches);
+        return TimeFilterFastRequest.builder()
+                .locations(allLocations)
+                .arrivalSearches(arrivalSearches)
+                .build();
     }
 
     /**

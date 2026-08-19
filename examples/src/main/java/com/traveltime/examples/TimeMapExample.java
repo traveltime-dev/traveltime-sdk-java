@@ -99,28 +99,20 @@ public class TimeMapExample {
 
     private static TimeMapWktRequest createRequest(Coordinates origin, Integer travelTime) {
         // Configure departure search with driving transportation
-        DepartureSearch search = new DepartureSearch(
-                "driving_area", // Search ID for identification
-                origin, // Starting point coordinates
-                Driving.builder().build(), // Transportation mode (driving)
-                Instant.now(), // Departure time (now)
-                travelTime, // Maximum travel time
-                null,
-                null,
-                false,
-                false,
-                null,
-                null,
-                null // Optional parameters (disabled)
-                );
+        DepartureSearch search = DepartureSearch.builder()
+                .id("driving_area")
+                .coords(origin)
+                .transportation(Driving.builder().build())
+                .departureTime(Instant.now())
+                .travelTime(travelTime)
+                .singleShape(false)
+                .noHoles(false)
+                .build();
 
         // Build time map request with the departure search
-        return new TimeMapWktRequest(
-                Collections.singletonList(search), // Departure searches
-                Collections.emptyList(), // Arrival searches (none)
-                Collections.emptyList(), // Unions (none)
-                Collections.emptyList(), // Intersections (none)
-                false // Snapping disabled
-                );
+        return TimeMapWktRequest.builder()
+                .departureSearch(search)
+                .withHoles(false)
+                .build();
     }
 }
