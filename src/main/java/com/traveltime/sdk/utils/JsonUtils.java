@@ -7,6 +7,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.GeohashCentroidCoords;
+import com.traveltime.sdk.dto.common.GeohashCoords;
+import com.traveltime.sdk.dto.common.H3CentroidCoords;
+import com.traveltime.sdk.dto.common.H3Coords;
 import com.traveltime.sdk.dto.responses.errors.IOError;
 import com.traveltime.sdk.dto.responses.errors.JsonProcessingError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
@@ -25,7 +30,12 @@ public class JsonUtils {
 
     private static SimpleModule module = new SimpleModule()
             .addSerializer(Geometry.class, new JTSGeometrySerializer())
-            .addDeserializer(Geometry.class, new JTSGeometryDeserializer());
+            .addDeserializer(Geometry.class, new JTSGeometryDeserializer())
+            .addDeserializer(
+                    H3Coords.class, new CoordsDeserializer<>("h3_centroid", H3CentroidCoords.class, Coordinates.class))
+            .addDeserializer(
+                    GeohashCoords.class,
+                    new CoordsDeserializer<>("geohash_centroid", GeohashCentroidCoords.class, Coordinates.class));
 
     private static JavaTimeModule timeModule = new JavaTimeModule();
 

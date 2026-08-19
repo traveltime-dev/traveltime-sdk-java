@@ -135,6 +135,150 @@ if(response.isRight()) {
 }
 ```
 
+### [H3](https://docs.traveltime.com/api/reference/h3)
+Travel times to all H3 cells within a catchment area. Returns the min, max and mean travel time for each cell.
+
+Supported resolutions are 4 to 12. The resolution caps the travel time a search may use — see
+[limits of resolution and travel time](https://docs.traveltime.com/api/reference/h3#limits-of-resolution-and-traveltime).
+
+Search locations are given either as `Coordinates` or as `H3CentroidCoords`, which uses the centroid of the given H3 cell.
+
+```java
+DepartureSearch departureSearch = DepartureSearch
+    .builder()
+    .id("public transport from Trafalgar Square")
+    .coords(new Coordinates(51.507609, -0.128315))
+    .transportation(PublicTransport.builder().build())
+    .departureTime(Instant.now())
+    .travelTime(900)
+    .build();
+
+H3Request request = H3Request
+    .builder()
+    .resolution(8)
+    .property(Property.MIN)
+    .property(Property.MAX)
+    .property(Property.MEAN)
+    .departureSearch(departureSearch)
+    .build();
+
+Either<TravelTimeError, H3Response> response = sdk.send(request);
+
+if(response.isRight()) {
+  System.out.println(response.get().getResults());
+} else {
+  System.out.println(response.getLeft().toString());
+}
+```
+
+### [H3 Fast](https://docs.traveltime.com/api/reference/h3-fast)
+A very fast version of the H3 endpoint. However, the request parameters are much more limited.
+
+```java
+FastSearch fastSearch = FastSearch
+    .builder()
+    .id("public transport to Trafalgar Square")
+    .coords(new Coordinates(51.507609, -0.128315))
+    .transportation(new PublicTransport())
+    .arrivalTimePeriod("weekday_morning")
+    .travelTime(900)
+    .build();
+
+ArrivalSearches arrivalSearches = ArrivalSearches
+    .builder()
+    .oneToMany(Arrays.asList(fastSearch))
+    .manyToOne(Collections.emptyList())
+    .build();
+
+H3FastRequest request = H3FastRequest
+    .builder()
+    .resolution(8)
+    .property(Property.MEAN)
+    .arrivalSearches(arrivalSearches)
+    .build();
+
+Either<TravelTimeError, H3Response> response = sdk.send(request);
+
+if(response.isRight()) {
+  System.out.println(response.get().getResults());
+} else {
+  System.out.println(response.getLeft().toString());
+}
+```
+
+### [Geohash](https://docs.traveltime.com/api/reference/geohash)
+Travel times to all geohash cells within a catchment area. Returns the min, max and mean travel time for each cell.
+
+Supported resolutions are 4 to 9. The resolution caps the travel time a search may use — see
+[limits of resolution and travel time](https://docs.traveltime.com/api/reference/geohash#limits-of-resolution-and-traveltime).
+
+Search locations are given either as `Coordinates` or as `GeohashCentroidCoords`, which uses the centroid of the given geohash cell.
+
+```java
+DepartureSearch departureSearch = DepartureSearch
+    .builder()
+    .id("public transport from Trafalgar Square")
+    .coords(new Coordinates(51.507609, -0.128315))
+    .transportation(PublicTransport.builder().build())
+    .departureTime(Instant.now())
+    .travelTime(900)
+    .build();
+
+GeohashRequest request = GeohashRequest
+    .builder()
+    .resolution(6)
+    .property(Property.MIN)
+    .property(Property.MAX)
+    .property(Property.MEAN)
+    .departureSearch(departureSearch)
+    .build();
+
+Either<TravelTimeError, GeohashResponse> response = sdk.send(request);
+
+if(response.isRight()) {
+  System.out.println(response.get().getResults());
+} else {
+  System.out.println(response.getLeft().toString());
+}
+```
+
+### [Geohash Fast](https://docs.traveltime.com/api/reference/geohash-fast)
+A very fast version of the Geohash endpoint. However, the request parameters are much more limited.
+
+Supported resolutions are 4 to 7 — a narrower range than the `/v4/geohash` endpoint.
+
+```java
+FastSearch fastSearch = FastSearch
+    .builder()
+    .id("public transport to Trafalgar Square")
+    .coords(new Coordinates(51.507609, -0.128315))
+    .transportation(new PublicTransport())
+    .arrivalTimePeriod("weekday_morning")
+    .travelTime(900)
+    .build();
+
+ArrivalSearches arrivalSearches = ArrivalSearches
+    .builder()
+    .oneToMany(Arrays.asList(fastSearch))
+    .manyToOne(Collections.emptyList())
+    .build();
+
+GeohashFastRequest request = GeohashFastRequest
+    .builder()
+    .resolution(5)
+    .property(Property.MEAN)
+    .arrivalSearches(arrivalSearches)
+    .build();
+
+Either<TravelTimeError, GeohashResponse> response = sdk.send(request);
+
+if(response.isRight()) {
+  System.out.println(response.get().getResults());
+} else {
+  System.out.println(response.getLeft().toString());
+}
+```
+
 ### [Distance Matrix (Time Filter)](https://traveltime.com/docs/api/reference/distance-matrix)
 Given origin and destination points filter out points that cannot be reached within specified time limit.
 Find out travel times, distances and costs between an origin and up to 2,000 destination points.

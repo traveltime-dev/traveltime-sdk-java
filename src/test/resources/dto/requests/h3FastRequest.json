@@ -1,0 +1,21 @@
+{
+  "resolution" : 8,
+  "properties" : [ "min" ],
+  "arrival_searches" : {
+    "many_to_one" : [ {
+      "id" : "many to one",
+      "coords" : {
+        "lat" : 51.507609,
+        "lng" : -0.128315
+      },
+      "transportation" : {
+        "type" : "public_transport"
+      },
+      "arrival_time_period" : "weekday_morning",
+      "travel_time" : 1900
+    } ],
+    "one_to_many" : [ ]
+  },
+  "unions" : [ ],
+  "intersections" : [ ]
+}
