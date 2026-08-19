@@ -1,13 +1,13 @@
 package com.traveltime.sdk;
 
 import com.traveltime.sdk.auth.TravelTimeCredentials;
+import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.H3Coords;
 import com.traveltime.sdk.dto.common.transportationfast.DrivingAndFerry;
 import com.traveltime.sdk.dto.requests.H3FastRequest;
+import com.traveltime.sdk.dto.requests.cell.Property;
 import com.traveltime.sdk.dto.requests.h3.ArrivalSearches;
-import com.traveltime.sdk.dto.requests.h3.Coords;
 import com.traveltime.sdk.dto.requests.h3.FastSearch;
-import com.traveltime.sdk.dto.requests.h3.LatLngCoords;
-import com.traveltime.sdk.dto.requests.h3.Property;
 import com.traveltime.sdk.dto.requests.timemap.Intersection;
 import com.traveltime.sdk.dto.requests.timemap.Union;
 import com.traveltime.sdk.dto.responses.H3Response;
@@ -24,7 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class H3FastTest {
-    private static final Coords TRAFALGAR_SQUARE = new LatLngCoords(51.507609, -0.128315);
+    private static final Coordinates TRAFALGAR_SQUARE = new Coordinates(51.507609, -0.128315);
 
     TravelTimeSDK sdk;
 
@@ -35,7 +35,7 @@ public class H3FastTest {
         sdk = new TravelTimeSDK(credentials);
     }
 
-    private FastSearch fastSearch(String id, Coords coords) {
+    private FastSearch fastSearch(String id, H3Coords coords) {
         return FastSearch.builder()
                 .id(id)
                 .coords(coords)
@@ -103,7 +103,7 @@ public class H3FastTest {
                 .arrivalSearches(ArrivalSearches.builder()
                         .oneToMany(Arrays.asList(
                                 fastSearch("first", TRAFALGAR_SQUARE),
-                                fastSearch("second", new LatLngCoords(51.517609, -0.128315))))
+                                fastSearch("second", new Coordinates(51.517609, -0.128315))))
                         .manyToOne(Collections.emptyList())
                         .build())
                 .union(Union.builder()

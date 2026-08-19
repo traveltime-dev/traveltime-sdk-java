@@ -25,7 +25,7 @@ public class ResolutionValidationTest {
     private com.traveltime.sdk.dto.requests.h3.DepartureSearch h3Search() {
         return com.traveltime.sdk.dto.requests.h3.DepartureSearch.builder()
                 .id("d")
-                .coords(new com.traveltime.sdk.dto.requests.h3.LatLngCoords(51.507609, -0.128315))
+                .coords(new com.traveltime.sdk.dto.common.Coordinates(51.507609, -0.128315))
                 .transportation(Driving.builder().build())
                 .departureTime(Instant.now())
                 .travelTime(900)
@@ -35,7 +35,7 @@ public class ResolutionValidationTest {
     private com.traveltime.sdk.dto.requests.geohash.DepartureSearch geohashSearch() {
         return com.traveltime.sdk.dto.requests.geohash.DepartureSearch.builder()
                 .id("d")
-                .coords(new com.traveltime.sdk.dto.requests.geohash.LatLngCoords(51.507609, -0.128315))
+                .coords(new com.traveltime.sdk.dto.common.Coordinates(51.507609, -0.128315))
                 .transportation(Driving.builder().build())
                 .departureTime(Instant.now())
                 .travelTime(900)
@@ -56,7 +56,7 @@ public class ResolutionValidationTest {
     private com.traveltime.sdk.dto.requests.H3FastRequest h3Fast(int resolution) {
         return com.traveltime.sdk.dto.requests.H3FastRequest.builder()
                 .resolution(resolution)
-                .property(com.traveltime.sdk.dto.requests.h3.Property.MIN)
+                .property(com.traveltime.sdk.dto.requests.cell.Property.MIN)
                 .arrivalSearches(com.traveltime.sdk.dto.requests.h3.ArrivalSearches.builder()
                         .oneToMany(Collections.emptyList())
                         .manyToOne(Collections.emptyList())
@@ -68,7 +68,7 @@ public class ResolutionValidationTest {
     public void shouldRejectH3ResolutionAboveRange() {
         H3Request request = H3Request.builder()
                 .resolution(13)
-                .property(com.traveltime.sdk.dto.requests.h3.Property.MIN)
+                .property(com.traveltime.sdk.dto.requests.cell.Property.MIN)
                 .departureSearch(h3Search())
                 .build();
 
@@ -79,7 +79,7 @@ public class ResolutionValidationTest {
     public void shouldRejectH3ResolutionBelowRange() {
         H3Request request = H3Request.builder()
                 .resolution(3)
-                .property(com.traveltime.sdk.dto.requests.h3.Property.MIN)
+                .property(com.traveltime.sdk.dto.requests.cell.Property.MIN)
                 .departureSearch(h3Search())
                 .build();
 
@@ -96,7 +96,7 @@ public class ResolutionValidationTest {
     public void shouldRejectGeohashResolutionBelowRange() {
         GeohashRequest request = GeohashRequest.builder()
                 .resolution(3)
-                .property(com.traveltime.sdk.dto.requests.geohash.Property.MIN)
+                .property(com.traveltime.sdk.dto.requests.cell.Property.MIN)
                 .departureSearch(geohashSearch())
                 .build();
 
@@ -107,7 +107,7 @@ public class ResolutionValidationTest {
     public void shouldRejectGeohashResolutionAboveRange() {
         GeohashRequest request = GeohashRequest.builder()
                 .resolution(10)
-                .property(com.traveltime.sdk.dto.requests.geohash.Property.MIN)
+                .property(com.traveltime.sdk.dto.requests.cell.Property.MIN)
                 .departureSearch(geohashSearch())
                 .build();
 
@@ -119,7 +119,7 @@ public class ResolutionValidationTest {
     public void shouldRejectGeohashFastResolutionAllowedByRegularEndpoint() {
         GeohashFastRequest request = GeohashFastRequest.builder()
                 .resolution(9)
-                .property(com.traveltime.sdk.dto.requests.geohash.Property.MIN)
+                .property(com.traveltime.sdk.dto.requests.cell.Property.MIN)
                 .arrivalSearches(com.traveltime.sdk.dto.requests.geohash.ArrivalSearches.builder()
                         .oneToMany(Collections.emptyList())
                         .manyToOne(Collections.emptyList())

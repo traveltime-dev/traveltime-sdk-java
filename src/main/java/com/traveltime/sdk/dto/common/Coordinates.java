@@ -7,7 +7,7 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Jacksonized
 @AllArgsConstructor
-public class Coordinates {
+public class Coordinates implements H3Coords, GeohashCoords {
     /**
      * Represents the latitude coordinate of a geographical location.
      * Expected to be a non-null value in the range of valid latitude coordinates (-90.0 to 90.0).

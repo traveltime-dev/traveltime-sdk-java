@@ -2,9 +2,9 @@ package com.traveltime.sdk.dto.requests;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
+import com.traveltime.sdk.dto.requests.cell.Property;
 import com.traveltime.sdk.dto.requests.geohash.ArrivalSearch;
 import com.traveltime.sdk.dto.requests.geohash.DepartureSearch;
-import com.traveltime.sdk.dto.requests.geohash.Property;
 import com.traveltime.sdk.dto.requests.timemap.Intersection;
 import com.traveltime.sdk.dto.requests.timemap.Union;
 import com.traveltime.sdk.dto.responses.GeohashResponse;

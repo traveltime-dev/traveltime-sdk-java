@@ -1,6 +1,7 @@
 package com.traveltime.sdk.dto.requests.geohash;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.traveltime.sdk.dto.common.GeohashCoords;
 import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.timemap.Range;
@@ -20,7 +21,7 @@ public class DepartureSearch {
     String id;
 
     @NonNull
-    Coords coords;
+    GeohashCoords coords;
 
     @Valid
     @NonNull

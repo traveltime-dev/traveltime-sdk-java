@@ -2,9 +2,9 @@ package com.traveltime.sdk.dto.requests;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
+import com.traveltime.sdk.dto.requests.cell.Property;
 import com.traveltime.sdk.dto.requests.h3.ArrivalSearch;
 import com.traveltime.sdk.dto.requests.h3.DepartureSearch;
-import com.traveltime.sdk.dto.requests.h3.Property;
 import com.traveltime.sdk.dto.requests.timemap.Intersection;
 import com.traveltime.sdk.dto.requests.timemap.Union;
 import com.traveltime.sdk.dto.responses.H3Response;

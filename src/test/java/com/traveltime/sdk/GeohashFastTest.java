@@ -1,13 +1,13 @@
 package com.traveltime.sdk;
 
 import com.traveltime.sdk.auth.TravelTimeCredentials;
+import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.GeohashCoords;
 import com.traveltime.sdk.dto.common.transportationfast.DrivingAndFerry;
 import com.traveltime.sdk.dto.requests.GeohashFastRequest;
+import com.traveltime.sdk.dto.requests.cell.Property;
 import com.traveltime.sdk.dto.requests.geohash.ArrivalSearches;
-import com.traveltime.sdk.dto.requests.geohash.Coords;
 import com.traveltime.sdk.dto.requests.geohash.FastSearch;
-import com.traveltime.sdk.dto.requests.geohash.LatLngCoords;
-import com.traveltime.sdk.dto.requests.geohash.Property;
 import com.traveltime.sdk.dto.requests.timemap.Intersection;
 import com.traveltime.sdk.dto.requests.timemap.Union;
 import com.traveltime.sdk.dto.responses.GeohashResponse;
@@ -24,7 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class GeohashFastTest {
-    private static final Coords TRAFALGAR_SQUARE = new LatLngCoords(51.507609, -0.128315);
+    private static final Coordinates TRAFALGAR_SQUARE = new Coordinates(51.507609, -0.128315);
 
     TravelTimeSDK sdk;
 
@@ -35,7 +35,7 @@ public class GeohashFastTest {
         sdk = new TravelTimeSDK(credentials);
     }
 
-    private FastSearch fastSearch(String id, Coords coords) {
+    private FastSearch fastSearch(String id, GeohashCoords coords) {
         return FastSearch.builder()
                 .id(id)
                 .coords(coords)
@@ -123,7 +123,7 @@ public class GeohashFastTest {
                 .arrivalSearches(ArrivalSearches.builder()
                         .oneToMany(Arrays.asList(
                                 fastSearch("first", TRAFALGAR_SQUARE),
-                                fastSearch("second", new LatLngCoords(51.517609, -0.128315))))
+                                fastSearch("second", new Coordinates(51.517609, -0.128315))))
                         .manyToOne(Collections.emptyList())
                         .build())
                 .union(Union.builder()

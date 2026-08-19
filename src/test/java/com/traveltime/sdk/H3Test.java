@@ -1,14 +1,14 @@
 package com.traveltime.sdk;
 
 import com.traveltime.sdk.auth.TravelTimeCredentials;
+import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.H3CentroidCoords;
+import com.traveltime.sdk.dto.common.H3Coords;
 import com.traveltime.sdk.dto.common.transportation.Driving;
 import com.traveltime.sdk.dto.requests.H3Request;
+import com.traveltime.sdk.dto.requests.cell.Property;
 import com.traveltime.sdk.dto.requests.h3.ArrivalSearch;
-import com.traveltime.sdk.dto.requests.h3.Coords;
 import com.traveltime.sdk.dto.requests.h3.DepartureSearch;
-import com.traveltime.sdk.dto.requests.h3.H3CentroidCoords;
-import com.traveltime.sdk.dto.requests.h3.LatLngCoords;
-import com.traveltime.sdk.dto.requests.h3.Property;
 import com.traveltime.sdk.dto.requests.timemap.Intersection;
 import com.traveltime.sdk.dto.requests.timemap.Union;
 import com.traveltime.sdk.dto.responses.H3Response;
@@ -26,7 +26,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class H3Test {
-    private static final Coords TRAFALGAR_SQUARE = new LatLngCoords(51.507609, -0.128315);
+    private static final Coordinates TRAFALGAR_SQUARE = new Coordinates(51.507609, -0.128315);
 
     TravelTimeSDK sdk;
 
@@ -37,7 +37,7 @@ public class H3Test {
         sdk = new TravelTimeSDK(credentials);
     }
 
-    private DepartureSearch departureSearch(String id, Coords coords) {
+    private DepartureSearch departureSearch(String id, H3Coords coords) {
         return DepartureSearch.builder()
                 .id(id)
                 .coords(coords)
@@ -124,7 +124,7 @@ public class H3Test {
                 .resolution(8)
                 .property(Property.MIN)
                 .departureSearch(departureSearch("first", TRAFALGAR_SQUARE))
-                .departureSearch(departureSearch("second", new LatLngCoords(51.517609, -0.128315)))
+                .departureSearch(departureSearch("second", new Coordinates(51.517609, -0.128315)))
                 .union(Union.builder()
                         .searchIds(Arrays.asList("first", "second"))
                         .id("union")

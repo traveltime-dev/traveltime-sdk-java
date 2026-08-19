@@ -1,6 +1,7 @@
 package com.traveltime.sdk.dto.requests.geohash;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.traveltime.sdk.dto.common.GeohashCoords;
 import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.common.transportationfast.Transportation;
 import jakarta.validation.Valid;
@@ -18,7 +19,7 @@ public class FastSearch {
     String id;
 
     @NonNull
-    Coords coords;
+    GeohashCoords coords;
 
     @Valid
     @NonNull

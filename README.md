@@ -141,13 +141,13 @@ Travel times to all H3 cells within a catchment area. Returns the min, max and m
 Supported resolutions are 4 to 12. The resolution caps the travel time a search may use — see
 [limits of resolution and travel time](https://docs.traveltime.com/api/reference/h3#limits-of-resolution-and-traveltime).
 
-Search locations are given either as `LatLngCoords` or as `H3CentroidCoords`, which uses the centroid of the given H3 cell.
+Search locations are given either as `Coordinates` or as `H3CentroidCoords`, which uses the centroid of the given H3 cell.
 
 ```java
 DepartureSearch departureSearch = DepartureSearch
     .builder()
     .id("public transport from Trafalgar Square")
-    .coords(new LatLngCoords(51.507609, -0.128315))
+    .coords(new Coordinates(51.507609, -0.128315))
     .transportation(PublicTransport.builder().build())
     .departureTime(Instant.now())
     .travelTime(900)
@@ -178,7 +178,7 @@ A very fast version of the H3 endpoint. However, the request parameters are much
 FastSearch fastSearch = FastSearch
     .builder()
     .id("public transport to Trafalgar Square")
-    .coords(new LatLngCoords(51.507609, -0.128315))
+    .coords(new Coordinates(51.507609, -0.128315))
     .transportation(new PublicTransport())
     .arrivalTimePeriod("weekday_morning")
     .travelTime(900)
@@ -212,13 +212,13 @@ Travel times to all geohash cells within a catchment area. Returns the min, max 
 Supported resolutions are 4 to 9. The resolution caps the travel time a search may use — see
 [limits of resolution and travel time](https://docs.traveltime.com/api/reference/geohash#limits-of-resolution-and-traveltime).
 
-Search locations are given either as `LatLngCoords` or as `GeohashCentroidCoords`, which uses the centroid of the given geohash cell.
+Search locations are given either as `Coordinates` or as `GeohashCentroidCoords`, which uses the centroid of the given geohash cell.
 
 ```java
 DepartureSearch departureSearch = DepartureSearch
     .builder()
     .id("public transport from Trafalgar Square")
-    .coords(new LatLngCoords(51.507609, -0.128315))
+    .coords(new Coordinates(51.507609, -0.128315))
     .transportation(PublicTransport.builder().build())
     .departureTime(Instant.now())
     .travelTime(900)
@@ -251,7 +251,7 @@ Supported resolutions are 4 to 7 — a narrower range than the `/v4/geohash` end
 FastSearch fastSearch = FastSearch
     .builder()
     .id("public transport to Trafalgar Square")
-    .coords(new LatLngCoords(51.507609, -0.128315))
+    .coords(new Coordinates(51.507609, -0.128315))
     .transportation(new PublicTransport())
     .arrivalTimePeriod("weekday_morning")
     .travelTime(900)

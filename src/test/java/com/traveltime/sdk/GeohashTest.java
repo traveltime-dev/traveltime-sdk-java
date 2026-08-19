@@ -1,14 +1,14 @@
 package com.traveltime.sdk;
 
 import com.traveltime.sdk.auth.TravelTimeCredentials;
+import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.GeohashCentroidCoords;
+import com.traveltime.sdk.dto.common.GeohashCoords;
 import com.traveltime.sdk.dto.common.transportation.Driving;
 import com.traveltime.sdk.dto.requests.GeohashRequest;
+import com.traveltime.sdk.dto.requests.cell.Property;
 import com.traveltime.sdk.dto.requests.geohash.ArrivalSearch;
-import com.traveltime.sdk.dto.requests.geohash.Coords;
 import com.traveltime.sdk.dto.requests.geohash.DepartureSearch;
-import com.traveltime.sdk.dto.requests.geohash.GeohashCentroidCoords;
-import com.traveltime.sdk.dto.requests.geohash.LatLngCoords;
-import com.traveltime.sdk.dto.requests.geohash.Property;
 import com.traveltime.sdk.dto.requests.timemap.Intersection;
 import com.traveltime.sdk.dto.requests.timemap.Union;
 import com.traveltime.sdk.dto.responses.GeohashResponse;
@@ -26,7 +26,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class GeohashTest {
-    private static final Coords TRAFALGAR_SQUARE = new LatLngCoords(51.507609, -0.128315);
+    private static final Coordinates TRAFALGAR_SQUARE = new Coordinates(51.507609, -0.128315);
 
     TravelTimeSDK sdk;
 
@@ -37,7 +37,7 @@ public class GeohashTest {
         sdk = new TravelTimeSDK(credentials);
     }
 
-    private DepartureSearch departureSearch(String id, Coords coords) {
+    private DepartureSearch departureSearch(String id, GeohashCoords coords) {
         return DepartureSearch.builder()
                 .id(id)
                 .coords(coords)
@@ -125,7 +125,7 @@ public class GeohashTest {
                 .resolution(6)
                 .property(Property.MIN)
                 .departureSearch(departureSearch("first", TRAFALGAR_SQUARE))
-                .departureSearch(departureSearch("second", new LatLngCoords(51.517609, -0.128315)))
+                .departureSearch(departureSearch("second", new Coordinates(51.517609, -0.128315)))
                 .union(Union.builder()
                         .searchIds(Arrays.asList("first", "second"))
                         .id("union")
