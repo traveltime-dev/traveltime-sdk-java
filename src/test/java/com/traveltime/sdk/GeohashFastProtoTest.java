@@ -4,13 +4,16 @@ import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.GeohashFastProtoRequest;
 import com.traveltime.sdk.dto.requests.ProtoRequest;
+import com.traveltime.sdk.dto.requests.proto.CellProperty;
 import com.traveltime.sdk.dto.requests.proto.Countries;
 import com.traveltime.sdk.dto.requests.proto.RequestType;
 import com.traveltime.sdk.dto.requests.proto.Transportation;
 import com.traveltime.sdk.dto.responses.GeohashFastProtoResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import com.traveltime.sdk.dto.responses.errors.ValidationError;
 import io.vavr.control.Either;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -66,6 +69,31 @@ public class GeohashFastProtoTest {
         Assert.assertEquals(result.getIds().size(), result.getMinTravelTimes().size());
         Assert.assertEquals(result.getIds().size(), result.getMaxTravelTimes().size());
         Assert.assertEquals(result.getIds().size(), result.getMeanTravelTimes().size());
+    }
+
+    @Test
+    public void shouldReturnOnlyRequestedProperties() {
+        GeohashFastProtoRequest request = oneToMany().withProperties(Collections.singletonList(CellProperty.MIN));
+        Either<TravelTimeError, GeohashFastProtoResponse> response = sdk.sendProto(request);
+        Common.assertResponseIsRight(response);
+
+        GeohashFastProtoResponse result = response.get();
+        Assert.assertFalse(result.getMinTravelTimes().isEmpty());
+        Assert.assertTrue(result.getMaxTravelTimes().isEmpty());
+        Assert.assertTrue(result.getMeanTravelTimes().isEmpty());
+    }
+
+    /** The fast endpoint stops at 7, below the 9 the regular geohash endpoint allows. */
+    @Test
+    public void shouldRejectResolutionOutsideRange() {
+        Either<TravelTimeError, GeohashFastProtoResponse> response =
+                sdk.sendProto(oneToMany().withResolution(9));
+        Assert.assertTrue("must not reach the API", response.isLeft());
+        Assert.assertTrue(
+                "must fail validation: " + response.getLeft().getClass().getSimpleName(),
+                response.getLeft() instanceof ValidationError);
+        Assert.assertEquals(
+                "resolution should be between 4 and 7", response.getLeft().getMessage());
     }
 
     @Test

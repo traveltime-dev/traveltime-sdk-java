@@ -1,21 +1,22 @@
 package com.traveltime.sdk.dto.requests;
 
-import com.igeolise.traveltime.rabbitmq.requests.GeohashFastRequestOuterClass.GeohashFastRequest;
+import com.igeolise.traveltime.rabbitmq.requests.H3FastRequestOuterClass.H3FastRequest;
 import com.igeolise.traveltime.rabbitmq.requests.RequestsCommon;
-import com.igeolise.traveltime.rabbitmq.responses.GeohashFastResponseOuterClass;
+import com.igeolise.traveltime.rabbitmq.responses.H3FastResponseOuterClass;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.proto.CellProperty;
 import com.traveltime.sdk.dto.requests.proto.Country;
 import com.traveltime.sdk.dto.requests.proto.RequestType;
 import com.traveltime.sdk.dto.requests.proto.Transportation;
-import com.traveltime.sdk.dto.responses.GeohashFastProtoResponse;
+import com.traveltime.sdk.dto.responses.H3FastProtoResponse;
 import com.traveltime.sdk.dto.responses.errors.IOError;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import com.traveltime.sdk.dto.responses.errors.ValidationError;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import java.util.*;
+import java.util.stream.Collectors;
 import lombok.*;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
@@ -25,7 +26,7 @@ import okhttp3.Request;
 @AllArgsConstructor
 @With
 @EqualsAndHashCode(callSuper = true)
-public class GeohashFastProtoRequest extends ProtoRequest<GeohashFastProtoResponse> {
+public class H3FastProtoRequest extends ProtoRequest<H3FastProtoResponse> {
     private static final String IO_PROTO_ERROR = "Something went wrong when parsing proto response: ";
 
     @NonNull
@@ -37,6 +38,12 @@ public class GeohashFastProtoRequest extends ProtoRequest<GeohashFastProtoRespon
     @NonNull
     Integer travelTime;
 
+    /**
+     * H3 cell resolution. Supported values are 4 to 12, and the resolution caps the travel time a
+     * search may use.
+     *
+     * @see <a href="https://docs.traveltime.com/api/reference/h3-fast#limits-of-resolution-and-traveltime">Limits of resolution and travel time</a>
+     */
     @NonNull
     Integer resolution;
 
@@ -68,34 +75,35 @@ public class GeohashFastProtoRequest extends ProtoRequest<GeohashFastProtoRespon
                 .build();
 
         RequestsCommon.Transportation transportation = this.transportation.getProtoMessage();
+        boolean removeWater = this.removeWaterBodies == null || this.removeWaterBodies;
 
         if (requestType == RequestType.ONE_TO_MANY) {
-            GeohashFastRequest.OneToMany oneToMany = GeohashFastRequest.OneToMany.newBuilder()
+            H3FastRequest.OneToMany oneToMany = H3FastRequest.OneToMany.newBuilder()
                     .setDepartureLocation(source)
                     .setArrivalTimePeriod(RequestsCommon.TimePeriod.WEEKDAY_MORNING)
                     .setTransportation(transportation)
                     .setTravelTime(this.travelTime)
                     .setResolution(this.resolution)
-                    .setRemoveWaterBodies(this.removeWaterBodies == null || this.removeWaterBodies)
+                    .setRemoveWaterBodies(removeWater)
                     .addAllProperties(CellProperty.toProtoOrAll(properties))
                     .build();
 
-            return GeohashFastRequest.newBuilder()
+            return H3FastRequest.newBuilder()
                     .setOneToManyRequest(oneToMany)
                     .build()
                     .toByteArray();
         } else {
-            GeohashFastRequest.ManyToOne manyToOne = GeohashFastRequest.ManyToOne.newBuilder()
+            H3FastRequest.ManyToOne manyToOne = H3FastRequest.ManyToOne.newBuilder()
                     .setArrivalLocation(source)
                     .setArrivalTimePeriod(RequestsCommon.TimePeriod.WEEKDAY_MORNING)
                     .setTransportation(transportation)
                     .setTravelTime(this.travelTime)
                     .setResolution(this.resolution)
-                    .setRemoveWaterBodies(this.removeWaterBodies == null || this.removeWaterBodies)
+                    .setRemoveWaterBodies(removeWater)
                     .addAllProperties(CellProperty.toProtoOrAll(properties))
                     .build();
 
-            return GeohashFastRequest.newBuilder()
+            return H3FastRequest.newBuilder()
                     .setManyToOneRequest(manyToOne)
                     .build()
                     .toByteArray();
@@ -108,22 +116,24 @@ public class GeohashFastProtoRequest extends ProtoRequest<GeohashFastProtoRespon
     }
 
     @Override
-    public List<ProtoRequest<GeohashFastProtoResponse>> split(int batchSizeHint) {
+    public List<ProtoRequest<H3FastProtoResponse>> split(int batchSizeHint) {
         return Collections.singletonList(this);
     }
 
     @Override
-    public GeohashFastProtoResponse merge(List<GeohashFastProtoResponse> responses) {
+    public H3FastProtoResponse merge(List<H3FastProtoResponse> responses) {
         return responses.get(0);
     }
 
     @Override
-    public Either<TravelTimeError, GeohashFastProtoResponse> parseBytes(byte[] body) {
-        return Try.of(() -> GeohashFastResponseOuterClass.GeohashFastResponse.parseFrom(body))
+    public Either<TravelTimeError, H3FastProtoResponse> parseBytes(byte[] body) {
+        return Try.of(() -> H3FastResponseOuterClass.H3FastResponse.parseFrom(body))
                 .toEither()
                 .<TravelTimeError>mapLeft(cause -> new IOError(cause, IO_PROTO_ERROR + cause.getMessage()))
-                .map(response -> new GeohashFastProtoResponse(
-                        response.getCells().getIdsList(),
+                .map(response -> new H3FastProtoResponse(
+                        response.getCells().getIdsList().stream()
+                                .map(Long::toHexString)
+                                .collect(Collectors.toList()),
                         response.getCells().getMinTravelTimesList(),
                         response.getCells().getMaxTravelTimesList(),
                         response.getCells().getMeanTravelTimesList()));
@@ -140,14 +150,14 @@ public class GeohashFastProtoRequest extends ProtoRequest<GeohashFastProtoRespon
 
     @Override
     public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
-        if (resolution < 4 || resolution > 7) {
-            return Either.left(new ValidationError("resolution should be between 4 and 7"));
+        if (resolution < 4 || resolution > 12) {
+            return Either.left(new ValidationError("resolution should be between 4 and 12"));
         }
         String countryCode = this.country.getValue();
         String transportationType = this.transportation.getType().getValue();
         val uri = baseUri.newBuilder()
                 .addPathSegments(countryCode)
-                .addPathSegments("geohash/fast")
+                .addPathSegments("h3/fast")
                 .addPathSegments(transportationType)
                 .build();
 
