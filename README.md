@@ -104,9 +104,15 @@ if(response.isRight()) {
 ```
 ### [Isochrones (Time Map) Fast](https://docs.traveltime.com/api/reference/isochrones-fast)
 A very fast version of Isochrone API. However, the request parameters are much more limited.
+Find unions/intersections between different searches.
+
+Body attributes:
+* arrival_searches: Searches based on arrival times, split into `one_to_many` and `many_to_one`.
+* unions: Define unions of shapes that are results of previously defined searches.
+* intersections: Define intersections of shapes that are results of previously defined searches.
 
 ```java
-OneToMany oneToMany = OneToMany
+OneToMany publicTransportSearch = OneToMany
     .builder()
     .id("public transport to Trafalgar Square")
     .arrivalTimePeriod("weekday_morning")
@@ -115,15 +121,38 @@ OneToMany oneToMany = OneToMany
     .travelTime(900)
     .build();
 
+OneToMany drivingSearch = OneToMany
+    .builder()
+    .id("driving to Trafalgar Square")
+    .arrivalTimePeriod("weekday_morning")
+    .transportation(new Driving())
+    .coords(new Coordinates(51.507609, -0.128315))
+    .travelTime(900)
+    .build();
+
 ArrivalSearches arrivalSearches = ArrivalSearches
     .builder()
-    .oneToMany(Arrays.asList(oneToMany))
+    .oneToMany(Arrays.asList(publicTransportSearch, drivingSearch))
     .manyToOne(Collections.emptyList())
+    .build();
+
+Union union = Union
+    .builder()
+    .id("union of driving and public transport")
+    .searchIds(Arrays.asList("public transport to Trafalgar Square", "driving to Trafalgar Square"))
+    .build();
+
+Intersection intersection = Intersection
+    .builder()
+    .id("intersection of driving and public transport")
+    .searchIds(Arrays.asList("public transport to Trafalgar Square", "driving to Trafalgar Square"))
     .build();
 
 TimeMapFastRequest request = TimeMapFastRequest
     .builder()
     .arrivalSearches(arrivalSearches)
+    .union(union)
+    .intersection(intersection)
     .build();
 
 Either<TravelTimeError, TimeMapFastResponse> response = sdk.send(request);
