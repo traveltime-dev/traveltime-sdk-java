@@ -8,6 +8,8 @@ import com.traveltime.sdk.dto.requests.TimeMapFastBoxesRequest;
 import com.traveltime.sdk.dto.requests.TimeMapFastGeoJsonRequest;
 import com.traveltime.sdk.dto.requests.TimeMapFastRequest;
 import com.traveltime.sdk.dto.requests.TimeMapFastWktRequest;
+import com.traveltime.sdk.dto.requests.timemap.Intersection;
+import com.traveltime.sdk.dto.requests.timemap.Union;
 import com.traveltime.sdk.dto.requests.timemapfast.ArrivalSearches;
 import com.traveltime.sdk.dto.requests.timemapfast.OneToMany;
 import com.traveltime.sdk.dto.responses.TimeMapFastBoxesResponse;
@@ -15,9 +17,13 @@ import com.traveltime.sdk.dto.responses.TimeMapFastGeoJsonResponse;
 import com.traveltime.sdk.dto.responses.TimeMapFastResponse;
 import com.traveltime.sdk.dto.responses.TimeMapFastWktResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import com.traveltime.sdk.dto.responses.timemapfast.Result;
 import com.traveltime.sdk.utils.JsonUtils;
 import io.vavr.control.Either;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +43,9 @@ public class TimeMapFastTest {
         Coordinates coords = new Coordinates(51.507609, -0.128315);
         Transportation transportation = new PublicTransport();
 
-        TimeMapFastRequest request = new TimeMapFastRequest(createArrivalSearches(coords, transportation));
+        TimeMapFastRequest request = TimeMapFastRequest.builder()
+                .arrivalSearches(createArrivalSearches(coords, transportation))
+                .build();
 
         Either<TravelTimeError, TimeMapFastResponse> response = sdk.send(request);
         Common.assertResponseIsRight(response);
@@ -48,7 +56,9 @@ public class TimeMapFastTest {
         Coordinates coords = new Coordinates(51.507609, -0.128315);
         Transportation transportation = new PublicTransport();
 
-        TimeMapFastRequest request = new TimeMapFastRequest(createArrivalSearches(coords, transportation));
+        TimeMapFastRequest request = TimeMapFastRequest.builder()
+                .arrivalSearches(createArrivalSearches(coords, transportation))
+                .build();
 
         Either<TravelTimeError, String> response = sdk.getJsonResponse(request);
         Assert.assertTrue(JsonUtils.isJsonValid(response.get()));
@@ -60,8 +70,9 @@ public class TimeMapFastTest {
         Coordinates coords = new Coordinates(51.507609, -0.128315);
         Transportation transportation = new PublicTransport();
 
-        TimeMapFastGeoJsonRequest request =
-                new TimeMapFastGeoJsonRequest(createArrivalSearches(coords, transportation));
+        TimeMapFastGeoJsonRequest request = TimeMapFastGeoJsonRequest.builder()
+                .arrivalSearches(createArrivalSearches(coords, transportation))
+                .build();
 
         Either<TravelTimeError, TimeMapFastGeoJsonResponse> response = sdk.send(request);
         Common.assertResponseIsRight(response);
@@ -72,7 +83,9 @@ public class TimeMapFastTest {
         Coordinates coords = new Coordinates(51.507609, -0.128315);
         Transportation transportation = new PublicTransport();
 
-        TimeMapFastBoxesRequest request = new TimeMapFastBoxesRequest(createArrivalSearches(coords, transportation));
+        TimeMapFastBoxesRequest request = TimeMapFastBoxesRequest.builder()
+                .arrivalSearches(createArrivalSearches(coords, transportation))
+                .build();
 
         Either<TravelTimeError, TimeMapFastBoxesResponse> response = sdk.send(request);
         Common.assertResponseIsRight(response);
@@ -83,25 +96,61 @@ public class TimeMapFastTest {
         Coordinates coords = new Coordinates(51.507609, -0.128315);
         Transportation transportation = new PublicTransport();
 
-        TimeMapFastWktRequest request = new TimeMapFastWktRequest(createArrivalSearches(coords, transportation), true);
+        TimeMapFastWktRequest request = TimeMapFastWktRequest.builder()
+                .arrivalSearches(createArrivalSearches(coords, transportation))
+                .withHoles(true)
+                .build();
 
         Either<TravelTimeError, TimeMapFastWktResponse> response = sdk.send(request);
         Common.assertResponseIsRight(response);
     }
 
+    @Test
+    public void shouldSendUnionAndIntersection() {
+        Transportation transportation = new PublicTransport();
+        OneToMany first = createOneToMany("first", new Coordinates(51.507609, -0.128315), transportation);
+        OneToMany second = createOneToMany("second", new Coordinates(51.517609, -0.138315), transportation);
+
+        TimeMapFastRequest request = TimeMapFastRequest.builder()
+                .arrivalSearches(ArrivalSearches.builder()
+                        .oneToMany(Arrays.asList(first, second))
+                        .manyToOne(Collections.emptyList())
+                        .build())
+                .union(Union.builder()
+                        .searchIds(Arrays.asList("first", "second"))
+                        .id("union")
+                        .build())
+                .intersection(Intersection.builder()
+                        .searchIds(Arrays.asList("first", "second"))
+                        .id("intersection")
+                        .build())
+                .build();
+
+        Either<TravelTimeError, TimeMapFastResponse> response = sdk.send(request);
+        Common.assertResponseIsRight(response);
+
+        List<String> searchIds =
+                response.get().getResults().stream().map(Result::getSearchId).collect(Collectors.toList());
+        Assert.assertTrue(searchIds.containsAll(Arrays.asList("first", "second", "union", "intersection")));
+    }
+
     private ArrivalSearches createArrivalSearches(Coordinates coords, Transportation transportation) {
-        OneToMany oneToMany = OneToMany.builder()
-                .id("Test arrival search fast")
+        OneToMany oneToMany = createOneToMany("Test arrival search fast", coords, transportation);
+
+        return ArrivalSearches.builder()
+                .oneToMany(Collections.singletonList(oneToMany))
+                .manyToOne(Collections.emptyList())
+                .build();
+    }
+
+    private OneToMany createOneToMany(String id, Coordinates coords, Transportation transportation) {
+        return OneToMany.builder()
+                .id(id)
                 .arrivalTimePeriod("weekday_morning")
                 .transportation(transportation)
                 .coords(coords)
                 .travelTime(900)
                 .removeWaterBodies(true)
-                .build();
-
-        return ArrivalSearches.builder()
-                .oneToMany(Collections.singletonList(oneToMany))
-                .manyToOne(Collections.emptyList())
                 .build();
     }
 }

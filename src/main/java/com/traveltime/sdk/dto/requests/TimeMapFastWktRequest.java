@@ -2,12 +2,15 @@ package com.traveltime.sdk.dto.requests;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
+import com.traveltime.sdk.dto.requests.timemap.Intersection;
+import com.traveltime.sdk.dto.requests.timemap.Union;
 import com.traveltime.sdk.dto.requests.timemapfast.ArrivalSearches;
 import com.traveltime.sdk.dto.responses.TimeMapFastWktResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import com.traveltime.sdk.utils.AcceptType;
 import com.traveltime.sdk.utils.JsonUtils;
 import io.vavr.control.Either;
+import java.util.List;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 import okhttp3.HttpUrl;
@@ -22,6 +25,12 @@ import okhttp3.Request;
 public class TimeMapFastWktRequest extends TravelTimeRequest<TimeMapFastWktResponse> {
     @NonNull
     ArrivalSearches arrivalSearches;
+
+    @Singular
+    List<Union> unions;
+
+    @Singular
+    List<Intersection> intersections;
 
     @Builder.Default
     boolean withHoles = true;
