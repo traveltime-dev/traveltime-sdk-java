@@ -1,7 +1,7 @@
 package com.traveltime.sdk.dto.common.transportationfast;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
@@ -27,6 +27,20 @@ public class DrivingAndPublicTransport implements Transportation {
      *
      * If null, server determines the default value.
      */
-    @Positive(message = "parkingTime must be greater than 0")
+    @PositiveOrZero(message = "parkingTime must not be negative")
     Integer parkingTime;
+
+    /**
+     * Maximum time in seconds spent walking. Must be non-negative and less than or equal
+     * to 1800. If null, the server determines the default value.
+     */
+    @PositiveOrZero(message = "walkingTime must not be negative")
+    Integer walkingTime;
+
+    /**
+     * Maximum time in seconds spent driving to the station. Must be non-negative and less
+     * than or equal to 1800. If null, the server determines the default value.
+     */
+    @PositiveOrZero(message = "drivingTimeToStation must not be negative")
+    Integer drivingTimeToStation;
 }
