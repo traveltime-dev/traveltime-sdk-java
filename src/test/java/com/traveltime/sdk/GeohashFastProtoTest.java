@@ -1,5 +1,6 @@
 package com.traveltime.sdk;
 
+import com.igeolise.traveltime.rabbitmq.requests.GeohashFastRequestOuterClass.GeohashFastRequest;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.GeohashFastProtoRequest;
@@ -195,5 +196,41 @@ public class GeohashFastProtoTest {
                 .requestType(requestType)
                 .removeWaterBodies(false)
                 .build();
+    }
+
+    @Test
+    public void shouldTransmitRemoveWaterBodies() throws Exception {
+        GeohashFastProtoRequest base = buildRequest(new Coordinates(51.508, -0.087), RequestType.ONE_TO_MANY);
+
+        GeohashFastRequest.OneToMany unset =
+                protoMessage(base.withRemoveWaterBodies(null)).getOneToManyRequest();
+        Assert.assertTrue(unset.hasRemoveWaterBodies());
+        Assert.assertTrue(unset.getRemoveWaterBodies());
+
+        GeohashFastRequest.OneToMany withFalse =
+                protoMessage(base.withRemoveWaterBodies(false)).getOneToManyRequest();
+        Assert.assertTrue(withFalse.hasRemoveWaterBodies());
+        Assert.assertFalse(withFalse.getRemoveWaterBodies());
+    }
+
+    private GeohashFastRequest protoMessage(GeohashFastProtoRequest request) throws Exception {
+        okhttp3.Request httpRequest = request.createRequest(
+                        okhttp3.HttpUrl.parse("https://proto.api.traveltimeapp.com/api/v3"),
+                        new TravelTimeCredentials("app", "key"))
+                .get();
+        okio.Buffer buffer = new okio.Buffer();
+        httpRequest.body().writeTo(buffer);
+        return GeohashFastRequest.parseFrom(buffer.readByteArray());
+    }
+
+    @Test
+    public void shouldRemoveWaterBodiesAffectResults() {
+        GeohashFastProtoRequest base = buildRequest(new Coordinates(51.508, -0.087), RequestType.ONE_TO_MANY)
+                .withTravelTime(1800);
+        Either<TravelTimeError, GeohashFastProtoResponse> kept = sdk.sendProto(base.withRemoveWaterBodies(false));
+        Either<TravelTimeError, GeohashFastProtoResponse> removed = sdk.sendProto(base.withRemoveWaterBodies(true));
+        Common.assertResponseIsRight(kept);
+        Common.assertResponseIsRight(removed);
+        Assert.assertTrue(kept.get().getIds().size() > removed.get().getIds().size());
     }
 }
