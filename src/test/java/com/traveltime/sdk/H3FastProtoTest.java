@@ -1,5 +1,6 @@
 package com.traveltime.sdk;
 
+import com.igeolise.traveltime.rabbitmq.requests.H3FastRequestOuterClass.H3FastRequest;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.requests.H3FastProtoRequest;
@@ -105,6 +106,41 @@ public class H3FastProtoTest {
         Assert.assertTrue(result.getMinTravelTimes().isEmpty());
         Assert.assertTrue(result.getMaxTravelTimes().isEmpty());
         Assert.assertTrue(result.getMeanTravelTimes().isEmpty());
+    }
+
+    @Test
+    public void shouldTransmitRemoveWaterBodies() throws Exception {
+        H3FastRequest.OneToMany unset = protoMessage(oneToMany()).getOneToManyRequest();
+        Assert.assertTrue(unset.hasRemoveWaterBodies());
+        Assert.assertTrue(unset.getRemoveWaterBodies());
+
+        H3FastRequest.OneToMany withFalse =
+                protoMessage(oneToMany().withRemoveWaterBodies(false)).getOneToManyRequest();
+        Assert.assertTrue(withFalse.hasRemoveWaterBodies());
+        Assert.assertFalse(withFalse.getRemoveWaterBodies());
+    }
+
+    private H3FastRequest protoMessage(H3FastProtoRequest request) throws Exception {
+        okhttp3.Request httpRequest = request.createRequest(
+                        okhttp3.HttpUrl.parse("https://proto.api.traveltimeapp.com/api/v3"),
+                        new TravelTimeCredentials("app", "key"))
+                .get();
+        okio.Buffer buffer = new okio.Buffer();
+        httpRequest.body().writeTo(buffer);
+        return H3FastRequest.parseFrom(buffer.readByteArray());
+    }
+
+    @Test
+    public void shouldRemoveWaterBodiesAffectResults() {
+        H3FastProtoRequest base = oneToMany()
+                .withOriginCoordinate(new Coordinates(51.508, -0.087))
+                .withTravelTime(1800)
+                .withResolution(9);
+        Either<TravelTimeError, H3FastProtoResponse> kept = sdk.sendProto(base.withRemoveWaterBodies(false));
+        Either<TravelTimeError, H3FastProtoResponse> removed = sdk.sendProto(base.withRemoveWaterBodies(true));
+        Common.assertResponseIsRight(kept);
+        Common.assertResponseIsRight(removed);
+        Assert.assertTrue(kept.get().getIds().size() > removed.get().getIds().size());
     }
 
     /** sendProto skips bean validation, so the range is enforced when the request is built. */
