@@ -5,7 +5,10 @@ import com.traveltime.sdk.dto.common.Property;
 import com.traveltime.sdk.dto.common.route.*;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.*;
+import com.traveltime.sdk.dto.requests.TimeMapFastRequest;
 import com.traveltime.sdk.dto.responses.*;
+import com.traveltime.sdk.dto.responses.GeocodingResponse;
+import com.traveltime.sdk.dto.responses.TimeMapFastResponse;
 import com.traveltime.sdk.dto.responses.errors.ResponseError;
 import com.traveltime.sdk.utils.JsonUtils;
 import java.io.IOException;
@@ -31,6 +34,7 @@ public class JsonUtilsTest {
                 new ImmutablePair(H3FastRequest.class, "dto/requests/h3FastRequest.json"),
                 new ImmutablePair(GeohashRequest.class, "dto/requests/geohashRequest.json"),
                 new ImmutablePair(GeohashFastRequest.class, "dto/requests/geohashFastRequest.json"),
+                new ImmutablePair(TimeMapFastRequest.class, "dto/requests/timeMapFastRequest.json"),
 
                 // responses
                 new ImmutablePair(TimeMapResponse.class, "dto/responses/timeMapResponse.json"),
@@ -47,6 +51,8 @@ public class JsonUtilsTest {
                 new ImmutablePair(H3Response.class, "dto/responses/h3Response.json"),
                 new ImmutablePair(GeohashResponse.class, "dto/responses/geohashResponse.json"),
                 new ImmutablePair(ResponseError.class, "dto/responses/errorResponse.json"),
+                new ImmutablePair(TimeMapFastResponse.class, "dto/responses/timeMapFastResponse.json"),
+                new ImmutablePair(GeocodingResponse.class, "dto/responses/geocodingResponse.json"),
 
                 // transportations
                 new ImmutablePair(Transportation.class, "dto/common/bus.json"),
@@ -60,8 +66,34 @@ public class JsonUtilsTest {
                 new ImmutablePair(Transportation.class, "dto/common/publicTransport.json"),
                 new ImmutablePair(Transportation.class, "dto/common/cycling.json"),
                 new ImmutablePair(Transportation.class, "dto/common/train.json"),
+                new ImmutablePair(Transportation.class, "dto/common/cyclingFerry.json"),
                 new ImmutablePair(Transportation.class, "dto/common/drivingPublicTransport.json"),
                 new ImmutablePair(Transportation.class, "dto/common/cyclingPublicTransport.json"),
+                // fast transportations
+                new ImmutablePair(
+                        com.traveltime.sdk.dto.common.transportationfast.Transportation.class,
+                        "dto/common/fast/publicTransport.json"),
+                new ImmutablePair(
+                        com.traveltime.sdk.dto.common.transportationfast.Transportation.class,
+                        "dto/common/fast/driving.json"),
+                new ImmutablePair(
+                        com.traveltime.sdk.dto.common.transportationfast.Transportation.class,
+                        "dto/common/fast/drivingAndFerry.json"),
+                new ImmutablePair(
+                        com.traveltime.sdk.dto.common.transportationfast.Transportation.class,
+                        "dto/common/fast/drivingAndPublicTransport.json"),
+                new ImmutablePair(
+                        com.traveltime.sdk.dto.common.transportationfast.Transportation.class,
+                        "dto/common/fast/cycling.json"),
+                new ImmutablePair(
+                        com.traveltime.sdk.dto.common.transportationfast.Transportation.class,
+                        "dto/common/fast/walking.json"),
+                new ImmutablePair(
+                        com.traveltime.sdk.dto.common.transportationfast.Transportation.class,
+                        "dto/common/fast/walkingAndFerry.json"),
+                new ImmutablePair(
+                        com.traveltime.sdk.dto.common.transportationfast.Transportation.class,
+                        "dto/common/fast/cyclingAndFerry.json"),
 
                 // routes
                 new ImmutablePair(Part.class, "dto/common/routes/basic.json"),
