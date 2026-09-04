@@ -11,7 +11,7 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Driving implements Transportation {
+public class Driving implements Transportation, DistanceMapTransportation {
     /**
      * If set to true, the crossing of country borders is disabled.
      * `null` defaults to `false`.
