@@ -2,6 +2,7 @@ package com.traveltime.sdk;
 
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.PolygonsFilter;
 import com.traveltime.sdk.dto.common.transportation.DrivingFerry;
 import com.traveltime.sdk.dto.requests.DistanceMapRequest;
 import com.traveltime.sdk.dto.requests.distancemap.ArrivalSearch;
@@ -36,6 +37,7 @@ public class DistanceMapTest {
                         .travelDistance(3000)
                         .noHoles(true)
                         .removeWaterBodies(false)
+                        .polygonsFilter(new PolygonsFilter(2))
                         .build())
                 .arrivalSearch(ArrivalSearch.builder()
                         .id("arrival")
