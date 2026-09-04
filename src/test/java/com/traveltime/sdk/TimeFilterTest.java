@@ -8,6 +8,7 @@ import com.traveltime.sdk.dto.common.Property;
 import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.common.transportation.CyclingPublicTransport;
 import com.traveltime.sdk.dto.common.transportation.DrivingPublicTransport;
+import com.traveltime.sdk.dto.common.transportation.DrivingTrain;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
 import com.traveltime.sdk.dto.common.transportationfast.DrivingAndPublicTransport;
 import com.traveltime.sdk.dto.requests.TimeFilterFastRequest;
@@ -171,7 +172,7 @@ public class TimeFilterTest {
                 "Test arrival search",
                 departureLocations,
                 arrivalLocation,
-                PublicTransport.builder().build(),
+                DrivingTrain.builder().boardingTime(300).build(),
                 Instant.now(),
                 900,
                 Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES),

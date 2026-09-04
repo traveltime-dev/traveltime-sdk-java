@@ -69,6 +69,7 @@ public class JsonUtilsTest {
                 new ImmutablePair(Transportation.class, "dto/common/cyclingFerry.json"),
                 new ImmutablePair(Transportation.class, "dto/common/drivingPublicTransport.json"),
                 new ImmutablePair(Transportation.class, "dto/common/cyclingPublicTransport.json"),
+                new ImmutablePair(Transportation.class, "dto/common/drivingTrain.json"),
                 // fast transportations
                 new ImmutablePair(
                         com.traveltime.sdk.dto.common.transportationfast.Transportation.class,
