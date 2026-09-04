@@ -2,6 +2,9 @@ package com.traveltime.sdk;
 
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.FastTrafficModel;
+import com.traveltime.sdk.dto.common.transportationfast.Driving;
+import com.traveltime.sdk.dto.common.transportationfast.DrivingAndPublicTransport;
 import com.traveltime.sdk.dto.common.transportationfast.PublicTransport;
 import com.traveltime.sdk.dto.common.transportationfast.Transportation;
 import com.traveltime.sdk.dto.requests.TimeMapFastBoxesRequest;
@@ -36,6 +39,43 @@ public class TimeMapFastTest {
         TravelTimeCredentials credentials =
                 new TravelTimeCredentials(System.getenv("APP_ID"), System.getenv("API_KEY"));
         sdk = new TravelTimeSDK(credentials);
+    }
+
+    @Test
+    public void shouldSendTransportationParams() {
+        Coordinates coords = new Coordinates(51.507609, -0.128315);
+        Transportation transportation = DrivingAndPublicTransport.builder()
+                .walkingTime(300)
+                .drivingTimeToStation(600)
+                .parkingTime(120)
+                .build();
+
+        TimeMapFastRequest request = TimeMapFastRequest.builder()
+                .arrivalSearches(createArrivalSearches(coords, transportation))
+                .build();
+
+        Either<TravelTimeError, TimeMapFastResponse> response = sdk.send(request);
+        Common.assertResponseIsRight(response);
+    }
+
+    @Test
+    public void shouldTrafficModelAffectResults() {
+        Coordinates coords = new Coordinates(51.507609, -0.128315);
+
+        java.util.function.Function<FastTrafficModel, Integer> shellPoints = model -> {
+            TimeMapFastRequest request = TimeMapFastRequest.builder()
+                    .arrivalSearches(createArrivalSearches(
+                            coords, Driving.builder().trafficModel(model).build()))
+                    .build();
+            Either<TravelTimeError, TimeMapFastResponse> response = sdk.send(request);
+            Common.assertResponseIsRight(response);
+            return response.get().getResults().stream()
+                    .flatMap(result -> result.getShapes().stream())
+                    .mapToInt(shape -> shape.getShell().size())
+                    .sum();
+        };
+
+        Assert.assertNotEquals(shellPoints.apply(FastTrafficModel.PEAK), shellPoints.apply(FastTrafficModel.OFF_PEAK));
     }
 
     @Test
