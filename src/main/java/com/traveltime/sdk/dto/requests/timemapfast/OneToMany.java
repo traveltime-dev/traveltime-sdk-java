@@ -1,10 +1,12 @@
 package com.traveltime.sdk.dto.requests.timemapfast;
 
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.PolygonsFilter;
 import com.traveltime.sdk.dto.common.RenderMode;
 import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.common.levelofdetail.LevelOfDetail;
 import com.traveltime.sdk.dto.common.transportationfast.Transportation;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NonNull;
@@ -12,7 +14,7 @@ import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
 @Value
-@Builder
+@Builder(toBuilder = true)
 @Jacksonized
 @AllArgsConstructor
 public class OneToMany {
@@ -32,6 +34,10 @@ public class OneToMany {
     Transportation transportation;
 
     LevelOfDetail levelOfDetail;
+
+    @Valid
+    PolygonsFilter polygonsFilter;
+
     Snapping snapping;
 
     RenderMode renderMode;

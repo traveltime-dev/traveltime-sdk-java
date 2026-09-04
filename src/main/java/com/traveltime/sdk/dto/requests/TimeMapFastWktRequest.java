@@ -10,6 +10,7 @@ import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import com.traveltime.sdk.utils.AcceptType;
 import com.traveltime.sdk.utils.JsonUtils;
 import io.vavr.control.Either;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
@@ -23,6 +24,7 @@ import okhttp3.Request;
 @EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimeMapFastWktRequest extends TravelTimeRequest<TimeMapFastWktResponse> {
+    @Valid
     @NonNull
     ArrivalSearches arrivalSearches;
 

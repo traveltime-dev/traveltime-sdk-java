@@ -3,6 +3,7 @@ package com.traveltime.sdk;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.FastTrafficModel;
+import com.traveltime.sdk.dto.common.PolygonsFilter;
 import com.traveltime.sdk.dto.common.transportationfast.Driving;
 import com.traveltime.sdk.dto.common.transportationfast.DrivingAndPublicTransport;
 import com.traveltime.sdk.dto.common.transportationfast.PublicTransport;
@@ -76,6 +77,21 @@ public class TimeMapFastTest {
         };
 
         Assert.assertNotEquals(shellPoints.apply(FastTrafficModel.PEAK), shellPoints.apply(FastTrafficModel.OFF_PEAK));
+    }
+
+    @Test
+    public void shouldRejectInvalidPolygonsFilterLocally() {
+        Coordinates coords = new Coordinates(51.507609, -0.128315);
+        OneToMany search = createOneToMany("invalid polygons filter", coords, new PublicTransport()).toBuilder()
+                .polygonsFilter(new PolygonsFilter(0))
+                .build();
+        TimeMapFastRequest request = TimeMapFastRequest.builder()
+                .arrivalSearches(new ArrivalSearches(Collections.emptyList(), Collections.singletonList(search)))
+                .build();
+
+        Either<TravelTimeError, TimeMapFastResponse> response = sdk.send(request);
+        Assert.assertTrue(response.isLeft());
+        Assert.assertTrue(response.getLeft().getMessage().contains("limit must be greater than 0"));
     }
 
     @Test

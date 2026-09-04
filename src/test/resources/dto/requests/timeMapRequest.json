@@ -10,6 +10,9 @@
     },
     "departure_time" : "2021-10-12T08:30:00Z",
     "travel_time" : 900,
+    "polygons_filter" : {
+      "limit" : 2
+    },
     "remove_water_bodies" : true
   } ],
   "arrival_searches" : [ {

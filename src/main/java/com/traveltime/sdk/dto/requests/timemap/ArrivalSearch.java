@@ -2,6 +2,7 @@ package com.traveltime.sdk.dto.requests.timemap;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.PolygonsFilter;
 import com.traveltime.sdk.dto.common.RenderMode;
 import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.common.levelofdetail.LevelOfDetail;
@@ -38,8 +39,14 @@ public class ArrivalSearch {
     Range range;
     LevelOfDetail levelOfDetail;
 
-    // TODO: Replace to https://docs.traveltime.com/api/reference/isochrones#departure_searches-polygons_filter-limit
+    /**
+     * @deprecated Use {@link #polygonsFilter} instead.
+     */
+    @Deprecated
     Boolean singleShape;
+
+    @Valid
+    PolygonsFilter polygonsFilter;
 
     /**
      * Enable to remove holes from returned polygons.
