@@ -2,6 +2,7 @@ package com.traveltime.sdk.dto.requests.distancemap;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.PolygonsFilter;
 import com.traveltime.sdk.dto.common.RenderMode;
 import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.common.levelofdetail.LevelOfDetail;
@@ -40,7 +41,8 @@ public class ArrivalSearch {
 
     LevelOfDetail levelOfDetail;
 
-    Boolean singleShape;
+    @Valid
+    PolygonsFilter polygonsFilter;
 
     /**
      * Enable to remove holes from returned polygons.

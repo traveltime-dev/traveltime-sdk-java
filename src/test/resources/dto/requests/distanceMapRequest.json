@@ -11,6 +11,9 @@
     },
     "departure_time" : "2021-10-12T08:30:00Z",
     "travel_distance" : 3000,
+    "polygons_filter" : {
+      "limit" : 2
+    },
     "no_holes" : true,
     "remove_water_bodies" : false
   } ],
