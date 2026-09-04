@@ -5,6 +5,7 @@ import com.traveltime.sdk.dto.common.DrivingTrafficModel;
 import com.traveltime.sdk.dto.common.MaxChanges;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
@@ -57,6 +58,13 @@ public class DrivingTrain implements Transportation {
      */
     @Positive(message = "walkingTime must be greater than 0")
     Integer walkingTime;
+
+    /**
+     * Time in seconds spent boarding a ferry. Covers only the boarding edges of ferry legs;
+     * if null, the server determines the default value.
+     */
+    @PositiveOrZero(message = "boardingTime must not be negative")
+    Integer boardingTime;
 
     /**
      * Configuration for limiting the number of transfers in a public transport journey.
