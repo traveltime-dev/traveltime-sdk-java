@@ -16,5 +16,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @JsonSubTypes.Type(value = CyclingFerry.class, name = "cycling+ferry"),
     @JsonSubTypes.Type(value = DrivingFerry.class, name = "driving+ferry"),
     @JsonSubTypes.Type(value = DrivingTrain.class, name = "driving+train"),
+    @JsonSubTypes.Type(value = DrivingPublicTransport.class, name = "driving+public_transport"),
+    @JsonSubTypes.Type(value = CyclingPublicTransport.class, name = "cycling+public_transport"),
 })
 public interface Transportation {}

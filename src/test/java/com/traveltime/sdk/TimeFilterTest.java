@@ -6,6 +6,8 @@ import com.traveltime.sdk.dto.common.FullRange;
 import com.traveltime.sdk.dto.common.Location;
 import com.traveltime.sdk.dto.common.Property;
 import com.traveltime.sdk.dto.common.Snapping;
+import com.traveltime.sdk.dto.common.transportation.CyclingPublicTransport;
+import com.traveltime.sdk.dto.common.transportation.DrivingPublicTransport;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
 import com.traveltime.sdk.dto.common.transportationfast.DrivingAndPublicTransport;
 import com.traveltime.sdk.dto.requests.TimeFilterFastRequest;
@@ -21,6 +23,7 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -97,6 +100,56 @@ public class TimeFilterTest {
                         .build());
 
         return Collections.singletonList(oneToMany);
+    }
+
+    @Test
+    public void shouldSendDrivingPublicTransportRequest() {
+        List<Location> locations = Arrays.asList(
+                new Location("London", new Coordinates(51.507609, -0.128315)),
+                new Location("Birmingham", new Coordinates(52.4778, -1.8990)),
+                new Location("Brighton", new Coordinates(50.8292, -0.1411)));
+        DepartureSearch ds = new DepartureSearch(
+                "driving+public_transport search",
+                "London",
+                Arrays.asList("Birmingham", "Brighton"),
+                DrivingPublicTransport.builder()
+                        .drivingTimeToStation(600)
+                        .parkingTime(120)
+                        .walkingTime(300)
+                        .build(),
+                Instant.now(),
+                14400,
+                Collections.singletonList(Property.TRAVEL_TIME),
+                null,
+                null);
+        TimeFilterRequest request =
+                new TimeFilterRequest(locations, Collections.singletonList(ds), Collections.emptyList());
+
+        Either<TravelTimeError, TimeFilterResponse> response = sdk.send(request);
+        Common.assertResponseIsRight(response);
+        Assert.assertEquals(2, response.get().getResults().get(0).getLocations().size());
+    }
+
+    @Test
+    public void shouldSendCyclingPublicTransportRequest() {
+        List<Location> locations = Arrays.asList(
+                new Location("London", new Coordinates(51.507609, -0.128315)),
+                new Location("Hyde Park", new Coordinates(51.508824, -0.167093)));
+        DepartureSearch ds = new DepartureSearch(
+                "cycling+public_transport search",
+                "London",
+                Collections.singletonList("Hyde Park"),
+                CyclingPublicTransport.builder().cyclingTimeToStation(600).build(),
+                Instant.now(),
+                3600,
+                Collections.singletonList(Property.TRAVEL_TIME),
+                null,
+                null);
+        TimeFilterRequest request =
+                new TimeFilterRequest(locations, Collections.singletonList(ds), Collections.emptyList());
+
+        Either<TravelTimeError, TimeFilterResponse> response = sdk.send(request);
+        Common.assertResponseIsRight(response);
     }
 
     private List<DepartureSearch> createDepartureSearch(String departureLocation, List<String> arrivalLocations) {

@@ -1,0 +1,12 @@
+{
+  "type" : "cycling+public_transport",
+  "pt_change_delay" : 60,
+  "cycling_time_to_station" : 600,
+  "parking_time" : 120,
+  "walking_time" : 300,
+  "boarding_time" : 90,
+  "max_changes" : {
+    "enabled" : true,
+    "limit" : 2
+  }
+}
