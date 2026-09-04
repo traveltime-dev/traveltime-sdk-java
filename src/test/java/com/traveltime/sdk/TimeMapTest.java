@@ -2,6 +2,7 @@ package com.traveltime.sdk;
 
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.PolygonsFilter;
 import com.traveltime.sdk.dto.common.levelofdetail.Level;
 import com.traveltime.sdk.dto.common.levelofdetail.SimpleLevelOfDetail;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
@@ -155,7 +156,7 @@ public class TimeMapTest {
                 .travelTime(900)
                 .range(new Range(true, 400))
                 .levelOfDetail(new SimpleLevelOfDetail(Level.MEDIUM))
-                .singleShape(false)
+                .polygonsFilter(new PolygonsFilter(2))
                 .noHoles(false)
                 .removeWaterBodies(true)
                 .build();

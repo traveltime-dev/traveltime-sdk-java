@@ -14,6 +14,9 @@
         "walking_time" : 300
       },
       "level_of_detail" : null,
+      "polygons_filter" : {
+        "limit" : 2
+      },
       "snapping" : null,
       "render_mode" : null,
       "buffer_distance" : null,
