@@ -60,8 +60,8 @@ public class DrivingTrain implements Transportation {
     Integer walkingTime;
 
     /**
-     * Time in seconds spent boarding a ferry. Covers only the boarding edges of ferry legs;
-     * if null, the server determines the default value.
+     * Time in seconds required to board a ferry. Default value is 0. Only affects journeys
+     * that include a ferry leg.
      */
     @PositiveOrZero(message = "boardingTime must not be negative")
     Integer boardingTime;
