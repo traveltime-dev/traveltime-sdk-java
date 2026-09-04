@@ -5,8 +5,10 @@ import com.traveltime.sdk.dto.common.Property;
 import com.traveltime.sdk.dto.common.route.*;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.*;
+import com.traveltime.sdk.dto.requests.DistanceMapRequest;
 import com.traveltime.sdk.dto.requests.TimeMapFastRequest;
 import com.traveltime.sdk.dto.responses.*;
+import com.traveltime.sdk.dto.responses.DistanceMapResponse;
 import com.traveltime.sdk.dto.responses.GeocodingResponse;
 import com.traveltime.sdk.dto.responses.TimeMapFastResponse;
 import com.traveltime.sdk.dto.responses.errors.ResponseError;
@@ -35,6 +37,7 @@ public class JsonUtilsTest {
                 new ImmutablePair(GeohashRequest.class, "dto/requests/geohashRequest.json"),
                 new ImmutablePair(GeohashFastRequest.class, "dto/requests/geohashFastRequest.json"),
                 new ImmutablePair(TimeMapFastRequest.class, "dto/requests/timeMapFastRequest.json"),
+                new ImmutablePair(DistanceMapRequest.class, "dto/requests/distanceMapRequest.json"),
 
                 // responses
                 new ImmutablePair(TimeMapResponse.class, "dto/responses/timeMapResponse.json"),
@@ -52,6 +55,7 @@ public class JsonUtilsTest {
                 new ImmutablePair(GeohashResponse.class, "dto/responses/geohashResponse.json"),
                 new ImmutablePair(ResponseError.class, "dto/responses/errorResponse.json"),
                 new ImmutablePair(TimeMapFastResponse.class, "dto/responses/timeMapFastResponse.json"),
+                new ImmutablePair(DistanceMapResponse.class, "dto/responses/distanceMapResponse.json"),
                 new ImmutablePair(GeocodingResponse.class, "dto/responses/geocodingResponse.json"),
 
                 // transportations
