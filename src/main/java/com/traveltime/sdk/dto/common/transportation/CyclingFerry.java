@@ -1,7 +1,7 @@
 package com.traveltime.sdk.dto.common.transportation;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
@@ -27,6 +27,6 @@ public class CyclingFerry implements Transportation {
      *
      * If null, defaults to 0 seconds (no additional boarding time).
      */
-    @Positive(message = "boardingTime must be greater than 0")
+    @PositiveOrZero(message = "boardingTime must not be negative")
     Integer boardingTime;
 }

@@ -2,7 +2,7 @@ package com.traveltime.sdk.dto.common.transportation;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.dto.common.DrivingTrafficModel;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import java.util.List;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
@@ -17,7 +17,7 @@ public class DrivingFerry implements Transportation {
      * Time in seconds required to board a ferry.
      * If null, `boardingTime` is 0.
      */
-    @Positive(message = "boardingTime must be greater than 0")
+    @PositiveOrZero(message = "boardingTime must not be negative")
     Integer boardingTime;
 
     /**

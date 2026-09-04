@@ -3,7 +3,7 @@ package com.traveltime.sdk.dto.common.transportation;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.dto.common.MaxChanges;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
@@ -16,7 +16,7 @@ public class Coach implements Transportation {
     /**
      * Time in seconds needed to board a public transportation vehicle.
      */
-    @Positive(message = "ptChangeDelay must be greater than 0")
+    @PositiveOrZero(message = "ptChangeDelay must not be negative")
     Integer ptChangeDelay;
 
     /**
@@ -30,7 +30,7 @@ public class Coach implements Transportation {
      * - Walking between transit legs is separately limited to 600s (10 min) each
      * - If null, server determines the default value
      */
-    @Positive(message = "walkingTime must be greater than 0")
+    @PositiveOrZero(message = "walkingTime must not be negative")
     Integer walkingTime;
 
     /**

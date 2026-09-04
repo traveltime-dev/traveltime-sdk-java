@@ -5,6 +5,7 @@ import com.traveltime.sdk.dto.common.RenderMode;
 import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.common.levelofdetail.LevelOfDetail;
 import com.traveltime.sdk.dto.common.transportationfast.Transportation;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NonNull;
@@ -28,6 +29,7 @@ public class ManyToOne {
     @NonNull
     Integer travelTime;
 
+    @Valid
     @NonNull
     Transportation transportation;
 
