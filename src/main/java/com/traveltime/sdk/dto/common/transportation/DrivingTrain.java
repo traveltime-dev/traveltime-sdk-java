@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.dto.common.DrivingTrafficModel;
 import com.traveltime.sdk.dto.common.MaxChanges;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +24,7 @@ public class DrivingTrain implements Transportation {
     /**
      * Time in seconds needed to board a public transportation vehicle.
      */
-    @Positive(message = "ptChangeDelay must be greater than 0")
+    @PositiveOrZero(message = "ptChangeDelay must not be negative")
     Integer ptChangeDelay;
 
     /**
@@ -36,13 +35,13 @@ public class DrivingTrain implements Transportation {
      * <p>
      * If null, the server side decides the default value.
      */
-    @Positive(message = "drivingTimeToStation must be greater than 0")
+    @PositiveOrZero(message = "drivingTimeToStation must not be negative")
     Integer drivingTimeToStation;
 
     /**
      * Time in seconds required to park a car.
      */
-    @Positive(message = "parkingTime must be greater than 0")
+    @PositiveOrZero(message = "parkingTime must not be negative")
     Integer parkingTime;
 
     /**
@@ -56,7 +55,7 @@ public class DrivingTrain implements Transportation {
      * - Walking between transit legs is separately limited to 600s (10 min) each
      * - If null, server determines the default value
      */
-    @Positive(message = "walkingTime must be greater than 0")
+    @PositiveOrZero(message = "walkingTime must not be negative")
     Integer walkingTime;
 
     /**

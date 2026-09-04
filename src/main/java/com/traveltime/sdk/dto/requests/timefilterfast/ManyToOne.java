@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.traveltime.sdk.dto.common.Property;
 import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.common.transportationfast.Transportation;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
@@ -30,6 +31,7 @@ public class ManyToOne {
     @Singular
     List<String> departureLocationIds;
 
+    @Valid
     @NonNull
     Transportation transportation;
 

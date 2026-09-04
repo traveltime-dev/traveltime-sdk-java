@@ -23,6 +23,7 @@ public class DepartureSearch {
     @NonNull
     Coordinates coords;
 
+    @Valid
     @NonNull
     Transportation transportation;
 

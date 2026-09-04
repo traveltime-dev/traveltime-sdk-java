@@ -27,6 +27,7 @@ public class DepartureSearch {
     @Singular
     List<String> arrivalLocationIds;
 
+    @Valid
     @NonNull
     Transportation transportation;
 
