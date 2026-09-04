@@ -13,7 +13,7 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Ferry implements Transportation {
+public class Ferry implements Transportation, DistanceMapTransportation {
     /**
      * Time in seconds required to board a ferry.
      * If null, `boardingTime` is 0.

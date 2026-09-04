@@ -17,7 +17,7 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CyclingFerry implements Transportation {
+public class CyclingFerry implements Transportation, DistanceMapTransportation {
     /**
      * Time in seconds required to board a ferry with a bicycle.
      * <p>
