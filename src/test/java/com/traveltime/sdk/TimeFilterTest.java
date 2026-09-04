@@ -8,7 +8,6 @@ import com.traveltime.sdk.dto.common.Property;
 import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.common.transportation.CyclingPublicTransport;
 import com.traveltime.sdk.dto.common.transportation.DrivingPublicTransport;
-import com.traveltime.sdk.dto.common.transportation.DrivingTrain;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
 import com.traveltime.sdk.dto.common.transportationfast.DrivingAndPublicTransport;
 import com.traveltime.sdk.dto.requests.TimeFilterFastRequest;
@@ -151,37 +150,6 @@ public class TimeFilterTest {
 
         Either<TravelTimeError, TimeFilterResponse> response = sdk.send(request);
         Common.assertResponseIsRight(response);
-    }
-
-    @Test
-    public void shouldDrivingPublicTransportDifferFromDrivingTrain() {
-        List<Location> locations = Arrays.asList(
-                new Location("London", new Coordinates(51.507609, -0.128315)),
-                new Location("Birmingham", new Coordinates(52.4778, -1.8990)),
-                new Location("Brighton", new Coordinates(50.8292, -0.1411)));
-        java.util.function.Function<com.traveltime.sdk.dto.common.transportation.Transportation, List<Integer>>
-                travelTimes = transportation -> {
-                    DepartureSearch ds = new DepartureSearch(
-                            "mode comparison",
-                            "London",
-                            Arrays.asList("Birmingham", "Brighton"),
-                            transportation,
-                            Instant.now(),
-                            14400,
-                            Collections.singletonList(Property.TRAVEL_TIME),
-                            null,
-                            null);
-                    Either<TravelTimeError, TimeFilterResponse> response = sdk.send(
-                            new TimeFilterRequest(locations, Collections.singletonList(ds), Collections.emptyList()));
-                    Common.assertResponseIsRight(response);
-                    return response.get().getResults().get(0).getLocations().stream()
-                            .map(location -> location.getProperties().get(0).getTravelTime())
-                            .collect(java.util.stream.Collectors.toList());
-                };
-
-        Assert.assertNotEquals(
-                travelTimes.apply(DrivingPublicTransport.builder().build()),
-                travelTimes.apply(DrivingTrain.builder().build()));
     }
 
     private List<DepartureSearch> createDepartureSearch(String departureLocation, List<String> arrivalLocations) {

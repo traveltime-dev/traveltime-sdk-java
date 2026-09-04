@@ -60,6 +60,8 @@ public class JsonUtilsTest {
                 new ImmutablePair(Transportation.class, "dto/common/publicTransport.json"),
                 new ImmutablePair(Transportation.class, "dto/common/cycling.json"),
                 new ImmutablePair(Transportation.class, "dto/common/train.json"),
+                new ImmutablePair(Transportation.class, "dto/common/drivingPublicTransport.json"),
+                new ImmutablePair(Transportation.class, "dto/common/cyclingPublicTransport.json"),
 
                 // routes
                 new ImmutablePair(Part.class, "dto/common/routes/basic.json"),
