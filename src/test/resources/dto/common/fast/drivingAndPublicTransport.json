@@ -1,0 +1,6 @@
+{
+  "type" : "driving+public_transport",
+  "parking_time" : 120,
+  "walking_time" : 300,
+  "driving_time_to_station" : 600
+}

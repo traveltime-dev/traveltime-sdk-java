@@ -1,0 +1,4 @@
+{
+  "type" : "driving",
+  "traffic_model" : "peak"
+}
