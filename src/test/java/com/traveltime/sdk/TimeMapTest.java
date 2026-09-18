@@ -6,10 +6,13 @@ import com.traveltime.sdk.dto.common.PolygonsFilter;
 import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.common.levelofdetail.Level;
 import com.traveltime.sdk.dto.common.levelofdetail.SimpleLevelOfDetail;
+import com.traveltime.sdk.dto.common.transportation.Driving;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
+import com.traveltime.sdk.dto.common.transportation.Walking;
 import com.traveltime.sdk.dto.requests.*;
 import com.traveltime.sdk.dto.requests.timemap.*;
+import com.traveltime.sdk.dto.requests.timemap.Property;
 import com.traveltime.sdk.dto.responses.*;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import com.traveltime.sdk.utils.JsonUtils;
@@ -129,6 +132,28 @@ public class TimeMapTest {
 
         Either<TravelTimeError, TimeMapWktResponse> response = sdk.send(request);
         Common.assertResponseIsRight(response);
+    }
+
+    @Test
+    public void shouldReturnIsOnlyWalkingProperty() {
+        java.util.function.Function<Transportation, Boolean> isOnlyWalking = transportation -> {
+            DepartureSearch ds = DepartureSearch.builder()
+                    .id("is_only_walking")
+                    .coords(new Coordinates(51.507609, -0.128315))
+                    .transportation(transportation)
+                    .departureTime(Instant.now())
+                    .travelTime(600)
+                    .properties(Collections.singletonList(Property.IS_ONLY_WALKING))
+                    .build();
+            Either<TravelTimeError, TimeMapResponse> response = sdk.send(TimeMapRequest.builder()
+                    .departureSearches(Collections.singletonList(ds))
+                    .build());
+            Common.assertResponseIsRight(response);
+            return response.get().getResults().get(0).getProperties().getIsOnlyWalking();
+        };
+
+        Assert.assertTrue(isOnlyWalking.apply(new Walking()));
+        Assert.assertFalse(isOnlyWalking.apply(Driving.builder().build()));
     }
 
     private List<ArrivalSearch> createArrivalSearch(Coordinates coords, Transportation transportation) {

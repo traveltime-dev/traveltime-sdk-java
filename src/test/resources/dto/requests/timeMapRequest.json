@@ -13,6 +13,7 @@
     "polygons_filter" : {
       "limit" : 2
     },
+    "properties" : [ "is_only_walking" ],
     "remove_water_bodies" : true
   } ],
   "arrival_searches" : [ {

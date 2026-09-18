@@ -41,6 +41,12 @@ public class OneToMany {
 
     Snapping snapping;
 
+    /**
+     * Enable to remove holes from returned polygons.
+     * Note that this will likely result in loss in accuracy.
+     */
+    Boolean noHoles;
+
     RenderMode renderMode;
 
     Integer bufferDistance;

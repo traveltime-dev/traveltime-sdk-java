@@ -101,6 +101,8 @@
         "lng" : -0.130271482
       } ] ]
     } ],
-    "properties" : { }
+    "properties" : {
+      "is_only_walking" : false
+    }
   } ]
 }
