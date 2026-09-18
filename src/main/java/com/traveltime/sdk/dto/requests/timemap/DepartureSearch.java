@@ -56,7 +56,7 @@ public class DepartureSearch {
      */
     Boolean noHoles;
 
-    Snapping snapPenalty;
+    Snapping snapping;
 
     RenderMode renderMode;
 
