@@ -10,6 +10,7 @@ import com.traveltime.sdk.dto.common.transportation.Transportation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import java.time.Instant;
+import java.util.List;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
@@ -55,6 +56,11 @@ public class DepartureSearch {
      * Note that this will likely result in loss in accuracy.
      */
     Boolean noHoles;
+
+    /**
+     * Properties to be returned about the shapes.
+     */
+    List<Property> properties;
 
     Snapping snapping;
 

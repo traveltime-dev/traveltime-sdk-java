@@ -205,6 +205,7 @@ public class TimeMapFastTest {
                 .arrivalTimePeriod("weekday_morning")
                 .transportation(transportation)
                 .coords(coords)
+                .noHoles(false)
                 .travelTime(900)
                 .removeWaterBodies(true)
                 .build();

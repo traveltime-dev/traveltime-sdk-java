@@ -18,6 +18,7 @@
         "limit" : 2
       },
       "snapping" : null,
+      "no_holes" : true,
       "render_mode" : null,
       "buffer_distance" : null,
       "remove_water_bodies" : null
