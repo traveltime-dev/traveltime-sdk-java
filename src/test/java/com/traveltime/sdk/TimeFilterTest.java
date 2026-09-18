@@ -153,6 +153,26 @@ public class TimeFilterTest {
         Common.assertResponseIsRight(response);
     }
 
+    @Test
+    public void shouldRejectNegativeTransportationValuesLocally() {
+        List<Location> locations =
+                Collections.singletonList(new Location("London", new Coordinates(51.507609, -0.128315)));
+        DepartureSearch ds = new DepartureSearch(
+                "negative parking time",
+                "London",
+                Collections.singletonList("London"),
+                DrivingTrain.builder().parkingTime(-1).build(),
+                Instant.now(),
+                900,
+                Collections.singletonList(Property.TRAVEL_TIME),
+                null,
+                null);
+        Either<TravelTimeError, TimeFilterResponse> response =
+                sdk.send(new TimeFilterRequest(locations, Collections.singletonList(ds), Collections.emptyList()));
+        Assert.assertTrue(response.isLeft());
+        Assert.assertTrue(response.getLeft().getMessage().contains("parkingTime must not be negative"));
+    }
+
     private List<DepartureSearch> createDepartureSearch(String departureLocation, List<String> arrivalLocations) {
         DepartureSearch ds = new DepartureSearch(
                 "Test departure search",
@@ -172,7 +192,7 @@ public class TimeFilterTest {
                 "Test arrival search",
                 departureLocations,
                 arrivalLocation,
-                DrivingTrain.builder().boardingTime(300).build(),
+                DrivingTrain.builder().boardingTime(0).build(),
                 Instant.now(),
                 900,
                 Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES),

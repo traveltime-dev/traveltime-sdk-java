@@ -30,6 +30,7 @@ public class OneToMany {
     @NonNull
     Integer travelTime;
 
+    @Valid
     @NonNull
     Transportation transportation;
 

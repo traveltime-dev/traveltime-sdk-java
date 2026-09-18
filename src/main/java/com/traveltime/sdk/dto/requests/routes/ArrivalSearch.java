@@ -27,6 +27,7 @@ public class ArrivalSearch {
     @NonNull
     String arrivalLocationId;
 
+    @Valid
     @NonNull
     Transportation transportation;
 

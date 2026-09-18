@@ -8,6 +8,7 @@ import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import com.traveltime.sdk.utils.AcceptType;
 import com.traveltime.sdk.utils.JsonUtils;
 import io.vavr.control.Either;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
@@ -24,6 +25,7 @@ public class TimeFilterFastRequest extends TravelTimeRequest<TimeFilterFastRespo
     @Singular
     List<Location> locations;
 
+    @Valid
     @NonNull
     ArrivalSearches arrivalSearches;
 

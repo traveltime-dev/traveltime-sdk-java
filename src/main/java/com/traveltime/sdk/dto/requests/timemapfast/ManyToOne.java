@@ -30,6 +30,7 @@ public class ManyToOne {
     @NonNull
     Integer travelTime;
 
+    @Valid
     @NonNull
     Transportation transportation;
 

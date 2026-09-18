@@ -1,6 +1,6 @@
 package com.traveltime.sdk.dto.common;
 
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
@@ -30,6 +30,6 @@ public class MaxChanges {
      * The limit must always be a positive integer greater than zero.
      */
     @NonNull
-    @Positive(message = "limit must be greater than 0")
+    @PositiveOrZero(message = "limit must not be negative")
     Integer limit;
 }
