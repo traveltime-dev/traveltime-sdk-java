@@ -189,7 +189,7 @@ public class TimeFilterTest {
 
     private List<ArrivalSearch> createArrivalSearch(List<String> departureLocations, String arrivalLocation) {
         ArrivalSearch as = new ArrivalSearch(
-                "Test arrival search",
+                "driving+train arrival search",
                 departureLocations,
                 arrivalLocation,
                 DrivingTrain.builder().boardingTime(0).build(),
