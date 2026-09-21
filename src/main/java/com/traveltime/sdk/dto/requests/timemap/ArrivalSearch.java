@@ -1,7 +1,10 @@
 package com.traveltime.sdk.dto.requests.timemap;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.Coords;
 import com.traveltime.sdk.dto.common.PolygonsFilter;
 import com.traveltime.sdk.dto.common.RenderMode;
 import com.traveltime.sdk.dto.common.Snapping;
@@ -24,7 +27,8 @@ public class ArrivalSearch {
     String id;
 
     @NonNull
-    Coordinates coords;
+    @Getter(AccessLevel.NONE)
+    Coords coords;
 
     @Valid
     @NonNull
@@ -71,4 +75,19 @@ public class ArrivalSearch {
      * Set to false to allow the shape to cover water bodies like large lakes, wide rivers, and seas.
      */
     Boolean removeWaterBodies;
+
+    /**
+     * @deprecated The location may now be an {@link com.traveltime.sdk.dto.common.H3CentroidCoords} or {@link com.traveltime.sdk.dto.common.GeohashCentroidCoords}, which this getter
+     * cannot represent — it returns null when built with a centroid. Use {@link #getLocation()}.
+     */
+    @Deprecated
+    @JsonIgnore
+    public Coordinates getCoords() {
+        return coords instanceof Coordinates ? (Coordinates) coords : null;
+    }
+
+    @JsonProperty("coords")
+    public Coords getLocation() {
+        return coords;
+    }
 }

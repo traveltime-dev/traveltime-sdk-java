@@ -1,10 +1,6 @@
 {
   "departure_searches" : [ {
     "id" : "public transport from Trafalgar Square",
-    "coords" : {
-      "lat" : 51.507609,
-      "lng" : -0.128315
-    },
     "transportation" : {
       "type" : "public_transport",
       "max_changes" : {
@@ -14,19 +10,23 @@
     },
     "departure_time" : "2021-11-10T08:00:00Z",
     "travel_time" : 1800,
-    "properties" : [ "travel_time", "distance" ]
-  } ],
-  "arrival_searches" : [ {
-    "id" : "public transport to Trafalgar Square",
+    "properties" : [ "travel_time", "distance" ],
     "coords" : {
       "lat" : 51.507609,
       "lng" : -0.128315
-    },
+    }
+  } ],
+  "arrival_searches" : [ {
+    "id" : "public transport to Trafalgar Square",
     "transportation" : {
       "type" : "public_transport"
     },
     "arrival_time" : "2021-11-10T08:00:00Z",
     "travel_time" : 1800,
-    "properties" : [ "travel_time", "distance" ]
+    "properties" : [ "travel_time", "distance" ],
+    "coords" : {
+      "lat" : 51.507609,
+      "lng" : -0.128315
+    }
   } ]
 }

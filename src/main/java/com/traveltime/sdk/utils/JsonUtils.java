@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.Coords;
 import com.traveltime.sdk.dto.common.GeohashCentroidCoords;
 import com.traveltime.sdk.dto.common.GeohashCoords;
 import com.traveltime.sdk.dto.common.H3CentroidCoords;
@@ -33,6 +34,7 @@ public class JsonUtils {
             .addDeserializer(Geometry.class, new JTSGeometryDeserializer())
             .addDeserializer(
                     H3Coords.class, new CoordsDeserializer<>("h3_centroid", H3CentroidCoords.class, Coordinates.class))
+            .addDeserializer(Coords.class, new GeneralCoordsDeserializer())
             .addDeserializer(
                     GeohashCoords.class,
                     new CoordsDeserializer<>("geohash_centroid", GeohashCentroidCoords.class, Coordinates.class));

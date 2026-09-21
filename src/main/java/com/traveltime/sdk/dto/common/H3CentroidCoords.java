@@ -8,7 +8,7 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Jacksonized
 @AllArgsConstructor
-public class H3CentroidCoords implements H3Coords {
+public class H3CentroidCoords implements Coords, H3Coords {
     /**
      * Index of an H3 cell, for example <tt>87194ad14ffffff</tt>.
      */

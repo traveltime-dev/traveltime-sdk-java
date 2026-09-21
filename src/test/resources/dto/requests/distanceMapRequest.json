@@ -1,10 +1,6 @@
 {
   "departure_searches" : [ {
     "id" : "driving from Trafalgar Square",
-    "coords" : {
-      "lat" : 51.507609,
-      "lng" : -0.128315
-    },
     "transportation" : {
       "type" : "driving+ferry",
       "boarding_time" : 90
@@ -15,19 +11,23 @@
       "limit" : 2
     },
     "no_holes" : true,
-    "remove_water_bodies" : false
-  } ],
-  "arrival_searches" : [ {
-    "id" : "driving to Trafalgar Square",
+    "remove_water_bodies" : false,
     "coords" : {
       "lat" : 51.507609,
       "lng" : -0.128315
-    },
+    }
+  } ],
+  "arrival_searches" : [ {
+    "id" : "driving to Trafalgar Square",
     "transportation" : {
       "type" : "driving+ferry"
     },
     "arrival_time" : "2021-10-12T08:00:00Z",
-    "travel_distance" : 3000
+    "travel_distance" : 3000,
+    "coords" : {
+      "lat" : 51.507609,
+      "lng" : -0.128315
+    }
   } ],
   "intersections" : [ ],
   "unions" : [ ]
