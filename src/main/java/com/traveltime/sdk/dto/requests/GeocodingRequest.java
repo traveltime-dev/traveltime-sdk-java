@@ -31,6 +31,17 @@ public class GeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
 
     Rectangle bounds;
 
+    /**
+     * When true, a postcode is added to the response even when the query did not contain one.
+     */
+    Boolean forceAddPostcode;
+
+    /**
+     * BCP47 language tag for the Accept-Language header, controlling the language of the
+     * returned place names.
+     */
+    String acceptLanguage;
+
     private QueryElement getLimit() {
         return new QueryElement("limit", limit == null ? "" : limit.toString());
     }
@@ -44,6 +55,10 @@ public class GeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
 
     private QueryElement getFormatName() {
         return new QueryElement("format.name", formatName == null ? "" : formatName.toString());
+    }
+
+    private QueryElement getForceAddPostcode() {
+        return new QueryElement("force.add.postcode", forceAddPostcode == null ? "" : forceAddPostcode.toString());
     }
 
     private QueryElement getFormatExcludeCountry() {
@@ -61,9 +76,16 @@ public class GeocodingRequest extends TravelTimeRequest<GeocodingResponse> {
                         getLimit(),
                         getFormatName(),
                         getFormatExcludeCountry(),
+                        getForceAddPostcode(),
                         getBounds())
                 .build();
-        return Either.right(createGetRequest(uri, credentials));
+        Request request = createGetRequest(uri, credentials);
+        if (acceptLanguage != null) {
+            request = request.newBuilder()
+                    .header("Accept-Language", acceptLanguage)
+                    .build();
+        }
+        return Either.right(request);
     }
 
     @Override
