@@ -46,6 +46,11 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
     boolean withDistance;
 
     /**
+     * Specifies if monthly public transport fares should also be returned.
+     */
+    boolean withFares;
+
+    /**
      * @param originCoordinate The coordinates of location we should start the search from.
      * @param destinationCoordinates The coordinates of locations we run the search to. If the class implementing this
      *     list does not implement the {@code RandomAccess} interface it will be internally converted into an
@@ -96,6 +101,10 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
                     .setTransportation(transportation)
                     .setTravelTime(this.travelTime);
 
+            if (this.withFares) {
+                oneToManyBuilder.addProperties(TimeFilterFastRequest.Property.FARES);
+            }
+
             if (this.withDistance) {
                 oneToManyBuilder.addProperties(TimeFilterFastRequest.Property.DISTANCES);
             }
@@ -116,6 +125,10 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
                     .setArrivalTimePeriod(RequestsCommon.TimePeriod.WEEKDAY_MORNING)
                     .setTransportation(transportation)
                     .setTravelTime(this.travelTime);
+
+            if (this.withFares) {
+                manyToOneBuilder.addProperties(TimeFilterFastRequest.Property.FARES);
+            }
 
             if (this.withDistance) {
                 manyToOneBuilder.addProperties(TimeFilterFastRequest.Property.DISTANCES);
@@ -176,7 +189,11 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
         List<Integer> distances =
                 responses.stream().flatMap(resp -> resp.getDistances().stream()).collect(Collectors.toList());
 
-        return new TimeFilterFastProtoResponse(times, distances);
+        List<Integer> monthlyFares = responses.stream()
+                .flatMap(resp -> resp.getMonthlyFares().stream())
+                .collect(Collectors.toList());
+
+        return new TimeFilterFastProtoResponse(times, distances, monthlyFares);
     }
 
     @Override
@@ -193,7 +210,8 @@ public class TimeFilterFastProtoRequest extends ProtoRequest<TimeFilterFastProto
         else
             return Either.right(new TimeFilterFastProtoResponse(
                     response.getProperties().getTravelTimesList(),
-                    response.getProperties().getDistancesList()));
+                    response.getProperties().getDistancesList(),
+                    response.getProperties().getMonthlyFaresList()));
     }
 
     @Override

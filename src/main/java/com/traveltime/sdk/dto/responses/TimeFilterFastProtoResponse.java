@@ -12,4 +12,6 @@ public class TimeFilterFastProtoResponse {
     List<Integer> travelTimes;
 
     List<Integer> distances;
+
+    List<Integer> monthlyFares;
 }
