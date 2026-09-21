@@ -31,5 +31,11 @@ public enum Property {
      * Cost information for the journey.
      */
     @JsonProperty("fares")
-    FARES
+    FARES,
+
+    /**
+     * Distance of the route in meters, broken down by transportation mode.
+     */
+    @JsonProperty("distance_breakdown")
+    DISTANCE_BREAKDOWN
 }
