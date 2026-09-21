@@ -65,6 +65,26 @@ public class TimeFilterFastProtoTest {
     }
 
     @Test
+    public void shouldReturnMonthlyFaresWhenFlagIsSpecified() {
+        Coordinates origin = new Coordinates(51.425709, -0.122061);
+        List<Coordinates> destinations = Collections.singletonList(new Coordinates(51.348605, -0.314783));
+        TimeFilterFastProtoRequest request = TimeFilterFastProtoRequest.builder()
+                .originCoordinate(origin)
+                .destinationCoordinates(destinations)
+                .transportation(Transportation.Modes.PUBLIC_TRANSPORT)
+                .travelTime(7200)
+                .country(Countries.UNITED_KINGDOM)
+                .requestType(RequestType.ONE_TO_MANY)
+                .withFares(true)
+                .build();
+        Either<TravelTimeError, TimeFilterFastProtoResponse> response = sdk.sendProto(request);
+
+        Common.assertResponseIsRight(response);
+        Assert.assertEquals(1, response.get().getMonthlyFares().size());
+        Assert.assertEquals(1, response.get().getTravelTimes().size());
+    }
+
+    @Test
     public void shouldSplitProtoRequestsTest() {
         TimeFilterFastProtoRequest request =
                 oneToMany(new Coordinates(51.425709, -0.122061), Common.generateCoordinates(12));
