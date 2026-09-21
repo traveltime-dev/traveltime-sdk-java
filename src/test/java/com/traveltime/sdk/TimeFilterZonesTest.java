@@ -3,6 +3,7 @@ package com.traveltime.sdk;
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.FullRange;
+import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.common.transportation.PublicTransport;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import com.traveltime.sdk.dto.requests.TimeFilterDistrictsRequest;
@@ -59,6 +60,7 @@ public class TimeFilterZonesTest {
                 Instant.now(),
                 900,
                 0.1,
+                new Snapping(Snapping.SnapPenalty.DISABLED, Snapping.AcceptRoads.ANY_DRIVABLE),
                 Collections.singletonList(Property.COVERAGE),
                 new FullRange(true, 1, 300));
         return Collections.singletonList(ds);
@@ -72,6 +74,7 @@ public class TimeFilterZonesTest {
                 Instant.now(),
                 900,
                 0.1,
+                new Snapping(Snapping.SnapPenalty.DISABLED, Snapping.AcceptRoads.ANY_DRIVABLE),
                 Collections.singletonList(Property.COVERAGE),
                 new FullRange(true, 1, 300));
         return Collections.singletonList(as);
