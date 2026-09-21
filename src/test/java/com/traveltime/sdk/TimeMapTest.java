@@ -2,6 +2,7 @@ package com.traveltime.sdk;
 
 import com.traveltime.sdk.auth.TravelTimeCredentials;
 import com.traveltime.sdk.dto.common.Coordinates;
+import com.traveltime.sdk.dto.common.H3CentroidCoords;
 import com.traveltime.sdk.dto.common.PolygonsFilter;
 import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.common.levelofdetail.Level;
@@ -139,7 +140,7 @@ public class TimeMapTest {
         java.util.function.Function<Transportation, Boolean> isOnlyWalking = transportation -> {
             DepartureSearch ds = DepartureSearch.builder()
                     .id("is_only_walking")
-                    .coords(new Coordinates(51.507609, -0.128315))
+                    .coords(new H3CentroidCoords("87194ad34ffffff"))
                     .transportation(transportation)
                     .departureTime(Instant.now())
                     .travelTime(600)

@@ -8,7 +8,7 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Jacksonized
 @AllArgsConstructor
-public class GeohashCentroidCoords implements GeohashCoords {
+public class GeohashCentroidCoords implements Coords, GeohashCoords {
     /**
      * Index of a geohash cell, for example <tt>gcpuv5</tt>.
      */

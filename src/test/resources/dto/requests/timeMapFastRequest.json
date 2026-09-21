@@ -3,10 +3,6 @@
     "many_to_one" : [ ],
     "one_to_many" : [ {
       "id" : "search 1",
-      "coords" : {
-        "lat" : 51.507609,
-        "lng" : -0.128315
-      },
       "arrival_time_period" : "weekday_morning",
       "travel_time" : 900,
       "transportation" : {
@@ -21,7 +17,11 @@
       "no_holes" : true,
       "render_mode" : null,
       "buffer_distance" : null,
-      "remove_water_bodies" : null
+      "remove_water_bodies" : null,
+      "coords" : {
+        "lat" : 51.507609,
+        "lng" : -0.128315
+      }
     } ]
   },
   "unions" : [ ],

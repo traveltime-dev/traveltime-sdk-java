@@ -1,10 +1,6 @@
 {
   "departure_searches" : [ {
     "id" : "public transport from Trafalgar Square",
-    "coords" : {
-      "lat" : 51.507609,
-      "lng" : -0.128315
-    },
     "transportation" : {
       "type" : "public_transport"
     },
@@ -14,14 +10,14 @@
       "limit" : 2
     },
     "properties" : [ "is_only_walking" ],
-    "remove_water_bodies" : true
-  } ],
-  "arrival_searches" : [ {
-    "id" : "public transport to Trafalgar Square",
+    "remove_water_bodies" : true,
     "coords" : {
       "lat" : 51.507609,
       "lng" : -0.128315
-    },
+    }
+  } ],
+  "arrival_searches" : [ {
+    "id" : "public transport to Trafalgar Square",
     "transportation" : {
       "type" : "public_transport"
     },
@@ -31,7 +27,10 @@
       "enabled" : true,
       "width" : 3600
     },
-    "remove_water_bodies" : false
+    "remove_water_bodies" : false,
+    "coords" : {
+      "geohash_centroid" : "gcpvj0"
+    }
   } ],
   "intersections" : [ ],
   "unions" : [ ]
