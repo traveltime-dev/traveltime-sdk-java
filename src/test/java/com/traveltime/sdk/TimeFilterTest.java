@@ -19,6 +19,7 @@ import com.traveltime.sdk.dto.requests.timefilterfast.ManyToOne;
 import com.traveltime.sdk.dto.requests.timefilterfast.OneToMany;
 import com.traveltime.sdk.dto.responses.*;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import com.traveltime.sdk.dto.responses.timefilter.DistanceBreakdown;
 import io.vavr.control.Either;
 import java.time.Instant;
 import java.util.Arrays;
@@ -51,6 +52,20 @@ public class TimeFilterTest {
 
         Either<TravelTimeError, TimeFilterResponse> response = sdk.send(request);
         Common.assertResponseIsRight(response);
+
+        long checked = response.get().getResults().stream()
+                .filter(result -> result.getSearchId().equals("driving+train arrival search"))
+                .flatMap(result -> result.getLocations().stream())
+                .flatMap(location -> location.getProperties().stream())
+                .peek(properties -> {
+                    Assert.assertNotNull(properties.getDistanceBreakdown());
+                    int total = properties.getDistanceBreakdown().stream()
+                            .mapToInt(DistanceBreakdown::getDistance)
+                            .sum();
+                    Assert.assertEquals((int) properties.getDistance(), total);
+                })
+                .count();
+        Assert.assertTrue(checked > 0);
     }
 
     @Test
@@ -194,8 +209,13 @@ public class TimeFilterTest {
                 arrivalLocation,
                 DrivingTrain.builder().boardingTime(0).build(),
                 Instant.now(),
-                900,
-                Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES),
+                3600,
+                Arrays.asList(
+                        Property.TRAVEL_TIME,
+                        Property.DISTANCE,
+                        Property.DISTANCE_BREAKDOWN,
+                        Property.ROUTE,
+                        Property.FARES),
                 new FullRange(true, 1, 300),
                 null);
         return Collections.singletonList(as);
