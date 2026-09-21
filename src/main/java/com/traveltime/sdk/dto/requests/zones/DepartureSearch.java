@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.traveltime.sdk.dto.common.Coordinates;
 import com.traveltime.sdk.dto.common.Coords;
 import com.traveltime.sdk.dto.common.FullRange;
+import com.traveltime.sdk.dto.common.Snapping;
 import com.traveltime.sdk.dto.common.transportation.Transportation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
@@ -54,6 +55,9 @@ public class DepartureSearch {
      */
     @NonNull
     Double reachablePostcodesThreshold;
+
+    @Valid
+    Snapping snapping;
 
     @NonNull
     @Singular

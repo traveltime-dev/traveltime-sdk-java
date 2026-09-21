@@ -11,6 +11,10 @@
     "departure_time" : "2021-11-10T08:00:00Z",
     "travel_time" : 1800,
     "reachable_postcodes_threshold" : 0.1,
+    "snapping" : {
+      "penalty" : "disabled",
+      "accept_roads" : "any_drivable"
+    },
     "properties" : [ "coverage", "travel_time_reachable", "travel_time_all" ],
     "coords" : {
       "lat" : 51.507609,
