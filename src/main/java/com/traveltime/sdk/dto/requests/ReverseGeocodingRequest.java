@@ -19,6 +19,16 @@ public class ReverseGeocodingRequest extends TravelTimeRequest<GeocodingResponse
     @NonNull
     Coordinates coordinates;
 
+    /**
+     * BCP47 language tag for the Accept-Language header, controlling the language of the
+     * returned place names.
+     */
+    String acceptLanguage;
+
+    public ReverseGeocodingRequest(@NonNull Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
+
     @Override
     public Either<TravelTimeError, Request> createRequest(HttpUrl baseUri, TravelTimeCredentials credentials) {
         val builder = baseUri.newBuilder().addPathSegments("geocoding/reverse");
@@ -27,7 +37,13 @@ public class ReverseGeocodingRequest extends TravelTimeRequest<GeocodingResponse
                         new QueryElement("lat", coordinates.getLat().toString()),
                         new QueryElement("lng", coordinates.getLng().toString()))
                 .build();
-        return Either.right(createGetRequest(uri, credentials));
+        Request request = createGetRequest(uri, credentials);
+        if (acceptLanguage != null) {
+            request = request.newBuilder()
+                    .header("Accept-Language", acceptLanguage)
+                    .build();
+        }
+        return Either.right(request);
     }
 
     @Override

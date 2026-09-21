@@ -32,19 +32,30 @@ public class GeocodingTest {
     @Test
     public void shouldSendGeocodingRequest() {
         GeocodingRequest request = GeocodingRequest.builder()
-                .query("Geneva")
-                .withinCountries(Arrays.asList("CH", "DE"))
+                .query("Vienna")
+                .withinCountries(Arrays.asList("AT", "DE"))
                 .limit(1)
+                .forceAddPostcode(false)
+                .acceptLanguage("de")
                 .build();
         Either<TravelTimeError, GeocodingResponse> response = sdk.send(request);
         Common.assertResponseIsRight(response);
+        Assert.assertTrue(
+                response.get().getFeatures().get(0).getProperties().getName().contains("Wien"));
     }
 
     @Test
     public void shouldSendReverseGeocodingRequest() {
-        ReverseGeocodingRequest request = new ReverseGeocodingRequest(new Coordinates(51.507281, -0.132120));
+        ReverseGeocodingRequest request = ReverseGeocodingRequest.builder()
+                .coordinates(new Coordinates(48.2082, 16.3738))
+                .acceptLanguage("de")
+                .build();
         Either<TravelTimeError, GeocodingResponse> response = sdk.send(request);
         Common.assertResponseIsRight(response);
+        Assert.assertTrue(
+                response.get().getFeatures().get(0).getProperties().getName().contains("Wien"));
+
+        Common.assertResponseIsRight(sdk.send(new ReverseGeocodingRequest(new Coordinates(51.507281, -0.132120))));
     }
 
     @Test
