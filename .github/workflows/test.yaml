@@ -18,6 +18,7 @@ jobs:
         with:
           java-version: 21
           distribution: 'temurin'
+          check-latest: true
 
       - name: Maven Check Formatting
         run: mvn spotless:check
@@ -27,6 +28,9 @@ jobs:
         with:
           java-version: 8
           distribution: 'temurin'
+
+      - name: Distrust compromised eMudhra CAs
+        run: cat .github/emudhra-blocked.certs >> "$JAVA_HOME/jre/lib/security/blacklisted.certs"
 
       - name: Maven Package
         run: mvn -B clean package -DskipTests
