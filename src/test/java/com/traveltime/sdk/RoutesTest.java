@@ -13,11 +13,13 @@ import com.traveltime.sdk.dto.requests.RoutesRequest;
 import com.traveltime.sdk.dto.requests.routes.*;
 import com.traveltime.sdk.dto.responses.RoutesResponse;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
+import com.traveltime.sdk.dto.responses.h3.Cell;
 import io.vavr.control.Either;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -49,6 +51,19 @@ public class RoutesTest {
                     createArrivalSearch(Arrays.asList("location2", "location3"), "location1", transportation));
             Either<TravelTimeError, RoutesResponse> response = sdk.send(request);
             Common.assertResponseIsRight(response);
+
+            List<Cell> cells = response.get().getResults().stream()
+                    .filter(result -> result.getSearchId().equals("Test departure search"))
+                    .findFirst()
+                    .get()
+                    .getLocations()
+                    .get(0)
+                    .getProperties()
+                    .get(0)
+                    .getH3()
+                    .getCells();
+            Assert.assertFalse(cells.isEmpty());
+            cells.forEach(cell -> Assert.assertNotNull(cell.getProperties().getMean()));
         });
     }
 
@@ -60,9 +75,10 @@ public class RoutesTest {
                 arrivalLocations,
                 transportation,
                 Instant.now(),
-                Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE),
+                Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.H3),
                 new FullRange(true, 1, 300),
-                null);
+                null,
+                new H3Params(9, Collections.singletonList(com.traveltime.sdk.dto.requests.cell.Property.MEAN)));
         return Collections.singletonList(ds);
     }
 
@@ -76,6 +92,7 @@ public class RoutesTest {
                 Instant.now(),
                 Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.FARES),
                 new FullRange(true, 1, 300),
+                null,
                 null);
         return Collections.singletonList(as);
     }

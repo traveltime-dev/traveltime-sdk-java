@@ -561,7 +561,8 @@ DepartureSearch departureSearch = DepartureSearch
     .arrivalLocationIds(Arrays.asList("Hyde Park", "ZSL London Zoo"))
     .transportation(Driving.builder().build())
     .departureTime(Instant.now())
-    .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE))
+    .properties(Arrays.asList(Property.TRAVEL_TIME, Property.DISTANCE, Property.ROUTE, Property.H3))
+    .h3(H3Params.builder().resolution(9).build())
     .build();
     
 ArrivalSearch arrivalSearch = ArrivalSearch

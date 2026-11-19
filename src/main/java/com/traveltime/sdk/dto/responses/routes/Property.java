@@ -27,4 +27,7 @@ public class Property {
 
     @Valid
     Fares fares;
+
+    @Valid
+    H3Cells h3;
 }
