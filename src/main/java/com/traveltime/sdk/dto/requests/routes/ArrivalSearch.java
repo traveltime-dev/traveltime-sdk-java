@@ -42,4 +42,7 @@ public class ArrivalSearch {
     FullRange range;
 
     Snapping snapping;
+
+    @Valid
+    H3Params h3;
 }

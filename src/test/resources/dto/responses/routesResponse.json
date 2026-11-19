@@ -191,6 +191,17 @@
             "road" : "Panton Street",
             "turn" : "left"
           } ]
+        },
+        "h3" : {
+          "cells" : [ {
+            "id" : "89194ad3427ffff",
+            "properties" : {
+              "min" : 0,
+              "mean" : 41
+            }
+          }, {
+            "id" : "89194ad342fffff"
+          } ]
         }
       } ]
     } ],

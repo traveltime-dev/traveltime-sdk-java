@@ -37,5 +37,11 @@ public enum Property {
      * Distance of the route in meters, broken down by transportation mode.
      */
     @JsonProperty("distance_breakdown")
-    DISTANCE_BREAKDOWN
+    DISTANCE_BREAKDOWN,
+
+    /**
+     * H3 cells each route passes through. Routes only, configured by the search's h3 parameters.
+     */
+    @JsonProperty("h3")
+    H3
 }

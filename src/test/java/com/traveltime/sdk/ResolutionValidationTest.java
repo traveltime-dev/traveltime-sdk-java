@@ -1,10 +1,12 @@
 package com.traveltime.sdk;
 
 import com.traveltime.sdk.auth.TravelTimeCredentials;
+import com.traveltime.sdk.dto.common.Property;
 import com.traveltime.sdk.dto.common.transportation.Driving;
 import com.traveltime.sdk.dto.requests.GeohashFastRequest;
 import com.traveltime.sdk.dto.requests.GeohashRequest;
 import com.traveltime.sdk.dto.requests.H3Request;
+import com.traveltime.sdk.dto.requests.RoutesRequest;
 import com.traveltime.sdk.dto.responses.errors.TravelTimeError;
 import com.traveltime.sdk.dto.responses.errors.ValidationError;
 import io.vavr.control.Either;
@@ -127,5 +129,26 @@ public class ResolutionValidationTest {
                 .build();
 
         assertRejected(sdk.send(request), "resolution should be between 4 and 7");
+    }
+
+    @Test
+    public void shouldRejectRoutesH3ResolutionAboveRange() {
+        RoutesRequest request = RoutesRequest.builder()
+                .location(new com.traveltime.sdk.dto.common.Location(
+                        "a", new com.traveltime.sdk.dto.common.Coordinates(51.507609, -0.128315)))
+                .departureSearch(com.traveltime.sdk.dto.requests.routes.DepartureSearch.builder()
+                        .id("d")
+                        .departureLocationId("a")
+                        .arrivalLocationId("a")
+                        .transportation(Driving.builder().build())
+                        .departureTime(Instant.now())
+                        .property(Property.H3)
+                        .h3(com.traveltime.sdk.dto.requests.routes.H3Params.builder()
+                                .resolution(12)
+                                .build())
+                        .build())
+                .build();
+
+        assertRejected(sdk.send(request), "resolution should be between 6 and 11");
     }
 }
